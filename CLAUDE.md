@@ -30,9 +30,9 @@ Gerenciador de pacotes é pnpm (há `pnpm-lock.yaml` e `pnpm-workspace.yaml`), n
 
 `public/r/` é sempre gerado pelo comando de build, nunca editado direto. Se algo em `public/r/` está errado, o conserto é em `registry/` ou em `registry.json`, seguido de novo build.
 
-`tokens/` (primitives.json, semantic.json, component.json) ainda não existe neste repositório, é entrega da Fase 1 do plano. Quando for criado, segue a arquitetura em três camadas descrita abaixo.
+`tokens/` já existe (`tokens-primitives.css`, `tokens-semantic.css`, `tokens-component.css`, entregues para Button nesta sessão), seguindo a arquitetura em três camadas descrita abaixo. Importados em `app/globals.css`, nessa ordem: primitives, depois semantic, depois component. Isso substitui, na prática, o `primitives.json`/`semantic.json`/`component.json` do diagrama original do plano, mas mantém a mesma separação de camadas.
 
-`styles/globals.css` centraliza cor e raio em variáveis CSS, nenhum componente usa valor fixo.
+`app/globals.css` (não `styles/globals.css`, esse caminho do diagrama original do plano não existe neste template Next.js com App Router) centraliza cor em variáveis CSS via os três arquivos de `tokens/`. Raio ainda não tem token, nenhum valor de raio foi tratado ainda.
 
 ## Arquitetura de tokens, resumo operacional
 
@@ -47,6 +47,14 @@ Nome de token é contrato: formato semântico `categoria.propriedade.variante.es
 Todo par semântico de cor (fundo mais texto ou ícone sobre ele) precisa validar WCAG 2.1 AA no momento em que o valor é definido, não depois. Mínimo 4.5:1 para texto normal, 3:1 para texto grande e ícones.
 
 Regras completas, tabela de categorias e exemplos ficam em `arquitetura-e-regras-de-design-tokens.md` no projeto Claude "Servi DS". Este resumo existe só para consulta rápida durante o código, não substitui aquele documento.
+
+## Pendências conhecidas nos tokens (não tratar como resolvido)
+
+`tokens-semantic.css` tem dois pares hex soltos (`--color-background-disabled` e `--color-text-disabled`, em light e dark), cada um com um comentário TODO explicando que o primitivo de neutro correspondente ainda não existe em Primitives no Figma. Isso viola a R1 da arquitetura de tokens (nenhum token deveria conter valor bruto). Antes de publicar Button no registry, criar os primitivos de neutro que faltam no Figma e trocar os quatro valores hex por `var(...)`.
+
+Nenhum par de cor novo criado nesta sessão (fundo/texto do botão primário e secundário, hover, pressed, disabled) teve o contraste WCAG 2.1 AA validado e registrado formalmente ainda, como pede a R4 da seção 5 da arquitetura de tokens. Validar antes de considerar Button pronto para Passo 1.
+
+Nenhum token de raio existe ainda, em nenhuma camada.
 
 ## Regras de componente, o que nunca muda
 

@@ -4,7 +4,7 @@ import { HelloWorld } from "@/registry/new-york/blocks/hello-world/hello-world"
 import { ExampleForm } from "@/registry/new-york/blocks/example-form/example-form"
 import PokemonPage from "@/registry/new-york/blocks/complex-component/page"
 import { ExampleCard } from "@/registry/new-york/blocks/example-with-css/example-card"
-import { Button } from "@/registry/new-york/ui/button"
+import { Button } from "@/registry/servfaz/button"
 // This page displays items from the custom registry.
 // You are free to implement this with your own design as needed.
 
