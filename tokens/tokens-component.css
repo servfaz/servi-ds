@@ -1,0 +1,29 @@
+/**
+ * Camada 3 - Component (Button)
+ * Fonte: Figma Variables > projeto "[SF-DS] Variables" > coleção "Component", mode "Value"
+ * https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables
+ *
+ * Regra (Arquitetura e Regras de Design Tokens, secao 2, R1 e R3):
+ * cada variavel referencia SOMENTE uma variavel da camada 2 (tokens-semantic.css),
+ * nunca um primitivo direto. Nao muda por tema: o tema ja foi resolvido na camada semantica,
+ * entao estas variaveis nao precisam de bloco .dark proprio.
+ * Requer tokens-primitives.css e tokens-semantic.css carregados antes deste arquivo.
+ */
+
+:root {
+  /* Button - Container (fundo) */
+  --button-container-color-disabled: var(--color-background-disabled);  /* Fundo do botão - desabilitado */
+  --button-container-color-primary-default: var(--color-background-brand-bold);  /* Fundo do botão - primário, default */
+  --button-container-color-primary-hover: var(--color-background-brand-bold-hover);  /* Fundo do botão - primário, hover */
+  --button-container-color-primary-pressed: var(--color-background-brand-bold-pressed);  /* Fundo do botão - primário, pressed */
+  --button-container-color-secondary-default: var(--color-background-brand-secondary-bold);  /* Fundo do botão - secundário, default */
+  --button-container-color-secondary-hover: var(--color-background-brand-secondary-bold-hover);  /* Fundo do botão - secundário, hover */
+  --button-container-color-secondary-pressed: var(--color-background-brand-secondary-bold-pressed);  /* Fundo do botão - secundário, pressed */
+  /* Content (texto / ícone) */
+  --button-content-color-primary: var(--color-text-on-brand);  /* Texto/ícone do botão - primário */
+  --button-content-color-disabled: var(--color-text-disabled);  /* Texto/ícone do botão - desabilitado */
+  --button-content-color-secondary-default: var(--color-text-on-brand-secondary);  /* Texto/ícone do botão - secundário, default */
+  /* Border (anel de foco) */
+  --button-border-color-primary-focus: var(--color-border-brand-default);  /* Anel de foco do botão - primário */
+  --button-border-color-secondary-focus: var(--color-border-brand-secondary-default);  /* Anel de foco do botão - secundário */
+}

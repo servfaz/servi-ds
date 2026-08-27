@@ -1,0 +1,57 @@
+/**
+ * Camada 2 - Semantic (Alias)
+ * Fonte: Figma Variables > projeto "[SF-DS] Variables" > coleção "Semantic", modes "Light" e "Dark"
+ * https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables
+ *
+ * Regra (Arquitetura e Regras de Design Tokens, secao 2 e 5):
+ * dark mode e resolvido inteiramente aqui, nunca no primitivo nem no componente.
+ * Cada variavel referencia SOMENTE uma variavel da camada 1 (tokens-primitives.css),
+ * nunca outro token semantico. Light e o valor padrao em :root; Dark sobrescreve em .dark.
+ * Requer tokens-primitives.css carregado antes deste arquivo.
+ */
+
+:root {
+  /* Background */
+  --color-background-disabled: #F5F5F5;  /* Fundo desabilitado - TODO: primitivo "color/tailwind/neutral/100" ainda nao existe em tokens-primitives.css - criar em Primitives no Figma e trocar este valor literal por var(...) */
+  --color-background-brand-subtle: var(--color-green-pea-100);  /* Fundo sutil da marca */
+  --color-background-brand-bold-hover: var(--color-green-pea-900);  /* Fundo principal da marca, hover */
+  --color-background-brand-bold-pressed: var(--color-green-pea-950);  /* Fundo principal da marca, pressed */
+  --color-background-brand-bold: var(--color-green-pea-800);  /* Fundo principal da marca */
+  --color-background-brand-secondary-subtle: var(--color-bourbon-100);  /* Fundo secundário sutil */
+  --color-background-brand-secondary-bold-hover: var(--color-bourbon-700);  /* Fundo secundário da marca, hover */
+  --color-background-brand-secondary-bold-pressed: var(--color-bourbon-800);  /* Fundo secundário da marca, pressed */
+  --color-background-brand-secondary-bold: var(--color-bourbon-600);  /* Fundo secundário da marca */
+
+  /* Text */
+  --color-text-brand-ink: var(--color-cod-gray-900);  /* Preto institucional em texto/ícone */
+  --color-text-disabled: #A1A1A1;  /* Texto/ícone desabilitado - TODO: primitivo "color/tailwind/neutral/400" ainda nao existe em tokens-primitives.css - criar em Primitives no Figma e trocar este valor literal por var(...) */
+  --color-text-on-brand: var(--color-white);  /* Texto/ícone sobre fundo da marca */
+  --color-text-on-brand-secondary: var(--color-cod-gray-900);  /* Texto/ícone sobre fundo secundário */
+
+  /* Border */
+  --color-border-brand-default: var(--color-green-pea-600);  /* Borda da marca */
+  --color-border-brand-secondary-default: var(--color-bourbon-600);  /* Borda secundária da marca */
+}
+
+.dark {
+  /* Background */
+  --color-background-disabled: #262626;  /* Fundo desabilitado - TODO: primitivo "color/tailwind/neutral/800" ainda nao existe em tokens-primitives.css - criar em Primitives no Figma e trocar este valor literal por var(...) */
+  --color-background-brand-subtle: var(--color-green-pea-900);  /* Fundo sutil da marca */
+  --color-background-brand-bold-hover: var(--color-green-pea-300);  /* Fundo principal da marca, hover */
+  --color-background-brand-bold-pressed: var(--color-green-pea-200);  /* Fundo principal da marca, pressed */
+  --color-background-brand-bold: var(--color-green-pea-400);  /* Fundo principal da marca */
+  --color-background-brand-secondary-subtle: var(--color-bourbon-900);  /* Fundo secundário sutil */
+  --color-background-brand-secondary-bold-hover: var(--color-bourbon-300);  /* Fundo secundário da marca, hover */
+  --color-background-brand-secondary-bold-pressed: var(--color-bourbon-200);  /* Fundo secundário da marca, pressed */
+  --color-background-brand-secondary-bold: var(--color-bourbon-400);  /* Fundo secundário da marca */
+
+  /* Text */
+  --color-text-brand-ink: var(--color-white);  /* Preto institucional em texto/ícone */
+  --color-text-disabled: #737373;  /* Texto/ícone desabilitado - TODO: primitivo "color/tailwind/neutral/500" ainda nao existe em tokens-primitives.css - criar em Primitives no Figma e trocar este valor literal por var(...) */
+  --color-text-on-brand: var(--color-cod-gray-900);  /* Texto/ícone sobre fundo da marca */
+  --color-text-on-brand-secondary: var(--color-cod-gray-900);  /* Texto/ícone sobre fundo secundário */
+
+  /* Border */
+  --color-border-brand-default: var(--color-green-pea-400);  /* Borda da marca */
+  --color-border-brand-secondary-default: var(--color-bourbon-400);  /* Borda secundária da marca */
+}

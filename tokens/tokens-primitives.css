@@ -1,0 +1,82 @@
+/**
+ * Camada 1 - Primitivos (Global)
+ * Fonte: Figma Variables > projeto "[SF-DS] Variables" > coleção "Primitivies", mode "Value"
+ * https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables
+ *
+ * Regra (Arquitetura e Regras de Design Tokens, secao 2, R1):
+ * esta camada guarda valores brutos sem significado de uso. Nao referencia nada,
+ * e nunca deve ser consumida diretamente por um componente.
+ * Consumo permitido: apenas pela camada 2 (Semantic), em tokens-semantic.css.
+ */
+
+:root {
+  /* Preto e branco */
+  --color-black: #000000;
+
+  --color-white: #FFFFFF;
+
+  /* Cod Gray (neutro) */
+  --color-cod-gray-50: #F9FAF9;
+  --color-cod-gray-100: #F4F5F4;
+  --color-cod-gray-200: #E6E6E5;
+  --color-cod-gray-300: #D5D5D2;
+  --color-cod-gray-400: #A5A5A1;
+  --color-cod-gray-500: #747470;
+  --color-cod-gray-600: #545451;
+  --color-cod-gray-700: #42423E;
+  --color-cod-gray-800: #282725;
+  --color-cod-gray-900: #1A1A18;  /* Cor da marca - preto institucional */
+  --color-cod-gray-950: #0B0B0A;
+
+  /* Bourbon (marca secundária) */
+  --color-bourbon-50: #FDFAED;
+  --color-bourbon-100: #F9F1CC;
+  --color-bourbon-200: #F3E194;
+  --color-bourbon-300: #EDCD5C;
+  --color-bourbon-400: #E9BA36;
+  --color-bourbon-500: #E19C1F;
+  --color-bourbon-600: #C07417;  /* Cor da marca - cor secundária */
+  --color-bourbon-700: #A65717;
+  --color-bourbon-800: #874419;
+  --color-bourbon-900: #6F3918;
+  --color-bourbon-950: #3F1D09;
+
+  /* Green Pea (marca principal) */
+  --color-green-pea-50: #EBFEF6;
+  --color-green-pea-100: #CEFDE7;
+  --color-green-pea-200: #A2F8D5;
+  --color-green-pea-300: #66EFC0;
+  --color-green-pea-400: #29DEA5;
+  --color-green-pea-500: #05C48F;
+  --color-green-pea-600: #00A077;
+  --color-green-pea-700: #008062;
+  --color-green-pea-800: #00604A;  /* Cor da marca - cor principal */
+  --color-green-pea-900: #015342;
+  --color-green-pea-950: #002F26;
+
+  /* Derby (apoio) */
+  --color-derby-50: #FCF7F0;
+  --color-derby-100: #F6E6D1;  /* Cor da marca - cor de apoio */
+  --color-derby-200: #F0D6B8;
+  --color-derby-300: #E7B98A;
+  --color-derby-400: #DC955B;
+  --color-derby-500: #D4793B;
+  --color-derby-600: #C66330;
+  --color-derby-700: #A44D2A;
+  --color-derby-800: #843F28;
+  --color-derby-900: #6B3523;
+  --color-derby-950: #391A11;
+
+  /* Bud (apoio neutro) */
+  --color-bud-50: #F9FAF9;
+  --color-bud-100: #F4F5F4;
+  --color-bud-200: #E6E8E3;
+  --color-bud-300: #D4D8CF;
+  --color-bud-400: #B0B6A7;  /* Cor da marca - cor de apoio */
+  --color-bud-500: #747C68;
+  --color-bud-600: #525A4B;
+  --color-bud-700: #404739;
+  --color-bud-800: #292B22;
+  --color-bud-900: #1A1E15;
+  --color-bud-950: #0B0D08;
+}

@@ -10,13 +10,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+          "bg-[var(--button-container-color-primary-default)] text-[var(--button-content-color-primary)] shadow-xs hover:bg-[var(--button-container-color-primary-hover)] active:bg-[var(--button-container-color-primary-pressed)] focus-visible:ring-[var(--button-border-color-primary-focus)] disabled:bg-[var(--button-container-color-disabled)] disabled:text-[var(--button-content-color-disabled)] disabled:opacity-100",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+          "bg-[var(--button-container-color-secondary-default)] text-[var(--button-content-color-secondary-default)] shadow-xs hover:bg-[var(--button-container-color-secondary-hover)] active:bg-[var(--button-container-color-secondary-pressed)] focus-visible:ring-[var(--button-border-color-secondary-focus)] disabled:bg-[var(--button-container-color-disabled)] disabled:text-[var(--button-content-color-disabled)] disabled:opacity-100",
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
