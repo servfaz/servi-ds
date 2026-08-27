@@ -87,12 +87,9 @@ Antes de publicar um item novo, teste sem gravar nenhum arquivo:
 npx shadcn view http://localhost:3000/r/button.json
 npx shadcn add http://localhost:3000/r/button.json --dry-run
 ```
-
+e nem o 
 ## Documentação completa
 
-Este README cobre o essencial para orientar quem chega ao repositório. O plano completo (fases, decisão de arquitetura, guia passo a passo, perguntas abertas para o time de dev) e a arquitetura de tokens (taxonomia, regras de nomenclatura, regras de dark mode, validação de contraste) vivem em:
-
-- ClickUp, pasta Servi DS, espaço Inovação: https://app.clickup.com/90131166285/v/f/1000440000010177/901313846553
-- Projeto Claude "Servi DS", nos arquivos `plano-de-restilizacao-do-design-system.md` e `arquitetura-e-regras-de-design-tokens.md`
+Este README cobre o essencial para orientar quem chega ao repositório. O plano completo (fases, decisão de arquitetura, guia passo a passo, perguntas abertas para o time de dev) e a arquitetura de tokens (taxonomia, regras de nomenclatura, regras de dark mode, validação de contraste) vivem na documentação oficial do Design System, nos arquivos `plano-de-restilizacao-do-design-system.md` e `arquitetura-e-regras-de-design-tokens.md`.
 
 Os arquivos de fonte visual (Figma) ficam em dois projetos separados: [Variables](https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables), com as coleções de tokens, e [Components](https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components), com a biblioteca de componentes.
