@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
-  "type": "registry:ui",
   "title": "Button",
   "description": "Botao com a identidade visual da Servfaz.",
   "dependencies": [
@@ -15,5 +14,6 @@
       "type": "registry:ui",
       "target": "@ui/button.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }
