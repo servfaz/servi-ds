@@ -10,13 +10,9 @@ Este repositório não publica pacote npm. A distribuição para os sistemas con
 
 ## Onde fica a documentação completa
 
-Este arquivo é um resumo operacional, não a fonte de documentação do DS. A documentação completa vive em dois lugares que devem ficar sempre idênticos entre si:
+Este arquivo é um resumo operacional, não a fonte de documentação do DS. As regras completas de arquitetura, tokens e plano de restilização vivem fora deste repositório, em `plano-de-restilizacao-do-design-system.md` e `arquitetura-e-regras-de-design-tokens.md`.
 
-Página "Design System" no ClickUp, pasta Servi DS, espaço Inovação: https://app.clickup.com/90131166285/v/f/1000440000010177/901313846553
-
-Projeto Claude "Servi DS", nos arquivos `plano-de-restilizacao-do-design-system.md` e `arquitetura-e-regras-de-design-tokens.md`
-
-Se uma regra deste arquivo parecer desatualizada em relação a esses dois lugares, eles têm precedência. Qualquer mudança de arquitetura precisa entrar primeiro nesses documentos, só depois vira prática de código aqui. Se algo mudar lá, atualize este CLAUDE.md na mesma sessão.
+Se uma regra deste arquivo parecer desatualizada em relação a esses documentos, eles têm precedência. Qualquer mudança de arquitetura precisa entrar primeiro neles, só depois vira prática de código aqui. Se algo mudar lá, atualize este CLAUDE.md na mesma sessão.
 
 ## Comandos
 
