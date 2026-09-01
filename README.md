@@ -27,7 +27,7 @@ O que não entra neste repositório: reescrita de comportamento (a camada do Rad
 O processo de propagação, para cor, raio, tipografia, espaçamento e ajustes estruturais, é único: Registry mais CI. Não existe rota alternativa em paralelo.
 
 1. A designer organiza os componentes restilizados em `registry/servfaz/` e descreve cada um em `registry.json`, no formato `registry-item` do shadcn.
-2. O comando `shadcn build` gera os arquivos estáticos de `public/r/`, publicados em `https://ds.servfaz.com.br/r/{name}.json`.
+2. O comando `shadcn build` gera os arquivos estáticos de `public/r/`, publicados em `http://ds.servfaz.app/r/{name}.json`.
 3. Cada sistema consumidor aponta para esse endereço no próprio `components.json`, na chave `registries`.
 4. Um workflow de CI, em cada sistema, roda em agenda fixa, executa o comando de atualização para os componentes do Servi DS e abre um Pull Request quando algo muda.
 5. Um desenvolvedor revisa o diff do PR e aprova o merge. Esse é o único passo manual recorrente depois de tudo configurado.
