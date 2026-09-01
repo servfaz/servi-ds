@@ -1,0 +1,52 @@
+# Template do Passo 5 do plano de restilizacao do Design System (Fase 3).
+# NAO e um workflow deste repositorio (servi-ds e a fonte do registry, nao um
+# consumidor). Copiar este arquivo para .github/workflows/update-servfaz-ds.yml
+# dentro de cada sistema consumidor (dossie-front, faturamento_front etc.),
+# uma vez por sistema, depois de ja ter feito o Passo 4 (entrada @servfaz-ds
+# em registries no components.json daquele sistema).
+#
+# Ajustar antes de commitar no sistema consumidor:
+# - cadencia do cron e a politica de aprovacao de PR ao padrao que o time de
+#   dev ja usa (o cron abaixo e so um ponto de partida: toda segunda, 13h UTC
+#   / 10h em America/Fortaleza).
+# Nao editar este arquivo para listar componentes: o passo "Buscar lista de
+# componentes" le direto do registry.json publicado, de proposito, pra nao
+# precisar editar este workflow toda vez que sair um componente novo.
+
+name: Atualizar componentes Servfaz DS
+
+on:
+  schedule:
+    - cron: "0 13 * * 1"   # toda segunda, 13h UTC (10h em America/Fortaleza)
+  workflow_dispatch: {}      # permite rodar manualmente pela aba Actions
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Buscar lista de componentes do registry Servfaz
+        run: |
+          curl -sf https://ds.servfaz.app/r/registry.json \
+            | jq -r '.items[].name' > components.txt
+          cat components.txt
+
+      - name: Instalar cada componente do registry Servfaz
+        run: |
+          while read -r name; do
+            npx shadcn@latest add "@servfaz-ds/$name" --yes --overwrite
+          done < components.txt
+
+      - name: Abrir Pull Request se algo mudou
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: atualiza componentes do Servfaz DS"
+          title: "Atualizacao automatica: Servfaz DS"
+          body: "PR gerado automaticamente pelo workflow update-servfaz-ds.yml. Revisar o diff de cada componente antes de aprovar."
+          branch: chore/update-servfaz-ds
+          delete-branch: true
