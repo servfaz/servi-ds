@@ -1,0 +1,5 @@
+[
+  { "repo": "servfaz/dossie-front" },
+  { "repo": "servfaz/faturamento_front" },
+  { "repo": "servfaz/servauth_frontend" }
+]
