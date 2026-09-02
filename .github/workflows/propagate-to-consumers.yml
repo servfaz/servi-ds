@@ -1,0 +1,55 @@
+name: Propagar atualizações Servfaz DS
+
+on:
+  schedule:
+    - cron: "0 13 * * 1"   # segunda, 13h UTC
+  workflow_dispatch: {}
+
+jobs:
+  load-consumers:
+    runs-on: ubuntu-latest
+    outputs:
+      list: ${{ steps.read.outputs.list }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: read
+        run: echo "list=$(jq -c '[.[] | select(.platform == null or .platform == \"github\")]' automation/consumers.json)" >> "$GITHUB_OUTPUT"
+
+  propagate:
+    needs: load-consumers
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        consumer: ${{ fromJson(needs.load-consumers.outputs.list) }}
+    steps:
+      - name: Gerar token de instalação do GitHub App
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.SERVFAZ_DS_APP_ID }}
+          private-key: ${{ secrets.SERVFAZ_DS_APP_PRIVATE_KEY }}
+          owner: servfaz
+
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.consumer.repo }}
+          token: ${{ steps.app-token.outputs.token }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: |
+          curl -sf https://ds.servfaz.app/r/registry.json | jq -r '.items[].name' > components.txt
+          while read -r name; do
+            npx shadcn@latest add "https://ds.servfaz.app/r/$name.json" --yes --overwrite
+          done < components.txt
+
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          commit-message: "chore: atualiza componentes do Servfaz DS"
+          title: "Atualizacao automatica: Servfaz DS"
+          branch: chore/update-servfaz-ds
+          delete-branch: true
