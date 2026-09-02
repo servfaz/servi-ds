@@ -40,6 +40,15 @@ jobs:
           while read -r name; do
             npx shadcn@latest add "https://ds.servfaz.app/r/$name.json" --yes --overwrite
           done < components.txt
+      - name: Corrige import de utils quebrado pelo CLI do shadcn
+        run: |
+          UTILS_ALIAS=$(jq -r '.aliases.utils // .aliases.lib // "@/lib/utils"' components.json)
+          if [ "$UTILS_ALIAS" != "@/app/lib/utils" ]; then
+            MATCHES=$(grep -rl 'from "@/app/lib/utils"' src --include="*.ts" --include="*.tsx" 2>/dev/null || true)
+            if [ -n "$MATCHES" ]; then
+              echo "$MATCHES" | xargs sed -i "s#from \"@/app/lib/utils\"#from \"$UTILS_ALIAS\"#g"
+            fi
+          fi
       - uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ steps.app-token.outputs.token }}
