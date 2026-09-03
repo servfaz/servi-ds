@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "prebuild": "node scripts/sync-registry-tokens.cjs",
-    "build": "shadcn build && next build",
+    "build": "node -e \"console.log('DEBUG registry.json items:', JSON.stringify(require('./registry.json').items.map(i => ({ name: i.name, type: i.type, hasCssVars: !!i.cssVars }))))\" && shadcn build && next build",
     "start": "next start",
     "lint": "next lint",
     "sync-tokens": "node scripts/sync-registry-tokens.cjs",
