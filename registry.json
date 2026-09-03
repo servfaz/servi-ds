@@ -109,7 +109,9 @@
       "type": "registry:ui",
       "title": "Button",
       "description": "Botao com a identidade visual da Servfaz.",
-      "registryDependencies": ["tokens"],
+      "registryDependencies": [
+        "tokens"
+      ],
       "dependencies": [
         "@radix-ui/react-slot",
         "class-variance-authority"
