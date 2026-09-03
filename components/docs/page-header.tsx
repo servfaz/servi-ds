@@ -16,7 +16,7 @@ export function PageHeader({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
           {title}
         </h1>
         <CopyMarkdownButton raw={raw} />

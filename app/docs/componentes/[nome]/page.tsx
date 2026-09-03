@@ -45,13 +45,17 @@ export default async function ComponentePage({
   const Preview = componentPreviews[nome]
 
   return (
-    <DocLayout headings={headings}>
-      <PageHeader
-        title={doc.frontmatter.title}
-        description={doc.frontmatter.description}
-        updated={doc.frontmatter.updated}
-        raw={doc.raw}
-      />
+    <DocLayout
+      headings={headings}
+      header={
+        <PageHeader
+          title={doc.frontmatter.title}
+          description={doc.frontmatter.description}
+          updated={doc.frontmatter.updated}
+          raw={doc.raw}
+        />
+      }
+    >
       {Preview && <Preview />}
       <MarkdownContent body={doc.body} />
     </DocLayout>

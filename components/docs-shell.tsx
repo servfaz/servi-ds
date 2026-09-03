@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import {
   ArrowSquareOutIcon,
   CaretDownIcon,
@@ -66,9 +67,14 @@ const navGroups = [
   { label: "Links", items: linkGroupItems },
 ].filter((group) => group.items.length > 0)
 
-const headerTabs = ["Para designer", "Para devs", "Sobre o DS"]
+const headerTabs: { label: string; href?: string }[] = [
+  { label: "Para designer" },
+  { label: "Para devs", href: "/docs/para-devs" },
+  { label: "Sobre o DS", href: "/docs/sobre" },
+]
 
 export function DocsShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
   const [isDark, setIsDark] = React.useState(false)
   const [collapsedGroups, setCollapsedGroups] = React.useState<
     Record<string, boolean>
@@ -98,16 +104,28 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
         </div>
 
         <div className="flex items-center gap-4">
-          {headerTabs.map((tab) => (
-            <nav
-              key={tab}
-              className="hidden self-stretch md:flex items-stretch gap-6"
-            >
-              <span className="flex items-center text-sm font-medium">
-                {tab}
-              </span>
-            </nav>
-          ))}
+          {headerTabs.map((tab) => {
+            const isActive = tab.href ? pathname === tab.href : false
+            const tabClassName = `flex items-center border-b-2 text-sm font-medium transition-colors ${
+              isActive
+                ? "border-primary"
+                : `border-transparent ${textMuted} ${hoverText}`
+            }`
+            return (
+              <nav
+                key={tab.label}
+                className="hidden self-stretch md:flex items-stretch gap-6"
+              >
+                {tab.href ? (
+                  <Link href={tab.href} className={tabClassName}>
+                    {tab.label}
+                  </Link>
+                ) : (
+                  <span className={tabClassName}>{tab.label}</span>
+                )}
+              </nav>
+            )
+          })}
           <Button
             type="button"
             variant="outline"

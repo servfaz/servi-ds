@@ -6,12 +6,13 @@ import { MarkdownContent } from "@/components/docs/markdown-content"
 import { DocLayout } from "@/components/docs/doc-layout"
 
 export const metadata: Metadata = {
-  title: "Sobre o Design System | Servi DS",
-  description: "O que é o Servi DS, para que serve e como ele é distribuído.",
+  title: "Para devs | Servi DS",
+  description:
+    "Guia para devs que estão configurando um produto novo para consumir o Servi DS pela primeira vez.",
 }
 
-export default function SobrePage() {
-  const doc = readDoc("sobre")
+export default function ParaDevsPage() {
+  const doc = readDoc("para-devs")
   const headings = extractHeadings(doc.body)
 
   return (

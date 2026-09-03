@@ -24,7 +24,7 @@ const components: Components = {
   h2: ({ node, children }) => (
     <h2
       id={node ? slugify(textOf(node)) : undefined}
-      className="scroll-mt-24 text-2xl font-semibold tracking-tight"
+      className="scroll-mt-24 text-3xl font-extrabold tracking-tight"
     >
       {children}
     </h2>
@@ -32,7 +32,7 @@ const components: Components = {
   h3: ({ node, children }) => (
     <h3
       id={node ? slugify(textOf(node)) : undefined}
-      className="scroll-mt-24 text-lg font-semibold tracking-tight"
+      className="scroll-mt-24 text-xl font-bold tracking-tight"
     >
       {children}
     </h3>

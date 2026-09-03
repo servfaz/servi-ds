@@ -36,7 +36,7 @@ export function ResourceCard({
       )}
       <div className="flex flex-col gap-1 p-5">
         <div className="flex items-center gap-1.5">
-          <h3 className="text-base font-semibold tracking-tight">{title}</h3>
+          <h3 className="text-lg font-bold tracking-tight">{title}</h3>
           {external && <ArrowSquareOutIcon className={`size-3.5 ${textMuted}`} />}
         </div>
         <p className={`text-sm ${textMuted}`}>{description}</p>
