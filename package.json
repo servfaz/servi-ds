@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "prebuild": "node scripts/sync-registry-tokens.cjs",
     "build": "shadcn build && next build",
     "start": "next start",
     "lint": "next lint",
-    "registry:build": "shadcn build"
+    "sync-tokens": "node scripts/sync-registry-tokens.cjs",
+    "registry:build": "npm run sync-tokens && shadcn build"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",
