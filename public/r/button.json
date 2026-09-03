@@ -8,6 +8,9 @@
     "@radix-ui/react-slot",
     "class-variance-authority"
   ],
+  "registryDependencies": [
+    "https://ds.servfaz.app/r/tokens.json"
+  ],
   "files": [
     {
       "path": "registry/servfaz/button.tsx",
@@ -15,5 +18,21 @@
       "type": "registry:ui",
       "target": "@ui/button.tsx"
     }
-  ]
+  ],
+  "cssVars": {
+    "light": {
+      "button-container-color-disabled": "var(--color-background-disabled)",
+      "button-container-color-primary-default": "var(--color-background-brand-bold)",
+      "button-container-color-primary-hover": "var(--color-background-brand-bold-hover)",
+      "button-container-color-primary-pressed": "var(--color-background-brand-bold-pressed)",
+      "button-container-color-secondary-default": "var(--color-background-brand-secondary-bold)",
+      "button-container-color-secondary-hover": "var(--color-background-brand-secondary-bold-hover)",
+      "button-container-color-secondary-pressed": "var(--color-background-brand-secondary-bold-pressed)",
+      "button-content-color-primary": "var(--color-text-on-brand)",
+      "button-content-color-disabled": "var(--color-text-disabled)",
+      "button-content-color-secondary-default": "var(--color-text-on-brand-secondary)",
+      "button-border-color-primary-focus": "var(--color-border-brand-default)",
+      "button-border-color-secondary-focus": "var(--color-border-brand-secondary-default)"
+    }
+  }
 }
