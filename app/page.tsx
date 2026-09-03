@@ -146,31 +146,24 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <nav className="hidden self-stretch md:flex items-stretch gap-6">
             <span
-              className={`flex items-center border-b-2 border-primary text-sm font-medium ${textStrong}`}
-            >
-              Comece
-            </span>
-          </nav>
-          <nav className="hidden self-stretch md:flex items-stretch gap-6">
-            <span
-              className={`flex items-center border-b-2 border-primary text-sm font-medium ${textStrong}`}
+              className={`flex items-center text-sm font-medium`}
             >
               Para designer
             </span>
           </nav>
           <nav className="hidden self-stretch md:flex items-stretch gap-6">
             <span
-              className={`flex items-center border-b-2 border-primary text-sm font-medium ${textStrong}`}
+              className={`flex items-center text-sm font-medium`}
             >
               Para devs
             </span>
           </nav>
           <nav className="hidden self-stretch md:flex items-stretch gap-6">
             <span
-              className={`flex items-center border-b-2 border-primary text-sm font-medium ${textStrong}`}
+              className={`flex items-center text-sm font-medium`}
             >
               Sobre o DS
             </span>
@@ -255,11 +248,6 @@ export default function Home() {
               id="comece"
               className="flex scroll-mt-24 flex-col gap-4"
             >
-              <span
-                className={`text-xs font-semibold uppercase tracking-widest ${textMuted}`}
-              >
-                Registry Servfaz
-              </span>
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
                 Comece
               </h1>
@@ -277,7 +265,7 @@ export default function Home() {
                   href={card.href}
                   target={card.external ? "_blank" : undefined}
                   rel={card.external ? "noopener noreferrer" : undefined}
-                  className={`flex flex-col overflow-hidden rounded-lg border border-[var(--color-taupe-100)] bg-[var(--color-white)] dark:bg-[var(--color-taupe-900)] ${textStrong} transition-colors hover:border-primary/50 ${
+                  className={`flex flex-col overflow-hidden rounded-lg border border-[var(--color-taupe-200)] bg-[var(--color-white)] dark:bg-[var(--color-taupe-900)] ${textStrong} transition-colors hover:border-primary/50 ${
                     card.highlight
                       ? "sm:col-span-2 lg:col-span-3 xl:col-span-4"
                       : ""
