@@ -25,7 +25,8 @@
   --color-cod-gray-600: #545451;
   --color-cod-gray-700: #42423E;
   --color-cod-gray-800: #282725;
-  --color-cod-gray-900: #1A1A18;  /* Cor da marca - preto institucional */
+  --color-cod-gray-900: #1A1A18;
+  /* Cor da marca - preto institucional */
   --color-cod-gray-950: #0B0B0A;
 
   /* Bourbon (marca secundária) */
@@ -35,7 +36,8 @@
   --color-bourbon-300: #EDCD5C;
   --color-bourbon-400: #E9BA36;
   --color-bourbon-500: #E19C1F;
-  --color-bourbon-600: #C07417;  /* Cor da marca - cor secundária */
+  --color-bourbon-600: #C07417;
+  /* Cor da marca - cor secundária */
   --color-bourbon-700: #A65717;
   --color-bourbon-800: #874419;
   --color-bourbon-900: #6F3918;
@@ -50,13 +52,15 @@
   --color-green-pea-500: #05C48F;
   --color-green-pea-600: #00A077;
   --color-green-pea-700: #008062;
-  --color-green-pea-800: #00604A;  /* Cor da marca - cor principal */
+  --color-green-pea-800: #00604A;
+  /* Cor da marca - cor principal */
   --color-green-pea-900: #015342;
   --color-green-pea-950: #002F26;
 
   /* Derby (apoio) */
   --color-derby-50: #FCF7F0;
-  --color-derby-100: #F6E6D1;  /* Cor da marca - cor de apoio */
+  --color-derby-100: #F6E6D1;
+  /* Cor da marca - cor de apoio */
   --color-derby-200: #F0D6B8;
   --color-derby-300: #E7B98A;
   --color-derby-400: #DC955B;
@@ -72,11 +76,24 @@
   --color-bud-100: #F4F5F4;
   --color-bud-200: #E6E8E3;
   --color-bud-300: #D4D8CF;
-  --color-bud-400: #B0B6A7;  /* Cor da marca - cor de apoio */
+  --color-bud-400: #B0B6A7;
+  /* Cor da marca - cor de apoio */
   --color-bud-500: #747C68;
   --color-bud-600: #525A4B;
   --color-bud-700: #404739;
   --color-bud-800: #292B22;
   --color-bud-900: #1A1E15;
   --color-bud-950: #0B0D08;
+
+  --color-taupe-50: oklch(98.6% 0.002 67.8);
+  --color-taupe-100: oklch(96% 0.002 17.2);
+  --color-taupe-200: oklch(92.2% 0.005 34.3);
+  --color-taupe-300: oklch(86.8% 0.007 39.5);
+  --color-taupe-400: oklch(71.4% 0.014 41.2);
+  --color-taupe-500: oklch(54.7% 0.021 43.1);
+  --color-taupe-600: oklch(43.8% 0.017 39.3);
+  --color-taupe-700: oklch(36.7% 0.016 35.7);
+  --color-taupe-800: oklch(26.8% 0.011 36.5);
+  --color-taupe-900: oklch(21.4% 0.009 43.1);
+  --color-taupe-950: oklch(14.7% 0.004 49.3);
 }
