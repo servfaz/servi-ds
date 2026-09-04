@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
-  "type": "registry:ui",
   "title": "Button",
   "description": "Botao com a identidade visual da Servfaz.",
   "dependencies": [
@@ -34,5 +33,6 @@
       "button-border-color-primary-focus": "var(--color-border-brand-default)",
       "button-border-color-secondary-focus": "var(--color-border-brand-secondary-default)"
     }
-  }
+  },
+  "type": "registry:ui"
 }
