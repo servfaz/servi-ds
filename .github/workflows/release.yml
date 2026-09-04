@@ -1,0 +1,44 @@
+name: Release a partir do CHANGELOG
+
+# Dispara quando uma tag de versão é empurrada (ex.: v0.2.0).
+# Essa tag só deve existir depois de rodar scripts/cut-release.mjs, que já
+# calculou o bump a partir do nível de cada entrada (Regra 5 e Regra 6 de
+# regras-de-changelog.md) e substituiu "Não lançado" pelo número real no
+# CHANGELOG.md e em REGISTRY_VERSION, no mesmo commit.
+#
+# Este workflow nunca decide versão nem escreve entrada de changelog.
+# Ele só lê o que já foi decidido e publica como GitHub Release.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Extrair as linhas da versão no CHANGELOG.md
+        run: |
+          TAG="${GITHUB_REF_NAME}"          # ex.: v0.2.0
+          VERSION="${TAG#v}"                # ex.: 0.2.0
+          node scripts/extract-release-notes.mjs "$VERSION" > release-notes.md
+
+      - name: Criar a GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes-file release-notes.md
