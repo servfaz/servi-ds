@@ -1,24 +1,24 @@
-import { textMuted } from "@/lib/doc-styles"
-import { CopyButton } from "@/components/docs/copy-button"
+import { highlightCode } from "@/lib/shiki"
+import { CodeBlockView } from "@/components/docs/code-block-view"
 
-export function CodeBlock({
+const COLLAPSE_LINE_THRESHOLD = 12
+
+export async function CodeBlock({
   code,
   language,
 }: {
   code: string
   language?: string
 }) {
+  const html = await highlightCode(code, language)
+  const lineCount = code.split("\n").length
+
   return (
-    <div className="flex flex-col overflow-hidden rounded-lg border border-[var(--color-taupe-300)] bg-[var(--color-taupe-100)] dark:bg-[var(--color-taupe-900)]">
-      <div className="flex items-center justify-between gap-4 border-b border-[var(--color-taupe-300)] px-4 py-2">
-        <span className={`text-xs uppercase tracking-wide ${textMuted}`}>
-          {language ?? "código"}
-        </span>
-        <CopyButton text={code} label="Copiar" copiedLabel="Copiado" />
-      </div>
-      <pre className="overflow-x-auto p-4 text-sm">
-        <code>{code}</code>
-      </pre>
-    </div>
+    <CodeBlockView
+      html={html}
+      code={code}
+      language={language}
+      collapsible={lineCount > COLLAPSE_LINE_THRESHOLD}
+    />
   )
 }

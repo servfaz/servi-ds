@@ -6,7 +6,7 @@ export default function Home() {
   const doc = readDoc("comece")
 
   return (
-    <>
+    <div className="mx-auto flex max-w-[var(--docs-content-max-width)] flex-col gap-10">
       <PageHeader
         title={doc.frontmatter.title}
         description={doc.frontmatter.description}
@@ -14,6 +14,6 @@ export default function Home() {
         raw={doc.raw}
       />
       <MarkdownContent body={doc.body} />
-    </>
+    </div>
   )
 }

@@ -11,8 +11,15 @@ import {
   MoonIcon,
   SunIcon,
 } from "@phosphor-icons/react"
-import registry from "@/registry.json"
 import { Button } from "@/registry/servfaz/button"
+import { SiteFooter } from "@/components/docs/site-footer"
+import {
+  componentItems,
+  foundationItems,
+  headerTabs,
+  linkGroupItems,
+  toNavLink,
+} from "@/lib/site-nav"
 import {
   hoverSurface,
   hoverText,
@@ -21,57 +28,11 @@ import {
   textSubtle,
 } from "@/lib/doc-styles"
 
-type RegistryItem = (typeof registry.items)[number]
-
-type NavLink = {
-  key: string
-  label: string
-  href: string
-  external?: boolean
-}
-
-const foundationItems: RegistryItem[] = registry.items.filter(
-  (item) => item.type === "registry:theme"
-)
-const componentItems: RegistryItem[] = registry.items.filter(
-  (item) => item.type === "registry:ui"
-)
-
-const toNavLink = (item: RegistryItem): NavLink => ({
-  key: item.name,
-  label: item.title ?? item.name,
-  href:
-    item.type === "registry:ui"
-      ? `/docs/componentes/${item.name}`
-      : `#${item.name}`,
-})
-
-const linkGroupItems: NavLink[] = [
-  {
-    key: "repositorio",
-    label: "Repositório",
-    href: "https://github.com/servfaz/servi-ds",
-    external: true,
-  },
-  {
-    key: "figma",
-    label: "Figma",
-    href: "https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables",
-    external: true,
-  },
-]
-
 const navGroups = [
   { label: "Fundações", items: foundationItems.map(toNavLink) },
   { label: "Componentes", items: componentItems.map(toNavLink) },
   { label: "Links", items: linkGroupItems },
 ].filter((group) => group.items.length > 0)
-
-const headerTabs: { label: string; href?: string }[] = [
-  { label: "Para designer" },
-  { label: "Para devs", href: "/docs/para-devs" },
-  { label: "Sobre o DS", href: "/docs/sobre" },
-]
 
 export function DocsShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -90,9 +51,9 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className={`flex h-svh flex-col overflow-hidden bg-[var(--color-taupe-50)] dark:bg-[var(--color-taupe-950)] ${textStrong}`}
+      className={`min-h-svh bg-[var(--color-taupe-50)] dark:bg-[var(--color-taupe-950)] ${textStrong}`}
     >
-      <header className="flex h-14 shrink-0 items-stretch justify-between border-b border-[var(--color-taupe-200)] px-4 md:px-6">
+      <header className="sticky top-0 z-30 flex h-14 items-stretch justify-between border-b border-[var(--color-taupe-200)] bg-[var(--color-taupe-50)] px-4 dark:bg-[var(--color-taupe-950)] md:px-6">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center">
             <img
@@ -153,8 +114,8 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <div className="flex flex-1 overflow-hidden">
-        <aside className="hidden w-64 shrink-0 flex-col overflow-y-auto border-r border-[var(--color-taupe-200)] px-3 py-6 md:flex">
+      <div className="flex">
+        <aside className="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-64 shrink-0 flex-col overflow-y-auto border-r border-[var(--color-taupe-200)] px-3 py-6 md:flex">
           <Link
             href="/#comece"
             className={`mb-4 block rounded-md px-2 py-1.5 text-sm font-semibold ${textStrong} transition-colors ${hoverSurface} ${hoverText}`}
@@ -203,7 +164,7 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
                             >
                               {linkContent}
                             </a>
-                          ) : item.href.startsWith("/") ? (
+                          ) : item.href?.startsWith("/") ? (
                             <Link href={item.href} className={linkClassName}>
                               {linkContent}
                             </Link>
@@ -222,10 +183,11 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
           })}
         </aside>
 
-        <main className="flex-1 overflow-y-auto">
+        <main className="min-w-0 flex-1">
           <div className="flex w-full flex-col gap-10 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 xl:px-16">
             {children}
           </div>
+          <SiteFooter />
         </main>
       </div>
     </div>

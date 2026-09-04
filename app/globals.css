@@ -6,6 +6,44 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Largura máxima da coluna de leitura (texto, código, preview) nas páginas de documentação. */
+:root {
+  --docs-content-max-width: 56.25rem; /* 900px */
+}
+
+/*
+ * Cores do syntax highlighting (Shiki) nos blocos de código do site.
+ * Código do site, não camada de token do DS (Regra 9, documentacao-design.md):
+ * por isso vive aqui, referenciando os primitivos do Servi DS, nunca hex solto.
+ */
+:root {
+  --shiki-foreground: var(--color-taupe-950);
+  --shiki-background: transparent;
+  --shiki-token-comment: var(--color-taupe-500);
+  --shiki-token-keyword: var(--color-bourbon-600);
+  --shiki-token-string: var(--color-green-pea-700);
+  --shiki-token-string-expression: var(--color-green-pea-700);
+  --shiki-token-constant: var(--color-derby-600);
+  --shiki-token-function: var(--color-bud-700);
+  --shiki-token-parameter: var(--color-taupe-800);
+  --shiki-token-punctuation: var(--color-taupe-600);
+  --shiki-token-link: var(--color-green-pea-600);
+}
+
+.dark {
+  --shiki-foreground: var(--color-taupe-50);
+  --shiki-background: transparent;
+  --shiki-token-comment: var(--color-taupe-400);
+  --shiki-token-keyword: var(--color-bourbon-400);
+  --shiki-token-string: var(--color-green-pea-400);
+  --shiki-token-string-expression: var(--color-green-pea-400);
+  --shiki-token-constant: var(--color-derby-400);
+  --shiki-token-function: var(--color-bud-300);
+  --shiki-token-parameter: var(--color-taupe-200);
+  --shiki-token-punctuation: var(--color-taupe-400);
+  --shiki-token-link: var(--color-green-pea-400);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

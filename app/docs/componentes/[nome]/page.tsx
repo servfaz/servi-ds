@@ -2,10 +2,12 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import registry from "@/registry.json"
 import { readDoc } from "@/lib/content"
+import { readComponentSource } from "@/lib/registry-source"
 import { extractHeadings } from "@/lib/markdown-headings"
 import { PageHeader } from "@/components/docs/page-header"
 import { MarkdownContent } from "@/components/docs/markdown-content"
 import { componentPreviews } from "@/components/docs/component-previews"
+import { ComponentSource } from "@/components/docs/component-source"
 import { DocLayout } from "@/components/docs/doc-layout"
 
 const componentNames = registry.items
@@ -43,6 +45,7 @@ export default async function ComponentePage({
   const doc = readDoc(`componentes/${nome}`)
   const headings = extractHeadings(doc.body)
   const Preview = componentPreviews[nome]
+  const source = readComponentSource(nome)
 
   return (
     <DocLayout
@@ -57,6 +60,7 @@ export default async function ComponentePage({
       }
     >
       {Preview && <Preview />}
+      <ComponentSource code={source} />
       <MarkdownContent body={doc.body} />
     </DocLayout>
   )
