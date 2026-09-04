@@ -1,3 +1,6 @@
 [
-  { "repo": "servfaz/faturamento_front-pr-teste" }
+  {
+    "repo": "servfaz/faturamento_front-pr-teste",
+    "repo": "servfaz/sgs_auth_front-teste"
+  }
 ]
