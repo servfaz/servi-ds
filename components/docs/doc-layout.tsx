@@ -20,13 +20,13 @@ export function DocLayout({
     <div className="flex flex-col">
       <div className="-mx-4 -mt-10 bg-[var(--color-taupe-100)] px-4 pt-10 pb-10 dark:bg-[var(--color-taupe-900)] sm:-mx-8 sm:-mt-14 sm:px-8 sm:pt-14 sm:pb-14 lg:-mx-12 lg:px-12 xl:-mx-16 xl:px-16">
         <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_11rem] xl:gap-10">
-          <div className="mx-auto max-w-[var(--docs-content-max-width)]">
+          <div className="mx-auto w-full max-w-[var(--docs-content-max-width)]">
             {header}
           </div>
         </div>
       </div>
       <div className="flex flex-col pt-10 sm:pt-14 xl:grid xl:grid-cols-[minmax(0,1fr)_11rem] xl:gap-10">
-        <div className="mx-auto flex min-w-0 max-w-[var(--docs-content-max-width)] flex-col gap-10">
+        <div className="mx-auto flex w-full min-w-0 max-w-[var(--docs-content-max-width)] flex-col gap-10">
           {children}
         </div>
         <TableOfContents headings={headings} />

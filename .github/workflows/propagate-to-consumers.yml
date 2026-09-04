@@ -2,6 +2,9 @@ name: Propagar Servi DS para consumidores
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - automation/consumers.json
 
 jobs:
   load-consumers:
