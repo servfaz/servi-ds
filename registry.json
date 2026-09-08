@@ -93,7 +93,10 @@
           "color-text-on-brand": "var(--color-white)",
           "color-text-on-brand-secondary": "var(--color-cod-gray-900)",
           "color-border-brand-default": "var(--color-green-pea-600)",
-          "color-border-brand-secondary-default": "var(--color-bourbon-600)"
+          "color-border-brand-secondary-default": "var(--color-bourbon-600)",
+          "color-background-warning-subtle": "var(--color-bourbon-100)",
+          "color-text-warning": "var(--color-bourbon-900)",
+          "color-border-warning-default": "var(--color-bourbon-600)"
         },
         "dark": {
           "color-background-disabled": "#262626",
@@ -110,7 +113,10 @@
           "color-text-on-brand": "var(--color-cod-gray-900)",
           "color-text-on-brand-secondary": "var(--color-cod-gray-900)",
           "color-border-brand-default": "var(--color-green-pea-400)",
-          "color-border-brand-secondary-default": "var(--color-bourbon-400)"
+          "color-border-brand-secondary-default": "var(--color-bourbon-400)",
+          "color-background-warning-subtle": "var(--color-bourbon-900)",
+          "color-text-warning": "var(--color-bourbon-100)",
+          "color-border-warning-default": "var(--color-bourbon-400)"
         }
       }
     },
@@ -148,6 +154,34 @@
           "button-content-color-secondary-default": "var(--color-text-on-brand-secondary)",
           "button-border-color-primary-focus": "var(--color-border-brand-default)",
           "button-border-color-secondary-focus": "var(--color-border-brand-secondary-default)"
+        }
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Alerta com a identidade visual da Servfaz, variante de aviso.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/alert.tsx",
+          "target": "@ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "cssVars": {
+        "light": {
+          "alert-container-color-warning": "var(--color-background-warning-subtle)",
+          "alert-content-color-warning": "var(--color-text-warning)",
+          "alert-icon-color-warning": "var(--color-text-warning)",
+          "alert-border-color-warning": "var(--color-border-warning-default)"
         }
       }
     }
