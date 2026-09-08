@@ -1,93 +1,117 @@
 ---
 title: Começando um projeto novo com o Servi DS
-description: Guia para times de desenvolvimento que estão configurando um produto novo (ou um repositório novo) para consumir o Servi DS pela primeira vez.
+description: Guia completo para desenvolvedores que estão configurando um produto, novo ou existente, para consumir o Servi DS.
 ---
 
-## O que é o Servi DS
-
-O Servi DS é o design system da Servfaz: a biblioteca shadcn/ui restilizada com os tokens visuais da empresa (cor, espaçamento, tipografia, ícones), publicada como um registry próprio e instalada pela CLI do shadcn/ui, apontada para `ds.servfaz.app`. O objetivo é ser a fonte única de padrões visuais e de interação de todos os produtos da empresa, usada desde o primeiro dia de qualquer projeto novo.
-
-Isso traz consistência entre produtos, mais velocidade (componente pronto em vez de recriado), acessibilidade já validada em WCAG 2.1 AA e manutenção centralizada: corrigir um componente ou token num lugar atualiza todos os produtos que o usam.
+O Servi DS é de uso exclusivo dos sistemas da Servfaz. Ele não é destinado a projetos externos, de terceiros ou fora da empresa, sob nenhuma circunstância.
 
 ## Pré-requisitos
 
 - Node.js na versão LTS.
-- Projeto com Next.js (App Router) e Tailwind CSS.
-- Acesso ao registry (`ds.servfaz.app`).
+- Next.js com App Router.
+- Tailwind CSS configurado.
+- Acesso ao registry público em `ds.servfaz.app`.
 
-## Passo 1: criar o projeto
+O Servi DS é construído sobre o shadcn/ui. Se o projeto usa outro framework de UI ou não usa Tailwind, converse com o time do Servi DS antes de seguir os próximos passos.
 
-Se o projeto ainda não existe, crie com:
+## Passo 1: preparar o projeto
+
+Em um projeto novo:
 
 ```bash
 npx create-next-app@latest nome-do-projeto --typescript --tailwind --app
 ```
 
-Se já existe, vá direto para o Passo 2.
+Em um projeto existente, confirme que ele já atende aos pré-requisitos acima antes de seguir para o próximo passo.
 
-## Passo 2: iniciar o shadcn/ui
-
-Rode:
+## Passo 2: inicializar o shadcn/ui
 
 ```bash
 npx shadcn@latest init
 ```
 
-Esse comando prepara o projeto para receber componentes do Servi DS. Ele pergunta o estilo, a cor base e os aliases, e altera o projeto em três pontos:
+Esse comando cria três coisas:
 
-- cria o arquivo `components.json`, com a configuração usada por todos os comandos seguintes;
-- cria o arquivo `lib/utils.ts`, com uma função auxiliar usada pelos componentes;
-- adiciona ao seu CSS global (`app/globals.css`) a estrutura base de variáveis CSS, que os tokens do Servi DS vão preencher a partir do próximo passo.
+- `components.json`, com a configuração do projeto (aliases de import, estilo, diretório dos componentes).
+- `lib/utils.ts`, com a função auxiliar usada pelos componentes.
+- As variáveis CSS base em `app/globals.css`.
 
-Mantenha os aliases padrão (`@components`, `@ui`, `@lib`, `@hooks`) para não divergir dos outros produtos.
+Mantenha os aliases padrão sugeridos pela CLI (`@components`, `@ui`, `@lib`, `@hooks`) sempre que possível. Se o projeto já usa uma convenção de alias diferente, tudo bem seguir com ela, só preste atenção no Passo 4.
 
-## Passo 3: do cadastro à PR, o fluxo completo
+## Passo 3: trazer os componentes para o projeto
 
-Depois do cadastro, o time consumidor faz o mínimo possível: revisar e aprovar uma Pull Request quando ela chega. Nenhum comando de instalação é responsabilidade do dev a partir daqui, nem no primeiro dia nem depois. É uma corrente com seis elos, e só um deles é manual:
+Existem dois caminhos, e eles não competem entre si: o primeiro resolve a instalação imediata, o segundo é o que mantém o projeto atualizado depois.
 
-1. Alguém do projeto pede o cadastro. Peça ao time do Servi DS para cadastrar o repositório do projeto na lista de consumidores.
-2. O time do Servi DS cadastra o repositório nessa lista.
-3. O cadastro dispara o robô do Servi DS sozinho, sem ninguém rodar comando nenhum.
-4. O robô instala tudo no repositório do projeto: todos os componentes já publicados, com os tokens (cor, espaçamento, tipografia) inclusos, e corrige o alias de import do projeto quando necessário.
-5. O robô abre uma Pull Request no repositório do projeto, com esse resultado.
-6. Alguém do time do projeto revisa e aprova essa PR. Esse é o único passo manual recorrente de toda a corrente, de propósito, para sempre ter alguém olhando antes do código entrar.
+### Caminho A: instalação imediata (bootstrap local)
 
-Se o projeto já tinha algum componente shadcn/ui customizado à mão, essa primeira PR substitui esse componente pela versão do Servi DS, e a customização se perde. Vale reaplicar a customização por cima ou pedir um token ou variante nova para o Servi DS, em vez de perder silenciosamente o que já existia.
+Use quando quiser os componentes agora, sem esperar o cadastro do repositório no fluxo automático.
 
-Depois dessa primeira vez, toda nova mudança publicada no Servi DS (componente ou token) repete os elos 3 a 6 sozinha, gerando uma nova PR. A descrição da PR hoje não traz automaticamente o que precisa mudar no código do projeto quando a mudança quebra algo em uso: antes de aprovar, conferir a entrada correspondente no `CHANGELOG.md` do Servi DS, principalmente quando for uma versão MAJOR.
+Rode o script `instalar-servi-ds.sh`, disponível em `templates/` neste repositório, a partir da raiz do projeto consumidor, com `components.json` já criado (Passo 2 concluído). Ele exige `curl`, `jq`, `node`/`npx` e `sed` instalados.
 
-### Atalho: instalar sem esperar o cadastro
+O que o script faz:
 
-Quer o resultado do elo 4 sem esperar o cadastro? O Servi DS também disponibiliza um script (`templates/instalar-servi-ds.sh`, neste repositório) que roda essa mesma instalação localmente, de uma vez. Copie o arquivo para a raiz do projeto consumidor e rode a partir de lá, já com `components.json` criado.
+1. Busca a lista de componentes já publicados em `registry.json`.
+2. Instala cada um deles com o CLI do shadcn, apontando direto para a URL pública de cada item.
+3. Confere o alias de import declarado em `components.json`. Se for diferente do padrão gravado pela CLI, corrige automaticamente os arquivos instalados. Essa correção automática só funciona em projetos com uma pasta `src` na raiz. Fora desse caso, revise o alias manualmente.
 
-Depois de rodá-lo, siga com o elo 1 do mesmo jeito, para continuar recebendo as próximas atualizações pela PR automática.
+Isso instala o catálogo inteiro publicado até aquele momento. É um ponto de partida, não a forma de receber atualizações futuras.
 
-## Problemas comuns
+### Caminho B: cadastro como consumidor oficial (fluxo automático)
 
-**Import quebrado.** A instalação grava `@/app/lib/utils` por padrão. Se o alias do projeto for outro, o ajuste automático tenta corrigir, mas só funciona em projetos com pasta `src/` na raiz, e mesmo assim não cobre todo caso. Se algum arquivo ficar com import quebrado, troque pelo alias real do projeto (`aliases.utils` ou `aliases.lib` em `components.json`).
+É o que mantém o projeto atualizado depois da instalação inicial, sem rodar nada manualmente.
 
-**Componente que ainda não existe no Servi DS.** Confirme com o time do Servi DS se já está no roadmap antes de construir uma versão própria.
+1. Solicite ao time do Servi DS o cadastro do repositório como consumidor.
+2. O time adiciona o repositório na lista de consumidores do Servi DS.
+3. Esse cadastro já dispara sozinho a primeira instalação completa: um robô entra no repositório, instala todos os componentes publicados e abre uma Pull Request com o resultado.
+4. A partir daí, toda vez que um componente novo for publicado ou um existente for atualizado, o mesmo robô abre uma PR nova no repositório, sempre na mesma branch, com o diff da mudança.
+5. O único passo manual recorrente de todo o fluxo é revisar e aprovar essa PR.
 
-## Passo 4: tema claro e escuro
+Se o repositório já foi cadastrado, as atualizações seguintes chegam só por esse caminho. Rodar o script do Caminho A depois do cadastro não é necessário e não substitui o fluxo automático.
 
-Os tokens já têm valor para os dois modos. Falta só o mecanismo que alterna entre eles, por exemplo com `next-themes`, trocando a classe `dark` na página.
+Se o projeto já tinha algum componente shadcn/ui customizado à mão antes desse cadastro, essa primeira PR substitui esse componente pela versão do Servi DS, e a customização se perde. Reaplique a customização por cima do componente novo, ou peça um token ou uma variante nova ao time do Servi DS, em vez de perder o que já existia sem perceber.
 
-## Passo 5: ícones
+## Passo 4: confirmar que os imports não quebraram
 
-Use sempre a biblioteca [Phosphor Icons](https://phosphoricons.com/).
+O CLI do shadcn grava import apontando para um caminho padrão. Se o alias real do projeto for outro, confira se algum arquivo instalado ficou com import quebrado antes de seguir. O Caminho A corrige isso sozinho quando o projeto tem pasta `src` na raiz; nos demais casos, ou quando a instalação veio pela PR automática, revise manualmente os arquivos alterados.
+
+## Passo 5: tema claro e escuro
+
+Todo token semântico do Servi DS já resolve os dois valores, claro e escuro, sem que o componente precise de lógica condicional de tema. O trabalho do projeto consumidor é só ligar o mecanismo de alternância de tema, por exemplo com a biblioteca `next-themes`, e deixar que os tokens façam o resto.
+
+Nunca escreva `if (darkMode)` ou equivalente dentro de um componente do Servi DS. Se um componente parecer precisar de dois desenhos diferentes por modo, o problema é a falta de um token semântico, não algo para resolver no código do consumidor.
+
+## Passo 6: ícones
+
+O Servi DS usa exclusivamente a biblioteca [Phosphor Icons](https://phosphoricons.com/).
 
 ```bash
 npm install @phosphor-icons/react
 ```
 
-## Boas práticas
+Use sempre o nome oficial do ícone na biblioteca Phosphor. Nenhum outro pacote de ícones (Lucide, Heroicons, Feather ou qualquer outro) é compatível com os componentes do Servi DS, e nenhum SVG solto substitui uma referência Phosphor.
 
-Antes de criar CSS ou componente próprio, confirme três coisas:
+## Passo 7: usar tokens corretamente ao estender uma tela
 
-- **O componente já existe no Servi DS?** Se sim, ele já chega pela PR automática. Não recrie por conta própria.
-- **O valor já é um token?** Cor, espaço, raio, sombra: sempre `var(--nome-do-token)`, nunca um valor solto.
-- **Não existe mesmo?** Avise o time de design antes de criar algo isolado. Nada nasce fora do Figma oficial.
+Nenhum valor bruto (hexadecimal, pixel solto, cor em RGB) deve aparecer em código de produto que usa o Servi DS. Toda cor, espaçamento, raio ou sombra é uma variável de token: `var(--nome-do-token)`.
+
+Se a tela que você está construindo parece precisar de um valor que nenhum token cobre, a resposta não é digitar o valor direto. É verificar com o time do Servi DS se falta um token no sistema.
+
+## Como as atualizações continuam chegando
+
+Toda mudança publicada no Servi DS vira uma entrada de changelog no mesmo commit que a publica. Uma vez por mês, no dia 1, essas entradas viram uma versão nova, publicada como Release no GitHub. Como consumidor, você não precisa acompanhar esse calendário: a atualização real chega pelo fluxo do Caminho B, como uma PR no seu repositório. Antes de aprovar essa PR, vale conferir as notas da versão para saber se alguma mudança quebra algo no seu projeto, principalmente quando for uma versão MAJOR.
+
+## Quando o componente ou token que você precisa não existe
+
+Não crie uma versão isolada do componente para resolver o caso, mesmo que pareça mais rápido no momento. Fale com o time do Servi DS antes. Na maioria das vezes, uma tela que "precisa" de uma versão exclusiva de um componente é sinal de que falta um token ou uma variante no sistema, não uma exceção legítima do seu projeto.
+
+## Problemas comuns
+
+**Import quebrado depois da instalação.** Confira o alias declarado em `components.json` contra o import gravado nos arquivos instalados. Se o projeto não tem pasta `src` na raiz, a correção automática do script não se aplica e o ajuste precisa ser manual.
+
+**Componente que parece faltar.** Confirme com o time do Servi DS se ele já existe antes de recriar algo parecido por conta própria.
+
+**PR de atualização não abriu.** Confirme com o time do Servi DS se o repositório está mesmo cadastrado como consumidor. Sem esse cadastro, nenhuma atualização chega automaticamente, mesmo que o Servi DS tenha publicado algo novo.
 
 ## Onde continuar
 
-Cada componente tem sua própria página em `ds.servfaz.app/docs/componentes/<nome>`, com props, estados e tokens. Toda página tem um botão para copiar o conteúdo como markdown.
+Cada componente publicado tem sua própria página de documentação, com props, estados suportados e os tokens que ele usa. As páginas de tokens e a biblioteca de componentes completa vivem no Figma, nos dois arquivos de referência do Servi DS.
