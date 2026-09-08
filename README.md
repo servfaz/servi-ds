@@ -1,8 +1,8 @@
-# Servi DS — Registry
+# Servi DS: Registry
 
 Registry de componentes shadcn/ui com a identidade visual da Servfaz. Este repositório é a fonte única dos componentes restilizados e o ponto de partida da distribuição deles para os sistemas internos que já usam shadcn/ui em produção.
 
-Regras operacionais para quem (ou qual agente) for trabalhar neste código estão em [`CLAUDE.md`](./CLAUDE.md). Este README explica o que é o projeto e como ele é organizado.
+Regras operacionais para quem (ou qual agente) for trabalhar neste código estão em [`.claude/CLAUDE.md`](./.claude/CLAUDE.md). Este README explica o que é o projeto e como ele é organizado.
 
 ## Contexto
 
@@ -27,9 +27,9 @@ O que não entra neste repositório: reescrita de comportamento (a camada do Rad
 O processo de propagação, para cor, raio, tipografia, espaçamento e ajustes estruturais, é único: Registry mais CI. Não existe rota alternativa em paralelo.
 
 1. A designer organiza os componentes restilizados em `registry/servfaz/` e descreve cada um em `registry.json`, no formato `registry-item` do shadcn.
-2. O comando `shadcn build` gera os arquivos estáticos de `public/r/`, publicados em `http://ds.servfaz.app/r/{name}.json`.
+2. O comando `shadcn build` (rodado no `prebuild`/`build` a cada deploy) lê `registry.json` e gera os arquivos estáticos de `public/r/`, publicados em `https://ds.servfaz.app/r/{name}.json`.
 3. Cada sistema consumidor aponta para esse endereço no próprio `components.json`, na chave `registries`.
-4. Um workflow de CI, em cada sistema, roda em agenda fixa, executa o comando de atualização para os componentes do Servi DS e abre um Pull Request quando algo muda.
+4. Um workflow de CI em cada sistema consumidor (`.github/workflows/propagate-to-consumers.yml`, disparado deste repositório) roda o comando de atualização para os componentes do Servi DS e abre um Pull Request quando algo muda.
 5. Um desenvolvedor revisa o diff do PR e aprova o merge. Esse é o único passo manual recorrente depois de tudo configurado.
 
 Rollout é gradual, componente por componente: um componente ausente do `registry.json` continua no padrão shadcn original no sistema consumidor, sem risco de quebra. A qualquer momento um mesmo sistema pode ter parte dos componentes no padrão Servfaz e parte ainda no padrão shadcn original.
@@ -38,38 +38,60 @@ Rollout é gradual, componente por componente: um componente ausente do `registr
 
 ```
 servi-ds/
+├── app/                        (site de documentação, Next.js App Router)
+│   ├── docs/
+│   │   ├── componentes/[nome]/page.tsx
+│   │   ├── desenvolvedores/page.tsx
+│   │   └── sobre/page.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── automation/
+│   └── consumers.json          (lista de repositórios que recebem propagação automática)
+├── components/
+│   ├── docs/                   (blocos do site: tabela de props, bloco de código, navegação etc.)
+│   └── docs-shell.tsx
+├── content/
+│   └── docs/                   (markdown puro, fonte de cada página do site)
+│       ├── comece.md
+│       ├── desenvolvedores.md
+│       ├── sobre.md
+│       └── componentes/
+│           └── button.md
+├── lib/                        (leitura de conteúdo, geração de índice, utilitários do site)
+├── public/
+│   ├── brand/                  (logo Servfaz)
+│   └── r/                      (saída gerada por "shadcn build", nunca editada à mão)
+│       ├── registry.json
+│       ├── button.json
+│       └── tokens.json
 ├── registry/
 │   └── servfaz/
-│       ├── button.tsx
-│       ├── input.tsx
-│       ├── select.tsx
-│       └── ...              (demais componentes priorizados)
-├── public/
-│   └── r/
-│       ├── registry.json    (índice com a lista de todos os componentes)
-│       ├── button.json
-│       ├── input.json
-│       └── select.json
-├── tokens/
-│   ├── primitives.json
-│   ├── semantic.json
-│   └── component.json
-├── styles/
-│   └── globals.css
+│       └── button.tsx          (único componente publicado até aqui)
 ├── scripts/
-│   └── build-registry.ts
+│   ├── sync-registry-tokens.cjs  (gera cssVars de registry.json a partir de tokens/*.css)
+│   ├── cut-release.mjs           (fecha o lote "Não lançado" do CHANGELOG e calcula o bump)
+│   └── extract-release-notes.mjs (extrai as notas de uma versão para a GitHub Release)
+├── templates/
+│   └── github-workflows/       (material de apoio para configurar um sistema consumidor)
+├── tokens/
+│   ├── tokens-primitives.css   (camada 1)
+│   ├── tokens-semantic.css     (camada 2)
+│   └── tokens-component.css    (camada 3)
 ├── .github/
 │   └── workflows/
-│       └── publish-registry.yml
+│       ├── release.yml                  (publica a GitHub Release a partir da tag)
+│       └── propagate-to-consumers.yml   (abre PR nos consumidores)
+├── CHANGELOG.md
+├── REGISTRY_VERSION
+├── registry.json                (catálogo fonte, editado à mão)
 ├── components.json
 └── package.json
 ```
 
-`registry/` é a única pasta editada à mão. `public/r/` é sempre gerado a partir de `registry/` via `shadcn build`, nunca editado direto.
+`registry/` é a única pasta de componente editada à mão. `public/r/` é sempre gerado a partir de `registry/` e `registry.json` via `shadcn build`, nunca editado direto.
 
-`tokens/` segue a arquitetura em três camadas (Primitivo, Semântico, Componente), documentada por completo em "Arquitetura e Regras de Design Tokens" (link abaixo). Resumo: um token é uma decisão de design nomeada, nunca um valor bruto. Componente referencia semântico, semântico referencia primitivo, uma camada nunca pula a outra. Dark mode é resolvido inteiramente na camada semântica, nunca dentro do componente.
-
-> A estrutura acima é a arquitetura alvo do repositório. Ele ainda está com a organização padrão do template `shadcn-ui/registry-template` do qual foi criado (`registry/new-york/...`, `registry.json` com valores de exemplo), a migração para `registry/servfaz/` e para os metadados reais do Servi DS é trabalho em andamento da Fase 1 e 2 do plano.
+`tokens/` segue a arquitetura em três camadas (Primitivo, Semântico, Componente). Resumo: um token é uma decisão de design nomeada, nunca um valor bruto. Componente referencia semântico, semântico referencia primitivo, uma camada nunca pula a outra. Dark mode é resolvido inteiramente na camada semântica, nunca dentro do componente. A taxonomia completa, com o porquê de cada regra, vive no projeto Claude "Servi DS" (`arquitetura-e-regras-de-design-tokens.md`).
 
 ## Rodando localmente
 
@@ -77,8 +99,10 @@ Gerenciador de pacotes é npm.
 
 ```
 npm install
-npm run dev            # sobe o projeto em http://localhost:3000
-npm run registry:build # roda "shadcn build" e gera public/r/ a partir de registry/ e registry.json
+npm run dev            # sobe o site de documentação em http://localhost:3000
+npm run sync-tokens    # regenera registry.json a partir de tokens/*.css, sem buildar
+npm run registry:build # roda sync-tokens e depois "shadcn build", gera public/r/
+npm run build          # build completo do site (roda prebuild, shadcn build e next build)
 ```
 
 Antes de publicar um item novo, teste sem gravar nenhum arquivo:
@@ -87,9 +111,7 @@ Antes de publicar um item novo, teste sem gravar nenhum arquivo:
 npx shadcn view http://localhost:3000/r/button.json
 npx shadcn add http://localhost:3000/r/button.json --dry-run
 ```
-e nem o 
+
 ## Documentação completa
 
-Este README cobre o essencial para orientar quem chega ao repositório. O plano completo (fases, decisão de arquitetura, guia passo a passo, perguntas abertas para o time de dev) e a arquitetura de tokens (taxonomia, regras de nomenclatura, regras de dark mode, validação de contraste) vivem na documentação oficial do Design System, nos arquivos `plano-de-restilizacao-do-design-system.md` e `arquitetura-e-regras-de-design-tokens.md`.
-
-Os arquivos de fonte visual (Figma) ficam em dois projetos separados: [Variables](https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables), com as coleções de tokens, e [Components](https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components), com a biblioteca de componentes.
+Este README cobre o essencial para orientar quem chega ao repositório. As regras completas, o plano de fases e as decisões de arquitetura, com o porquê de cada uma, vivem no projeto Claude "Servi DS", fora deste repositório por decisão do projeto (ver [`.claude/CLAUDE.md`](./.claude/CLAUDE.md)). Este repositório guarda só o que é publicado: código, tokens, documentação de componente e as regras operacionais em `.claude/rules/`.

@@ -45,6 +45,6 @@ export const linkGroupItems: NavLink[] = [
 
 export const headerTabs: NavLink[] = [
   { key: "para-designer", label: "Para designer" },
-  { key: "para-devs", label: "Para devs", href: "/docs/para-devs" },
+  { key: "desenvolvedores", label: "Desenvolvedores", href: "/docs/desenvolvedores" },
   { key: "sobre", label: "Sobre o DS", href: "/docs/sobre" },
 ]
