@@ -73,12 +73,12 @@ servi-ds/
 
 ## Rodando localmente
 
-Gerenciador de pacotes é pnpm.
+Gerenciador de pacotes é npm.
 
 ```
-pnpm install
-pnpm dev              # sobe o projeto em http://localhost:3000
-pnpm registry:build   # roda "shadcn build" e gera public/r/ a partir de registry/ e registry.json
+npm install
+npm run dev            # sobe o projeto em http://localhost:3000
+npm run registry:build # roda "shadcn build" e gera public/r/ a partir de registry/ e registry.json
 ```
 
 Antes de publicar um item novo, teste sem gravar nenhum arquivo:
