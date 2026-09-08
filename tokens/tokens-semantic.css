@@ -31,6 +31,11 @@
   /* Border */
   --color-border-brand-default: var(--color-green-pea-600);  /* Borda da marca */
   --color-border-brand-secondary-default: var(--color-bourbon-600);  /* Borda secundária da marca */
+
+  /* Feedback */
+  --color-background-warning-subtle: var(--color-bourbon-100);  /* Fundo sutil de aviso - contraste validado WCAG AA (8.13:1) contra color-text-warning */
+  --color-text-warning: var(--color-bourbon-900);  /* Texto/ícone sobre fundo de aviso */
+  --color-border-warning-default: var(--color-bourbon-600);  /* Borda de aviso */
 }
 
 .dark {
@@ -54,4 +59,9 @@
   /* Border */
   --color-border-brand-default: var(--color-green-pea-400);  /* Borda da marca */
   --color-border-brand-secondary-default: var(--color-bourbon-400);  /* Borda secundária da marca */
+
+  /* Feedback */
+  --color-background-warning-subtle: var(--color-bourbon-900);  /* Fundo sutil de aviso - contraste validado WCAG AA (8.13:1) contra color-text-warning */
+  --color-text-warning: var(--color-bourbon-100);  /* Texto/ícone sobre fundo de aviso */
+  --color-border-warning-default: var(--color-bourbon-400);  /* Borda de aviso */
 }
