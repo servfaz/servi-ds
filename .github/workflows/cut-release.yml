@@ -1,0 +1,80 @@
+name: Cortar release e publicar
+
+# Fecha sozinho o lote de entradas "Não lançado" (CHANGELOG.md e as páginas
+# de componente correspondentes), calcula a versão, comita, cria a tag e
+# empurra. O push da tag dispara release.yml, que publica a GitHub Release.
+#
+# Roda uma vez por mês, no dia 1, às 09h de America/Fortaleza (12h UTC, sem
+# horário de verão no Brasil). "workflow_dispatch" fica disponível a qualquer
+# momento como reforço manual, mesmo padrão já usado no orquestrador de
+# propagação para consumidores. Se não existir nenhuma entrada "Não lançado"
+# no dia do disparo, o job de corte não roda, sem erro.
+#
+# O único passo manual recorrente é aprovar o ambiente "release-approval"
+# antes do commit e do push acontecerem, mesmo espírito de freio único que já
+# existe na automação de propagação para consumidores (lá, é aprovar o PR).
+#
+# Nunca decide o que vai numa entrada nem o nível MAJOR/MINOR/PATCH de uma
+# mudança: isso continua acontecendo na publicação de cada mudança, no
+# mesmo commit que a publica (ver regras de changelog). Este workflow só
+# fecha um lote de entradas já escritas.
+
+on:
+  schedule:
+    - cron: "0 12 1 * *"   # dia 1 de cada mês, 12h UTC (9h em America/Fortaleza)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-pending:
+    runs-on: ubuntu-latest
+    outputs:
+      has-pending: ${{ steps.check.outputs.pending }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check
+        run: |
+          if grep -q '| Não lançado |' CHANGELOG.md; then
+            echo "pending=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pending=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  cut-release:
+    needs: check-pending
+    if: needs.check-pending.outputs.has-pending == 'true'
+    runs-on: ubuntu-latest
+    # Ambiente com "required reviewers" configurado em Settings > Environments
+    # no GitHub. O job para aqui até alguém aprovar, antes de tocar em
+    # CHANGELOG.md, REGISTRY_VERSION ou nas páginas de componente.
+    environment: release-approval
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Calcular o bump e fechar o lote (CHANGELOG.md e páginas de componente)
+        run: node scripts/cut-release.mjs
+
+      - name: Ler a versão calculada
+        id: version
+        run: echo "version=$(cat REGISTRY_VERSION)" >> "$GITHUB_OUTPUT"
+
+      - name: Configurar identidade do commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Comitar, criar a tag e publicar
+        run: |
+          git add CHANGELOG.md REGISTRY_VERSION content/docs/componentes/
+          git commit -m "chore(release): v${{ steps.version.outputs.version }}"
+          git tag "v${{ steps.version.outputs.version }}"
+          git push origin main
+          git push origin "v${{ steps.version.outputs.version }}"

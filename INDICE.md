@@ -28,6 +28,7 @@ Não são páginas do site, são arquivos que valem como regra para quem (ou qua
 | Regras de geração de documentação de componente | `.claude/rules/documentacao-design.md` | https://github.com/servfaz/servi-ds/blob/main/.claude/rules/documentacao-design.md |
 | Regras de changelog | `.claude/rules/regras-de-changelog.md` | https://github.com/servfaz/servi-ds/blob/main/.claude/rules/regras-de-changelog.md |
 | Script de instalação manual imediata | `templates/instalar-servi-ds.sh` | https://github.com/servfaz/servi-ds/blob/main/templates/instalar-servi-ds.sh |
+| Workflow que corta o release automaticamente | `.github/workflows/cut-release.yml` | https://github.com/servfaz/servi-ds/blob/main/.github/workflows/cut-release.yml |
 | Este índice | `INDICE.md` | https://github.com/servfaz/servi-ds/blob/main/INDICE.md |
 
 ## Documentos de processo e decisão
@@ -40,6 +41,7 @@ Mantidos só no projeto Claude "Servi DS", nunca copiados para nenhuma outra fer
 | Arquitetura e regras de design tokens | `claude/arquitetura-e-regras-de-design-tokens.md` |
 | Orquestrador de propagação para consumidores | `claude/orquestrador-de-propagacao-para-consumidores.md` |
 | Automação de release (GitHub Actions) | `claude/automacao-release-github.md` |
+| Como o changelog funciona, versão resumida | `claude/como-funciona-o-changelog.md` |
 
 Dois documentos de processo têm uma particularidade: existem em ambos os lugares, com texto idêntico, de propósito. `claude/design-doc.md` (no projeto) e `.claude/rules/documentacao-design.md` (neste repositório) são o mesmo arquivo, assim como `claude/regras-de-changelog.md` e `.claude/rules/regras-de-changelog.md`. A cópia no projeto guarda o contexto completo da decisão, a cópia aqui é a que vale como regra operacional viva para quem trabalha no código. Uma edição em um dos dois exige a mesma edição no outro.
 
