@@ -1,5 +1,6 @@
 import type { ComponentType } from "react"
 import { ButtonPreview } from "@/components/docs/component-previews/button-preview"
+import { AlertPreview } from "@/components/docs/component-previews/alert-preview"
 
 /**
  * Regra 8 (documentacao-design.md): "grade de estados" é um componente
@@ -9,4 +10,5 @@ import { ButtonPreview } from "@/components/docs/component-previews/button-previ
  */
 export const componentPreviews: Record<string, ComponentType> = {
   button: ButtonPreview,
+  alert: AlertPreview,
 }
