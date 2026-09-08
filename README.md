@@ -2,7 +2,7 @@
 
 Registry de componentes shadcn/ui com a identidade visual da Servfaz. Este repositório é a fonte única dos componentes restilizados e o ponto de partida da distribuição deles para os sistemas internos que já usam shadcn/ui em produção.
 
-Regras operacionais para quem (ou qual agente) for trabalhar neste código estão em [`.claude/CLAUDE.md`](./.claude/CLAUDE.md). Este README explica o que é o projeto e como ele é organizado.
+Regras operacionais para quem (ou qual agente) for trabalhar neste código estão em [`.claude/CLAUDE.md`](./.claude/CLAUDE.md). Este README explica o que é o projeto e como ele é organizado. Para o link de cada página e cada documento que existe hoje, ver o [índice de documentação](./INDICE.md).
 
 ## Contexto
 
@@ -73,7 +73,7 @@ servi-ds/
 │   ├── cut-release.mjs           (fecha o lote "Não lançado" do CHANGELOG e calcula o bump)
 │   └── extract-release-notes.mjs (extrai as notas de uma versão para a GitHub Release)
 ├── templates/
-│   └── github-workflows/       (material de apoio para configurar um sistema consumidor)
+│   └── instalar-servi-ds.sh    (script opcional de instalação manual imediata, sem esperar o ciclo de PR)
 ├── tokens/
 │   ├── tokens-primitives.css   (camada 1)
 │   ├── tokens-semantic.css     (camada 2)
@@ -115,3 +115,5 @@ npx shadcn add http://localhost:3000/r/button.json --dry-run
 ## Documentação completa
 
 Este README cobre o essencial para orientar quem chega ao repositório. As regras completas, o plano de fases e as decisões de arquitetura, com o porquê de cada uma, vivem no projeto Claude "Servi DS", fora deste repositório por decisão do projeto (ver [`.claude/CLAUDE.md`](./.claude/CLAUDE.md)). Este repositório guarda só o que é publicado: código, tokens, documentação de componente e as regras operacionais em `.claude/rules/`.
+
+O [índice completo de toda a documentação](./INDICE.md), com o link de cada página e de cada documento, fica em `INDICE.md`, na raiz deste repositório.

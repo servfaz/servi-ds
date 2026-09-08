@@ -6,7 +6,7 @@ Categorias fechadas: **Adicionado**, **Alterado**, **Depreciado**, **Removido**,
 
 Mudança de token que não afeta nenhum componente diretamente aparece só aqui, com `Tokens` (ou o nome da escala) na coluna Item, sem link. Mudança de componente aparece aqui e também na seção "Changelog" da página do componente em `content/docs/componentes/<nome>.md`; o Item vira link para lá, em vez de duplicar o texto.
 
-Enquanto um release não é cortado, a coluna Versão leva `Não lançado`, e o nível (MAJOR, MINOR ou PATCH) fica registrado num comentário HTML na linha seguinte de cada entrada, invisível na renderização. Ver `.claude/skills/versionamento-e-changelog/SKILL.md` para as regras completas.
+Enquanto um release não é cortado, a coluna Versão leva `Não lançado`, e o nível (MAJOR, MINOR ou PATCH) fica registrado num comentário HTML na linha seguinte de cada entrada, invisível na renderização. Ver as regras de changelog do repositório para os detalhes completos.
 
 | Versão | Data | Categoria | Item | Descrição |
 | --- | --- | --- | --- | --- |

@@ -12,7 +12,7 @@ O Servi DS tem duas partes, com fonte única cada uma:
 ```card-grid
 - title: Design tokens
   href: "https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables?node-id=2004-602&t=OzRX4u7mSzVEce3Y-1"
-  description: "Valores de design organizados em três camadas (Primitiva, Semântica e de Componente), detalhados em arquitetura-e-regras-de-design-tokens.md."
+  description: "Valores de design organizados em três camadas (Primitiva, Semântica e de Componente)."
 - title: Biblioteca de componentes
   href: "https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components?node-id=2004-602&t=OhPikNWzHu2LaE8I-1"
   description: "Componentes de interface prontos, construídos sobre a base do shadcn/ui e adaptados aos tokens da Servfaz. Publicados como código através de um registry, consumido pelos produtos via ds.servfaz.app."

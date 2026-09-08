@@ -1,88 +1,93 @@
 ---
 title: Começando um projeto novo com o Servi DS
-description: Guia para devs que estão configurando um produto novo (ou um repositório novo) para consumir o Servi DS pela primeira vez.
+description: Guia para times de desenvolvimento que estão configurando um produto novo (ou um repositório novo) para consumir o Servi DS pela primeira vez.
 ---
 
-Este guia cobre o caminho do zero: projeto sem nenhum componente instalado até um projeto com os tokens carregados, o primeiro componente instalado e o tema (light/dark) funcionando. Não repete as regras de arquitetura de tokens (ver `arquitetura-e-regras-de-design-tokens`) nem a lista de componentes disponíveis, o foco aqui é só o passo a passo de configuração.
+## O que é o Servi DS
+
+O Servi DS é o design system da Servfaz: a biblioteca shadcn/ui restilizada com os tokens visuais da empresa (cor, espaçamento, tipografia, ícones), publicada como um registry próprio e instalada pela CLI do shadcn/ui, apontada para `ds.servfaz.app`. O objetivo é ser a fonte única de padrões visuais e de interação de todos os produtos da empresa, usada desde o primeiro dia de qualquer projeto novo.
+
+Isso traz consistência entre produtos, mais velocidade (componente pronto em vez de recriado), acessibilidade já validada em WCAG 2.1 AA e manutenção centralizada: corrigir um componente ou token num lugar atualiza todos os produtos que o usam.
 
 ## Pré-requisitos
 
-- Node.js na versão LTS atual.
-- Projeto com Next.js (App Router) e Tailwind CSS já configurados. Os produtos Servfaz de hoje (`dossie-front`, `faturamento_front`, `servauth_frontend`) seguem esse padrão, então é o caminho recomendado para um projeto novo.
-- Acesso de leitura ao registry do Servi DS (`ds.servfaz.app`).
-
-Se o projeto novo não usa Next.js, os passos abaixo ainda se aplicam na mesma ordem, só muda o comando de criação do projeto no Passo 1.
+- Node.js na versão LTS.
+- Projeto com Next.js (App Router) e Tailwind CSS.
+- Acesso ao registry (`ds.servfaz.app`).
 
 ## Passo 1: criar o projeto
 
-Se o repositório ainda não existe:
+Se o projeto ainda não existe, crie com:
 
 ```bash
 npx create-next-app@latest nome-do-projeto --typescript --tailwind --app
 ```
 
-Se o repositório já existe e só falta configurar o design system, pule para o Passo 2.
+Se já existe, vá direto para o Passo 2.
 
-## Passo 2: inicializar o shadcn/ui no projeto
+## Passo 2: iniciar o shadcn/ui
 
-O Servi DS é publicado como um registry compatível com a CLI do shadcn/ui (ver `resumo-shadcn-registry`). O primeiro passo em qualquer projeto novo é inicializar essa CLI, que cria o arquivo `components.json` com os aliases de import (`@/components`, `@/lib`, `@/hooks` etc.) e o estilo base:
+Rode:
 
 ```bash
 npx shadcn@latest init
 ```
 
-Esse comando pergunta o estilo, a cor base e os aliases. Manter os aliases padrão (`@components`, `@ui`, `@lib`, `@hooks`) evita divergência entre os produtos.
+Esse comando prepara o projeto para receber componentes do Servi DS. Ele pergunta o estilo, a cor base e os aliases, e altera o projeto em três pontos:
 
-## Passo 3: carregar os tokens do Servi DS
+- cria o arquivo `components.json`, com a configuração usada por todos os comandos seguintes;
+- cria o arquivo `lib/utils.ts`, com uma função auxiliar usada pelos componentes;
+- adiciona ao seu CSS global (`app/globals.css`) a estrutura base de variáveis CSS, que os tokens do Servi DS vão preencher a partir do próximo passo.
 
-Antes de instalar qualquer componente, o projeto precisa ter as variáveis CSS das camadas Primitiva e Semântica disponíveis (ver `arquitetura-e-regras-de-design-tokens`, seção 2). É essa camada que resolve light e dark mode.
+Mantenha os aliases padrão (`@components`, `@ui`, `@lib`, `@hooks`) para não divergir dos outros produtos.
 
-> **Pendência a confirmar com o time de design:** este guia assume que existe (ou vai existir) um item do tipo `registry:base` ou `registry:theme` no registry do Servi DS que instala de uma vez as variáveis das camadas Primitiva e Semântica, por exemplo `npx shadcn@latest add https://ds.servfaz.app/r/theme.json`. Se esse item ainda não existe, o passo real hoje é confirmar com o time se os tokens chegam via `registryDependencies` de cada componente instalado individualmente, ou se precisam ser copiados manualmente. Assim que a resposta estiver confirmada, este passo deve ser reescrito com o comando exato e essa nota removida.
+## Passo 3: do cadastro à PR, o fluxo completo
 
-## Passo 4: instalar um componente
+Depois do cadastro, o time consumidor faz o mínimo possível: revisar e aprovar uma Pull Request quando ela chega. Nenhum comando de instalação é responsabilidade do dev a partir daqui, nem no primeiro dia nem depois. É uma corrente com seis elos, e só um deles é manual:
 
-Cada componente do Servi DS é instalado pela URL do item, direto do registry:
+1. Alguém do projeto pede o cadastro. Peça ao time do Servi DS para cadastrar o repositório do projeto na lista de consumidores.
+2. O time do Servi DS cadastra o repositório nessa lista.
+3. O cadastro dispara o robô do Servi DS sozinho, sem ninguém rodar comando nenhum.
+4. O robô instala tudo no repositório do projeto: todos os componentes já publicados, com os tokens (cor, espaçamento, tipografia) inclusos, e corrige o alias de import do projeto quando necessário.
+5. O robô abre uma Pull Request no repositório do projeto, com esse resultado.
+6. Alguém do time do projeto revisa e aprova essa PR. Esse é o único passo manual recorrente de toda a corrente, de propósito, para sempre ter alguém olhando antes do código entrar.
+
+Se o projeto já tinha algum componente shadcn/ui customizado à mão, essa primeira PR substitui esse componente pela versão do Servi DS, e a customização se perde. Vale reaplicar a customização por cima ou pedir um token ou variante nova para o Servi DS, em vez de perder silenciosamente o que já existia.
+
+Depois dessa primeira vez, toda nova mudança publicada no Servi DS (componente ou token) repete os elos 3 a 6 sozinha, gerando uma nova PR. A descrição da PR hoje não traz automaticamente o que precisa mudar no código do projeto quando a mudança quebra algo em uso: antes de aprovar, conferir a entrada correspondente no `CHANGELOG.md` do Servi DS, principalmente quando for uma versão MAJOR.
+
+### Atalho: instalar sem esperar o cadastro
+
+Quer o resultado do elo 4 sem esperar o cadastro? O Servi DS também disponibiliza um script (`templates/instalar-servi-ds.sh`, neste repositório) que roda essa mesma instalação localmente, de uma vez. Copie o arquivo para a raiz do projeto consumidor e rode a partir de lá, já com `components.json` criado.
+
+Depois de rodá-lo, siga com o elo 1 do mesmo jeito, para continuar recebendo as próximas atualizações pela PR automática.
+
+## Problemas comuns
+
+**Import quebrado.** A instalação grava `@/app/lib/utils` por padrão. Se o alias do projeto for outro, o ajuste automático tenta corrigir, mas só funciona em projetos com pasta `src/` na raiz, e mesmo assim não cobre todo caso. Se algum arquivo ficar com import quebrado, troque pelo alias real do projeto (`aliases.utils` ou `aliases.lib` em `components.json`).
+
+**Componente que ainda não existe no Servi DS.** Confirme com o time do Servi DS se já está no roadmap antes de construir uma versão própria.
+
+## Passo 4: tema claro e escuro
+
+Os tokens já têm valor para os dois modos. Falta só o mecanismo que alterna entre eles, por exemplo com `next-themes`, trocando a classe `dark` na página.
+
+## Passo 5: ícones
+
+Use sempre a biblioteca [Phosphor Icons](https://phosphoricons.com/).
 
 ```bash
-npx shadcn@latest add https://ds.servfaz.app/r/button.json
+npm install @phosphor-icons/react
 ```
 
-Troque `button` pelo nome do componente. Esse é o mesmo comando que aparece na seção de instalação da página de cada componente em `ds.servfaz.app/docs`, então o caminho mais confiável para pegar o comando certo é abrir a página do componente e copiar de lá, em vez de adivinhar o nome.
+## Boas práticas
 
-O comando já resolve sozinho as dependências de pacote (`dependencies`) e de outros itens do registry (`registryDependencies`) que esse componente precisar, incluindo tokens de componente específicos dele.
+Antes de criar CSS ou componente próprio, confirme três coisas:
 
-Repita para cada componente que o projeto for usar. Os mais usados hoje nos produtos Servfaz são button, badge, input, card, skeleton, dialog e label (ver `levantamento-uso-componentes-frontend`), bons candidatos a instalar já nas primeiras telas.
-
-## Passo 5: configurar a alternância de tema (light/dark)
-
-O Servi DS resolve dark mode inteiramente na camada semântica dos tokens (nenhuma lógica condicional dentro do componente). O que falta, do lado do projeto consumidor, é o mecanismo que aplica a classe ou atributo de tema na raiz da página e permite ao usuário alternar entre os modos.
-
-> **Pendência a confirmar com o time de design:** confirmar se o Servi DS publica um componente ou provider padrão para isso (por exemplo um `theme-provider` no registry, construído sobre `next-themes`), ou se cada produto implementa esse provider por conta própria hoje. Se não existir um item padrão no registry, vale considerar publicar um, para que a alternância de tema não seja reimplementada de forma diferente em cada repositório.
-
-## Passo 6: ícones
-
-Todo ícone usado no projeto vem da biblioteca Phosphor Icons, pelo nome oficial do ícone nessa biblioteca (ver `design-doc`, Regra 5). Nenhum outro pacote de ícone é usado em conjunto com componentes do Servi DS.
-
-> **Pendência a confirmar com o time de design:** qual pacote npm exato do Phosphor é o padrão adotado (`@phosphor-icons/react` ou outra variante), para que este guia traga o comando de instalação certo em vez de um nome genérico.
-
-## Boas práticas ao integrar o Servi DS num projeto novo
-
-Antes de escrever qualquer CSS ou componente próprio no projeto novo, vale confirmar:
-
-- **O componente já existe no Servi DS?** Se existir, instalar pelo registry em vez de recriar. Um componente "parecido, mas construído do zero" no projeto é exatamente o tipo de cópia paralela que o Servi DS existe para eliminar.
-- **O valor visual que a tela precisa já é um token?** Cor, espaçamento, raio, sombra, tudo isso deve vir de `var(--nome-do-token)`, nunca de um valor bruto digitado direto no CSS ou no componente (ver `arquitetura-e-regras-de-design-tokens`, R1).
-- **O componente ou token realmente não existe?** Se depois de checar a biblioteca em `ds.servfaz.app/docs` e as coleções do Figma Variables o componente ou o token não existir, o caminho correto é sinalizar isso ao time de design para que nasça dentro do Servi DS, nunca criar uma versão isolada só para aquele projeto. Variável ou componente encontrado fora dos dois arquivos Figma oficiais (Variables e Components) é sempre considerado pendência de migração, nunca uma alternativa válida.
+- **O componente já existe no Servi DS?** Se sim, ele já chega pela PR automática. Não recrie por conta própria.
+- **O valor já é um token?** Cor, espaço, raio, sombra: sempre `var(--nome-do-token)`, nunca um valor solto.
+- **Não existe mesmo?** Avise o time de design antes de criar algo isolado. Nada nasce fora do Figma oficial.
 
 ## Onde continuar
 
-A partir daqui, a página de cada componente em `ds.servfaz.app/docs/componentes/<nome>` traz a lista completa de props, estados suportados, tokens consumidos e dependências. Toda página do site tem uma ação de copiar o conteúdo inteiro como markdown, útil para colar direto num prompt ou numa outra ferramenta.
-
-## Pendências deste guia
-
-As três notas marcadas acima ao longo do texto, reunidas num só lugar para facilitar o acompanhamento:
-
-1. Confirmar se existe (ou definir) um item `registry:base`/`registry:theme` que instala as camadas Primitiva e Semântica de uma vez, e qual é a URL exata desse item.
-2. Confirmar se existe um provider padrão de tema (light/dark) publicado no registry, ou se cada produto resolve isso por conta própria hoje.
-3. Confirmar o nome exato do pacote Phosphor Icons adotado como padrão.
-
-Este guia deve ser atualizado assim que essas três respostas estiverem confirmadas, substituindo cada nota pelo comando ou informação real, nunca um valor supondo o que provavelmente seria (ver `design-doc`, Regra 3).
+Cada componente tem sua própria página em `ds.servfaz.app/docs/componentes/<nome>`, com props, estados e tokens. Toda página tem um botão para copiar o conteúdo como markdown.

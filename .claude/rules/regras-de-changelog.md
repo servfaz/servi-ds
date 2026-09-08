@@ -6,16 +6,16 @@ paths:
   - "CHANGELOG.md"
 ---
 
-# Changelog e versionamento do Servi DS
+# Regras de changelog
 
-Este arquivo define como uma mudança neste repositório, seja token ou componente, vira uma entrada de changelog, e como essas entradas geram a versão do registry (`REGISTRY_VERSION`).
+Este documento define como uma mudança publicada no Servi DS, seja token ou componente, vira uma entrada de changelog, e como essas entradas geram a versão do registry (`REGISTRY_VERSION`).
 
 ## Onde mora o changelog
 
-O changelog mora em dois lugares:
+O changelog mora em dois lugares, ambos dentro do repositório `servi-ds`, nunca no projeto Claude e nunca em qualquer lugar fora do repositório:
 
-1. Um arquivo raiz `CHANGELOG.md`, com o histórico completo, em ordem cronológica, organizado por versão do registry. É o índice geral: toda entrada, de token ou de componente, aparece aqui.
-2. Uma seção "Changelog" dentro da página de cada componente, em `content/docs/componentes/<nome>.md`, com só as entradas daquele componente.
+1. Um arquivo raiz `CHANGELOG.md`, com o histórico completo, em ordem cronológica, organizado por versão do registry (`REGISTRY_VERSION`). É o índice geral: toda entrada, de token ou de componente, aparece aqui.
+2. Uma seção "Changelog" dentro da página de cada componente, em `content/docs/componentes/<nome>.md`, com só as entradas daquele componente. Essa seção é a oitava da estrutura padrão de página de componente, junto das outras sete.
 
 Mudança de token que não afeta nenhum componente diretamente entra só no `CHANGELOG.md` raiz, numa categoria "Tokens" (token não tem página própria para referenciar). Mudança de componente entra nos dois lugares ao mesmo tempo: a entrada completa mora na seção do componente, e a linha correspondente no `CHANGELOG.md` raiz referencia essa seção (Regra 4), em vez de manter dois textos soltos e independentes.
 
@@ -31,11 +31,11 @@ Entrada de componente cita o nome do componente e a mudança específica (prop, 
 
 ### Regra 3: categorias fechadas
 
-Toda entrada usa uma destas cinco categorias, sem exceção: Adicionado, Alterado, Depreciado, Removido, Corrigido. Categoria nova exige aprovação explícita da designer responsável pelo Servi DS antes de entrar em uso.
+Toda entrada usa uma destas cinco categorias, sem exceção: Adicionado, Alterado, Depreciado, Removido, Corrigido. Vocabulário fechado, no mesmo espírito do vocabulário fechado de estado e de ênfase já usado nos tokens. Categoria nova exige aprovação explícita da designer responsável pelo Servi DS antes de entrar em uso.
 
 ### Regra 4: formato da entrada
 
-Cada entrada é uma linha de tabela com cinco colunas: Versão (o `REGISTRY_VERSION` que essa entrada leva, sempre o número, nunca a palavra MAJOR, MINOR ou PATCH por extenso), Data (DD/MM/AAAA), Categoria (Regra 3), Item e Descrição. Descrição é curta e direta: o mínimo de palavras que diz o quê mudou, sem explicar motivo nem benefício.
+Cada entrada é uma linha de tabela com cinco colunas: Versão (o `REGISTRY_VERSION` que essa entrada leva, sempre o número, nunca a palavra MAJOR, MINOR ou PATCH por extenso), Data (`DD/MM/AAAA`), Categoria (Regra 3), Item e Descrição. Descrição é curta e direta: o mínimo de palavras que diz o quê mudou, sem explicar motivo nem benefício.
 
 Quando o Item é um componente, o nome vem como link para a seção Changelog da página daquele componente (`content/docs/componentes/<nome>.md#changelog`). Quando o Item é um token sem componente associado, o nome fica só entre crases, sem link, porque não existe página própria para apontar.
 
@@ -65,7 +65,7 @@ Bump MAJOR: soma 1 em MAJOR, zera MINOR e PATCH. `1.0.1` vira `2.0.0`.
 Bump MINOR: soma 1 em MINOR, zera PATCH, mantém MAJOR. `1.0.1` vira `1.1.0`.
 Bump PATCH: soma 1 em PATCH, mantém MAJOR e MINOR. `1.0.1` vira `1.0.2`.
 
-Se este repositório ainda não tiver um `REGISTRY_VERSION` publicado, não escolher o número inicial sozinho. Sinalizar isso para a designer decidir (convenção usual: `0.1.0` para API instável, `1.0.0` para conjunto já estável) e não aplicar a Regra 6 até essa decisão existir.
+O `REGISTRY_VERSION` do Servi DS já está publicado (arquivo `REGISTRY_VERSION` na raiz do repositório, decisão já tomada pela designer). Se, no futuro, outro registry nesse mesmo formato nascer sem esse arquivo ainda, não escolher o número inicial sozinho: sinalizar isso para a designer decidir (convenção usual: `0.1.0` para API instável, `1.0.0` para conjunto já estável) e não aplicar a Regra 6 até essa decisão existir.
 
 ### Regra 8: MAJOR sempre traz o caminho de migração
 
@@ -91,6 +91,6 @@ Nenhuma entrada cita nome de cliente, print de produto real com dado de uso, ou 
 
 A entrada de changelog é gerada no mesmo commit que publica a mudança, a partir do diff real: o que mudou em `registry.json`, no código do componente, ou nos tokens consumidos por ele. Nunca de memória do que provavelmente mudou. Se a categoria ou o nível (MAJOR, MINOR, PATCH) não está claro a partir do diff, sinalizar a lacuna na própria entrada e perguntar à designer, nunca preencher com um palpite.
 
-## Quando este arquivo e a prática divergirem
+## Quando este documento e a prática divergirem
 
 Se uma entrada publicada não seguir uma destas regras, corrigir a entrada, não a regra. Mudar uma regra aqui é decisão explícita da designer responsável pelo Servi DS, nunca ajuste silencioso para acomodar um caso pontual.

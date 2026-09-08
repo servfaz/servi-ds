@@ -1,6 +1,6 @@
 # DESIGN-DOC: regras para geração automática de documentação de componente
 
-Este documento existe para operacionalizar o princípio 5 de `o-que-e-o-servi-ds.md` ("Documentação é gerada, não desenhada à mão"). Define como eu (Claude) gero a página de documentação de cada componente, para que a designer não precise desenhar tela nenhuma no Figma para esse fim. O Figma continua sendo a fonte visual do componente em si (tokens e biblioteca), nunca da documentação.
+Este documento existe para operacionalizar o princípio "Documentação é gerada, não desenhada à mão" (princípio 5 do documento que define o que é o Servi DS). Define como eu (Claude) gero a página de documentação de cada componente, para que a designer não precise desenhar tela nenhuma no Figma para esse fim. O Figma continua sendo a fonte visual do componente em si (tokens e biblioteca), nunca da documentação.
 
 ## Onde mora o conteúdo
 
@@ -60,7 +60,7 @@ O site de documentação não tem tema visual próprio. Ele consome o mesmo tema
 
 ### Regra 11: nunca publicar o que é exclusivo da documentação
 
-Componente construído só para o site de documentação funcionar (tabela de props, botão de copiar como markdown, grade de estados, navegação lateral) nunca entra no `registry.json` nem fica disponível para instalação por `npx shadcn add`. Publicável é só o que faz parte do Servi DS em si, nunca a ferramentaria que existe apenas para exibi-lo.
+Componente construído só para o site de documentação funcionar (tabela de props, botão de copiar como markdown, grade de estados, navegação lateral) nunca entra no `registry.json` nem fica disponível para instalação por `npx shadcn add`. Publicável é só o que faz parte do Servi DS em si, nunca a ferramenta que existe apenas para exibi-lo.
 
 ### Regra 12: copiar como markdown em toda página
 
@@ -69,6 +69,10 @@ Toda página do site, sem exceção, oferece uma ação visível e funcional de 
 ### Regra 13: sempre componente shadcn quando existir
 
 Antes de construir qualquer peça de interface do site do zero, verificar se já existe um componente shadcn/ui, de preferência já restilizado como item do Servi DS, que cubra a necessidade (tabela, abas, acordeão, botão, campo, tooltip). Usar esse componente existente, nunca recriar o mesmo padrão com HTML e CSS próprio. Construir algo do zero só quando nenhum componente disponível resolve o caso. Vale tanto para os componentes exclusivos do site (Regra 11, tabela de props, grade de estados, botão de copiar) quanto para qualquer outra peça de interface do repositório.
+
+### Regra 14: nunca citar outro documento pelo nome do arquivo
+
+Nenhum documento deste projeto, nem página publicada, cita outro documento pelo nome do arquivo (por exemplo, `arquitetura-e-regras-de-design-tokens.md`). Referência a outro conteúdo é feita em prosa, pelo assunto, nunca por um nome de arquivo entre crases. Se a referência não for essencial ao ponto sendo feito, o mais simples é não citar nada.
 
 ## Estrutura padrão de cada página de componente
 
@@ -81,6 +85,7 @@ Todo arquivo em `content/docs/componentes/` segue a mesma ordem de seções, par
 5. **Tokens usados**, listando os tokens de componente que o item consome.
 6. **Dependências**, de pacote e de outros itens do registry.
 7. **Status da identidade visual**, quando o componente ainda não está totalmente restilizado com os tokens da Servfaz.
+8. **Changelog**, com só as entradas daquele componente (ver regras de changelog).
 
 ## O que fazer quando este documento e a prática divergirem
 
