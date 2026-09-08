@@ -2,6 +2,7 @@ import type { Element } from "hast"
 import Markdown, { type Components } from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { load as loadYaml } from "js-yaml"
+import { WarningCircleIcon } from "@phosphor-icons/react/dist/ssr"
 import { slugify } from "@/lib/slugify"
 import { textMuted } from "@/lib/doc-styles"
 import { CodeBlock } from "@/components/docs/code-block"
@@ -9,6 +10,7 @@ import {
   ResourceCardGrid,
 } from "@/components/docs/resource-card-grid"
 import type { ResourceCardData } from "@/components/docs/resource-card"
+import { Alert, AlertDescription, AlertTitle } from "@/registry/servfaz/alert"
 
 function textOf(node: Element): string {
   return node.children
@@ -18,6 +20,12 @@ function textOf(node: Element): string {
       return ""
     })
     .join("")
+}
+
+type AlertBlockData = {
+  variant?: "warning"
+  title?: string
+  body?: string
 }
 
 const components: Components = {
@@ -99,6 +107,18 @@ const components: Components = {
     if (language === "card-grid") {
       const cards = (loadYaml(raw) as ResourceCardData[]) ?? []
       return <ResourceCardGrid cards={cards} />
+    }
+
+    if (language === "alert") {
+      const data = (loadYaml(raw) as AlertBlockData) ?? {}
+      const variant = data.variant ?? "warning"
+      return (
+        <Alert variant={variant}>
+          {variant === "warning" && <WarningCircleIcon />}
+          {data.title && <AlertTitle>{data.title}</AlertTitle>}
+          {data.body && <AlertDescription>{data.body}</AlertDescription>}
+        </Alert>
+      )
     }
 
     return <CodeBlock code={raw} language={language} />
