@@ -3,7 +3,12 @@ title: Começando um projeto novo com o Servi DS
 description: Guia completo para desenvolvedores que estão configurando um produto, novo ou existente, para consumir o Servi DS.
 ---
 
-O Servi DS é de uso exclusivo dos sistemas da Servfaz. Ele não é destinado a projetos externos, de terceiros ou fora da empresa, sob nenhuma circunstância.
+```alert
+variant: warning
+title: Uso exclusivo
+body: |
+  O Servi DS é de uso exclusivo dos sistemas da Servfaz. Ele não é destinado a projetos externos, de terceiros ou fora da empresa, sob nenhuma circunstância.
+```
 
 ## Pré-requisitos
 
