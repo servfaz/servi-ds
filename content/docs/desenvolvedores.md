@@ -12,7 +12,7 @@ O Servi DS é de uso exclusivo dos sistemas da Servfaz. Ele não é destinado a 
 - Tailwind CSS configurado.
 - Acesso ao registry público em `ds.servfaz.app`.
 
-O Servi DS é construído sobre o shadcn/ui. Se o projeto usa outro framework de UI ou não usa Tailwind, converse com o time do Servi DS antes de seguir os próximos passos.
+O Servi DS é construído sobre o shadcn/ui.
 
 ## Passo 1: preparar o projeto
 
