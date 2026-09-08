@@ -6,10 +6,12 @@ Categorias fechadas: **Adicionado**, **Alterado**, **Depreciado**, **Removido**,
 
 Mudança de token que não afeta nenhum componente diretamente aparece só aqui, com `Tokens` (ou o nome da escala) na coluna Item, sem link. Mudança de componente aparece aqui e também na seção "Changelog" da página do componente em `content/docs/componentes/<nome>.md`; o Item vira link para lá, em vez de duplicar o texto.
 
-Enquanto um release não é cortado, a coluna Versão leva `Não lançado`, e o nível (MAJOR, MINOR ou PATCH) fica registrado num comentário HTML na linha seguinte de cada entrada, invisível na renderização. Ver as regras de changelog do repositório para os detalhes completos.
+Enquanto um release não é cortado, a coluna Versão leva `Não lançado`, e o nível (MAJOR, MINOR ou PATCH) fica registrado num comentário HTML na própria linha de cada entrada, invisível na renderização. Ver as regras de changelog do repositório para os detalhes completos.
 
 | Versão | Data | Categoria | Item | Descrição |
 | --- | --- | --- | --- | --- |
+| Não lançado | 08/09/2026 | Adicionado | [`Alert`](content/docs/componentes/alert.md#changelog) | Item `alert` publicado em `registry.json`, variante `warning`, arquivo `registry/servfaz/alert.tsx`. <!-- nivel: MINOR --> |
+| Não lançado | 08/09/2026 | Adicionado | `Tokens` | Tokens semânticos de aviso (`--color-background-warning-subtle`, `--color-text-warning`, `--color-border-warning-default`) e tokens de componente do Alert (`--alert-container-color-warning`, `--alert-content-color-warning`, `--alert-icon-color-warning`, `--alert-border-color-warning`). <!-- nivel: MINOR --> |
 | 0.2.0 | 03/09/2026 | Adicionado | `Tokens` | Nova escala de cor primitiva `taupe` (`--color-taupe-50` a `--color-taupe-950`) em `tokens/tokens-primitives.css`. |
 | 0.2.0 | 03/09/2026 | Corrigido | [`Button`](content/docs/componentes/button.md#changelog) | `registryDependencies` apontava para o nome puro `tokens`, que colide com um item oficial de mesmo nome no registry padrão do shadcn; o CLI resolvia a dependência errada quando o consumidor não tinha namespace `servfaz` configurado. Trocado para a URL completa `https://ds.servfaz.app/r/tokens.json`. |
 | 0.2.0 | 03/09/2026 | Corrigido | [`Button`](content/docs/componentes/button.md#changelog) | Variantes `default` e `secondary` ficavam sem cor no consumidor porque `registry.json` não publicava os tokens que o Button referencia via `var(--button-*)`. Adicionado item `tokens` (`registry:theme`) com os `cssVars` das camadas Primitiva e Semântica (light/dark), e `cssVars` da camada Componente mais `registryDependencies: ["tokens"]` ao próprio item `button`. |
