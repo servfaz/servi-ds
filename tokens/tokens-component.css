@@ -1,5 +1,5 @@
 /**
- * Camada 3 - Component (Button)
+ * Camada 3 - Component (Button, Alert)
  * Fonte: Figma Variables > projeto "[SF-DS] Variables" > coleção "Component", mode "Value"
  * https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables
  *
@@ -26,4 +26,12 @@
   /* Border (anel de foco) */
   --button-border-color-primary-focus: var(--color-border-brand-default);  /* Anel de foco do botão - primário */
   --button-border-color-secondary-focus: var(--color-border-brand-secondary-default);  /* Anel de foco do botão - secundário */
+
+  /* Alert - Container (fundo) */
+  --alert-container-color-warning: var(--color-background-warning-subtle);  /* Fundo do alerta - aviso */
+  /* Content (texto / ícone) */
+  --alert-content-color-warning: var(--color-text-warning);  /* Texto do alerta - aviso */
+  --alert-icon-color-warning: var(--color-text-warning);  /* Ícone do alerta - aviso */
+  /* Border */
+  --alert-border-color-warning: var(--color-border-warning-default);  /* Borda do alerta - aviso */
 }
