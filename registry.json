@@ -150,6 +150,27 @@
           "button-border-color-secondary-focus": "var(--color-border-brand-secondary-default)"
         }
       }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Breadcrumb com a identidade visual da Servfaz.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/breadcrumb.tsx",
+          "target": "@ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
