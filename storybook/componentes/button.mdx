@@ -1,0 +1,26 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks"
+import { DocPage, DocSection } from "../blocks"
+import * as ButtonStories from "./button.stories"
+import raw from "../../content/docs/componentes/button.md?raw"
+import source from "../../registry/servfaz/button.tsx?raw"
+
+<Meta of={ButtonStories} />
+
+<DocPage raw={raw} source={source}>
+  <DocSection title="Exemplo">
+    <Canvas of={ButtonStories.Playground} />
+    <Controls of={ButtonStories.Playground} />
+  </DocSection>
+  <DocSection title="Variantes">
+    <Canvas of={ButtonStories.Variantes} />
+  </DocSection>
+  <DocSection title="Tamanhos">
+    <Canvas of={ButtonStories.Tamanhos} />
+  </DocSection>
+  <DocSection title="Desabilitado">
+    <Canvas of={ButtonStories.Desabilitado} />
+  </DocSection>
+  <DocSection title="Com ícone">
+    <Canvas of={ButtonStories.ComIcone} />
+  </DocSection>
+</DocPage>

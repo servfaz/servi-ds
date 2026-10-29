@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": "storybook-static",
+  "redirects": [
+    { "source": "/docs/sobre", "destination": "/?path=/docs/sobre--docs", "permanent": false },
+    { "source": "/docs/desenvolvedores", "destination": "/?path=/docs/desenvolvedores--docs", "permanent": false },
+    { "source": "/docs/componentes/:nome", "destination": "/?path=/docs/componentes-:nome--docs", "permanent": false }
+  ]
+}

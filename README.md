@@ -38,19 +38,9 @@ Rollout é gradual, componente por componente: um componente ausente do `registr
 
 ```
 servi-ds/
-├── app/                        (site de documentação, Next.js App Router)
-│   ├── docs/
-│   │   ├── componentes/[nome]/page.tsx
-│   │   ├── desenvolvedores/page.tsx
-│   │   └── sobre/page.tsx
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
+├── .storybook/                 (configuração do site de documentação, Storybook)
 ├── automation/
 │   └── consumers.json          (lista de repositórios que recebem propagação automática)
-├── components/
-│   ├── docs/                   (blocos do site: tabela de props, bloco de código, navegação etc.)
-│   └── docs-shell.tsx
 ├── content/
 │   └── docs/                   (markdown puro, fonte de cada página do site)
 │       ├── comece.md
@@ -58,7 +48,8 @@ servi-ds/
 │       ├── sobre.md
 │       └── componentes/
 │           └── button.md
-├── lib/                        (leitura de conteúdo, geração de índice, utilitários do site)
+├── lib/
+│   └── utils.ts                (utilitário cn, usado pelos componentes)
 ├── public/
 │   ├── brand/                  (logo Servfaz)
 │   └── r/                      (saída gerada por "shadcn build", nunca editada à mão)
@@ -68,6 +59,11 @@ servi-ds/
 ├── registry/
 │   └── servfaz/
 │       └── button.tsx          (único componente publicado até aqui)
+├── storybook/
+│   ├── blocks/                 (peças exclusivas do site: cabeçalho, markdown, bloco de código, copiar como markdown)
+│   ├── componentes/            (<nome>.stories.tsx e <nome>.mdx de cada componente)
+│   ├── paginas/                (comece.mdx, sobre.mdx, desenvolvedores.mdx)
+│   └── styles/globals.css      (Tailwind, tokens e tema do site)
 ├── scripts/
 │   ├── sync-registry-tokens.cjs  (gera cssVars de registry.json a partir de tokens/*.css)
 │   ├── cut-release.mjs           (fecha o lote "Não lançado" do CHANGELOG e calcula o bump)
@@ -86,6 +82,7 @@ servi-ds/
 ├── REGISTRY_VERSION
 ├── registry.json                (catálogo fonte, editado à mão)
 ├── components.json
+├── vercel.json                  (build estático do Storybook e redirecionamento das URLs antigas)
 └── package.json
 ```
 
@@ -99,17 +96,18 @@ Gerenciador de pacotes é npm.
 
 ```
 npm install
-npm run dev            # sobe o site de documentação em http://localhost:3000
+npm run dev            # sobe o Storybook em http://localhost:6006
 npm run sync-tokens    # regenera registry.json a partir de tokens/*.css, sem buildar
 npm run registry:build # roda sync-tokens e depois "shadcn build", gera public/r/
-npm run build          # build completo do site (roda prebuild, shadcn build e next build)
+npm run build          # build completo (roda prebuild, shadcn build e storybook build em storybook-static/)
+npm run typecheck      # confere os tipos do repositório
 ```
 
 Antes de publicar um item novo, teste sem gravar nenhum arquivo:
 
 ```
-npx shadcn view http://localhost:3000/r/button.json
-npx shadcn add http://localhost:3000/r/button.json --dry-run
+npx shadcn view http://localhost:6006/r/button.json
+npx shadcn add http://localhost:6006/r/button.json --dry-run
 ```
 
 ## Documentação completa
