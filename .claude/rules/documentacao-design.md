@@ -44,7 +44,7 @@ Gerar a documentação de um componente é uma ação só de conteúdo, dentro d
 
 ## Regras de implementação do site de documentação
 
-As regras abaixo valem para o código do próprio site `ds.servfaz.app/docs`, não para o conteúdo em markdown. O site que exibe a documentação segue as mesmas regras de qualidade que os componentes que ele documenta.
+As regras abaixo valem para o código do próprio site de documentação em `ds.servfaz.app`, não para o conteúdo em markdown. O site é um Storybook: a configuração mora em `.storybook/`, e as páginas (`.mdx`), as stories e as peças exclusivas do site moram em `storybook/`. Cada página `.mdx` só monta a exibição: lê o arquivo correspondente de `content/docs/` e acrescenta, nas páginas de componente, os exemplos ao vivo e o código-fonte do registry. O site que exibe a documentação segue as mesmas regras de qualidade que os componentes que ele documenta.
 
 ### Regra 8: componentização é obrigatória
 
@@ -56,7 +56,7 @@ Vale para o código do site exatamente como vale para o conteúdo: nenhum valor 
 
 ### Regra 10: sempre usar o tema do DS
 
-O site de documentação não tem tema visual próprio. Ele consome o mesmo tema (tokens e componentes) do Servi DS que está documentando, incluindo dark mode resolvido na camada semântica, como qualquer outro consumidor do registry. O site é, ele mesmo, uma vitrine do DS em uso real, não uma implementação visual paralela.
+O site de documentação não tem tema visual próprio. Ele consome o mesmo tema (tokens e componentes) do Servi DS que está documentando, incluindo dark mode resolvido na camada semântica, como qualquer outro consumidor do registry. O site é, ele mesmo, uma vitrine do DS em uso real, não uma implementação visual paralela. No Storybook, o conteúdo de cada página e cada story usa os tokens do DS, e a alternância entre claro e escuro só troca a classe `.dark`, como em qualquer consumidor. A moldura da ferramenta (barra lateral e barra de ferramentas) usa o tema claro padrão do Storybook com a marca do Servi DS.
 
 ### Regra 11: nunca publicar o que é exclusivo da documentação
 
@@ -74,11 +74,23 @@ Antes de construir qualquer peça de interface do site do zero, verificar se já
 
 Nenhum documento deste projeto, nem página publicada, cita outro documento pelo nome do arquivo (por exemplo, `arquitetura-e-regras-de-design-tokens.md`). Referência a outro conteúdo é feita em prosa, pelo assunto, nunca por um nome de arquivo entre crases. Se a referência não for essencial ao ponto sendo feito, o mais simples é não citar nada.
 
+### Regra 15: toda página de componente tem stories
+
+Todo componente publicado no registry tem dois arquivos em `storybook/componentes/`, com o mesmo `<nome>` do registry (Regra 2):
+
+1. `<nome>.stories.tsx`, com uma story `Playground` editável pelos controles e uma story por grupo de variação que o código real do componente suporta (variantes, tamanhos, estados, uso com ícone).
+2. `<nome>.mdx`, que monta a página a partir de `content/docs/componentes/<nome>.md`, exibe as stories e o código-fonte de `registry/servfaz/<nome>.tsx`.
+
+Stories e página `.mdx` são geradas no mesmo commit que gera a página em markdown, a partir das mesmas fontes (Regra 3). Nenhum texto de documentação vive dentro de story ou de `.mdx`: o texto mora só no markdown, para continuar copiável (Regras 4 e 12). Story nunca entra em `registry.json` (Regra 11).
+
 ## Estrutura padrão de cada página de componente
 
 Todo arquivo em `content/docs/componentes/` segue a mesma ordem de seções, para consistência entre componentes:
 
 1. **Título e uma linha de descrição.**
+
+No Storybook, logo depois do título, entram os exemplos ao vivo (stories) e o código-fonte, montados pela página `.mdx` (Regra 15). As seções abaixo vêm do markdown.
+
 2. **Instalação**, com o comando `npx shadcn@latest add https://ds.servfaz.app/r/<nome>.json`.
 3. **Props**, em tabela: nome, valores aceitos, obrigatório ou não.
 4. **Estados suportados** (default, hover, pressed, focus, disabled, e outros que o componente tiver).

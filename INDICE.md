@@ -6,14 +6,14 @@ Quando um documento novo for criado, em qualquer um dos dois lugares, ele entra 
 
 ## Páginas publicadas em ds.servfaz.app
 
-Conteúdo em `content/docs/` neste repositório, servido pelo site Next.js.
+Conteúdo em `content/docs/` neste repositório, exibido pelo Storybook (páginas e stories em `storybook/`). As URLs antigas (`/docs/sobre`, `/docs/desenvolvedores`, `/docs/componentes/<nome>`) redirecionam para as novas.
 
 | Página | Arquivo fonte | Link |
 | --- | --- | --- |
 | Comece | `content/docs/comece.md` | https://ds.servfaz.app/ |
-| Desenvolvedores | `content/docs/desenvolvedores.md` | https://ds.servfaz.app/docs/desenvolvedores |
-| Sobre o DS | `content/docs/sobre.md` | https://ds.servfaz.app/docs/sobre |
-| Componente: Button | `content/docs/componentes/button.md` | https://ds.servfaz.app/docs/componentes/button |
+| Desenvolvedores | `content/docs/desenvolvedores.md` | https://ds.servfaz.app/?path=/docs/desenvolvedores--docs |
+| Sobre o DS | `content/docs/sobre.md` | https://ds.servfaz.app/?path=/docs/sobre--docs |
+| Componente: Button | `content/docs/componentes/button.md` | https://ds.servfaz.app/?path=/docs/componentes-button--docs |
 
 Cada componente novo publicado no registry ganha automaticamente uma página nesse mesmo padrão, então esta lista cresce junto com `registry.json`.
 
