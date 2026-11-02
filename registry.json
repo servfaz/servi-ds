@@ -348,6 +348,66 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Rotulo de campo de formulario com a identidade visual da Servfaz.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-label"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/label.tsx",
+          "target": "@ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Campo de texto com icones, label flutuante e estados de validacao da Servfaz.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/input.tsx",
+          "target": "@ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "Campo completo: label, descricao, Input e mensagem de apoio.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/label.json",
+        "https://ds.servfaz.app/r/input.json"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/servfaz/field.tsx",
+          "target": "@ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
