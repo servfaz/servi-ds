@@ -11,7 +11,9 @@ const variants = [
   "link",
 ] as const
 
-const sizes = ["sm", "default", "lg"] as const
+const sizes = ["xs", "sm", "default", "lg"] as const
+
+const iconSizes = ["icon-xs", "icon-sm", "icon", "icon-lg"] as const
 
 const meta = {
   title: "Componentes/Button",
@@ -24,7 +26,7 @@ const meta = {
   },
   argTypes: {
     variant: { control: "select", options: variants },
-    size: { control: "select", options: [...sizes, "icon"] },
+    size: { control: "select", options: [...sizes, ...iconSizes] },
     asChild: { control: false },
   },
 } satisfies Meta<typeof Button>
@@ -55,9 +57,11 @@ export const Tamanhos: Story = {
           {size}
         </Button>
       ))}
-      <Button {...args} size="icon" aria-label="Adicionar">
-        <PlusIcon />
-      </Button>
+      {iconSizes.map((size) => (
+        <Button key={size} {...args} size={size} aria-label="Adicionar">
+          <PlusIcon />
+        </Button>
+      ))}
     </div>
   ),
 }
@@ -77,9 +81,24 @@ export const Desabilitado: Story = {
 export const ComIcone: Story = {
   name: "Com ícone",
   render: (args) => (
-    <Button {...args}>
-      Continuar
-      <ArrowRightIcon />
+    <div className="flex flex-wrap items-center gap-3">
+      <Button {...args}>
+        <PlusIcon />
+        Novo pedido
+      </Button>
+      <Button {...args} variant="secondary">
+        Continuar
+        <ArrowRightIcon />
+      </Button>
+    </div>
+  ),
+}
+
+export const ComoLink: Story = {
+  name: "Como link",
+  render: (args) => (
+    <Button {...args} asChild>
+      <a href="#como-link-aschild">Ver pedidos</a>
     </Button>
   ),
 }
