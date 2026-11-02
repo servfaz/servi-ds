@@ -13,6 +13,8 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "paths": {
+      "@/components/ui/*": ["./registry/servfaz/*"],
+      "@/components/*": ["./registry/servfaz/blocks/app-shell/components/*"],
       "@/*": ["./*"]
     }
   },
