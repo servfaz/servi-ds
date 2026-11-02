@@ -4,10 +4,11 @@ description: Componentes shadcn/ui restilizados com a identidade visual da Servf
 ---
 
 ```card-grid
-- title: Sobre o Design System
-  href: /docs/sobre
-  description: O que é o Servi DS, como ele é distribuído via Registry e por que existe.
-  highlight: true
+# Card da página Sobre, oculta por enquanto.
+# - title: Sobre o Design System
+#   href: /docs/sobre
+#   description: O que é o Servi DS, como ele é distribuído via Registry e por que existe.
+#   highlight: true
 - title: Design
   href: "#"
   description: Identidade visual, tokens e princípios de design da Servfaz.
