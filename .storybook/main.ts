@@ -9,7 +9,13 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const rootPosix = root.split(path.sep).join("/")
 
 const config: StorybookConfig = {
-  stories: ["../storybook/**/*.mdx", "../storybook/**/*.stories.@(ts|tsx)"],
+  stories: [
+    // A página Sobre (paginas/sobre.mdx) está oculta. Para voltar, troque
+    // "!(sobre).mdx" por "*.mdx" e reative o card em content/docs/comece.md.
+    "../storybook/paginas/!(sobre).mdx",
+    "../storybook/!(paginas)/**/*.mdx",
+    "../storybook/**/*.stories.@(ts|tsx)",
+  ],
   addons: [
     "@storybook/addon-docs",
     "@storybook/addon-themes",

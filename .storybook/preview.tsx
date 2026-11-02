@@ -8,7 +8,7 @@ const preview: Preview = {
     controls: { expanded: true },
     options: {
       storySort: {
-        order: ["Comece", "Sobre", "Desenvolvedores", "Componentes"],
+        order: ["Comece", "Desenvolvedores", "Componentes"],
       },
     },
   },
