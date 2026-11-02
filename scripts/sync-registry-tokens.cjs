@@ -2,29 +2,28 @@
 /**
  * Gera o cssVars de registry.json a partir dos arquivos-fonte em tokens/.
  *
- * Fonte unica de verdade: os .css em tokens/. Ninguem edita cssVars em
- * registry.json a mao. Para mudar um token: editar o .css correspondente
- * e rodar "npm run build" (ou "npm run sync-tokens" so para regenerar o
- * registry.json sem buildar).
+ * Fonte unica de verdade: os .css em tokens/, que espelham o Figma Variables.
+ * Ninguem edita cssVars em registry.json a mao. Para mudar um token: mudar a
+ * variavel no Figma, refletir no .css correspondente e rodar "npm run build"
+ * (ou "npm run sync-tokens" so para regenerar o registry.json sem buildar).
  *
- * Mapeamento:
- *   tokens-primitives.css (:root)         -> item "tokens", cssVars.light
- *   tokens-semantic.css   (:root)         -> item "tokens", cssVars.light
- *   tokens-semantic.css   (.dark)         -> item "tokens", cssVars.dark
- *   tokens-component.css  (:root)         -> agrupado por prefixo (nome
- *                                            antes do primeiro hifen, ex.
- *                                            "button-container-color-x"
- *                                            -> prefixo "button") no item
- *                                            de mesmo nome, cssVars.light
+ * Mapeamento (item "tokens"):
+ *   tokens-primitives.css (:root)       -> cssVars.light
+ *   tokens-semantic.css   (:root)       -> cssVars.light (Light + Product)
+ *   tokens-semantic.css   (.dark)       -> cssVars.dark
+ *   tokens-semantic.css   (.editorial)  -> css[".editorial"] (mode Editorial
+ *                                          da colecao Semantic / Scale)
+ *
+ * O Servi DS tem duas camadas (Primitivo e Semantic). Nao existe mais
+ * tokens-component.css: componentes consomem o Semantic direto. Por isso o
+ * script remove qualquer cssVars que tenha sobrado em itens registry:ui.
  *
  * Roda sozinho via "prebuild" em todo "npm run build" (inclui o build da
- * Vercel). Um prefixo em tokens-component.css sem item correspondente em
- * registry.json gera um warning e e ignorado, nao quebra o build: o item
- * do componente ainda nao foi cadastrado, cadastrar antes de propagar.
+ * Vercel).
  *
- * Parser por regex, assume :root/.dark sem chaves aninhadas, estrutura
- * atual dos arquivos em tokens/. Se isso mudar, trocar por um parser CSS
- * de verdade (ex. postcss) em vez de estender a regex.
+ * Parser por regex, assume blocos sem chaves aninhadas, estrutura atual dos
+ * arquivos em tokens/. Se isso mudar, trocar por um parser CSS de verdade
+ * (ex. postcss) em vez de estender a regex.
  */
 const fs = require("fs");
 const path = require("path");
@@ -48,33 +47,30 @@ function parseBlock(css, selector) {
   return vars;
 }
 
+// O campo "css" do registry espera o nome completo da propriedade (com "--").
+function prefixed(vars) {
+  const out = {};
+  for (const [name, value] of Object.entries(vars)) out[`--${name}`] = value;
+  return out;
+}
+
 function readCssBlocks(fileName) {
   const filePath = path.join(TOKENS_DIR, fileName);
   const css = fs.readFileSync(filePath, "utf8");
   return {
     root: parseBlock(css, ":root"),
     dark: parseBlock(css, ".dark"),
+    editorial: parseBlock(css, ".editorial"),
   };
-}
-
-function groupByPrefix(vars) {
-  const groups = {};
-  for (const [name, value] of Object.entries(vars)) {
-    const prefix = name.split("-")[0];
-    groups[prefix] = groups[prefix] || {};
-    groups[prefix][name] = value;
-  }
-  return groups;
 }
 
 function main() {
   const primitives = readCssBlocks("tokens-primitives.css");
   const semantic = readCssBlocks("tokens-semantic.css");
-  const component = readCssBlocks("tokens-component.css");
 
   const tokensLight = { ...primitives.root, ...semantic.root };
   const tokensDark = { ...semantic.dark };
-  const componentGroups = groupByPrefix(component.root);
+  const editorial = prefixed(semantic.editorial);
 
   const registry = JSON.parse(fs.readFileSync(REGISTRY_PATH, "utf8"));
 
@@ -86,33 +82,29 @@ function main() {
     );
   }
   tokensItem.cssVars = { light: tokensLight, dark: tokensDark };
+  if (Object.keys(editorial).length) {
+    tokensItem.css = { ".editorial": editorial };
+  } else {
+    delete tokensItem.css;
+  }
 
-  const matched = [];
-  const unmatched = [];
-  for (const [prefix, vars] of Object.entries(componentGroups)) {
-    const item = registry.items.find((i) => i.name === prefix);
-    if (!item) {
-      unmatched.push(prefix);
-      continue;
+  const cleaned = [];
+  for (const item of registry.items) {
+    if (item.type === "registry:ui" && item.cssVars) {
+      delete item.cssVars;
+      cleaned.push(item.name);
     }
-    item.cssVars = { ...(item.cssVars || {}), light: vars };
-    matched.push(prefix);
   }
 
   fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n");
 
   console.log(
     `sync-registry-tokens: registry.json atualizado a partir de tokens/*.css. ` +
-      `Item "tokens": ${Object.keys(tokensLight).length} vars light, ${Object.keys(tokensDark).length} vars dark. ` +
-      `Componentes atualizados: ${matched.length ? matched.join(", ") : "nenhum"}.`
+      `Item "tokens": ${Object.keys(tokensLight).length} vars light, ` +
+      `${Object.keys(tokensDark).length} vars dark, ` +
+      `${Object.keys(editorial).length} vars editorial.` +
+      (cleaned.length ? ` cssVars removido de: ${cleaned.join(", ")}.` : "")
   );
-  if (unmatched.length) {
-    console.warn(
-      `sync-registry-tokens: aviso, tokens-component.css tem variaveis com prefixo ${unmatched
-        .map((p) => `"${p}"`)
-        .join(", ")} sem item correspondente em registry.json. Nao propagado ate o item existir.`
-    );
-  }
 }
 
 main();
