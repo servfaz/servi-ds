@@ -1,57 +1,303 @@
 /**
- * Camada 2 - Semantic (Alias)
- * Fonte: Figma Variables > projeto "[SF-DS] Variables" > coleção "Semantic", modes "Light" e "Dark"
+ * Camada 2 - Semantic
+ * Fonte: Figma Variables > "[SF-DS] Variables" > coleções "Semantic / Color" (modes Light e Dark)
+ * e "Semantic / Scale" (modes Product e Editorial).
  * https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables
  *
- * Regra (Arquitetura e Regras de Design Tokens, secao 2 e 5):
- * dark mode e resolvido inteiramente aqui, nunca no primitivo nem no componente.
- * Cada variavel referencia SOMENTE uma variavel da camada 1 (tokens-primitives.css),
- * nunca outro token semantico. Light e o valor padrao em :root; Dark sobrescreve em .dark.
- * Requer tokens-primitives.css carregado antes deste arquivo.
+ * Arquivo espelho do Figma. Não editar valor aqui sem antes mudar a variável no Figma.
+ *
+ * Referências:
+ * - "Primitives::x" vira var(--x), definida em tokens-primitives.css.
+ * - "Tailwind::color/x/n" vira var(--color-x-n), do tema padrão do Tailwind v4
+ *   (a coleção "Tailwind" do Figma é cópia do tema padrão do Tailwind).
+ * - "Tailwind::spacing/n" vira calc(var(--spacing) * n), escala padrão do Tailwind v4.
+ *
+ * Modes:
+ * - Light e Product são o padrão em :root.
+ * - Dark sobrescreve em .dark.
+ * - Editorial sobrescreve em .editorial (site e blog: espaçamentos e contêineres maiores).
+ *
+ * Exceção: "radius/full" (Semantic / Scale) não é emitido aqui porque tem o mesmo
+ * nome do primitivo "radius/full" e o mesmo valor nos dois modes. Use var(--radius-full).
+ *
+ * Requer tokens-primitives.css carregado antes deste arquivo e Tailwind v4 no projeto.
  */
 
 :root {
   /* Background */
-  --color-background-disabled: #F5F5F5;  /* Fundo desabilitado - TODO: primitivo "color/tailwind/neutral/100" ainda nao existe em tokens-primitives.css - criar em Primitives no Figma e trocar este valor literal por var(...) */
-  --color-background-brand-subtle: var(--color-green-pea-100);  /* Fundo sutil da marca */
-  --color-background-brand-bold-hover: var(--color-green-pea-900);  /* Fundo principal da marca, hover */
-  --color-background-brand-bold-pressed: var(--color-green-pea-950);  /* Fundo principal da marca, pressed */
-  --color-background-brand-bold: var(--color-green-pea-800);  /* Fundo principal da marca */
-  --color-background-brand-secondary-subtle: var(--color-bourbon-100);  /* Fundo secundário sutil */
-  --color-background-brand-secondary-bold-hover: var(--color-bourbon-700);  /* Fundo secundário da marca, hover */
-  --color-background-brand-secondary-bold-pressed: var(--color-bourbon-800);  /* Fundo secundário da marca, pressed */
-  --color-background-brand-secondary-bold: var(--color-bourbon-600);  /* Fundo secundário da marca */
+  --color-background-default: var(--color-white);
+  --color-background-subtle: var(--color-neutral-50);
+  --color-background-sunken: var(--color-neutral-100);
+  --color-background-raised: var(--color-white);
+  --color-background-overlay: var(--color-white);
+  --color-background-inverse: var(--color-neutral-950);
+  --color-background-input: var(--color-white);
+  --color-background-disabled: var(--color-neutral-100);
+  --color-background-highlight: var(--color-green-pea-100);
+  --color-background-neutral-default: var(--color-neutral-100);
+  --color-background-neutral-default-hover: var(--color-neutral-200);
+  --color-background-neutral-default-pressed: var(--color-neutral-300);
+  --color-background-neutral-subtle-hover: var(--color-neutral-100);
+  --color-background-neutral-subtle-pressed: var(--color-neutral-200);
+  --color-background-selected: var(--color-green-pea-50);
+  --color-background-selected-hover: var(--color-green-pea-100);
+  --color-background-brand-bold: var(--color-green-pea-700);
+  --color-background-brand-bold-hover: var(--color-green-pea-800);
+  --color-background-brand-bold-pressed: var(--color-green-pea-900);
+  --color-background-brand-subtle: var(--color-green-pea-50);
+  --color-background-brand-subtle-hover: var(--color-green-pea-100);
+  --color-background-brand-subtle-pressed: var(--color-green-pea-200);
+  --color-background-danger-bold: var(--color-red-600);
+  --color-background-danger-bold-hover: var(--color-red-700);
+  --color-background-danger-bold-pressed: var(--color-red-800);
+  --color-background-danger-subtle: var(--color-red-50);
+  --color-background-danger-subtle-hover: var(--color-red-100);
+  --color-background-success-bold: var(--color-green-700);
+  --color-background-success-bold-hover: var(--color-green-800);
+  --color-background-success-bold-pressed: var(--color-green-900);
+  --color-background-success-subtle: var(--color-green-50);
+  --color-background-success-subtle-hover: var(--color-green-100);
+  --color-background-information-bold: var(--color-blue-600);
+  --color-background-information-bold-hover: var(--color-blue-700);
+  --color-background-information-bold-pressed: var(--color-blue-800);
+  --color-background-information-subtle: var(--color-blue-50);
+  --color-background-information-subtle-hover: var(--color-blue-100);
+  --color-background-discovery-bold: var(--color-violet-600);
+  --color-background-discovery-bold-hover: var(--color-violet-700);
+  --color-background-discovery-bold-pressed: var(--color-violet-800);
+  --color-background-discovery-subtle: var(--color-violet-50);
+  --color-background-discovery-subtle-hover: var(--color-violet-100);
+  --color-background-warning-bold: var(--color-amber-400);
+  --color-background-warning-bold-hover: var(--color-amber-500);
+  --color-background-warning-bold-pressed: var(--color-amber-600);
+  --color-background-warning-subtle: var(--color-amber-50);
+  --color-background-warning-subtle-hover: var(--color-amber-100);
 
   /* Text */
-  --color-text-brand-ink: var(--color-cod-gray-900);  /* Preto institucional em texto/ícone */
-  --color-text-disabled: #A1A1A1;  /* Texto/ícone desabilitado - TODO: primitivo "color/tailwind/neutral/400" ainda nao existe em tokens-primitives.css - criar em Primitives no Figma e trocar este valor literal por var(...) */
-  --color-text-on-brand: var(--color-white);  /* Texto/ícone sobre fundo da marca */
-  --color-text-on-brand-secondary: var(--color-cod-gray-900);  /* Texto/ícone sobre fundo secundário */
+  --color-text-default: var(--color-neutral-900);
+  --color-text-subtle: var(--color-neutral-600);
+  --color-text-subtlest: var(--color-neutral-400);
+  --color-text-disabled: var(--color-neutral-400);
+  --color-text-inverse: var(--color-white);
+  --color-text-brand: var(--color-green-pea-800);
+  --color-text-selected: var(--color-green-pea-800);
+  --color-text-link: var(--color-green-pea-700);
+  --color-text-link-hover: var(--color-green-pea-800);
+  --color-text-on-brand: var(--color-white);
+  --color-text-on-bold: var(--color-white);
+  --color-text-on-warning: var(--color-neutral-900);
+  --color-text-danger: var(--color-red-700);
+  --color-text-success: var(--color-green-700);
+  --color-text-information: var(--color-blue-700);
+  --color-text-discovery: var(--color-violet-700);
+  --color-text-warning: var(--color-amber-800);
+
+  /* Icon */
+  --color-icon-default: var(--color-neutral-800);
+  --color-icon-subtle: var(--color-neutral-500);
+  --color-icon-disabled: var(--color-neutral-400);
+  --color-icon-inverse: var(--color-white);
+  --color-icon-brand: var(--color-green-pea-700);
+  --color-icon-selected: var(--color-green-pea-700);
+  --color-icon-danger: var(--color-red-600);
+  --color-icon-success: var(--color-green-600);
+  --color-icon-information: var(--color-blue-600);
+  --color-icon-discovery: var(--color-violet-600);
+  --color-icon-warning: var(--color-amber-600);
 
   /* Border */
-  --color-border-brand-default: var(--color-green-pea-600);  /* Borda da marca */
-  --color-border-brand-secondary-default: var(--color-bourbon-600);  /* Borda secundária da marca */
+  --color-border-default: var(--color-neutral-200);
+  --color-border-subtle: var(--color-neutral-100);
+  --color-border-strong: var(--color-neutral-300);
+  --color-border-input: var(--color-neutral-300);
+  --color-border-disabled: var(--color-neutral-200);
+  --color-border-inverse: var(--color-white);
+  --color-border-focus: var(--color-green-pea-600);
+  --color-border-selected: var(--color-green-pea-700);
+  --color-border-brand: var(--color-green-pea-700);
+  --color-border-quote: var(--color-green-pea-600);
+  --color-border-danger: var(--color-red-600);
+  --color-border-success: var(--color-green-600);
+  --color-border-information: var(--color-blue-600);
+  --color-border-discovery: var(--color-violet-600);
+  --color-border-warning: var(--color-amber-500);
+
+  /* Space / inline (entre itens na horizontal) */
+  --space-inline-xs: calc(var(--spacing) * 1);
+  --space-inline-sm: calc(var(--spacing) * 2);
+  --space-inline-md: calc(var(--spacing) * 3);
+  --space-inline-lg: calc(var(--spacing) * 4);
+
+  /* Space / stack (entre blocos na vertical) */
+  --space-stack-xs: calc(var(--spacing) * 1);
+  --space-stack-sm: calc(var(--spacing) * 2);
+  --space-stack-md: calc(var(--spacing) * 4);
+  --space-stack-lg: calc(var(--spacing) * 6);
+  --space-stack-xl: calc(var(--spacing) * 8);
+
+  /* Space / inset (padding interno) */
+  --space-inset-xs: calc(var(--spacing) * 1);
+  --space-inset-sm: calc(var(--spacing) * 2);
+  --space-inset-md: calc(var(--spacing) * 3);
+  --space-inset-lg: calc(var(--spacing) * 4);
+  --space-inset-xl: calc(var(--spacing) * 6);
+  --space-inset-control-sm: calc(var(--spacing) * 2);
+  --space-inset-control-md: calc(var(--spacing) * 3);
+  --space-inset-control-lg: calc(var(--spacing) * 4);
+
+  /* Space / gutter */
+  --space-gutter: calc(var(--spacing) * 4);
+
+  /* Space / section */
+  --space-section-sm: calc(var(--spacing) * 6);
+  --space-section-md: calc(var(--spacing) * 8);
+  --space-section-lg: calc(var(--spacing) * 12);
+
+  /* Size / control */
+  --size-control-sm: calc(var(--spacing) * 8);
+  --size-control-md: calc(var(--spacing) * 9);
+  --size-control-lg: calc(var(--spacing) * 10);
+
+  /* Size / icon */
+  --size-icon-sm: calc(var(--spacing) * 4);
+  --size-icon-md: calc(var(--spacing) * 5);
+  --size-icon-lg: calc(var(--spacing) * 6);
+
+  /* Size / container */
+  --size-container-page: var(--size-container-7xl);
+  --size-container-content: var(--size-container-5xl);
+  --size-container-narrow: var(--size-container-lg);
+
+  /* Radius */
+  --radius-control-sm: var(--radius-md);
+  --radius-control-md: var(--radius-lg);
+  --radius-container: var(--radius-xl);
 }
 
 .dark {
   /* Background */
-  --color-background-disabled: #262626;  /* Fundo desabilitado - TODO: primitivo "color/tailwind/neutral/800" ainda nao existe em tokens-primitives.css - criar em Primitives no Figma e trocar este valor literal por var(...) */
-  --color-background-brand-subtle: var(--color-green-pea-900);  /* Fundo sutil da marca */
-  --color-background-brand-bold-hover: var(--color-green-pea-300);  /* Fundo principal da marca, hover */
-  --color-background-brand-bold-pressed: var(--color-green-pea-200);  /* Fundo principal da marca, pressed */
-  --color-background-brand-bold: var(--color-green-pea-400);  /* Fundo principal da marca */
-  --color-background-brand-secondary-subtle: var(--color-bourbon-900);  /* Fundo secundário sutil */
-  --color-background-brand-secondary-bold-hover: var(--color-bourbon-300);  /* Fundo secundário da marca, hover */
-  --color-background-brand-secondary-bold-pressed: var(--color-bourbon-200);  /* Fundo secundário da marca, pressed */
-  --color-background-brand-secondary-bold: var(--color-bourbon-400);  /* Fundo secundário da marca */
+  --color-background-default: var(--color-neutral-950);
+  --color-background-subtle: var(--color-neutral-900);
+  --color-background-sunken: var(--color-black);
+  --color-background-raised: var(--color-neutral-900);
+  --color-background-overlay: var(--color-neutral-800);
+  --color-background-inverse: var(--color-neutral-50);
+  --color-background-input: var(--color-neutral-900);
+  --color-background-disabled: var(--color-neutral-800);
+  --color-background-highlight: var(--color-green-pea-900);
+  --color-background-neutral-default: var(--color-neutral-800);
+  --color-background-neutral-default-hover: var(--color-neutral-700);
+  --color-background-neutral-default-pressed: var(--color-neutral-600);
+  --color-background-neutral-subtle-hover: var(--color-neutral-800);
+  --color-background-neutral-subtle-pressed: var(--color-neutral-700);
+  --color-background-selected: var(--color-green-pea-950);
+  --color-background-selected-hover: var(--color-green-pea-900);
+  --color-background-brand-bold: var(--color-green-pea-400);
+  --color-background-brand-bold-hover: var(--color-green-pea-300);
+  --color-background-brand-bold-pressed: var(--color-green-pea-200);
+  --color-background-brand-subtle: var(--color-green-pea-950);
+  --color-background-brand-subtle-hover: var(--color-green-pea-900);
+  --color-background-brand-subtle-pressed: var(--color-green-pea-800);
+  --color-background-danger-bold: var(--color-red-400);
+  --color-background-danger-bold-hover: var(--color-red-300);
+  --color-background-danger-bold-pressed: var(--color-red-200);
+  --color-background-danger-subtle: var(--color-red-950);
+  --color-background-danger-subtle-hover: var(--color-red-900);
+  --color-background-success-bold: var(--color-green-400);
+  --color-background-success-bold-hover: var(--color-green-300);
+  --color-background-success-bold-pressed: var(--color-green-200);
+  --color-background-success-subtle: var(--color-green-950);
+  --color-background-success-subtle-hover: var(--color-green-900);
+  --color-background-information-bold: var(--color-blue-400);
+  --color-background-information-bold-hover: var(--color-blue-300);
+  --color-background-information-bold-pressed: var(--color-blue-200);
+  --color-background-information-subtle: var(--color-blue-950);
+  --color-background-information-subtle-hover: var(--color-blue-900);
+  --color-background-discovery-bold: var(--color-violet-400);
+  --color-background-discovery-bold-hover: var(--color-violet-300);
+  --color-background-discovery-bold-pressed: var(--color-violet-200);
+  --color-background-discovery-subtle: var(--color-violet-950);
+  --color-background-discovery-subtle-hover: var(--color-violet-900);
+  --color-background-warning-bold: var(--color-amber-400);
+  --color-background-warning-bold-hover: var(--color-amber-300);
+  --color-background-warning-bold-pressed: var(--color-amber-200);
+  --color-background-warning-subtle: var(--color-amber-950);
+  --color-background-warning-subtle-hover: var(--color-amber-900);
 
   /* Text */
-  --color-text-brand-ink: var(--color-white);  /* Preto institucional em texto/ícone */
-  --color-text-disabled: #737373;  /* Texto/ícone desabilitado - TODO: primitivo "color/tailwind/neutral/500" ainda nao existe em tokens-primitives.css - criar em Primitives no Figma e trocar este valor literal por var(...) */
-  --color-text-on-brand: var(--color-cod-gray-900);  /* Texto/ícone sobre fundo da marca */
-  --color-text-on-brand-secondary: var(--color-cod-gray-900);  /* Texto/ícone sobre fundo secundário */
+  --color-text-default: var(--color-neutral-50);
+  --color-text-subtle: var(--color-neutral-400);
+  --color-text-subtlest: var(--color-neutral-400);
+  --color-text-disabled: var(--color-neutral-600);
+  --color-text-inverse: var(--color-neutral-900);
+  --color-text-brand: var(--color-green-pea-300);
+  --color-text-selected: var(--color-green-pea-300);
+  --color-text-link: var(--color-green-pea-300);
+  --color-text-link-hover: var(--color-green-pea-200);
+  --color-text-on-brand: var(--color-green-pea-950);
+  --color-text-on-bold: var(--color-neutral-900);
+  --color-text-on-warning: var(--color-neutral-900);
+  --color-text-danger: var(--color-red-400);
+  --color-text-success: var(--color-green-400);
+  --color-text-information: var(--color-blue-400);
+  --color-text-discovery: var(--color-violet-400);
+  --color-text-warning: var(--color-amber-400);
+
+  /* Icon */
+  --color-icon-default: var(--color-neutral-200);
+  --color-icon-subtle: var(--color-neutral-400);
+  --color-icon-disabled: var(--color-neutral-600);
+  --color-icon-inverse: var(--color-neutral-950);
+  --color-icon-brand: var(--color-green-pea-400);
+  --color-icon-selected: var(--color-green-pea-400);
+  --color-icon-danger: var(--color-red-400);
+  --color-icon-success: var(--color-green-400);
+  --color-icon-information: var(--color-blue-400);
+  --color-icon-discovery: var(--color-violet-400);
+  --color-icon-warning: var(--color-amber-400);
 
   /* Border */
-  --color-border-brand-default: var(--color-green-pea-400);  /* Borda da marca */
-  --color-border-brand-secondary-default: var(--color-bourbon-400);  /* Borda secundária da marca */
+  --color-border-default: var(--color-neutral-800);
+  --color-border-subtle: var(--color-neutral-900);
+  --color-border-strong: var(--color-neutral-700);
+  --color-border-input: var(--color-neutral-700);
+  --color-border-disabled: var(--color-neutral-800);
+  --color-border-inverse: var(--color-neutral-950);
+  --color-border-focus: var(--color-green-pea-400);
+  --color-border-selected: var(--color-green-pea-400);
+  --color-border-brand: var(--color-green-pea-400);
+  --color-border-quote: var(--color-green-pea-400);
+  --color-border-danger: var(--color-red-500);
+  --color-border-success: var(--color-green-500);
+  --color-border-information: var(--color-blue-500);
+  --color-border-discovery: var(--color-violet-500);
+  --color-border-warning: var(--color-amber-500);
+}
+
+.editorial {
+  /* Space / stack (entre blocos na vertical) */
+  --space-stack-sm: calc(var(--spacing) * 3);
+  --space-stack-md: calc(var(--spacing) * 6);
+  --space-stack-lg: calc(var(--spacing) * 10);
+  --space-stack-xl: calc(var(--spacing) * 16);
+
+  /* Space / inset (padding interno) */
+  --space-inset-md: calc(var(--spacing) * 4);
+  --space-inset-lg: calc(var(--spacing) * 6);
+  --space-inset-xl: calc(var(--spacing) * 8);
+
+  /* Space / gutter */
+  --space-gutter: calc(var(--spacing) * 6);
+
+  /* Space / section */
+  --space-section-sm: calc(var(--spacing) * 12);
+  --space-section-md: calc(var(--spacing) * 20);
+  --space-section-lg: calc(var(--spacing) * 32);
+
+  /* Size / container */
+  --size-container-content: var(--size-container-3xl);
+  --size-container-narrow: var(--size-container-2xl);
+
+  /* Radius */
+  --radius-container: var(--radius-2xl);
 }
