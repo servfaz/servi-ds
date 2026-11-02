@@ -1,21 +1,27 @@
 /**
- * Camada 1 - Primitivos (Global)
- * Fonte: Figma Variables > projeto "[SF-DS] Variables" > coleção "Primitivies", mode "Value"
+ * Camada 1 - Primitivos
+ * Fonte: Figma Variables > "[SF-DS] Variables" > coleção "Primitives", mode "Value"
  * https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables
  *
- * Regra (Arquitetura e Regras de Design Tokens, secao 2, R1):
- * esta camada guarda valores brutos sem significado de uso. Nao referencia nada,
- * e nunca deve ser consumida diretamente por um componente.
- * Consumo permitido: apenas pela camada 2 (Semantic), em tokens-semantic.css.
+ * Arquivo espelho do Figma. Não editar valor aqui sem antes mudar a variável no Figma.
+ *
+ * Esta camada guarda valores brutos, sem significado de uso. Não referencia nada
+ * e nunca é consumida direto por um componente: só pela camada Semantic
+ * (tokens-semantic.css).
+ *
+ * A coleção "Tailwind" do Figma (escalas de cor como neutral, red, green, blue,
+ * spacing e typography) não é repetida aqui: ela é cópia do tema padrão do
+ * Tailwind v4, que já define --color-neutral-50, --spacing, --text-sm etc.
+ *
+ * Valores em px no Figma viram rem aqui (base 16px).
  */
 
 :root {
   /* Preto e branco */
   --color-black: #000000;
-
   --color-white: #FFFFFF;
 
-  /* Cod Gray (neutro) */
+  /* Cod Gray (cod-gray/900: preto institucional) */
   --color-cod-gray-50: #F9FAF9;
   --color-cod-gray-100: #F4F5F4;
   --color-cod-gray-200: #E6E6E5;
@@ -26,10 +32,9 @@
   --color-cod-gray-700: #42423E;
   --color-cod-gray-800: #282725;
   --color-cod-gray-900: #1A1A18;
-  /* Cor da marca - preto institucional */
   --color-cod-gray-950: #0B0B0A;
 
-  /* Bourbon (marca secundária) */
+  /* Bourbon (bourbon/600: cor secundária) */
   --color-bourbon-50: #FDFAED;
   --color-bourbon-100: #F9F1CC;
   --color-bourbon-200: #F3E194;
@@ -37,13 +42,12 @@
   --color-bourbon-400: #E9BA36;
   --color-bourbon-500: #E19C1F;
   --color-bourbon-600: #C07417;
-  /* Cor da marca - cor secundária */
   --color-bourbon-700: #A65717;
   --color-bourbon-800: #874419;
   --color-bourbon-900: #6F3918;
   --color-bourbon-950: #3F1D09;
 
-  /* Green Pea (marca principal) */
+  /* Green Pea (green-pea/800: cor principal) */
   --color-green-pea-50: #EBFEF6;
   --color-green-pea-100: #CEFDE7;
   --color-green-pea-200: #A2F8D5;
@@ -53,14 +57,12 @@
   --color-green-pea-600: #00A077;
   --color-green-pea-700: #008062;
   --color-green-pea-800: #00604A;
-  /* Cor da marca - cor principal */
   --color-green-pea-900: #015342;
   --color-green-pea-950: #002F26;
 
-  /* Derby (apoio) */
+  /* Derby (derby/100: cor de apoio) */
   --color-derby-50: #FCF7F0;
   --color-derby-100: #F6E6D1;
-  /* Cor da marca - cor de apoio */
   --color-derby-200: #F0D6B8;
   --color-derby-300: #E7B98A;
   --color-derby-400: #DC955B;
@@ -71,13 +73,12 @@
   --color-derby-900: #6B3523;
   --color-derby-950: #391A11;
 
-  /* Bud (apoio neutro) */
+  /* Bud (bud/400: cor de apoio) */
   --color-bud-50: #F9FAF9;
   --color-bud-100: #F4F5F4;
   --color-bud-200: #E6E8E3;
   --color-bud-300: #D4D8CF;
   --color-bud-400: #B0B6A7;
-  /* Cor da marca - cor de apoio */
   --color-bud-500: #747C68;
   --color-bud-600: #525A4B;
   --color-bud-700: #404739;
@@ -85,15 +86,33 @@
   --color-bud-900: #1A1E15;
   --color-bud-950: #0B0D08;
 
-  --color-taupe-50: oklch(98.6% 0.002 67.8);
-  --color-taupe-100: oklch(96% 0.002 17.2);
-  --color-taupe-200: oklch(92.2% 0.005 34.3);
-  --color-taupe-300: oklch(86.8% 0.007 39.5);
-  --color-taupe-400: oklch(71.4% 0.014 41.2);
-  --color-taupe-500: oklch(54.7% 0.021 43.1);
-  --color-taupe-600: oklch(43.8% 0.017 39.3);
-  --color-taupe-700: oklch(36.7% 0.016 35.7);
-  --color-taupe-800: oklch(26.8% 0.011 36.5);
-  --color-taupe-900: oklch(21.4% 0.009 43.1);
-  --color-taupe-950: oklch(14.7% 0.004 49.3);
+  /* Typography */
+  --typography-font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Radius */
+  --radius-none: 0rem;
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  --radius-full: 9999px;
+
+  /* Size / container */
+  --size-container-3xs: 16rem;
+  --size-container-2xs: 18rem;
+  --size-container-xs: 20rem;
+  --size-container-sm: 24rem;
+  --size-container-md: 28rem;
+  --size-container-lg: 32rem;
+  --size-container-xl: 36rem;
+  --size-container-2xl: 42rem;
+  --size-container-3xl: 48rem;
+  --size-container-4xl: 56rem;
+  --size-container-5xl: 64rem;
+  --size-container-6xl: 72rem;
+  --size-container-7xl: 80rem;
 }
