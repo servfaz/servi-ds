@@ -1,18 +1,17 @@
 import { CopyMarkdownButton } from "./copy-markdown-button"
-import { formatUpdatedDate } from "./frontmatter"
+import { ComponentMeta } from "./component-meta"
+import { formatUpdatedDate, type DocFrontmatter } from "./frontmatter"
 import { textMuted } from "./doc-styles"
 
 export function PageHeader({
-  title,
-  description,
-  updated,
+  frontmatter,
   raw,
 }: {
-  title: string
-  description?: string
-  updated?: string
+  frontmatter: DocFrontmatter
   raw: string
 }) {
+  const { title, description, updated, name, figma } = frontmatter
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -29,6 +28,7 @@ export function PageHeader({
       {description && (
         <p className={`max-w-2xl text-base ${textMuted}`}>{description}</p>
       )}
+      {name && <ComponentMeta name={name} title={title} figma={figma} />}
     </div>
   )
 }
