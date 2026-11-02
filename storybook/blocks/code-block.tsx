@@ -11,9 +11,11 @@ const COLLAPSE_LINE_THRESHOLD = 12
 export function CodeBlock({
   code,
   language,
+  className,
 }: {
   code: string
   language?: string
+  className?: string
 }) {
   const [html, setHtml] = React.useState<string | null>(null)
   const [expanded, setExpanded] = React.useState(false)
@@ -31,7 +33,12 @@ export function CodeBlock({
   }, [code, language])
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-lg border border-[var(--color-taupe-300)] bg-[var(--color-taupe-100)] dark:bg-[var(--color-taupe-900)]">
+    <div
+      className={cn(
+        "flex flex-col overflow-hidden rounded-lg border border-[var(--color-taupe-300)] bg-[var(--color-taupe-100)] dark:bg-[var(--color-taupe-900)]",
+        className
+      )}
+    >
       <div className="flex items-center justify-between gap-4 border-b border-[var(--color-taupe-300)] px-4 py-2">
         <span className={cn("text-xs uppercase tracking-wide", textMuted)}>
           {language ?? "código"}
