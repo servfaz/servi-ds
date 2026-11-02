@@ -1,3 +1,4 @@
+import * as React from "react"
 import type { Element } from "hast"
 import Markdown, { type Components } from "react-markdown"
 import remarkGfm from "remark-gfm"
@@ -9,6 +10,7 @@ import { linkProps } from "./links"
 import { CodeBlock } from "./code-block"
 import { ResourceCardGrid, type ResourceCardData } from "./resource-card"
 import { Alert, AlertDescription, AlertTitle } from "./alert"
+import { Demo, parseDemoMeta, type StoriesModule } from "./demo"
 
 function textOf(node: Element): string {
   return node.children
@@ -26,7 +28,8 @@ type AlertBlockData = {
   body?: string
 }
 
-const components: Components = {
+function buildComponents(stories?: StoriesModule): Components {
+  return {
   h2: ({ node, children }) => (
     <h2
       id={node ? slugify(textOf(node)) : undefined}
@@ -93,6 +96,21 @@ const components: Components = {
       .find((name) => name.startsWith("language-"))
       ?.replace("language-", "")
     const raw = textOf(codeNode).replace(/\n$/, "")
+    const demo = parseDemoMeta(
+      (codeNode.data as { meta?: string } | undefined)?.meta
+    )
+
+    if (demo) {
+      return (
+        <Demo
+          stories={stories}
+          storyName={demo.storyName}
+          withControls={demo.withControls}
+          code={raw}
+          language={language}
+        />
+      )
+    }
 
     if (language === "card-grid") {
       const cards = (loadYaml(raw) as ResourceCardData[]) ?? []
@@ -128,9 +146,21 @@ const components: Components = {
       {children}
     </td>
   ),
+  }
 }
 
-export function MarkdownContent({ body }: { body: string }) {
+/**
+ * Renderiza um trecho de markdown de content/docs/. Blocos de código com
+ * `demo=<Story>` no meta viram exemplo ao vivo, usando as stories recebidas.
+ */
+export function MarkdownContent({
+  body,
+  stories,
+}: {
+  body: string
+  stories?: StoriesModule
+}) {
+  const components = React.useMemo(() => buildComponents(stories), [stories])
   return (
     <div className="flex flex-col gap-6 [&>h2]:mt-4 [&>h2:first-child]:mt-0">
       <Markdown remarkPlugins={[remarkGfm]} components={components}>
