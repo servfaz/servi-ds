@@ -12,12 +12,9 @@ const meta = {
   component: SearchBar,
   parameters: { layout: "padded" },
   args: {
-    placeholders: sugestoes,
-    placeholder: "Buscar",
-    showFilter: true,
-    filterActive: false,
-    showAi: true,
-    aiLabel: "Chat com GAIA",
+    placeholder: "Busca",
+    shortcutKey: "k",
+    shortcutLabel: "Ctrl K",
     disabled: false,
   },
   argTypes: {
@@ -25,7 +22,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className="w-full max-w-xl">
+      <div className="w-80">
         <Story />
       </div>
     ),
@@ -38,23 +35,18 @@ type Story = StoryObj<typeof meta>
 /** Exemplo editável pelos controles abaixo. */
 export const Playground: Story = {}
 
-export const PlaceholderFixo: Story = {
-  name: "Placeholder fixo",
-  args: { placeholders: undefined, placeholder: "Buscar no sistema" },
+export const PlaceholderRotativo: Story = {
+  name: "Placeholder rotativo",
+  args: { placeholders: sugestoes },
 }
 
 export const Preenchido: Story = {
   args: { defaultValue: "Conecta" },
 }
 
-export const FiltroAtivo: Story = {
-  name: "Filtro ativo",
-  args: { filterActive: true },
-}
-
-export const SemAcoes: Story = {
-  name: "Sem ações",
-  args: { showFilter: false, showAi: false },
+export const SemAtalho: Story = {
+  name: "Sem atalho",
+  args: { shortcutKey: null },
 }
 
 export const Desabilitado: Story = {
