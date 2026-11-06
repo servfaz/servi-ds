@@ -7,10 +7,7 @@ import {
   CurrencyCircleDollarIcon,
   DotsNineIcon,
   FolderIcon,
-  GlobeIcon,
   LifebuoyIcon,
-  PackageIcon,
-  TruckIcon,
   type Icon,
 } from "@phosphor-icons/react"
 
@@ -23,42 +20,47 @@ import {
 } from "@/components/ui/popover"
 
 /*
- * AppLauncher - hub de aplicações, no modelo do menu de apps do Google.
- * Lista outros sistemas (não módulos deste sistema) em grade de 3 colunas.
+ * AppLauncher - hub de aplicações, espelho do "App Launcher" e do "App
+ * Launcher Item" do Figma ([SDS] Components, seção CUSTOM). Lista outros
+ * sistemas (não módulos deste sistema) em grade de 3 colunas.
+ * Item: logo de 40px e nome em Sans/xs/regular; hover em
+ * palette/olive/light-hover; aplicação atual em brand/selected com o nome em
+ * Sans/xs/medium.
  * Arquivo de bloco: o sistema copia e edita a lista de aplicações.
  */
 
 type AppLauncherApp = {
   name: string
   url: string
-  icon: Icon
+  /** Logo do sistema (40px). Sem logo, mostra o ícone. */
+  logo?: React.ReactNode
+  icon?: Icon
   /** Aplicação aberta agora. */
   current?: boolean
 }
 
 type AppLauncherProps = {
   apps?: AppLauncherApp[]
+  /** Nome acessível do botão. */
   label?: string
+  /** Título dentro do painel. */
+  title?: string
   className?: string
 }
 
 const defaultApps: AppLauncherApp[] = [
   { name: "Conecta", url: "#", icon: ChatsCircleIcon, current: true },
-  { name: "Chamados", url: "#", icon: LifebuoyIcon },
-  { name: "Financeiro", url: "#", icon: CurrencyCircleDollarIcon },
-  { name: "Suprimentos", url: "#", icon: PackageIcon },
-  { name: "Frota", url: "#", icon: TruckIcon },
-  { name: "Documentos", url: "#", icon: FolderIcon },
-  { name: "Relatórios", url: "#", icon: ChartLineIcon },
-  { name: "Portal", url: "#", icon: GlobeIcon },
+  { name: "Logística", url: "#", icon: LifebuoyIcon },
+  { name: "Faturamento", url: "#", icon: CurrencyCircleDollarIcon },
+  { name: "Dossiê", url: "#", icon: FolderIcon },
+  { name: "Cotação", url: "#", icon: ChartLineIcon },
+  { name: "Next", url: "#", icon: ChatsCircleIcon },
 ]
-
-const quietAction =
-  "text-(--color-foreground-muted) hover:bg-(--color-palette-olive-subtle-hover) hover:text-(--color-foreground-default) active:bg-(--color-palette-olive-subtle-pressed) data-[state=open]:bg-(--color-palette-olive-subtle-hover) data-[state=open]:text-(--color-foreground-default)"
 
 function AppLauncher({
   apps = defaultApps,
   label = "Aplicativos",
+  title = "Seus aplicativos",
   className,
 }: AppLauncherProps) {
   return (
@@ -70,19 +72,22 @@ function AppLauncher({
           aria-label={label}
           title={label}
           data-slot="app-launcher-trigger"
-          className={cn(quietAction, className)}
+          className={cn(
+            "text-(--color-foreground-default) hover:bg-(--color-palette-olive-light-hover) active:bg-(--color-palette-olive-light-pressed) data-[state=open]:bg-(--color-palette-olive-light-hover)",
+            className
+          )}
         >
-          <DotsNineIcon weight="bold" className="size-5" />
+          <DotsNineIcon weight="bold" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
         align="end"
         sideOffset={8}
         data-slot="app-launcher"
-        className="w-80 p-2"
+        className="flex w-86.5 flex-col gap-4"
       >
-        <p className="px-2 pt-1 pb-2 text-xs font-medium text-(--color-foreground-default)">
-          {label}
+        <p className="typo-sans-sm-medium text-(--color-foreground-emphasis)">
+          {title}
         </p>
         <ul className="grid grid-cols-3 gap-1">
           {apps.map((app) => {
@@ -92,17 +97,20 @@ function AppLauncher({
                 <a
                   href={app.url}
                   aria-current={app.current ? "page" : undefined}
+                  data-slot="app-launcher-item"
                   className={cn(
-                    "flex flex-col items-center gap-2 rounded-(--radius-lg) px-2 py-3 text-center text-xs text-(--color-foreground-emphasis) outline-none",
-                    "hover:bg-(--color-palette-olive-light-hover) active:bg-(--color-palette-olive-light-pressed)",
+                    "flex flex-col items-center gap-2 rounded-(--radius-lg) px-2 py-1 text-center outline-none",
+                    "typo-sans-xs-regular text-(--color-foreground-emphasis)",
+                    "transition-[background-color,box-shadow] duration-150",
+                    "hover:bg-(--color-palette-olive-light-hover)",
                     "focus-visible:shadow-[inset_0_0_0_2px_var(--color-brand-border-focus)]",
-                    "aria-[current=page]:bg-(--color-brand-selected) aria-[current=page]:font-medium"
+                    "aria-[current=page]:bg-(--color-brand-selected) aria-[current=page]:typo-sans-xs-medium aria-[current=page]:hover:bg-(--color-brand-selected-hover)"
                   )}
                 >
-                  <span className="flex size-10 items-center justify-center rounded-(--radius-lg) bg-(--color-brand-subtle) text-(--color-brand-foreground-default)">
-                    <AppIcon className="size-5" />
+                  <span className="flex size-10 items-center justify-center overflow-hidden rounded-(--radius-lg) bg-(--color-brand-subtle) text-(--color-brand-foreground-default) [&_svg]:size-6">
+                    {app.logo ?? (AppIcon ? <AppIcon weight="duotone" /> : null)}
                   </span>
-                  <span className="line-clamp-2">{app.name}</span>
+                  <span className="line-clamp-2 w-full">{app.name}</span>
                 </a>
               </li>
             )
