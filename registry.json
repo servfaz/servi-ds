@@ -1793,13 +1793,33 @@
       "registryDependencies": [
         "https://ds.servfaz.app/r/tokens.json",
         "https://ds.servfaz.app/r/label.json",
-        "https://ds.servfaz.app/r/input.json"
+        "https://ds.servfaz.app/r/input.json",
+        "https://ds.servfaz.app/r/textarea.json"
       ],
       "dependencies": [],
       "files": [
         {
           "path": "registry/servfaz/field.tsx",
           "target": "@ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Campo de texto de varias linhas com a identidade visual da Servfaz.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/input.json"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/servfaz/textarea.tsx",
+          "target": "@ui/textarea.tsx",
           "type": "registry:ui"
         }
       ]

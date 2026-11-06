@@ -3,33 +3,61 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-import { Input, type InputProps } from "./input"
+import { Input, type InputProps, type InputStatus } from "./input"
 import { Label } from "./label"
+import { Textarea, type TextareaProps } from "./textarea"
 
-type FieldProps = InputProps & {
-  /** Texto de apoio entre o label e o campo (só no variant "default"). */
+/*
+ * Field - espelho do component set "Field" do Figma ([SDS] Components).
+ * Compõe Label, texto opcional, descrição, o controle e a mensagem.
+ * type do Figma: default e floating (Input) e textArea (Textarea).
+ */
+
+type FieldBaseProps = {
+  /** Texto do Label (no floating, fica dentro da caixa). */
+  label?: React.ReactNode
+  /** Mostra o texto de campo opcional ao lado do label. */
+  optional?: boolean
+  /** Texto do indicador de campo opcional. */
+  optionalText?: string
+  /** Texto de apoio entre o label e o campo (default e textarea). */
   description?: React.ReactNode
   /** Mensagem abaixo do campo. Fica vermelha em invalid e verde em success. */
   message?: React.ReactNode
-  /** Classe aplicada na caixa do Input. */
+  status?: InputStatus
+  /** Classe aplicada na caixa do controle. */
   inputClassName?: string
 }
 
-function Field({
-  className,
-  inputClassName,
-  variant = "default",
-  label,
-  optional = false,
-  optionalText = "Opcional",
-  description,
-  message,
-  status = "default",
-  disabled,
-  id: idProp,
-  "aria-describedby": ariaDescribedBy,
-  ...inputProps
-}: FieldProps) {
+type FieldInputProps = FieldBaseProps &
+  Omit<InputProps, "label" | "optional" | "optionalText" | "status"> & {
+    variant?: "default" | "floating"
+  }
+
+type FieldTextareaProps = FieldBaseProps &
+  Omit<TextareaProps, "status"> & {
+    variant: "textarea"
+  }
+
+type FieldProps = FieldInputProps | FieldTextareaProps
+
+function Field(props: FieldProps) {
+  const {
+    className,
+    inputClassName,
+    variant = "default",
+    label,
+    optional = false,
+    optionalText = "Opcional",
+    description,
+    message,
+    status = "default",
+    disabled,
+    id: idProp,
+    "aria-describedby": ariaDescribedBy,
+    ...controlProps
+  } = props
+
   const autoId = React.useId()
   const id = idProp ?? autoId
   const descriptionId = `${id}-description`
@@ -54,10 +82,7 @@ function Field({
       data-variant={variant}
       data-status={status}
       data-disabled={disabled ? true : undefined}
-      className={cn(
-        "group flex w-full flex-col gap-2 font-(family-name:--typography-font-sans)",
-        className
-      )}
+      className={cn("group flex w-full flex-col gap-2", className)}
     >
       {showHeader ? (
         <div
@@ -68,10 +93,10 @@ function Field({
           {optional ? (
             <span
               className={cn(
-                "shrink-0 text-sm leading-5",
+                "shrink-0 typo-sans-sm-regular",
                 disabled
                   ? "text-(--color-foreground-subtle)"
-                  : "text-(--color-foreground-subtle)"
+                  : "text-(--color-foreground-muted)"
               )}
             >
               {optionalText}
@@ -85,40 +110,53 @@ function Field({
           id={descriptionId}
           data-slot="field-description"
           className={cn(
-            "text-sm leading-5",
-            disabled ? "text-(--color-foreground-subtle)" : "text-(--color-foreground-default)"
+            "typo-sans-sm-regular",
+            disabled
+              ? "text-(--color-foreground-subtle)"
+              : "text-(--color-foreground-default)"
           )}
         >
           {description}
         </p>
       ) : null}
 
-      <Input
-        {...inputProps}
-        id={id}
-        variant={variant}
-        status={status}
-        disabled={disabled}
-        label={isFloating ? label : undefined}
-        optional={isFloating ? optional : false}
-        optionalText={optionalText}
-        aria-describedby={describedBy}
-        className={inputClassName}
-      />
+      {variant === "textarea" ? (
+        <Textarea
+          {...(controlProps as Omit<TextareaProps, "status">)}
+          id={id}
+          status={status}
+          disabled={disabled}
+          aria-describedby={describedBy}
+          className={inputClassName}
+        />
+      ) : (
+        <Input
+          {...(controlProps as Omit<InputProps, "status">)}
+          id={id}
+          variant={variant}
+          status={status}
+          disabled={disabled}
+          label={isFloating ? label : undefined}
+          optional={isFloating ? optional : false}
+          optionalText={optionalText}
+          aria-describedby={describedBy}
+          className={inputClassName}
+        />
+      )}
 
       {message ? (
         <p
           id={messageId}
           data-slot="field-message"
           className={cn(
-            isFloating ? "text-xs leading-4.5" : "text-sm leading-5",
+            isFloating ? "typo-sans-xs-regular" : "typo-sans-sm-regular",
             disabled
               ? "text-(--color-foreground-subtle)"
               : status === "invalid"
                 ? "text-(--color-feedback-danger-foreground-default)"
                 : status === "success"
                   ? "text-(--color-feedback-success-foreground-default)"
-                  : "text-(--color-foreground-subtle)"
+                  : "text-(--color-foreground-muted)"
           )}
         >
           {message}
@@ -129,4 +167,4 @@ function Field({
 }
 
 export { Field }
-export type { FieldProps }
+export type { FieldProps, FieldInputProps, FieldTextareaProps }
