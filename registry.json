@@ -1866,6 +1866,27 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Mensagem de destaque com icone, titulo, descricao e botao de fechar opcional, nas variantes default, destructive, warning, success e information.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/alert.tsx",
+          "target": "@ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
