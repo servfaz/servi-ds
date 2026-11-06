@@ -93,7 +93,7 @@ const defaultFooterItems: AppSidebarItem[] = [
 ]
 
 // Item aberto com 40px; recolhido, o size-8 da Sidebar vale por cima.
-const itemButton = "h-(--size-control-lg)"
+const itemButton = "h-10"
 
 function AppSidebarCollapse({
   collapseLabel,
@@ -113,7 +113,7 @@ function AppSidebarCollapse({
         tooltip={label}
         aria-expanded={!collapsed}
         data-slot="app-sidebar-collapse"
-        className={cn(itemButton, "text-(--color-text-subtle) [&>svg]:text-(--color-icon-subtle)")}
+        className={cn(itemButton, "text-(--color-foreground-default) [&>svg]:text-(--color-foreground-muted)")}
       >
         {collapsed ? <ArrowLineRightIcon /> : <ArrowLineLeftIcon />}
         <span>{label}</span>
@@ -149,12 +149,12 @@ function AppSidebarMenuItem({
         </a>
       </SidebarMenuButton>
       {item.badge && !item.disabled ? (
-        <SidebarMenuBadge className="top-1/2! -translate-y-1/2 rounded-full bg-(--color-background-danger-bold) text-(--color-text-on-bold)">
+        <SidebarMenuBadge className="top-1/2! -translate-y-1/2 rounded-full bg-(--color-feedback-danger-filled) text-(--color-feedback-danger-foreground-on-filled)">
           {item.badge > 99 ? "99+" : item.badge}
         </SidebarMenuBadge>
       ) : null}
       {item.disabled ? (
-        <SidebarMenuBadge className="top-1/2! -translate-y-1/2 font-normal text-(--color-text-subtlest)">
+        <SidebarMenuBadge className="top-1/2! -translate-y-1/2 font-normal text-(--color-foreground-subtle)">
           {soonLabel}
         </SidebarMenuBadge>
       ) : null}

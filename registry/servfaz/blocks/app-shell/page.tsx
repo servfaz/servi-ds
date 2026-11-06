@@ -39,13 +39,13 @@ export default function Page() {
           {/* min-w-0: a página nunca passa da largura da tela; quem rola é o conteúdo.
               mt-0 e ml-0: o painel começa colado no cabeçalho e no menu, como no GitLab. */}
           <SidebarInset className="min-w-0 md:peer-data-[variant=inset]:mt-0 md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-0">
-            <div className="flex w-full min-w-0 flex-1 flex-col gap-(--space-stack-md) p-(--space-inset-lg)">
-              <div className="grid gap-(--space-stack-md) md:grid-cols-3">
-                <div className="aspect-video rounded-(--radius-container) bg-(--color-background-subtle)" />
-                <div className="aspect-video rounded-(--radius-container) bg-(--color-background-subtle)" />
-                <div className="aspect-video rounded-(--radius-container) bg-(--color-background-subtle)" />
+            <div className="flex w-full min-w-0 flex-1 flex-col gap-4 p-4">
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="aspect-video rounded-(--radius-xl) bg-(--color-background-subtle)" />
+                <div className="aspect-video rounded-(--radius-xl) bg-(--color-background-subtle)" />
+                <div className="aspect-video rounded-(--radius-xl) bg-(--color-background-subtle)" />
               </div>
-              <div className="min-h-[50vh] flex-1 rounded-(--radius-container) bg-(--color-background-subtle)" />
+              <div className="min-h-[50vh] flex-1 rounded-(--radius-xl) bg-(--color-background-subtle)" />
             </div>
           </SidebarInset>
         </div>

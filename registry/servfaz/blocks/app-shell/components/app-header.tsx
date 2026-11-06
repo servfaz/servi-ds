@@ -60,10 +60,10 @@ function initials(name: string) {
 }
 
 const insetFocus =
-  "outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--color-border-focus)]"
+  "outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--color-brand-border-focus)]"
 
 const quietAction =
-  "text-(--color-icon-subtle) hover:bg-(--color-background-neutral-default-hover) hover:text-(--color-icon-default) active:bg-(--color-background-neutral-default-pressed)"
+  "text-(--color-foreground-muted) hover:bg-(--color-palette-olive-subtle-hover) hover:text-(--color-foreground-default) active:bg-(--color-palette-olive-subtle-pressed)"
 
 function AppHeader({
   className,
@@ -91,7 +91,7 @@ function AppHeader({
     <header
       data-slot="app-header"
       className={cn(
-        "sticky top-0 z-50 flex h-(--header-height) w-full shrink-0 items-center gap-(--space-inline-md) bg-(--color-background-sunken) px-(--space-inset-md)",
+        "sticky top-0 z-50 flex h-(--header-height) w-full shrink-0 items-center gap-3 bg-(--color-background-muted) px-3",
         className
       )}
       {...props}
@@ -103,17 +103,17 @@ function AppHeader({
         href={brand.url ?? "/"}
         data-slot="app-header-brand"
         className={cn(
-          "flex shrink-0 items-center gap-(--space-inline-sm) rounded-(--radius-control-md) p-1",
+          "flex shrink-0 items-center gap-2 rounded-(--radius-lg) p-1",
           insetFocus
         )}
       >
         <span
           aria-hidden
-          className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-(--radius-control-md) bg-(--color-background-brand-bold) text-xs font-bold text-(--color-text-on-brand)"
+          className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-(--radius-lg) bg-(--color-brand-filled) text-xs font-bold text-(--color-brand-foreground-on-filled)"
         >
           {brand.logo ?? initials(brand.name)}
         </span>
-        <span className="hidden text-sm font-semibold text-(--color-text-default) lg:inline">
+        <span className="hidden text-sm font-semibold text-(--color-foreground-emphasis) lg:inline">
           {brand.name}
         </span>
       </a>
@@ -122,14 +122,14 @@ function AppHeader({
         {showSearch ? (
           <SearchBar
             {...search}
-            className={cn("max-w-(--size-container-md)", search?.className)}
+            className={cn("max-w-md", search?.className)}
           />
         ) : null}
       </div>
       <div className="flex-1 sm:hidden" />
 
       {/* Ações à direita nunca encolhem: quem diminui é a busca. */}
-      <div className="flex shrink-0 items-center gap-(--space-inline-xs)">
+      <div className="flex shrink-0 items-center gap-1">
         {showSearch ? (
           <Button
             variant="ghost"
@@ -155,7 +155,7 @@ function AppHeader({
           {notifications > 0 ? (
             <span
               aria-hidden
-              className="absolute -top-0.5 -right-0.5 min-w-5 rounded-full bg-(--color-background-danger-bold) px-1 text-center text-[11px] leading-5 font-semibold text-(--color-text-on-bold) ring-2 ring-(--color-background-sunken)"
+              className="absolute -top-0.5 -right-0.5 min-w-5 rounded-full bg-(--color-feedback-danger-filled) px-1 text-center text-[11px] leading-5 font-semibold text-(--color-feedback-danger-foreground-on-filled) ring-2 ring-(--color-background-muted)"
             >
               {notifications > 9 ? "9+" : notifications}
             </span>
@@ -170,12 +170,12 @@ function AppHeader({
           data-slot="app-header-account"
           aria-label={`${accountLabel}: ${user.name}`}
           title={user.name}
-          className="rounded-full hover:bg-(--color-background-neutral-default-hover)"
+          className="rounded-full hover:bg-(--color-palette-olive-subtle-hover)"
           onClick={onAccountClick}
         >
           <span
             aria-hidden
-            className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--color-background-brand-bold) text-xs font-semibold text-(--color-text-on-brand)"
+            className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--color-brand-filled) text-xs font-semibold text-(--color-brand-foreground-on-filled)"
           >
             {user.avatar ?? initials(user.name)}
           </span>

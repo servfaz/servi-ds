@@ -1,19 +1,29 @@
 /**
  * Camada 1 - Primitivos
- * Fonte: Figma Variables > "[SF-DS] Variables" > coleção "Primitives", mode "Value"
+ * Fonte: Figma Variables > "[SF-DS] Variables" > coleção "Global" (mode único)
  * https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables
  *
  * Arquivo espelho do Figma. Não editar valor aqui sem antes mudar a variável no Figma.
+ * Gerado a partir das variáveis do Figma; nomes seguem o caminho da variável
+ * com "/" trocado por "-" (ex.: color/green-pea/700 vira --color-green-pea-700).
  *
- * Esta camada guarda valores brutos, sem significado de uso. Não referencia nada
- * e nunca é consumida direto por um componente: só pela camada Semantic
- * (tokens-semantic.css).
+ * Esta camada guarda valores brutos, sem significado de uso. Nunca é consumida
+ * direto por um componente: só pela camada Semantic (tokens-semantic.css) e
+ * pelos estilos de texto (tokens-typography.css).
  *
- * A coleção "Tailwind" do Figma (escalas de cor como neutral, red, green, blue,
- * spacing e typography) não é repetida aqui: ela é cópia do tema padrão do
- * Tailwind v4, que já define --color-neutral-50, --spacing, --text-sm etc.
+ * O que não é repetido aqui:
+ * - Coleção "Tailwind" do Figma (escalas red, blue, emerald etc.): é cópia do
+ *   tema padrão do Tailwind v4, que já define --color-red-700 e afins. A escala
+ *   "gray" dessa coleção tem os valores do "neutral" do Tailwind e por isso
+ *   aponta para --color-neutral-* na camada Semantic.
+ * - "spacing/*" da Global: é a mesma escala do Tailwind v4
+ *   (calc(var(--spacing) * n)); use as classes do Tailwind (gap-2, px-3).
  *
- * Valores em px no Figma viram rem aqui (base 16px).
+ * Conversões:
+ * - px vira rem (base 16px).
+ * - opacity/n (em % no Figma) vira porcentagem, para uso em color-mix().
+ * - letter-spacing (px no Figma, calculado como % do tamanho) vira em, para
+ *   acompanhar o tamanho da fonte.
  */
 
 :root {
@@ -21,7 +31,7 @@
   --color-black: #000000;
   --color-white: #FFFFFF;
 
-  /* Cod Gray (cod-gray/900: preto institucional) */
+  /* Cod Gray */
   --color-cod-gray-50: #F9FAF9;
   --color-cod-gray-100: #F4F5F4;
   --color-cod-gray-200: #E6E6E5;
@@ -34,7 +44,7 @@
   --color-cod-gray-900: #1A1A18;
   --color-cod-gray-950: #0B0B0A;
 
-  /* Bourbon (bourbon/600: cor secundária) */
+  /* Bourbon */
   --color-bourbon-50: #FDFAED;
   --color-bourbon-100: #F9F1CC;
   --color-bourbon-200: #F3E194;
@@ -47,20 +57,20 @@
   --color-bourbon-900: #6F3918;
   --color-bourbon-950: #3F1D09;
 
-  /* Green Pea (green-pea/800: cor principal) */
-  --color-green-pea-50: #EBFEF6;
-  --color-green-pea-100: #CEFDE7;
-  --color-green-pea-200: #A2F8D5;
-  --color-green-pea-300: #66EFC0;
-  --color-green-pea-400: #29DEA5;
-  --color-green-pea-500: #05C48F;
-  --color-green-pea-600: #00A077;
+  /* Green Pea (cor principal da marca) */
+  --color-green-pea-50: #F1F7F4;
+  --color-green-pea-100: #D7E8DF;
+  --color-green-pea-200: #AFD4C2;
+  --color-green-pea-300: #85BFA2;
+  --color-green-pea-400: #5BAA84;
+  --color-green-pea-500: #35966B;
+  --color-green-pea-600: #1B8B67;
   --color-green-pea-700: #008062;
-  --color-green-pea-800: #00604A;
-  --color-green-pea-900: #015342;
-  --color-green-pea-950: #002F26;
+  --color-green-pea-800: #04614B;
+  --color-green-pea-900: #084537;
+  --color-green-pea-950: #07271F;
 
-  /* Derby (derby/100: cor de apoio) */
+  /* Derby */
   --color-derby-50: #FCF7F0;
   --color-derby-100: #F6E6D1;
   --color-derby-200: #F0D6B8;
@@ -73,7 +83,7 @@
   --color-derby-900: #6B3523;
   --color-derby-950: #391A11;
 
-  /* Bud (bud/400: cor de apoio) */
+  /* Bud */
   --color-bud-50: #F9FAF9;
   --color-bud-100: #F4F5F4;
   --color-bud-200: #E6E8E3;
@@ -86,8 +96,48 @@
   --color-bud-900: #1A1E15;
   --color-bud-950: #0B0D08;
 
-  /* Typography */
-  --typography-font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Typography / famílias */
+  --typography-font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --typography-font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --typography-font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Typography / escala (tamanho, altura de linha e espaçamento entre letras) */
+  --typography-xxs-font-size: 0.625rem;
+  --typography-xxs-line-height: 1rem;
+  --typography-xxs-letter-spacing: 0.01em;
+  --typography-xs-font-size: 0.75rem;
+  --typography-xs-line-height: 1.125rem;
+  --typography-xs-letter-spacing: 0.005em;
+  --typography-sm-font-size: 0.875rem;
+  --typography-sm-line-height: 1.25rem;
+  --typography-sm-letter-spacing: 0em;
+  --typography-md-font-size: 1rem;
+  --typography-md-line-height: 1.5rem;
+  --typography-md-letter-spacing: 0em;
+  --typography-lg-font-size: 1.25rem;
+  --typography-lg-line-height: 1.75rem;
+  --typography-lg-letter-spacing: 0em;
+  --typography-xl-font-size: 1.5rem;
+  --typography-xl-line-height: 2rem;
+  --typography-xl-letter-spacing: -0.01em;
+  --typography-2xl-font-size: 1.75rem;
+  --typography-2xl-line-height: 2.25rem;
+  --typography-2xl-letter-spacing: -0.01em;
+  --typography-3xl-font-size: 2rem;
+  --typography-3xl-line-height: 2.5rem;
+  --typography-3xl-letter-spacing: -0.015em;
+  --typography-4xl-font-size: 2.5rem;
+  --typography-4xl-line-height: 3rem;
+  --typography-4xl-letter-spacing: -0.015em;
+  --typography-5xl-font-size: 3rem;
+  --typography-5xl-line-height: 3.5rem;
+  --typography-5xl-letter-spacing: -0.02em;
+  --typography-6xl-font-size: 3.5rem;
+  --typography-6xl-line-height: 4.25rem;
+  --typography-6xl-letter-spacing: -0.02em;
+  --typography-7xl-font-size: 4rem;
+  --typography-7xl-line-height: 4.75rem;
+  --typography-7xl-letter-spacing: -0.02em;
 
   /* Radius */
   --radius-none: 0rem;
@@ -101,18 +151,14 @@
   --radius-4xl: 2rem;
   --radius-full: 9999px;
 
-  /* Size / container */
-  --size-container-3xs: 16rem;
-  --size-container-2xs: 18rem;
-  --size-container-xs: 20rem;
-  --size-container-sm: 24rem;
-  --size-container-md: 28rem;
-  --size-container-lg: 32rem;
-  --size-container-xl: 36rem;
-  --size-container-2xl: 42rem;
-  --size-container-3xl: 48rem;
-  --size-container-4xl: 56rem;
-  --size-container-5xl: 64rem;
-  --size-container-6xl: 72rem;
-  --size-container-7xl: 80rem;
+  /* Opacity */
+  --opacity-1: 5%;
+  --opacity-2: 8%;
+  --opacity-3: 10%;
+  --opacity-4: 12%;
+  --opacity-5: 15%;
+  --opacity-6: 20%;
+  --opacity-7: 30%;
+  --opacity-8: 50%;
+  --opacity-9: 70%;
 }

@@ -9,10 +9,10 @@
  *
  * Mapeamento (item "tokens"):
  *   tokens-primitives.css (:root)       -> cssVars.light
- *   tokens-semantic.css   (:root)       -> cssVars.light (Light + Product)
- *   tokens-semantic.css   (.dark)       -> cssVars.dark
- *   tokens-semantic.css   (.editorial)  -> css[".editorial"] (mode Editorial
- *                                          da colecao Semantic / Scale)
+ *   tokens-semantic.css   (:root)       -> cssVars.light (mode Light)
+ *   tokens-semantic.css   (.dark)       -> cssVars.dark (mode Dark)
+ *   tokens-typography.css (@utility)    -> css["@utility typo-..."] (estilos
+ *                                          de texto do Figma)
  *
  * O Servi DS tem duas camadas (Primitivo e Semantic). Nao existe mais
  * tokens-component.css: componentes consomem o Semantic direto. Por isso o
@@ -47,30 +47,40 @@ function parseBlock(css, selector) {
   return vars;
 }
 
-// O campo "css" do registry espera o nome completo da propriedade (com "--").
-function prefixed(vars) {
-  const out = {};
-  for (const [name, value] of Object.entries(vars)) out[`--${name}`] = value;
-  return out;
-}
-
 function readCssBlocks(fileName) {
   const filePath = path.join(TOKENS_DIR, fileName);
   const css = fs.readFileSync(filePath, "utf8");
   return {
     root: parseBlock(css, ":root"),
     dark: parseBlock(css, ".dark"),
-    editorial: parseBlock(css, ".editorial"),
   };
+}
+
+// Estilos de texto: cada "@utility nome { ... }" vira css["@utility nome"].
+function readUtilities(fileName) {
+  const filePath = path.join(TOKENS_DIR, fileName);
+  if (!fs.existsSync(filePath)) return {};
+  const css = fs.readFileSync(filePath, "utf8");
+  const out = {};
+  const re = /@utility\s+([a-zA-Z0-9-]+)\s*{([^}]*)}/g;
+  let m;
+  while ((m = re.exec(css))) {
+    const props = {};
+    const propRe = /([a-z-]+)\s*:\s*([^;]+);/g;
+    let p;
+    while ((p = propRe.exec(m[2]))) props[p[1].trim()] = p[2].trim();
+    out[`@utility ${m[1]}`] = props;
+  }
+  return out;
 }
 
 function main() {
   const primitives = readCssBlocks("tokens-primitives.css");
   const semantic = readCssBlocks("tokens-semantic.css");
+  const utilities = readUtilities("tokens-typography.css");
 
   const tokensLight = { ...primitives.root, ...semantic.root };
   const tokensDark = { ...semantic.dark };
-  const editorial = prefixed(semantic.editorial);
 
   const registry = JSON.parse(fs.readFileSync(REGISTRY_PATH, "utf8"));
 
@@ -82,8 +92,8 @@ function main() {
     );
   }
   tokensItem.cssVars = { light: tokensLight, dark: tokensDark };
-  if (Object.keys(editorial).length) {
-    tokensItem.css = { ".editorial": editorial };
+  if (Object.keys(utilities).length) {
+    tokensItem.css = utilities;
   } else {
     delete tokensItem.css;
   }
@@ -102,7 +112,7 @@ function main() {
     `sync-registry-tokens: registry.json atualizado a partir de tokens/*.css. ` +
       `Item "tokens": ${Object.keys(tokensLight).length} vars light, ` +
       `${Object.keys(tokensDark).length} vars dark, ` +
-      `${Object.keys(editorial).length} vars editorial.` +
+      `${Object.keys(utilities).length} estilos de texto.` +
       (cleaned.length ? ` cssVars removido de: ${cleaned.join(", ")}.` : "")
   );
 }

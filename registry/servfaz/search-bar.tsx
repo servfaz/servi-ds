@@ -67,17 +67,17 @@ function usePrefersReducedMotion() {
 
 // Degradê que percorre as palavras do placeholder.
 const placeholderGradient = [
-  "var(--color-text-subtle) 0%",
-  "var(--color-text-subtle) 30%",
-  "var(--color-text-brand) 45%",
-  "var(--color-text-discovery) 55%",
-  "var(--color-text-subtle) 70%",
-  "var(--color-text-subtle) 100%",
+  "var(--color-foreground-default) 0%",
+  "var(--color-foreground-default) 30%",
+  "var(--color-brand-foreground-default) 45%",
+  "var(--color-feedback-discovery-foreground-default) 55%",
+  "var(--color-foreground-default) 70%",
+  "var(--color-foreground-default) 100%",
 ].join(", ")
 
 // Ação secundária dentro da barra: ícone neutro, hover neutro.
 const quietAction =
-  "text-(--color-icon-subtle) hover:bg-(--color-background-neutral-subtle-hover) hover:text-(--color-icon-default) active:bg-(--color-background-neutral-subtle-pressed)"
+  "text-(--color-foreground-muted) hover:bg-(--color-palette-olive-light-hover) hover:text-(--color-foreground-default) active:bg-(--color-palette-olive-light-pressed)"
 
 function SearchBar({
   className,
@@ -178,18 +178,18 @@ function SearchBar({
       data-disabled={disabled ? true : undefined}
       data-filled={filled}
       className={cn(
-        "flex h-(--size-control-lg) w-full items-center gap-(--space-inline-sm) rounded-(--radius-control-md) border pl-(--space-inset-control-md)",
+        "flex h-10 w-full items-center gap-2 rounded-(--radius-lg) border pl-3",
         hasActions || filled
-          ? "pr-(--space-inset-xs)"
-          : "pr-(--space-inset-control-md)",
-        "font-(family-name:--typography-font-family)",
+          ? "pr-1"
+          : "pr-3",
+        "font-(family-name:--typography-font-sans)",
         "transition-[border-color,box-shadow,background-color] duration-150",
         disabled
-          ? "cursor-not-allowed border-(--color-border-disabled) bg-(--color-background-disabled)"
+          ? "cursor-not-allowed border-(--color-border-muted) bg-(--color-background-muted)"
           : cn(
-              "border-(--color-border-input) bg-(--color-background-default) shadow-sm",
+              "border-(--color-border-default) bg-(--color-background-default) shadow-sm",
               "hover:not-focus-within:border-(--color-border-strong) hover:shadow-md",
-              "focus-within:border-(--color-border-focus) focus-within:shadow-md"
+              "focus-within:border-(--color-brand-border-focus) focus-within:shadow-md"
             ),
         className
       )}
@@ -197,8 +197,8 @@ function SearchBar({
       <span
         data-slot="search-bar-icon"
         className={cn(
-          "flex shrink-0 items-center [&_svg]:size-(--size-icon-sm)",
-          disabled ? "text-(--color-icon-disabled)" : "text-(--color-icon-subtle)"
+          "flex shrink-0 items-center [&_svg]:size-4",
+          disabled ? "text-(--color-foreground-subtle)" : "text-(--color-foreground-muted)"
         )}
       >
         <MagnifyingGlassIcon aria-hidden />
@@ -234,8 +234,8 @@ function SearchBar({
           }}
           className={cn(
             "absolute inset-0 size-full bg-transparent p-0 outline-none",
-            "text-sm leading-5 text-(--color-text-default) caret-(--color-text-default)",
-            "disabled:cursor-not-allowed disabled:text-(--color-text-disabled)",
+            "text-sm leading-5 text-(--color-foreground-emphasis) caret-(--color-foreground-emphasis)",
+            "disabled:cursor-not-allowed disabled:text-(--color-foreground-subtle)",
             "[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none",
             inputClassName
           )}
@@ -250,10 +250,10 @@ function SearchBar({
             className={cn(
               "pointer-events-none absolute inset-0 truncate text-sm leading-5",
               disabled
-                ? "text-(--color-text-disabled)"
+                ? "text-(--color-foreground-subtle)"
                 : animated
                   ? "bg-clip-text text-transparent"
-                  : "text-(--color-text-subtle)"
+                  : "text-(--color-foreground-default)"
             )}
             style={
               animated
@@ -308,7 +308,7 @@ function SearchBar({
           {filterActive ? (
             <span
               aria-hidden
-              className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-(--color-background-brand-bold)"
+              className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-(--color-brand-filled)"
             />
           ) : null}
         </Button>
@@ -326,7 +326,7 @@ function SearchBar({
           <SparkleIcon
             aria-hidden
             weight="fill"
-            className={disabled ? undefined : "text-(--color-icon-brand)"}
+            className={disabled ? undefined : "text-(--color-brand-foreground-default)"}
           />
           {aiLabel}
         </Button>

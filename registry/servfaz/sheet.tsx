@@ -66,8 +66,8 @@ function SheetContent({
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
-          "fixed z-50 flex flex-col gap-(--space-stack-md) border-(--color-border-default) bg-(--color-background-default) text-(--color-text-default) shadow-lg",
-          "font-(family-name:--typography-font-family)",
+          "fixed z-50 flex flex-col gap-4 border-(--color-border-default) bg-(--color-background-default) text-(--color-foreground-emphasis) shadow-lg",
+          "font-(family-name:--typography-font-sans)",
           "transition ease-in-out data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=open]:duration-500",
           side === "right" &&
             "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
@@ -85,7 +85,7 @@ function SheetContent({
         {showCloseButton && (
           <SheetPrimitive.Close
             data-slot="sheet-close-button"
-            className="absolute top-4 right-4 flex size-6 items-center justify-center rounded-(--radius-control-sm) text-(--color-icon-subtle) transition-colors outline-none hover:bg-(--color-background-neutral-subtle-hover) hover:text-(--color-icon-default) focus-visible:shadow-[inset_0_0_0_2px_var(--color-border-focus)] disabled:pointer-events-none"
+            className="absolute top-4 right-4 flex size-6 items-center justify-center rounded-(--radius-md) text-(--color-foreground-muted) transition-colors outline-none hover:bg-(--color-palette-olive-light-hover) hover:text-(--color-foreground-default) focus-visible:shadow-[inset_0_0_0_2px_var(--color-brand-border-focus)] disabled:pointer-events-none"
           >
             <XIcon className="size-4" />
             <span className="sr-only">Fechar</span>
@@ -100,7 +100,7 @@ function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sheet-header"
-      className={cn("flex flex-col gap-1.5 p-(--space-inset-lg)", className)}
+      className={cn("flex flex-col gap-1.5 p-4", className)}
       {...props}
     />
   )
@@ -111,7 +111,7 @@ function SheetFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sheet-footer"
       className={cn(
-        "mt-auto flex flex-col gap-(--space-stack-sm) p-(--space-inset-lg)",
+        "mt-auto flex flex-col gap-2 p-4",
         className
       )}
       {...props}
@@ -126,7 +126,7 @@ function SheetTitle({
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn("font-semibold text-(--color-text-default)", className)}
+      className={cn("font-semibold text-(--color-foreground-emphasis)", className)}
       {...props}
     />
   )
@@ -139,7 +139,7 @@ function SheetDescription({
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"
-      className={cn("text-sm text-(--color-text-subtle)", className)}
+      className={cn("text-sm text-(--color-foreground-default)", className)}
       {...props}
     />
   )

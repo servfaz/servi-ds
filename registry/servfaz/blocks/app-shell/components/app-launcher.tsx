@@ -54,7 +54,7 @@ const defaultApps: AppLauncherApp[] = [
 ]
 
 const quietAction =
-  "text-(--color-icon-subtle) hover:bg-(--color-background-neutral-default-hover) hover:text-(--color-icon-default) active:bg-(--color-background-neutral-default-pressed) data-[state=open]:bg-(--color-background-neutral-default-hover) data-[state=open]:text-(--color-icon-default)"
+  "text-(--color-foreground-muted) hover:bg-(--color-palette-olive-subtle-hover) hover:text-(--color-foreground-default) active:bg-(--color-palette-olive-subtle-pressed) data-[state=open]:bg-(--color-palette-olive-subtle-hover) data-[state=open]:text-(--color-foreground-default)"
 
 function AppLauncher({
   apps = defaultApps,
@@ -79,9 +79,9 @@ function AppLauncher({
         align="end"
         sideOffset={8}
         data-slot="app-launcher"
-        className="w-80 p-(--space-inset-sm)"
+        className="w-80 p-2"
       >
-        <p className="px-2 pt-1 pb-2 text-xs font-medium text-(--color-text-subtle)">
+        <p className="px-2 pt-1 pb-2 text-xs font-medium text-(--color-foreground-default)">
           {label}
         </p>
         <ul className="grid grid-cols-3 gap-1">
@@ -93,13 +93,13 @@ function AppLauncher({
                   href={app.url}
                   aria-current={app.current ? "page" : undefined}
                   className={cn(
-                    "flex flex-col items-center gap-(--space-stack-sm) rounded-(--radius-control-md) px-2 py-3 text-center text-xs text-(--color-text-default) outline-none",
-                    "hover:bg-(--color-background-neutral-subtle-hover) active:bg-(--color-background-neutral-subtle-pressed)",
-                    "focus-visible:shadow-[inset_0_0_0_2px_var(--color-border-focus)]",
-                    "aria-[current=page]:bg-(--color-background-selected) aria-[current=page]:font-medium"
+                    "flex flex-col items-center gap-2 rounded-(--radius-lg) px-2 py-3 text-center text-xs text-(--color-foreground-emphasis) outline-none",
+                    "hover:bg-(--color-palette-olive-light-hover) active:bg-(--color-palette-olive-light-pressed)",
+                    "focus-visible:shadow-[inset_0_0_0_2px_var(--color-brand-border-focus)]",
+                    "aria-[current=page]:bg-(--color-brand-selected) aria-[current=page]:font-medium"
                   )}
                 >
-                  <span className="flex size-10 items-center justify-center rounded-(--radius-control-md) bg-(--color-background-brand-subtle) text-(--color-icon-brand)">
+                  <span className="flex size-10 items-center justify-center rounded-(--radius-lg) bg-(--color-brand-subtle) text-(--color-brand-foreground-default)">
                     <AppIcon className="size-5" />
                   </span>
                   <span className="line-clamp-2">{app.name}</span>
