@@ -75,14 +75,14 @@ function Input({
 
   const statusIcon =
     status === "invalid" ? (
-      <WarningCircleIcon aria-hidden className="text-(--color-icon-danger)" />
+      <WarningCircleIcon aria-hidden className="text-(--color-feedback-danger-foreground-default)" />
     ) : status === "success" ? (
-      <CheckIcon aria-hidden className="text-(--color-icon-success)" />
+      <CheckIcon aria-hidden className="text-(--color-feedback-success-foreground-default)" />
     ) : null
 
   const iconSlot = cn(
-    "flex shrink-0 items-center [&_svg]:size-(--size-icon-sm) [&_svg]:shrink-0",
-    disabled ? "text-(--color-icon-disabled)" : "text-(--color-icon-subtle)"
+    "flex shrink-0 items-center [&_svg]:size-4 [&_svg]:shrink-0",
+    disabled ? "text-(--color-foreground-subtle)" : "text-(--color-foreground-muted)"
   )
 
   const row = (
@@ -121,9 +121,9 @@ function Input({
         }}
         className={cn(
           "h-5 min-w-0 flex-1 bg-transparent p-0 outline-none",
-          "text-sm leading-5 text-(--color-text-default) caret-(--color-text-default)",
-          "placeholder:text-(--color-text-subtle)",
-          "disabled:cursor-not-allowed disabled:text-(--color-text-disabled) disabled:placeholder:text-(--color-text-disabled)",
+          "text-sm leading-5 text-(--color-foreground-emphasis) caret-(--color-foreground-emphasis)",
+          "placeholder:text-(--color-foreground-default)",
+          "disabled:cursor-not-allowed disabled:text-(--color-foreground-subtle) disabled:placeholder:text-(--color-foreground-subtle)",
           "file:border-0 file:bg-transparent file:text-sm file:font-medium"
         )}
         {...props}
@@ -151,19 +151,19 @@ function Input({
       onMouseLeave={() => setHovered(false)}
       className={cn(
         "flex w-full rounded-(--radius) border px-3",
-        "font-(family-name:--typography-font-family)",
+        "font-(family-name:--typography-font-sans)",
         "transition-[border-color,box-shadow,background-color] duration-150",
         isFloating
           ? cn("h-14 flex-col justify-center py-2", floated ? "gap-0.5" : "gap-0")
-          : "h-(--size-control-lg) items-center",
+          : "h-10 items-center",
         disabled
-          ? "cursor-not-allowed border-(--color-border-disabled) bg-(--color-background-disabled)"
+          ? "cursor-not-allowed border-(--color-border-muted) bg-(--color-background-muted)"
           : cn(
               "bg-(--color-background-default) shadow-xs",
-              status === "invalid" && "border-(--color-border-danger)",
-              status === "success" && "border-(--color-border-success)",
+              status === "invalid" && "border-(--color-feedback-danger-outline)",
+              status === "success" && "border-(--color-feedback-success-outline)",
               status === "default" &&
-                "border-(--color-border-input) hover:not-focus-within:border-(--color-border-strong) hover:not-focus-within:shadow-md focus-within:border-(--color-border-focus)"
+                "border-(--color-border-default) hover:not-focus-within:border-(--color-border-strong) hover:not-focus-within:shadow-md focus-within:border-(--color-brand-border-focus)"
             ),
         className
       )}
@@ -179,8 +179,8 @@ function Input({
               className={cn(
                 "truncate transition-[font-size,line-height,color] duration-150",
                 floated
-                  ? "text-xs leading-4.5 text-(--color-text-subtlest)"
-                  : "text-sm leading-5 text-(--color-text-subtle)",
+                  ? "text-xs leading-4.5 text-(--color-foreground-subtle)"
+                  : "text-sm leading-5 text-(--color-foreground-default)",
                 disabled && "opacity-50"
               )}
             >
@@ -192,8 +192,8 @@ function Input({
                   "shrink-0 transition-[font-size,line-height] duration-150",
                   floated ? "text-xs leading-4.5" : "text-sm leading-5",
                   disabled
-                    ? "text-(--color-text-disabled)"
-                    : "text-(--color-text-subtlest)"
+                    ? "text-(--color-foreground-subtle)"
+                    : "text-(--color-foreground-subtle)"
                 )}
               >
                 {optionalText}

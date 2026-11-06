@@ -13,8 +13,8 @@ function Label({
     <LabelPrimitive.Root
       data-slot="label"
       className={cn(
-        "flex items-center gap-(--space-inline-sm) select-none",
-        "font-(family-name:--typography-font-family) text-sm leading-5 font-semibold text-(--color-text-default)",
+        "flex items-center gap-2 select-none",
+        "font-(family-name:--typography-font-sans) text-sm leading-5 font-semibold text-(--color-foreground-emphasis)",
         "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50",
         "peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
         className

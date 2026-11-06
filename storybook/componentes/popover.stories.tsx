@@ -19,7 +19,7 @@ function Exemplo({ align, side }: Args) {
       </PopoverTrigger>
       <PopoverContent align={align} side={side}>
         <p className="text-sm font-medium">Título</p>
-        <p className="text-sm text-(--color-text-subtle)">
+        <p className="text-sm text-(--color-foreground-default)">
           Conteúdo livre do popover.
         </p>
       </PopoverContent>

@@ -55,7 +55,7 @@ function Field({
       data-status={status}
       data-disabled={disabled ? true : undefined}
       className={cn(
-        "group flex w-full flex-col gap-2 font-(family-name:--typography-font-family)",
+        "group flex w-full flex-col gap-2 font-(family-name:--typography-font-sans)",
         className
       )}
     >
@@ -70,8 +70,8 @@ function Field({
               className={cn(
                 "shrink-0 text-sm leading-5",
                 disabled
-                  ? "text-(--color-text-disabled)"
-                  : "text-(--color-text-subtlest)"
+                  ? "text-(--color-foreground-subtle)"
+                  : "text-(--color-foreground-subtle)"
               )}
             >
               {optionalText}
@@ -86,7 +86,7 @@ function Field({
           data-slot="field-description"
           className={cn(
             "text-sm leading-5",
-            disabled ? "text-(--color-text-disabled)" : "text-(--color-text-subtle)"
+            disabled ? "text-(--color-foreground-subtle)" : "text-(--color-foreground-default)"
           )}
         >
           {description}
@@ -113,12 +113,12 @@ function Field({
           className={cn(
             isFloating ? "text-xs leading-4.5" : "text-sm leading-5",
             disabled
-              ? "text-(--color-text-disabled)"
+              ? "text-(--color-foreground-subtle)"
               : status === "invalid"
-                ? "text-(--color-text-danger)"
+                ? "text-(--color-feedback-danger-foreground-default)"
                 : status === "success"
-                  ? "text-(--color-text-success)"
-                  : "text-(--color-text-subtlest)"
+                  ? "text-(--color-feedback-success-foreground-default)"
+                  : "text-(--color-foreground-subtle)"
           )}
         >
           {message}
