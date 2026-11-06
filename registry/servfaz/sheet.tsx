@@ -126,7 +126,7 @@ function SheetTitle({
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn("font-semibold text-(--color-foreground-emphasis)", className)}
+      className={cn("typo-sans-md-semibold text-(--color-foreground-emphasis)", className)}
       {...props}
     />
   )
@@ -139,7 +139,7 @@ function SheetDescription({
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"
-      className={cn("text-sm text-(--color-foreground-default)", className)}
+      className={cn("typo-sans-sm-regular text-(--color-foreground-default)", className)}
       {...props}
     />
   )

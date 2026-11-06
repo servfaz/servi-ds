@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "../../tokens/tokens-primitives.css";
 @import "../../tokens/tokens-semantic.css";
+@import "../../tokens/tokens-typography.css";
 
 @custom-variant dark (&:is(.dark *));
 
