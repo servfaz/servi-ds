@@ -1887,6 +1887,27 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Etiqueta curta com as variantes do shadcn e do Mantine e a propriedade de cor da camada Semantic.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/badge.tsx",
+          "target": "@ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
