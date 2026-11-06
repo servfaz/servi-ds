@@ -19,3 +19,5 @@ Valor bruto (hex, px) em componente ou token acima da camada primitiva. Token se
 ## Publicação
 
 Push em `main` builda e publica o registry e o Storybook automaticamente na Vercel, sem passo manual. O registry continua em `ds.servfaz.app/r/<nome>.json`. Documentação de componente é gerada, nunca desenhada à mão no Figma. Regras completas de geração em `.claude/rules/documentacao-design.md`.
+
+Nunca adicione Co-Authored-By nem qualquer atribuição ao Claude em commits e PRs.
