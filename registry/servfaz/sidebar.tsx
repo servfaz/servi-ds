@@ -27,21 +27,24 @@ import {
 /*
  * Sidebar - mesma estrutura e API da Sidebar do shadcn, com os tokens
  * Semantic do Servi DS no lugar das variáveis --sidebar-* do shadcn.
+ * Peças espelhadas do Figma (página App Shell do [SDS] Components):
+ * Sidebar Group Label, Sidebar Menu Button e Sidebar Menu Badge.
  *
- * Mapa aplicado (o mesmo do Figma):
- * - fundo: color/background/sunken
- * - texto e ícone: color/text/default e color/icon/default
- * - hover e pressed do item: color/background/neutral/default/hover e pressed
- *   (o neutral/subtle/hover tem o mesmo valor do fundo sunken no tema claro e
- *   o hover sumia)
- * - item ativo: color/background/raised com contorno color/border/default,
- *   ícone em color/icon/brand
- * - bordas, divisores e rail: color/border/default
- * - foco: borda interna de 2px em color/border/focus (igual ao Button ghost)
+ * - fundo: background/muted
+ * - título do grupo: Sans/xs/medium em foreground/muted
+ * - item: Sans/sm/regular em foreground/default, ícone de 20px; hover em
+ *   brand/light-hover, pressed em brand/light-pressed com texto
+ *   brand/foreground/emphasis
+ * - item ativo (selected): background/default com contorno border/default e
+ *   sombra xs, texto Sans/sm/medium em brand/foreground/emphasis e ícone em
+ *   brand/foreground/default
+ * - recolhido: item quadrado de 40px
+ * - foco: borda interna de 2px em brand/border-focus (igual ao Button ghost)
+ * - desabilitado: foreground/subtle
  *
- * Valores sem variável (registrados em "Variáveis pendentes"): larguras da
- * sidebar (16rem, 18rem no celular, 3rem recolhida), altura do item sm (28px)
- * e lg (48px), sombra do item ativo.
+ * Valores sem variável (pendentes): larguras da sidebar (16rem, 18rem no
+ * celular, 3rem recolhida), altura do item sm (28px) e lg (48px), sombra do
+ * item ativo.
  */
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
@@ -452,7 +455,7 @@ function SidebarGroupLabel({
       data-slot="sidebar-group-label"
       data-sidebar="group-label"
       className={cn(
-        "flex h-8 shrink-0 items-center rounded-(--radius-lg) px-2 text-xs font-medium text-(--color-foreground-default) transition-[margin,opacity] duration-200 ease-linear [&>svg]:size-4 [&>svg]:shrink-0",
+        "flex h-8 shrink-0 items-center rounded-(--radius-lg) px-2 typo-sans-xs-medium text-(--color-foreground-muted) transition-[margin,opacity] duration-200 ease-linear [&>svg]:size-4 [&>svg]:shrink-0",
         insetFocus,
         "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
         className
@@ -524,14 +527,14 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
 
 const sidebarMenuButtonVariants = cva(
   [
-    "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-(--radius-lg) p-2 text-left text-sm text-(--color-foreground-emphasis)",
-    "transition-[width,height,padding,background-color,box-shadow] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!",
-    "hover:bg-(--color-palette-olive-subtle-hover) active:bg-(--color-palette-olive-subtle-pressed)",
+    "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-(--radius-lg) px-2 py-1.5 text-left typo-sans-sm-regular text-(--color-foreground-default)",
+    "transition-[width,height,padding,background-color,box-shadow,color] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-10! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2!",
+    "hover:bg-(--color-brand-light-hover) active:bg-(--color-brand-light-pressed) active:text-(--color-brand-foreground-emphasis) active:[&>svg]:text-(--color-brand-foreground-emphasis)",
     insetFocus,
     "disabled:pointer-events-none disabled:text-(--color-foreground-subtle) disabled:[&>svg]:text-(--color-foreground-subtle) aria-disabled:pointer-events-none aria-disabled:text-(--color-foreground-subtle) aria-disabled:[&>svg]:text-(--color-foreground-subtle)",
-    "data-[active=true]:bg-(--color-background-default) data-[active=true]:hover:bg-(--color-background-default) data-[active=true]:font-medium data-[active=true]:shadow-[0_0_0_1px_var(--color-border-default),0_1px_2px_0_rgb(10_10_10/0.05)] data-[active=true]:[&>svg]:text-(--color-brand-foreground-default)",
-    "data-[state=open]:hover:bg-(--color-palette-olive-subtle-hover)",
-    "[&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-(--color-foreground-default)",
+    "data-[active=true]:bg-(--color-background-default) data-[active=true]:hover:bg-(--color-background-default) data-[active=true]:typo-sans-sm-medium data-[active=true]:text-(--color-brand-foreground-emphasis) data-[active=true]:shadow-[inset_0_0_0_1px_var(--color-border-default),0_1px_2px_0_rgb(0_0_0/0.05)] data-[active=true]:[&>svg]:text-(--color-brand-foreground-default)",
+    "data-[state=open]:hover:bg-(--color-brand-light-hover)",
+    "[&>span:last-child]:truncate [&>svg]:size-5 [&>svg]:shrink-0 [&>svg]:text-(--color-foreground-default)",
   ],
   {
     variants: {
@@ -541,9 +544,9 @@ const sidebarMenuButtonVariants = cva(
           "bg-(--color-background-default) shadow-[0_0_0_1px_var(--color-border-default)] hover:shadow-[0_0_0_1px_var(--color-border-strong)]",
       },
       size: {
-        default: "h-8 text-sm",
-        sm: "h-7 text-xs",
-        lg: "h-12 text-sm group-data-[collapsible=icon]:p-0!",
+        default: "h-8",
+        sm: "h-7 typo-sans-xs-regular [&>svg]:size-4",
+        lg: "h-12 group-data-[collapsible=icon]:p-0!",
       },
     },
     defaultVariants: {
@@ -645,8 +648,7 @@ function SidebarMenuBadge({
       data-slot="sidebar-menu-badge"
       data-sidebar="menu-badge"
       className={cn(
-        "pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-(--radius-md) px-1 text-xs font-medium text-(--color-foreground-default) tabular-nums select-none",
-        "peer-hover/menu-button:text-(--color-foreground-emphasis) peer-data-[active=true]/menu-button:text-(--color-foreground-emphasis)",
+        "pointer-events-none absolute right-2 flex h-5 min-w-5 items-center justify-center rounded-(--radius-md) px-1 typo-sans-xs-medium text-(--color-foreground-default) tabular-nums select-none",
         "peer-data-[size=sm]/menu-button:top-1",
         "peer-data-[size=default]/menu-button:top-1.5",
         "peer-data-[size=lg]/menu-button:top-3.5",
@@ -751,9 +753,9 @@ function SidebarMenuSubButton({
         "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-(--radius-lg) px-2 text-(--color-foreground-emphasis) hover:bg-(--color-palette-olive-subtle-hover) active:bg-(--color-palette-olive-subtle-pressed) [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-(--color-foreground-default)",
         insetFocus,
         "aria-disabled:pointer-events-none aria-disabled:text-(--color-foreground-subtle)",
-        "data-[active=true]:bg-(--color-palette-olive-subtle-hover) data-[active=true]:font-medium",
-        size === "sm" && "text-xs",
-        size === "md" && "text-sm",
+        "data-[active=true]:bg-(--color-palette-olive-subtle-hover) data-[active=true]:typo-sans-sm-medium",
+        size === "sm" && "typo-sans-xs-regular",
+        size === "md" && "typo-sans-sm-regular",
         "group-data-[collapsible=icon]:hidden",
         className
       )}
