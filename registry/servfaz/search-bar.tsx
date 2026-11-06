@@ -1,21 +1,21 @@
 "use client"
 
 import * as React from "react"
-import {
-  FunnelSimpleIcon,
-  MagnifyingGlassIcon,
-  SparkleIcon,
-  XIcon,
-} from "@phosphor-icons/react"
+import { MagnifyingGlassIcon, XIcon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "./button"
 
 /*
- * SearchBar - barra de busca com atalho para a Gaia (IA).
- * Mesma altura, borda e tipografia do Input. Cores, espaçamentos, alturas e
- * raios vêm só dos tokens Semantic do Servi DS. Sombras usam a escala do
- * Tailwind, como o Input.
+ * SearchBar - espelho do component set "Search Bar" do Figma ([SDS] Components).
+ * Estados do Figma: default, hover e typing (foco). Lupa Phosphor (peso light),
+ * placeholder e atalho de teclado (Ctrl K) à direita.
+ * O atalho foca a busca de qualquer lugar da página. Com texto digitado, o
+ * atalho dá lugar ao botão de limpar.
+ * O botão "Chat com GAIA" fica fora da barra, no App Header.
+ *
+ * Valor sem variável no Figma (pendente): raio de 10px da caixa. Aqui usa
+ * radius/lg (8px) até a variável existir.
  */
 
 type SearchBarProps = Omit<
@@ -32,18 +32,10 @@ type SearchBarProps = Omit<
   onSearch?: (value: string) => void
   /** Chamado ao clicar no botão de limpar. */
   onClear?: () => void
-  /** Mostra o botão de filtro. */
-  showFilter?: boolean
-  /** Indica que há filtros aplicados (ponto na cor da marca). */
-  filterActive?: boolean
-  /** Nome acessível do botão de filtro. */
-  filterLabel?: string
-  onFilterClick?: React.MouseEventHandler<HTMLButtonElement>
-  /** Mostra o botão de falar com a Gaia. */
-  showAi?: boolean
-  /** Texto do botão da Gaia. */
-  aiLabel?: string
-  onAiClick?: React.MouseEventHandler<HTMLButtonElement>
+  /** Tecla que, com Ctrl (ou Cmd no Mac), foca a busca. `null` desliga o atalho. */
+  shortcutKey?: string | null
+  /** Texto do atalho mostrado na barra. */
+  shortcutLabel?: string
   /** Classe aplicada no input. `className` vai para a caixa. */
   inputClassName?: string
 }
@@ -65,35 +57,26 @@ function usePrefersReducedMotion() {
   return reduced
 }
 
-// Degradê que percorre as palavras do placeholder.
+// Degradê que percorre as palavras do placeholder rotativo.
 const placeholderGradient = [
-  "var(--color-text-subtle) 0%",
-  "var(--color-text-subtle) 30%",
-  "var(--color-text-brand) 45%",
-  "var(--color-text-discovery) 55%",
-  "var(--color-text-subtle) 70%",
-  "var(--color-text-subtle) 100%",
+  "var(--color-foreground-subtle) 0%",
+  "var(--color-foreground-subtle) 30%",
+  "var(--color-brand-foreground-default) 45%",
+  "var(--color-feedback-discovery-foreground-default) 55%",
+  "var(--color-foreground-subtle) 70%",
+  "var(--color-foreground-subtle) 100%",
 ].join(", ")
-
-// Ação secundária dentro da barra: ícone neutro, hover neutro.
-const quietAction =
-  "text-(--color-icon-subtle) hover:bg-(--color-background-neutral-subtle-hover) hover:text-(--color-icon-default) active:bg-(--color-background-neutral-subtle-pressed)"
 
 function SearchBar({
   className,
   inputClassName,
-  placeholder = "Buscar",
+  placeholder = "Busca",
   placeholders,
   placeholderInterval = 4000,
   onSearch,
   onClear,
-  showFilter = true,
-  filterActive = false,
-  filterLabel = "Filtros",
-  onFilterClick,
-  showAi = true,
-  aiLabel = "Chat com GAIA",
-  onAiClick,
+  shortcutKey = "k",
+  shortcutLabel = "Ctrl K",
   disabled,
   value,
   defaultValue,
@@ -129,8 +112,24 @@ function SearchBar({
     return () => window.clearInterval(timer)
   }, [rotating, filled, focused, disabled, suggestions.length, placeholderInterval])
 
+  // Atalho de teclado (Ctrl K / Cmd K) para focar a busca.
+  React.useEffect(() => {
+    if (!shortcutKey || disabled) return
+    function onWindowKeyDown(event: KeyboardEvent) {
+      if (
+        (event.ctrlKey || event.metaKey) &&
+        event.key.toLowerCase() === shortcutKey!.toLowerCase()
+      ) {
+        event.preventDefault()
+        inputRef.current?.focus()
+      }
+    }
+    window.addEventListener("keydown", onWindowKeyDown)
+    return () => window.removeEventListener("keydown", onWindowKeyDown)
+  }, [shortcutKey, disabled])
+
   const currentPlaceholder = suggestions[index % suggestions.length]
-  const animated = !reducedMotion && !disabled
+  const animated = rotating && !reducedMotion && !disabled
 
   // Entrada da sugestão e brilho em degradê, sem depender de CSS global.
   const placeholderRef = React.useCallback(
@@ -169,8 +168,6 @@ function SearchBar({
     input?.focus()
   }
 
-  const hasActions = showFilter || showAi
-
   return (
     <div
       role="search"
@@ -178,18 +175,14 @@ function SearchBar({
       data-disabled={disabled ? true : undefined}
       data-filled={filled}
       className={cn(
-        "flex h-(--size-control-lg) w-full items-center gap-(--space-inline-sm) rounded-(--radius-control-md) border pl-(--space-inset-control-md)",
-        hasActions || filled
-          ? "pr-(--space-inset-xs)"
-          : "pr-(--space-inset-control-md)",
-        "font-(family-name:--typography-font-family)",
-        "transition-[border-color,box-shadow,background-color] duration-150",
+        "flex h-10 w-full items-center gap-2 rounded-(--radius-lg) border pr-1.5 pl-3",
+        "transition-[border-color,background-color] duration-150",
         disabled
-          ? "cursor-not-allowed border-(--color-border-disabled) bg-(--color-background-disabled)"
+          ? "cursor-not-allowed border-(--color-border-muted) bg-(--color-background-muted)"
           : cn(
-              "border-(--color-border-input) bg-(--color-background-default) shadow-sm",
-              "hover:not-focus-within:border-(--color-border-strong) hover:shadow-md",
-              "focus-within:border-(--color-border-focus) focus-within:shadow-md"
+              "border-(--color-border-default) bg-(--color-background-default)",
+              "hover:not-focus-within:border-(--color-border-strong) hover:not-focus-within:bg-(--color-palette-olive-light-hover)",
+              "focus-within:border-(--color-brand-border-focus)"
             ),
         className
       )}
@@ -197,11 +190,13 @@ function SearchBar({
       <span
         data-slot="search-bar-icon"
         className={cn(
-          "flex shrink-0 items-center [&_svg]:size-(--size-icon-sm)",
-          disabled ? "text-(--color-icon-disabled)" : "text-(--color-icon-subtle)"
+          "flex shrink-0 items-center [&_svg]:size-4",
+          disabled
+            ? "text-(--color-foreground-subtle)"
+            : "text-(--color-foreground-muted)"
         )}
       >
-        <MagnifyingGlassIcon aria-hidden />
+        <MagnifyingGlassIcon aria-hidden weight="light" />
       </span>
 
       <div data-slot="search-bar-field" className="relative h-5 min-w-0 flex-1">
@@ -215,6 +210,7 @@ function SearchBar({
           value={value}
           defaultValue={defaultValue}
           aria-label={ariaLabel ?? currentPlaceholder}
+          aria-keyshortcuts={shortcutKey ? `Control+${shortcutKey.toUpperCase()}` : undefined}
           onChange={(event) => {
             setFilledUncontrolled(event.currentTarget.value.length > 0)
             onChange?.(event)
@@ -234,8 +230,8 @@ function SearchBar({
           }}
           className={cn(
             "absolute inset-0 size-full bg-transparent p-0 outline-none",
-            "text-sm leading-5 text-(--color-text-default) caret-(--color-text-default)",
-            "disabled:cursor-not-allowed disabled:text-(--color-text-disabled)",
+            "typo-sans-sm-medium text-(--color-foreground-emphasis) caret-(--color-foreground-emphasis)",
+            "disabled:cursor-not-allowed disabled:text-(--color-foreground-subtle)",
             "[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none",
             inputClassName
           )}
@@ -248,12 +244,10 @@ function SearchBar({
             aria-hidden
             data-slot="search-bar-placeholder"
             className={cn(
-              "pointer-events-none absolute inset-0 truncate text-sm leading-5",
-              disabled
-                ? "text-(--color-text-disabled)"
-                : animated
-                  ? "bg-clip-text text-transparent"
-                  : "text-(--color-text-subtle)"
+              "pointer-events-none absolute inset-0 truncate typo-sans-sm-medium",
+              animated
+                ? "bg-clip-text text-transparent"
+                : "text-(--color-foreground-subtle)"
             )}
             style={
               animated
@@ -273,63 +267,21 @@ function SearchBar({
         <Button
           type="button"
           variant="ghost"
-          size="icon-sm"
+          size="icon-xs"
           aria-label="Limpar busca"
           data-slot="search-bar-clear"
-          className={quietAction}
+          className="text-(--color-foreground-muted) hover:bg-(--color-palette-olive-light-hover) active:bg-(--color-palette-olive-light-pressed)"
           onClick={handleClear}
         >
           <XIcon aria-hidden />
         </Button>
-      ) : null}
-
-      {filled && !disabled && hasActions ? (
-        <span
-          aria-hidden
-          data-slot="search-bar-divider"
-          className="h-5 w-px shrink-0 bg-(--color-border-default)"
-        />
-      ) : null}
-
-      {showFilter ? (
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon-sm"
-          aria-label={filterLabel}
-          aria-pressed={filterActive}
-          data-slot="search-bar-filter"
-          data-active={filterActive || undefined}
-          disabled={disabled}
-          className={cn("relative", quietAction)}
-          onClick={onFilterClick}
+      ) : shortcutKey ? (
+        <kbd
+          data-slot="search-bar-shortcut"
+          className="flex h-6 shrink-0 items-center gap-1 rounded-(--radius-md) bg-(--color-background-muted) px-2 typo-sans-xs-semibold text-(--color-foreground-subtle)"
         >
-          <FunnelSimpleIcon aria-hidden />
-          {filterActive ? (
-            <span
-              aria-hidden
-              className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-(--color-background-brand-bold)"
-            />
-          ) : null}
-        </Button>
-      ) : null}
-
-      {showAi ? (
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          data-slot="search-bar-ai"
-          disabled={disabled}
-          onClick={onAiClick}
-        >
-          <SparkleIcon
-            aria-hidden
-            weight="fill"
-            className={disabled ? undefined : "text-(--color-icon-brand)"}
-          />
-          {aiLabel}
-        </Button>
+          {shortcutLabel}
+        </kbd>
       ) : null}
     </div>
   )

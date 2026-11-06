@@ -5,6 +5,12 @@ import * as LabelPrimitive from "@radix-ui/react-label"
 
 import { cn } from "@/lib/utils"
 
+/*
+ * Label - espelho do component set "Label" do Figma ([SDS] Components).
+ * Estilo de texto Sans/sm/semibold, cor foreground/muted. Desabilitado: 50%
+ * de opacidade, como no Figma.
+ */
+
 function Label({
   className,
   ...props
@@ -13,8 +19,8 @@ function Label({
     <LabelPrimitive.Root
       data-slot="label"
       className={cn(
-        "flex items-center gap-(--space-inline-sm) select-none",
-        "font-(family-name:--typography-font-family) text-sm leading-5 font-semibold text-(--color-text-default)",
+        "flex items-center gap-2 select-none",
+        "typo-sans-sm-semibold text-(--color-foreground-muted)",
         "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50",
         "peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
         className

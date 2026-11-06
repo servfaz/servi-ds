@@ -5,6 +5,15 @@ import { CheckIcon, WarningCircleIcon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
 
+/*
+ * Input - espelho do component set "Input" do Figma ([SDS] Components).
+ * type default (40px) e floating (56px, label dentro da caixa).
+ * Estados do Figma: default, hover, focus, filled, disabled, invalid, success.
+ *
+ * Valor sem variável no Figma (pendente): raio de 10px da caixa. Aqui usa
+ * radius/lg (8px) até a variável existir.
+ */
+
 type InputStatus = "default" | "invalid" | "success"
 
 type InputProps = Omit<React.ComponentProps<"input">, "size"> & {
@@ -27,6 +36,51 @@ type InputProps = Omit<React.ComponentProps<"input">, "size"> & {
 function hasText(value: unknown) {
   if (value === undefined || value === null) return false
   return String(value).length > 0
+}
+
+/** Caixa comum ao Input, ao Textarea e ao Search Bar. */
+function controlBoxClasses(status: InputStatus, disabled?: boolean) {
+  return cn(
+    "w-full rounded-(--radius-lg) border",
+    "transition-[border-color,box-shadow,background-color] duration-150",
+    disabled
+      ? "cursor-not-allowed border-(--color-border-muted) bg-(--color-background-muted)"
+      : cn(
+          "bg-(--color-background-default) shadow-xs",
+          status === "invalid" && "border-(--color-feedback-danger-outline)",
+          status === "success" && "border-(--color-feedback-success-outline)",
+          status === "default" &&
+            "border-(--color-border-default) hover:not-focus-within:shadow-md focus-within:border-(--color-brand-border-focus)"
+        )
+  )
+}
+
+/** Ícone de status (invalid e success), igual ao Figma. */
+function StatusIcon({ status }: { status: InputStatus }) {
+  if (status === "invalid")
+    return (
+      <WarningCircleIcon
+        aria-hidden
+        className="text-(--color-feedback-danger-foreground-default)"
+      />
+    )
+  if (status === "success")
+    return (
+      <CheckIcon
+        aria-hidden
+        className="text-(--color-feedback-success-foreground-default)"
+      />
+    )
+  return null
+}
+
+function iconSlotClasses(disabled?: boolean) {
+  return cn(
+    "flex shrink-0 items-center [&_svg]:size-4 [&_svg]:shrink-0",
+    disabled
+      ? "text-(--color-foreground-subtle)"
+      : "text-(--color-foreground-muted)"
+  )
 }
 
 function Input({
@@ -73,17 +127,8 @@ function Input({
     Boolean(disabled) ||
     status !== "default"
 
-  const statusIcon =
-    status === "invalid" ? (
-      <WarningCircleIcon aria-hidden className="text-(--color-icon-danger)" />
-    ) : status === "success" ? (
-      <CheckIcon aria-hidden className="text-(--color-icon-success)" />
-    ) : null
-
-  const iconSlot = cn(
-    "flex shrink-0 items-center [&_svg]:size-(--size-icon-sm) [&_svg]:shrink-0",
-    disabled ? "text-(--color-icon-disabled)" : "text-(--color-icon-subtle)"
-  )
+  const statusIcon = <StatusIcon status={status} />
+  const hasStatusIcon = status !== "default"
 
   const row = (
     <div
@@ -96,7 +141,7 @@ function Input({
       )}
     >
       {leftIcon ? (
-        <span data-slot="input-left-icon" className={iconSlot}>
+        <span data-slot="input-left-icon" className={iconSlotClasses(disabled)}>
           {leftIcon}
         </span>
       ) : null}
@@ -121,19 +166,19 @@ function Input({
         }}
         className={cn(
           "h-5 min-w-0 flex-1 bg-transparent p-0 outline-none",
-          "text-sm leading-5 text-(--color-text-default) caret-(--color-text-default)",
-          "placeholder:text-(--color-text-subtle)",
-          "disabled:cursor-not-allowed disabled:text-(--color-text-disabled) disabled:placeholder:text-(--color-text-disabled)",
-          "file:border-0 file:bg-transparent file:text-sm file:font-medium"
+          "typo-sans-sm-regular text-(--color-foreground-emphasis) caret-(--color-foreground-emphasis)",
+          "placeholder:text-(--color-foreground-default)",
+          "disabled:cursor-not-allowed disabled:text-(--color-foreground-subtle) disabled:placeholder:text-(--color-foreground-subtle)",
+          "file:border-0 file:bg-transparent file:typo-sans-sm-medium"
         )}
         {...props}
       />
-      {statusIcon ? (
-        <span data-slot="input-status-icon" className={iconSlot}>
+      {hasStatusIcon ? (
+        <span data-slot="input-status-icon" className={iconSlotClasses()}>
           {statusIcon}
         </span>
       ) : rightIcon ? (
-        <span data-slot="input-right-icon" className={iconSlot}>
+        <span data-slot="input-right-icon" className={iconSlotClasses(disabled)}>
           {rightIcon}
         </span>
       ) : null}
@@ -150,21 +195,11 @@ function Input({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={cn(
-        "flex w-full rounded-(--radius) border px-3",
-        "font-(family-name:--typography-font-family)",
-        "transition-[border-color,box-shadow,background-color] duration-150",
+        "flex px-3",
+        controlBoxClasses(status, disabled),
         isFloating
           ? cn("h-14 flex-col justify-center py-2", floated ? "gap-0.5" : "gap-0")
-          : "h-(--size-control-lg) items-center",
-        disabled
-          ? "cursor-not-allowed border-(--color-border-disabled) bg-(--color-background-disabled)"
-          : cn(
-              "bg-(--color-background-default) shadow-xs",
-              status === "invalid" && "border-(--color-border-danger)",
-              status === "success" && "border-(--color-border-success)",
-              status === "default" &&
-                "border-(--color-border-input) hover:not-focus-within:border-(--color-border-strong) hover:not-focus-within:shadow-md focus-within:border-(--color-border-focus)"
-            ),
+          : "h-10 items-center",
         className
       )}
     >
@@ -172,16 +207,18 @@ function Input({
         <>
           <div
             data-slot="input-header"
-            className="flex w-full items-center justify-between gap-2"
+            className={cn(
+              "flex w-full items-center justify-between gap-2",
+              disabled && "opacity-50"
+            )}
           >
             <label
               htmlFor={id}
               className={cn(
                 "truncate transition-[font-size,line-height,color] duration-150",
                 floated
-                  ? "text-xs leading-4.5 text-(--color-text-subtlest)"
-                  : "text-sm leading-5 text-(--color-text-subtle)",
-                disabled && "opacity-50"
+                  ? "typo-sans-xs-regular text-(--color-foreground-muted)"
+                  : "typo-sans-sm-regular text-(--color-foreground-default)"
               )}
             >
               {label}
@@ -190,10 +227,10 @@ function Input({
               <span
                 className={cn(
                   "shrink-0 transition-[font-size,line-height] duration-150",
-                  floated ? "text-xs leading-4.5" : "text-sm leading-5",
+                  floated ? "typo-sans-xs-regular" : "typo-sans-sm-regular",
                   disabled
-                    ? "text-(--color-text-disabled)"
-                    : "text-(--color-text-subtlest)"
+                    ? "text-(--color-foreground-subtle)"
+                    : "text-(--color-foreground-muted)"
                 )}
               >
                 {optionalText}
@@ -209,5 +246,5 @@ function Input({
   )
 }
 
-export { Input }
+export { Input, StatusIcon, controlBoxClasses, iconSlotClasses }
 export type { InputProps, InputStatus }

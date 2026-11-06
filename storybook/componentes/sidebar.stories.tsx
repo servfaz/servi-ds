@@ -47,7 +47,7 @@ function Exemplo({ variant, collapsible, side, defaultOpen }: Args) {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-(--radius-control-md) bg-(--color-background-brand-bold) text-xs font-bold text-(--color-text-on-brand)">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-(--radius-lg) bg-(--color-brand-filled) text-xs font-bold text-(--color-brand-foreground-on-filled)">
                   NS
                 </span>
                 <span>Nome do sistema</span>
@@ -86,7 +86,7 @@ function Exemplo({ variant, collapsible, side, defaultOpen }: Args) {
         <SidebarRail />
       </Sidebar>
       <SidebarInset>
-        <header className="flex h-12 items-center px-(--space-inset-sm)">
+        <header className="flex h-12 items-center px-2">
           <SidebarTrigger />
         </header>
       </SidebarInset>
