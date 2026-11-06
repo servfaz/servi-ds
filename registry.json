@@ -1823,6 +1823,49 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Caixa de selecao com label e descricao opcionais, nos tipos default e box.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/label.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-checkbox",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/checkbox.tsx",
+          "target": "@ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Grupo de opcoes de escolha unica com label e descricao opcionais, nos tipos default e box.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/checkbox.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/radio-group.tsx",
+          "target": "@ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
