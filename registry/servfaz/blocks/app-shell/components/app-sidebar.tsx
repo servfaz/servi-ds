@@ -2,21 +2,23 @@
 
 import * as React from "react"
 import {
-  ArrowLineLeftIcon,
-  ArrowLineRightIcon,
   ChartBarIcon,
   ClipboardTextIcon,
   FileTextIcon,
   GearIcon,
   HouseIcon,
-  MegaphoneIcon,
+  PackageIcon,
+  ShoppingCartIcon,
   TagIcon,
+  TruckIcon,
   UsersIcon,
   UsersThreeIcon,
+  WrenchIcon,
   type Icon,
 } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
+import { Separator } from "@/components/ui/separator"
 import {
   Sidebar,
   SidebarContent,
@@ -24,22 +26,29 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarSeparator,
+  SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 /*
- * AppSidebar - menu lateral do bloco App Shell, montado só com as peças da
- * Sidebar. Arquivo de bloco: o sistema copia e edita itens, rotas e textos.
- * Fica abaixo do AppHeader (top e altura descontam --header-height, como no
- * bloco sidebar-16 do shadcn). A logo mora no AppHeader.
- * Aberto: grupos com título e itens de 40px. Recolhido: só ícones de 32px,
- * com tooltip, e o título do grupo vira divisor. O botão de recolher fica no
- * rodapé, como no GitLab.
+ * AppSidebar - sidebar dupla do bloco App Shell, espelho do "App Sidebar" do
+ * Figma ([SDS] Components, página App Shell), no modelo do ClickUp:
+ * - AppRail (App Sidebar collapsed=true): coluna fixa de 56px com os módulos
+ *   do sistema, só ícones, com tooltip. Divisor entre grupos de módulos.
+ * - AppSidebar (App Sidebar collapsed=false): sidebar aberta de 256px com as
+ *   funcionalidades do módulo ativo, título do módulo no topo, grupos com
+ *   título e itens de 32px.
+ * Arquivo de bloco: o sistema copia e edita módulos, itens, rotas e textos.
  */
 
 type AppSidebarItem = {
@@ -58,69 +67,143 @@ type AppSidebarGroup = {
   items: AppSidebarItem[]
 }
 
-type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+type AppModule = {
+  title: string
+  icon: Icon
+  isActive?: boolean
+  disabled?: boolean
+  /** Funcionalidades do módulo, mostradas na sidebar aberta. */
   groups?: AppSidebarGroup[]
-  footerItems?: AppSidebarItem[]
-  /** Texto dos itens indisponíveis. */
-  soonLabel?: string
-  collapseLabel?: string
-  expandLabel?: string
 }
 
-const defaultGroups: AppSidebarGroup[] = [
-  {
-    label: "Dia a dia",
-    items: [
-      { title: "Início", url: "#", icon: HouseIcon, isActive: true },
-      { title: "Clientes", url: "#", icon: UsersIcon },
-      { title: "Contratos", url: "#", icon: FileTextIcon },
-      { title: "Ordens de serviço", url: "#", icon: ClipboardTextIcon, badge: 3 },
-      { title: "Financeiro", url: "#", icon: ChartBarIcon },
-    ],
-  },
-  {
-    label: "Cadastros",
-    items: [
-      { title: "Serviços", url: "#", icon: TagIcon },
-      { title: "Equipe", url: "#", icon: UsersThreeIcon, disabled: true },
-    ],
-  },
+const defaultModules: AppModule[][] = [
+  [
+    {
+      title: "Inventário",
+      icon: HouseIcon,
+      isActive: true,
+      groups: [
+        {
+          label: "Dia a dia",
+          items: [
+            { title: "Início", url: "#", icon: HouseIcon, isActive: true },
+            { title: "Clientes", url: "#", icon: UsersIcon },
+            { title: "Ordens de serviço", url: "#", icon: ClipboardTextIcon, badge: 3 },
+            { title: "Contratos", url: "#", icon: FileTextIcon },
+            { title: "Relatórios", url: "#", icon: ChartBarIcon },
+          ],
+        },
+        {
+          label: "Cadastros",
+          items: [
+            { title: "Serviços", url: "#", icon: TagIcon },
+            { title: "Equipe", url: "#", icon: UsersThreeIcon, disabled: true },
+          ],
+        },
+      ],
+    },
+    { title: "Compras", icon: ShoppingCartIcon },
+    { title: "Frota", icon: TruckIcon },
+    { title: "Estoque", icon: PackageIcon },
+  ],
+  [
+    { title: "Manutenção", icon: WrenchIcon },
+    { title: "Pessoas", icon: UsersThreeIcon, disabled: true },
+  ],
 ]
 
-const defaultFooterItems: AppSidebarItem[] = [
-  { title: "Novidades", url: "#", icon: MegaphoneIcon, badge: 2 },
-  { title: "Configurações", url: "#", icon: GearIcon },
-]
+const defaultRailFooter: AppModule[] = [{ title: "Configurações", icon: GearIcon }]
 
-// Item aberto com 40px; recolhido, o size-8 da Sidebar vale por cima.
-const itemButton = "h-10"
+/* ---------- Rail (módulos) ---------- */
 
-function AppSidebarCollapse({
-  collapseLabel,
-  expandLabel,
+function AppRailButton({
+  module,
+  onSelect,
 }: {
-  collapseLabel: string
-  expandLabel: string
+  module: AppModule
+  onSelect?: (module: AppModule) => void
 }) {
-  const { state, toggleSidebar } = useSidebar()
-  const collapsed = state === "collapsed"
-  const label = collapsed ? expandLabel : collapseLabel
-
+  const ModuleIcon = module.icon
   return (
-    <SidebarMenuItem className="hidden md:block">
-      <SidebarMenuButton
-        onClick={toggleSidebar}
-        tooltip={label}
-        aria-expanded={!collapsed}
-        data-slot="app-sidebar-collapse"
-        className={cn(itemButton, "text-(--color-foreground-default) [&>svg]:text-(--color-foreground-muted)")}
-      >
-        {collapsed ? <ArrowLineRightIcon /> : <ArrowLineLeftIcon />}
-        <span>{label}</span>
-      </SidebarMenuButton>
+    <SidebarMenuItem>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <SidebarMenuButton
+            isActive={module.isActive}
+            aria-label={module.title}
+            aria-current={module.isActive ? "page" : undefined}
+            disabled={module.disabled}
+            onClick={() => onSelect?.(module)}
+          >
+            <ModuleIcon weight={module.isActive ? "fill" : "light"} />
+          </SidebarMenuButton>
+        </TooltipTrigger>
+        <TooltipContent side="right">{module.title}</TooltipContent>
+      </Tooltip>
     </SidebarMenuItem>
   )
 }
+
+type AppRailProps = React.ComponentProps<"nav"> & {
+  modules?: AppModule[][]
+  footer?: AppModule[]
+  onModuleSelect?: (module: AppModule) => void
+}
+
+function AppRail({
+  className,
+  modules = defaultModules,
+  footer = defaultRailFooter,
+  onModuleSelect,
+  ...props
+}: AppRailProps) {
+  const { open, setOpen } = useSidebar()
+
+  function handleSelect(module: AppModule) {
+    if (!open) setOpen(true)
+    onModuleSelect?.(module)
+  }
+
+  return (
+    <nav
+      aria-label="Módulos"
+      data-slot="app-rail"
+      // group + data-collapsible: os itens usam o formato recolhido da Sidebar.
+      data-collapsible="icon"
+      className={cn(
+        "group sticky top-(--header-height) z-20 hidden h-[calc(100svh-var(--header-height))] w-(--rail-width) shrink-0 flex-col gap-2 bg-(--color-background-muted) p-2 md:flex",
+        className
+      )}
+      {...props}
+    >
+      <div className="flex flex-1 flex-col gap-2">
+        {modules.map((group, index) => (
+          <React.Fragment key={index}>
+            {index > 0 ? (
+              <Separator aria-hidden className="mx-1 mb-1 w-8!" />
+            ) : null}
+            <SidebarMenu className="items-center">
+              {group.map((module) => (
+                <AppRailButton
+                  key={module.title}
+                  module={module}
+                  onSelect={handleSelect}
+                />
+              ))}
+            </SidebarMenu>
+          </React.Fragment>
+        ))}
+      </div>
+      <SidebarMenu className="items-center">
+        {footer.map((module) => (
+          <AppRailButton key={module.title} module={module} onSelect={handleSelect} />
+        ))}
+      </SidebarMenu>
+    </nav>
+  )
+}
+
+/* ---------- Sidebar aberta (funcionalidades do módulo) ---------- */
 
 function AppSidebarMenuItem({
   item,
@@ -133,18 +216,13 @@ function AppSidebarMenuItem({
 
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton
-        asChild
-        isActive={item.isActive}
-        tooltip={item.title}
-        className={itemButton}
-      >
+      <SidebarMenuButton asChild isActive={item.isActive}>
         <a
           href={item.disabled ? undefined : item.url}
           aria-current={item.isActive ? "page" : undefined}
           aria-disabled={item.disabled || undefined}
         >
-          <ItemIcon weight={item.isActive ? "fill" : "regular"} />
+          <ItemIcon weight={item.isActive ? "fill" : "light"} />
           <span>{item.title}</span>
         </a>
       </SidebarMenuButton>
@@ -154,7 +232,7 @@ function AppSidebarMenuItem({
         </SidebarMenuBadge>
       ) : null}
       {item.disabled ? (
-        <SidebarMenuBadge className="top-1/2! -translate-y-1/2 font-normal text-(--color-foreground-subtle)">
+        <SidebarMenuBadge className="top-1/2! -translate-y-1/2">
           {soonLabel}
         </SidebarMenuBadge>
       ) : null}
@@ -162,46 +240,45 @@ function AppSidebarMenuItem({
   )
 }
 
+type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+  /** Nome do módulo ativo, no topo da sidebar. */
+  title?: string
+  groups?: AppSidebarGroup[]
+  /** Texto dos itens indisponíveis. */
+  soonLabel?: string
+}
+
 function AppSidebar({
   className,
-  groups = defaultGroups,
-  footerItems = defaultFooterItems,
+  title = defaultModules[0][0].title,
+  groups = defaultModules[0][0].groups ?? [],
   soonLabel = "Em breve",
-  collapseLabel = "Recolher menu",
-  expandLabel = "Expandir menu",
-  variant = "inset",
-  collapsible = "icon",
   ...props
 }: AppSidebarProps) {
   return (
     <Sidebar
-      variant={variant}
-      collapsible={collapsible}
+      collapsible="offcanvas"
       className={cn(
-        // Colado no cabeçalho (pt-0) e no painel (pr-0). Recolhido, a largura
-        // acompanha o espaço reservado (ícone + 16px), sem os 2px extras do
-        // shadcn, para o vão até o painel ser 8px nos dois estados.
-        "top-(--header-height) h-[calc(100svh-var(--header-height))]! pt-0 pr-0 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]",
+        // Abaixo do cabeçalho e à direita do rail, com o canto superior
+        // esquerdo arredondado como no Figma.
+        "top-(--header-height) h-[calc(100svh-var(--header-height))]! md:left-(--rail-width) md:group-data-[collapsible=offcanvas]:left-[calc(var(--rail-width)-var(--sidebar-width))]",
+        "overflow-hidden rounded-tl-(--radius-xl) border-t border-l border-(--color-border-default)",
         className
       )}
       {...props}
     >
-      <SidebarContent>
+      <SidebarHeader className="flex-row items-center justify-between gap-2 border-b border-(--color-border-muted) px-4 py-2">
+        <span className="truncate typo-sans-md-medium text-(--color-foreground-emphasis)">
+          {title}
+        </span>
+        <SidebarTrigger className="hidden md:inline-flex" />
+      </SidebarHeader>
+      <SidebarContent className="gap-2 px-2">
         {groups.map((group) => (
-          <SidebarGroup
-            key={group.label}
-            className="group-data-[collapsible=icon]:py-0"
-          >
-            {/* Recolhido, o título some e um divisor aparece no lugar. */}
-            <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">
-              {group.label}
-            </SidebarGroupLabel>
-            <SidebarSeparator
-              aria-hidden
-              className="mx-0 mb-2 hidden w-full group-data-[collapsible=icon]:block"
-            />
+          <SidebarGroup key={group.label} className="px-0">
+            <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu className="group-data-[collapsible=icon]:items-center">
+              <SidebarMenu>
                 {group.items.map((item) => (
                   <AppSidebarMenuItem
                     key={item.title}
@@ -214,24 +291,25 @@ function AppSidebar({
           </SidebarGroup>
         ))}
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu className="group-data-[collapsible=icon]:items-center">
-          {footerItems.map((item) => (
-            <AppSidebarMenuItem
-              key={item.title}
-              item={item}
-              soonLabel={soonLabel}
-            />
-          ))}
-          <AppSidebarCollapse
-            collapseLabel={collapseLabel}
-            expandLabel={expandLabel}
-          />
+      <SidebarFooter className="md:hidden">
+        {/* No celular o rail some: os módulos ficam no rodapé da Sheet. */}
+        <SidebarMenu>
+          {defaultModules.flat().map((module) => {
+            const ModuleIcon = module.icon
+            return (
+              <SidebarMenuItem key={module.title}>
+                <SidebarMenuButton isActive={module.isActive} disabled={module.disabled}>
+                  <ModuleIcon weight={module.isActive ? "fill" : "light"} />
+                  <span>{module.title}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )
+          })}
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   )
 }
 
-export { AppSidebar }
-export type { AppSidebarProps, AppSidebarItem, AppSidebarGroup }
+export { AppSidebar, AppRail }
+export type { AppSidebarProps, AppSidebarItem, AppSidebarGroup, AppModule, AppRailProps }

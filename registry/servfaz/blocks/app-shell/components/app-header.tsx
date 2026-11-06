@@ -1,26 +1,32 @@
 "use client"
 
 import * as React from "react"
-import { BellIcon, MagnifyingGlassIcon } from "@phosphor-icons/react"
+import { BellIcon, MagnifyingGlassIcon, RobotIcon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { SearchBar, type SearchBarProps } from "@/components/ui/search-bar"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { AppLauncher, type AppLauncherApp } from "@/components/app-launcher"
 
 /*
- * AppHeader - cabeçalho do bloco App Shell, fora do painel e por cima da
- * Sidebar, no modelo do GitLab: logo à esquerda, busca no centro e, à direita,
- * notificações, hub de aplicações (modelo do Google) e avatar.
- * Altura em --header-height, definida no page.tsx (mesmo padrão do bloco
- * sidebar-16 do shadcn).
+ * AppHeader - espelho do "App Header" do Figma ([SDS] Components, página App
+ * Shell). Fica fora do painel e por cima das sidebars, no modelo do GitLab:
+ * logo e nome do sistema à esquerda; busca e botão "Chat com GAIA" no centro;
+ * notificações, hub de aplicações (modelo do Google) e avatar à direita.
+ * Fundo background/muted, 56px de altura (--header-height, definida no
+ * page.tsx).
  */
 
 type AppHeaderBrand = {
   name: string
   url?: string
-  /** Logo do sistema. Sem logo, mostra as iniciais do nome. */
+  /** Logo do sistema (24px). Sem logo, mostra as iniciais do nome. */
   logo?: React.ReactNode
 }
 
@@ -38,6 +44,11 @@ type AppHeaderProps = React.ComponentProps<"header"> & {
   /** No celular a barra de busca não cabe: vira um botão que chama esta função. */
   onMobileSearchClick?: React.MouseEventHandler<HTMLButtonElement>
   searchLabel?: string
+  /** Mostra o botão de chat com a IA (Gaia) ao lado da busca. */
+  showAi?: boolean
+  aiLabel?: string
+  aiIcon?: React.ReactNode
+  onAiClick?: React.MouseEventHandler<HTMLButtonElement>
   notifications?: number
   notificationsLabel?: string
   onNotificationsClick?: React.MouseEventHandler<HTMLButtonElement>
@@ -59,11 +70,9 @@ function initials(name: string) {
   return (first + last).toUpperCase()
 }
 
-const insetFocus =
-  "outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--color-brand-border-focus)]"
-
-const quietAction =
-  "text-(--color-foreground-muted) hover:bg-(--color-palette-olive-subtle-hover) hover:text-(--color-foreground-default) active:bg-(--color-palette-olive-subtle-pressed)"
+// Ações de ícone do cabeçalho: ghost com ícone neutro e hover neutro.
+const headerAction =
+  "text-(--color-foreground-default) hover:bg-(--color-palette-olive-light-hover) active:bg-(--color-palette-olive-light-pressed)"
 
 function AppHeader({
   className,
@@ -72,6 +81,10 @@ function AppHeader({
   showSearch = true,
   onMobileSearchClick,
   searchLabel = "Buscar",
+  showAi = true,
+  aiLabel = "Chat com GAIA",
+  aiIcon,
+  onAiClick,
   notifications = 0,
   notificationsLabel = "Notificações",
   onNotificationsClick,
@@ -91,7 +104,7 @@ function AppHeader({
     <header
       data-slot="app-header"
       className={cn(
-        "sticky top-0 z-50 flex h-(--header-height) w-full shrink-0 items-center gap-3 bg-(--color-background-muted) px-3",
+        "sticky top-0 z-50 flex h-(--header-height) w-full shrink-0 items-center gap-4 bg-(--color-background-muted) px-4",
         className
       )}
       {...props}
@@ -102,28 +115,41 @@ function AppHeader({
       <a
         href={brand.url ?? "/"}
         data-slot="app-header-brand"
-        className={cn(
-          "flex shrink-0 items-center gap-2 rounded-(--radius-lg) p-1",
-          insetFocus
-        )}
+        className="flex shrink-0 items-center gap-1 rounded-(--radius-lg) outline-none focus-visible:shadow-[0_0_0_2px_var(--color-brand-border-focus)]"
       >
         <span
           aria-hidden
-          className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-(--radius-lg) bg-(--color-brand-filled) text-xs font-bold text-(--color-brand-foreground-on-filled)"
+          className="flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-(--radius-md) bg-(--color-brand-filled) typo-sans-xxs-bold text-(--color-brand-foreground-on-filled)"
         >
           {brand.logo ?? initials(brand.name)}
         </span>
-        <span className="hidden text-sm font-semibold text-(--color-foreground-emphasis) lg:inline">
+        <span className="hidden typo-sans-sm-semibold text-(--color-foreground-emphasis) lg:inline">
           {brand.name}
         </span>
       </a>
 
-      <div className="hidden min-w-0 flex-1 justify-center sm:flex">
+      <div className="hidden min-w-0 flex-1 items-center justify-center gap-1 sm:flex">
         {showSearch ? (
           <SearchBar
             {...search}
-            className={cn("max-w-md", search?.className)}
+            className={cn("max-w-80", search?.className)}
           />
+        ) : null}
+        {showAi ? (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="secondary"
+                size="icon-lg"
+                aria-label={aiLabel}
+                data-slot="app-header-ai"
+                onClick={onAiClick}
+              >
+                {aiIcon ?? <RobotIcon weight="fill" />}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{aiLabel}</TooltipContent>
+          </Tooltip>
         ) : null}
       </div>
       <div className="flex-1 sm:hidden" />
@@ -136,10 +162,10 @@ function AppHeader({
             size="icon-lg"
             aria-label={searchLabel}
             title={searchLabel}
-            className={cn("sm:hidden", quietAction)}
+            className={cn("sm:hidden", headerAction)}
             onClick={onMobileSearchClick}
           >
-            <MagnifyingGlassIcon className="size-5" />
+            <MagnifyingGlassIcon />
           </Button>
         ) : null}
         <Button
@@ -148,14 +174,14 @@ function AppHeader({
           aria-label={notificationsText}
           title={notificationsText}
           data-slot="app-header-notifications"
-          className={cn("relative", quietAction)}
+          className={cn("relative", headerAction)}
           onClick={onNotificationsClick}
         >
-          <BellIcon className="size-5" />
+          <BellIcon />
           {notifications > 0 ? (
             <span
               aria-hidden
-              className="absolute -top-0.5 -right-0.5 min-w-5 rounded-full bg-(--color-feedback-danger-filled) px-1 text-center text-[11px] leading-5 font-semibold text-(--color-feedback-danger-foreground-on-filled) ring-2 ring-(--color-background-muted)"
+              className="absolute -top-0.5 -right-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-(--color-feedback-danger-filled) px-1 typo-sans-xs-medium text-(--color-feedback-danger-foreground-on-filled) ring-2 ring-(--color-border-muted)"
             >
               {notifications > 9 ? "9+" : notifications}
             </span>
@@ -164,22 +190,16 @@ function AppHeader({
 
         <AppLauncher apps={apps} label={appsLabel} />
 
-        <Button
-          variant="ghost"
-          size="icon-lg"
+        <button
+          type="button"
           data-slot="app-header-account"
           aria-label={`${accountLabel}: ${user.name}`}
           title={user.name}
-          className="rounded-full hover:bg-(--color-palette-olive-subtle-hover)"
+          className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-(--color-border-default) bg-(--color-brand-filled) typo-sans-sm-semibold text-(--color-brand-foreground-on-filled) outline-none focus-visible:shadow-[0_0_0_1px_var(--color-brand-border-focus),0_0_0_4px_var(--color-brand-light-pressed)]"
           onClick={onAccountClick}
         >
-          <span
-            aria-hidden
-            className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--color-brand-filled) text-xs font-semibold text-(--color-brand-foreground-on-filled)"
-          >
-            {user.avatar ?? initials(user.name)}
-          </span>
-        </Button>
+          {user.avatar ?? initials(user.name)}
+        </button>
       </div>
     </header>
   )
