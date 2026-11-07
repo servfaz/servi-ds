@@ -1,0 +1,351 @@
+/*
+ * Moldura do Storybook (manager): header do site e ajustes de layout.
+ * Os tokens do DS e as variáveis do Tailwind que eles referenciam chegam
+ * pelo <head> do manager (ver .storybook/frame-head.ts).
+ */
+:root {
+  --frame-header-height: calc(var(--spacing) * 14);
+  --frame-hairline: calc(var(--spacing) / 4);
+}
+
+body.servi-frame {
+  background: var(--color-background-default);
+}
+
+/* A interface do Storybook ocupa o espaço abaixo do header. */
+.servi-frame #root {
+  position: fixed;
+  inset: var(--frame-header-height) 0 0 0;
+}
+
+/*
+ * O topo da barra lateral sai inteiro: a marca já está no header, e o menu de
+ * configurações (engrenagem) não faz falta. Os atalhos de teclado do
+ * Storybook continuam funcionando sem ele.
+ */
+.servi-frame .sidebar-header {
+  display: none;
+}
+
+/* Header */
+.frame-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 10;
+  box-sizing: border-box;
+  height: var(--frame-header-height);
+  background: var(--color-background-default);
+  border-bottom: var(--frame-hairline) solid var(--color-border-default);
+  color: var(--color-foreground-default);
+  font-family: var(--typography-font-sans);
+}
+
+.frame-header__inner {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 6);
+  height: 100%;
+  padding: 0 calc(var(--spacing) * 5);
+}
+
+.frame-header__logo {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
+}
+
+.frame-header__logo img {
+  display: block;
+  height: calc(var(--spacing) * 6);
+  width: auto;
+}
+
+.frame-header__nav {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 1);
+  height: 100%;
+}
+
+.frame-header__item {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  height: calc(var(--spacing) * 9);
+  padding: 0 calc(var(--spacing) * 3);
+  border-radius: var(--radius-md);
+  color: var(--color-foreground-default);
+  font-size: var(--typography-sm-font-size);
+  line-height: var(--typography-sm-line-height);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.frame-header__icon-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--spacing) * 9);
+  height: calc(var(--spacing) * 9);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-foreground-default);
+  cursor: pointer;
+}
+
+.frame-header__item:hover,
+.frame-header__icon-button:hover {
+  background: var(--color-brand-light);
+  color: var(--color-brand-foreground-default);
+}
+
+.frame-header__item:active,
+.frame-header__icon-button:active {
+  background: var(--color-brand-light-pressed);
+}
+
+.frame-header__item:focus-visible,
+.frame-header__icon-button:focus-visible,
+.frame-header__logo:focus-visible {
+  outline: calc(var(--spacing) / 2) solid var(--color-brand-border-focus);
+  outline-offset: calc(var(--spacing) / 2);
+}
+
+.frame-header__divider {
+  width: var(--frame-hairline);
+  height: calc(var(--spacing) * 5);
+  margin: 0 calc(var(--spacing) * 3);
+  background: var(--color-border-default);
+}
+
+.frame-header__icon {
+  width: calc(var(--spacing) * 5);
+  height: calc(var(--spacing) * 5);
+  flex-shrink: 0;
+}
+
+/* Busca do header */
+.frame-header__search {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 1 calc(var(--spacing) * 60);
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  min-width: calc(var(--spacing) * 9);
+  height: calc(var(--spacing) * 9);
+  margin-left: calc(var(--spacing) * 2);
+  padding: 0 calc(var(--spacing) * 3);
+  border: var(--frame-hairline) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-background-default);
+  color: var(--color-foreground-muted);
+  cursor: text;
+}
+
+.frame-header__search:hover {
+  border-color: var(--color-border-strong);
+}
+
+.frame-header__search:focus-within {
+  border-color: var(--color-border-strong);
+  outline: calc(var(--spacing) / 2) solid var(--color-brand-border-focus);
+  outline-offset: calc(var(--spacing) / 2);
+}
+
+.frame-header__search-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-foreground-default);
+  font-family: inherit;
+  font-size: var(--typography-sm-font-size);
+  line-height: var(--typography-sm-line-height);
+}
+
+.frame-header__search-input::placeholder {
+  color: var(--color-foreground-muted);
+  opacity: 1;
+}
+
+.frame-header__search-key {
+  flex-shrink: 0;
+  padding: 0 calc(var(--spacing) * 1.5);
+  border-radius: var(--radius-sm);
+  background: var(--color-background-muted);
+  color: var(--color-foreground-muted);
+  font-family: inherit;
+  font-size: var(--typography-xs-font-size);
+  line-height: var(--typography-xs-line-height);
+}
+
+/*
+ * Busca da barra lateral: o campo sai de vista, mas continua no DOM, porque
+ * é ele que o campo do header comanda (resultados, setas, Enter e o atalho
+ * de teclado). No Storybook local ficam à mostra só o filtro de tags e o
+ * botão de criar story; no site público a linha inteira sai.
+ */
+body.servi-frame #storybook-explorer-searchfield,
+body.servi-frame .search-field > div:first-child,
+body.servi-frame .search-field > code {
+  position: absolute;
+  width: var(--frame-hairline);
+  height: var(--frame-hairline);
+  margin: calc(var(--frame-hairline) * -1);
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+body.servi-frame .search-field button[aria-label="Clear search"] {
+  display: none;
+}
+
+body.servi-frame .search-field,
+body.servi-frame .search-field:has(input:focus, input:active) {
+  justify-content: flex-end;
+  box-shadow: none;
+  background: transparent;
+  outline: none;
+}
+
+body.servi-docs-mode #storybook-sidebar-region [role="search"] {
+  position: absolute;
+  width: var(--frame-hairline);
+  height: var(--frame-hairline);
+  margin: calc(var(--frame-hairline) * -1);
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/*
+ * Barra lateral: página selecionada com as cores da marca. O seletor começa
+ * em body.servi-frame e repete .sidebar-item para vencer o estilo padrão do
+ * Storybook, inclusive no hover e no foco. --tree-node-background-hover é o
+ * fundo que o Storybook usa atrás do botão de menu (...) do item.
+ */
+body.servi-frame .sidebar-item.sidebar-item[data-selected="true"] {
+  --tree-node-background-hover: var(--color-brand-selected);
+  overflow: visible;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-selected);
+  color: var(--color-brand-foreground-default);
+  font-weight: var(--font-weight-semibold);
+}
+
+body.servi-frame .sidebar-item.sidebar-item[data-selected="true"]:is(:hover, :focus) {
+  --tree-node-background-hover: var(--color-brand-selected-hover);
+  background: var(--color-brand-selected-hover);
+}
+
+body.servi-frame .sidebar-item.sidebar-item[data-selected="true"] svg {
+  color: var(--color-brand-foreground-default);
+}
+
+/*
+ * Botão de menu (...) do item. O Storybook dá a ele uma sombra borrada que
+ * só fica escondida quando o item corta o que passa da borda. Como os itens
+ * aqui usam overflow: visible (barra e ponto da marca), a sombra vazava como
+ * uma mancha verde. Sem sombra, com fundo da marca no hover.
+ */
+body.servi-frame .sidebar-item.sidebar-item [data-testid="context-menu"] {
+  box-shadow: none;
+  border-radius: var(--radius-md);
+}
+
+body.servi-frame .sidebar-item.sidebar-item [data-testid="context-menu"]:hover {
+  box-shadow: none;
+  background: var(--color-brand-light-hover);
+}
+
+/* Storybook local: barra vertical à esquerda do item selecionado. */
+body.servi-frame:not(.servi-docs-mode) .sidebar-item.sidebar-item[data-selected="true"]::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--spacing) * 1.5);
+  bottom: calc(var(--spacing) * 1.5);
+  left: calc(var(--spacing) * -2);
+  width: calc(var(--spacing) * 0.75);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-filled);
+}
+
+/*
+ * Site público (modo docs): barra lateral em árvore. Título de grupo em texto
+ * discreto, itens sem ícone ligados por uma linha vertical, e o item
+ * selecionado com um ponto da marca sobre a linha.
+ */
+body.servi-docs-mode .sidebar-subheading,
+body.servi-docs-mode .sidebar-subheading > button[data-action="collapse-root"] {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: var(--typography-sm-font-size);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-foreground-muted);
+}
+
+body.servi-docs-mode .sidebar-subheading svg,
+body.servi-docs-mode .sidebar-subheading-action {
+  display: none;
+}
+
+/* No site público ficam de fora o guia de primeiros passos, os testes, o menu de configurações, o filtro de tags e o botão de criar story. */
+body.servi-docs-mode div:has(> div > #storybook-checklist-widget),
+body.servi-docs-mode #sidebar-bottom-wrapper,
+body.servi-docs-mode #storybook-sidebar-region button[aria-label="Create a new story"],
+body.servi-docs-mode #storybook-sidebar-region button[aria-label="Tag filters"] {
+  display: none;
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item {
+  --frame-tree-line: calc(var(--spacing) * 4);
+  overflow: visible;
+  border-radius: var(--radius-md);
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item > a {
+  min-height: calc(var(--spacing) * 8);
+  align-items: center;
+  padding: 0 calc(var(--spacing) * 3) 0 calc(var(--spacing) * 8);
+  font-size: var(--typography-sm-font-size);
+  color: var(--color-foreground-default);
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item[data-selected="true"] > a {
+  color: var(--color-brand-foreground-default);
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item > a svg[type] {
+  display: none;
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--frame-tree-line);
+  width: var(--frame-hairline);
+  background: var(--color-border-default);
+  pointer-events: none;
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item[data-selected="true"]::after {
+  top: 50%;
+  bottom: auto;
+  width: calc(var(--spacing) * 1.5);
+  height: calc(var(--spacing) * 1.5);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-filled);
+  transform: translate(-40%, -50%);
+}
