@@ -19,6 +19,10 @@ const iconSizes = ["icon-xs", "icon-sm", "icon", "icon-lg"] as const
 const meta = {
   title: "Componentes/Button",
   component: Button,
+  // O Button usa a página própria (button.mdx) no lugar da automática.
+  tags: ["!autodocs"],
+  // A página do Button usa títulos de nível 2: o índice "Nesta página" lista esses.
+  parameters: { docs: { toc: { headingSelector: "h2" } } },
   args: {
     children: "Button",
     variant: "default",
