@@ -20,6 +20,8 @@ const config: StorybookConfig = {
     "@storybook/addon-docs",
     "@storybook/addon-themes",
     "@storybook/addon-a11y",
+    "@storybook/addon-vitest",
+    "@chromatic-com/storybook"
   ],
   framework: { name: "@storybook/react-vite", options: {} },
   // public/ é servido na raiz do build: o registry continua em /r/<nome>.json
