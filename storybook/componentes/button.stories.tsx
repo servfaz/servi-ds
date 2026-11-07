@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { expect, fn } from "storybook/test"
 import { ArrowRightIcon, PlusIcon } from "@phosphor-icons/react"
 import { Button } from "@/registry/servfaz/button"
 
@@ -101,4 +102,53 @@ export const ComoLink: Story = {
       <a href="#como-link-aschild">Ver pedidos</a>
     </Button>
   ),
+}
+
+// Testes de interação: rodam no Run tests e no Vitest. Ficam fora da página
+// de docs (tag !autodocs) e aparecem só no Storybook local.
+
+export const TesteClique: Story = {
+  name: "Teste: clique",
+  tags: ["!autodocs"],
+  args: { onClick: fn() },
+  play: async ({ args, canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole("button", { name: "Button" }))
+    await expect(args.onClick).toHaveBeenCalledTimes(1)
+  },
+}
+
+export const TesteTeclado: Story = {
+  name: "Teste: Enter e espaço",
+  tags: ["!autodocs"],
+  args: { onClick: fn() },
+  play: async ({ args, canvas, userEvent }) => {
+    await userEvent.tab()
+    await expect(canvas.getByRole("button", { name: "Button" })).toHaveFocus()
+    await userEvent.keyboard("{Enter}")
+    await userEvent.keyboard(" ")
+    await expect(args.onClick).toHaveBeenCalledTimes(2)
+  },
+}
+
+export const TesteDesabilitado: Story = {
+  name: "Teste: desabilitado não clica",
+  tags: ["!autodocs"],
+  args: { onClick: fn(), disabled: true },
+  play: async ({ args, canvas }) => {
+    const button = canvas.getByRole("button", { name: "Button" })
+    await expect(button).toBeDisabled()
+    await expect(args.onClick).not.toHaveBeenCalled()
+  },
+}
+
+export const TesteComoLink: Story = {
+  name: "Teste: como link",
+  tags: ["!autodocs"],
+  render: ComoLink.render,
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole("link", { name: "Ver pedidos" })).toHaveAttribute(
+      "href",
+      "#como-link-aschild"
+    )
+  },
 }

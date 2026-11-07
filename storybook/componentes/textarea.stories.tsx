@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { expect } from "storybook/test"
 import { Textarea } from "@/registry/servfaz/textarea"
 
 const meta = {
@@ -49,4 +50,39 @@ export const Estados: Story = {
       ))}
     </div>
   ),
+}
+
+// Testes de interação: rodam no Run tests e no Vitest. Ficam fora da página
+// de docs (tag !autodocs) e aparecem só no Storybook local.
+
+export const TesteDigitar: Story = {
+  name: "Teste: digitar",
+  tags: ["!autodocs"],
+  play: async ({ canvas, userEvent }) => {
+    const campo = canvas.getByRole("textbox")
+    await userEvent.type(campo, "Pedido 123")
+    await expect(campo).toHaveValue("Pedido 123")
+    await userEvent.clear(campo)
+    await expect(campo).toHaveValue("")
+  },
+}
+
+export const TesteInvalido: Story = {
+  name: "Teste: estado inválido",
+  tags: ["!autodocs"],
+  args: { status: "invalid" },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole("textbox")).toHaveAttribute("aria-invalid", "true")
+  },
+}
+
+export const TesteDesabilitado: Story = {
+  name: "Teste: desabilitado",
+  tags: ["!autodocs"],
+  args: { disabled: true },
+  play: async ({ canvas }) => {
+    const campo = canvas.getByRole("textbox")
+    await expect(campo).toBeDisabled()
+    await expect(campo).toHaveValue("")
+  },
 }
