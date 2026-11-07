@@ -109,6 +109,16 @@ Toda mudança publicada no Servi DS vira uma entrada de changelog no mesmo commi
 
 Não crie uma versão isolada do componente para resolver o caso, mesmo que pareça mais rápido no momento. Fale com o time do Servi DS antes. Na maioria das vezes, uma tela que "precisa" de uma versão exclusiva de um componente é sinal de que falta um token ou uma variante no sistema, não uma exceção legítima do seu projeto.
 
+## Usando a documentação com IA
+
+Toda página deste site também existe em markdown puro, em uma rota própria. Para pedir ajuda a um assistente de IA sobre o Servi DS, entregue esse link em vez do link da página: o assistente lê o texto direto, sem precisar tratar HTML, gasta menos token e responde com mais precisão.
+
+- **Uma página:** use o botão "Ver como .md" no topo da página, ou monte o caminho `https://ds.servfaz.app/docs/<pagina>.md`. Exemplo: `https://ds.servfaz.app/docs/componentes/button.md`.
+- **Índice de tudo:** `https://ds.servfaz.app/llms.txt` lista todas as páginas, cada uma com o link da versão em markdown.
+- **Documentação inteira de uma vez:** `https://ds.servfaz.app/llms-full.txt` junta todas as páginas em um arquivo só, para usar como contexto fixo de um projeto ou de um agente.
+
+Os links internos dessas versões já apontam para as outras páginas em markdown, então o assistente consegue navegar entre elas sozinho.
+
 ## Problemas comuns
 
 **Import quebrado depois da instalação.** Confira o alias declarado em `components.json` contra o import gravado nos arquivos instalados. Se o projeto não tem pasta `src` na raiz, a correção automática do script não se aplica e o ajuste precisa ser manual.

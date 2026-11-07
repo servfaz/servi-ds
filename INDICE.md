@@ -17,6 +17,17 @@ Conteúdo em `content/docs/` neste repositório, exibido pelo Storybook (página
 
 Cada componente novo publicado no registry ganha automaticamente uma página nesse mesmo padrão, então esta lista cresce junto com `registry.json`.
 
+### Versões em markdown para LLM
+
+Toda página da tabela acima também responde em markdown puro, gerada no build a partir do mesmo arquivo fonte. Uma página nova entra aqui sozinha.
+
+| Rota | O que é | Link |
+| --- | --- | --- |
+| `/llms.txt` | Índice de todas as páginas, com o link da versão `.md` de cada uma | https://ds.servfaz.app/llms.txt |
+| `/llms-full.txt` | Documentação inteira em um arquivo só | https://ds.servfaz.app/llms-full.txt |
+| `/docs/<pagina>.md` | Página de apoio em markdown | https://ds.servfaz.app/docs/desenvolvedores.md |
+| `/docs/componentes/<nome>.md` | Página de componente em markdown | https://ds.servfaz.app/docs/componentes/button.md |
+
 ## Arquivos operacionais do repositório
 
 Não são páginas do site, são arquivos que valem como regra para quem (ou qual agente) trabalha no código. Vivem só aqui.
@@ -29,6 +40,7 @@ Não são páginas do site, são arquivos que valem como regra para quem (ou qua
 | Regras de changelog | `.claude/rules/regras-de-changelog.md` | https://github.com/servfaz/servi-ds/blob/main/.claude/rules/regras-de-changelog.md |
 | Script de instalação manual imediata | `templates/instalar-servi-ds.sh` | https://github.com/servfaz/servi-ds/blob/main/templates/instalar-servi-ds.sh |
 | Workflow que corta o release automaticamente | `.github/workflows/cut-release.yml` | https://github.com/servfaz/servi-ds/blob/main/.github/workflows/cut-release.yml |
+| Script que gera as rotas `.md`, o `llms.txt` e o `llms-full.txt` no build | `scripts/build-llm-docs.cjs` | https://github.com/servfaz/servi-ds/blob/main/scripts/build-llm-docs.cjs |
 | Este índice | `INDICE.md` | https://github.com/servfaz/servi-ds/blob/main/INDICE.md |
 
 ## Documentos de processo e decisão

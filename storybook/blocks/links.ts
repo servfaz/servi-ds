@@ -25,3 +25,15 @@ export function linkProps(href: string) {
   if (href.startsWith("#")) return { href }
   return { href: toStorybookHref(href), target: "_top" }
 }
+
+/**
+ * Rota da versão em markdown puro da página aberta, a partir do id que o
+ * Storybook coloca na URL do iframe (componentes-button--docs). As rotas
+ * .md são geradas no build a partir de content/docs/.
+ */
+export function markdownHrefFromStoryId(id: string | null): string | null {
+  const page = id?.match(/^([a-z0-9-]+)--docs$/)?.[1]
+  if (!page) return null
+  const componente = page.match(/^componentes-(.+)$/)
+  return componente ? `/docs/componentes/${componente[1]}.md` : `/docs/${page}.md`
+}

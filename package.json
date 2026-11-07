@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "prebuild": "node scripts/sync-registry-tokens.cjs",
-    "build": "shadcn build && storybook build -o storybook-static --quiet",
+    "build": "shadcn build && storybook build --docs -o storybook-static --quiet && node scripts/build-llm-docs.cjs",
+    "llm-docs": "node scripts/build-llm-docs.cjs",
     "sync-tokens": "node scripts/sync-registry-tokens.cjs",
     "registry:build": "npm run sync-tokens && shadcn build",
     "typecheck": "tsc --noEmit"

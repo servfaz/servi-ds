@@ -1,4 +1,5 @@
 import { CopyMarkdownButton } from "./copy-markdown-button"
+import { ViewMarkdownLink } from "./view-markdown-link"
 import { ComponentMeta } from "./component-meta"
 import { formatUpdatedDate, type DocFrontmatter } from "./frontmatter"
 import { textMuted } from "./doc-styles"
@@ -18,7 +19,10 @@ export function PageHeader({
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
           {title}
         </h1>
-        <CopyMarkdownButton raw={raw} />
+        <div className="flex flex-wrap items-center gap-2">
+          <ViewMarkdownLink />
+          <CopyMarkdownButton raw={raw} />
+        </div>
       </div>
       {updated && (
         <p className={`text-xs ${textMuted}`}>
