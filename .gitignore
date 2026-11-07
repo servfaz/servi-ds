@@ -40,3 +40,6 @@ yarn-error.log*
 
 # saídas do Claude
 /Claude outputs/
+
+# log de depuração do Storybook
+debug-storybook.log
