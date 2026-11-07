@@ -7,9 +7,9 @@ Design system da Servfaz. Registry shadcn publicado em ds.servfaz.app.
 Componente: `registry/servfaz/<nome>.tsx`
 Catálogo: `registry.json`
 Token (CSS): `tokens/`
-Documentação de componente e páginas de apoio: `content/docs/`
+Páginas de apoio e a página do Button: `content/docs/`
 Site de documentação (Storybook): configuração em `.storybook/`, páginas, stories e peças do site em `storybook/`
-Story de componente: `storybook/componentes/<nome>.stories.tsx`, página em `storybook/componentes/<nome>.mdx`
+Story de componente: `storybook/componentes/<nome>.stories.tsx`. A página de docs é a automática do Storybook (autodocs); só o Button tem página própria em `.mdx`
 Regras completas, com o porquê de cada uma: projeto Claude "Servi DS"
 
 ## Nunca fazer
