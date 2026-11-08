@@ -15,7 +15,7 @@ O Servi DS tem duas partes, com fonte única cada uma:
   description: "Valores de design organizados em três camadas (Primitiva, Semântica e de Componente)."
 - title: Biblioteca de componentes
   href: "https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components?node-id=2004-602&t=OhPikNWzHu2LaE8I-1"
-  description: "Componentes de interface prontos, construídos sobre a base do shadcn/ui e adaptados aos tokens da Servfaz. Publicados como código através de um registry, consumido pelos produtos via ds.servfaz.app."
+  description: "Componentes de interface prontos, com a identidade visual e os tokens da Servfaz, usados por todos os produtos da empresa."
 ```
 
 > Nenhuma variável ou componente novo nasce fora desses dois arquivos. O que for encontrado fora deles é migrado para lá, e a versão paralela é descontinuada.
@@ -46,5 +46,5 @@ Ser a fonte única de padrões visuais e de interação de todos os produtos da 
 2. **A camada certa, sempre.** Componente referencia semântico, semântico referencia primitivo. Nenhuma camada pula a outra, e nenhuma quarta camada informal é criada "só para esse caso".
 3. **Nome é contrato.** Renomear um token ou componente já em uso tem custo real. O nome precisa estar certo antes de entrar em uso, não depois.
 4. **Dark mode se resolve na camada semântica.** Nunca no primitivo, nunca com lógica condicional dentro do componente.
-5. **Documentação é gerada, não desenhada à mão.** A documentação de um componente nasce dos mesmos dados publicados no registry e do código fonte real, não de uma tela desenhada separadamente.
+5. **Documentação é gerada, não desenhada à mão.** A documentação de um componente nasce do próprio componente e do seu código real, não de uma tela desenhada separadamente.
 6. **Toda mudança propaga, nenhuma se isola.** Um componente ou token corrigido no Servi DS chega a todos os produtos consumidores pelo mesmo fluxo de publicação, sem exceção caso a caso.
