@@ -15,7 +15,7 @@ Este documento define como uma mudança publicada no Servi DS, seja token ou com
 O changelog mora em dois lugares, ambos dentro do repositório `servi-ds`, nunca no projeto Claude e nunca em qualquer lugar fora do repositório:
 
 1. Um arquivo raiz `CHANGELOG.md`, com o histórico completo, em ordem cronológica, organizado por versão do registry (`REGISTRY_VERSION`). É o índice geral: toda entrada, de token ou de componente, aparece aqui.
-2. Uma seção "Changelog" dentro da página de cada componente, em `content/docs/componentes/<nome>.md`, com só as entradas daquele componente. Essa seção é a última da aba Documentação, na estrutura padrão de página de componente.
+2. Uma seção "Changelog" dentro da página de cada componente, em `content/docs/componentes/<nome>.md`, com só as entradas daquele componente. Essa seção é a última da aba Documentação, na estrutura padrão de página de componente. Por decisão da designer em 08/11/2026, ela está suspensa por enquanto: a entrada de componente vai só para o `CHANGELOG.md` raiz.
 
 Mudança de token que não afeta nenhum componente diretamente entra só no `CHANGELOG.md` raiz, numa categoria "Tokens" (token não tem página própria para referenciar). Mudança de componente entra nos dois lugares ao mesmo tempo: a entrada completa mora na seção do componente, e a linha correspondente no `CHANGELOG.md` raiz referencia essa seção (Regra 4), em vez de manter dois textos soltos e independentes.
 
@@ -37,7 +37,7 @@ Toda entrada usa uma destas cinco categorias, sem exceção: Adicionado, Alterad
 
 Cada entrada é uma linha de tabela com cinco colunas: Versão (o `REGISTRY_VERSION` que essa entrada leva, sempre o número, nunca a palavra MAJOR, MINOR ou PATCH por extenso), Data (`DD/MM/AAAA`), Categoria (Regra 3), Item e Descrição. Descrição é curta e direta: o mínimo de palavras que diz o quê mudou, sem explicar motivo nem benefício.
 
-Quando o Item é um componente, o nome vem como link para a seção Changelog da página daquele componente (`content/docs/componentes/<nome>.md#changelog`). Quando o Item é um token sem componente associado, o nome fica só entre crases, sem link, porque não existe página própria para apontar.
+Quando o Item é um componente, o nome vem como link para a seção Changelog da página daquele componente (`content/docs/componentes/<nome>.md#changelog`). Enquanto essa seção estiver suspensa, o nome do componente fica só entre crases, sem link. Quando o Item é um token sem componente associado, o nome fica só entre crases, sem link, porque não existe página própria para apontar.
 
 | Versão | Data | Categoria | Item | Descrição |
 | --- | --- | --- | --- | --- |

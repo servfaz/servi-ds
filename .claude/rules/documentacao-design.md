@@ -125,7 +125,7 @@ No Storybook, logo depois do título, entram os exemplos ao vivo (stories) e o c
 4. **Estados suportados** (default, hover, pressed, focus, disabled, e outros que o componente tiver).
 5. **Tokens usados**, listando os tokens de componente que o item consome.
 6. **Dependências**, de pacote e de outros itens do registry.
-7. **Changelog**, com só as entradas daquele componente (ver regras de changelog).
+7. **Changelog**, com só as entradas daquele componente (ver regras de changelog). Seção suspensa por enquanto, por decisão da designer em 08/11/2026: a página não mostra changelog, e as entradas ficam só no `CHANGELOG.md` raiz.
 
 ## O que fazer quando este documento e a prática divergirem
 

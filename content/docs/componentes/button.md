@@ -162,15 +162,6 @@ Para aplicar os estilos do botão em um componente que não aceita filhos dessa 
 - O anel de foco aparece só na navegação por teclado (`:focus-visible`).
 - Com `asChild`, o elemento filho precisa ser interativo por natureza, como `<a href>`, para manter foco e acionamento por teclado.
 
-## Changelog
-
-| Versão | Data | Categoria | Item | Descrição |
-| --- | --- | --- | --- | --- |
-| 0.2.0 | 03/09/2026 | Corrigido | `Button` | `registryDependencies` apontava para o nome puro `tokens`, que colide com um item oficial de mesmo nome no registry padrão do shadcn; o CLI resolvia a dependência errada quando o consumidor não tinha namespace `servfaz` configurado. Trocado para a URL completa `https://ds.servfaz.app/r/tokens.json`. |
-| 0.2.0 | 03/09/2026 | Corrigido | `Button` | Variantes `default` e `secondary` ficavam sem cor no consumidor porque `registry.json` não publicava os tokens que o Button referencia via `var(--button-*)`. Adicionado item `tokens` (`registry:theme`) com os `cssVars` das camadas Primitiva e Semântica (light/dark), e `cssVars` da camada Componente mais `registryDependencies: ["tokens"]` ao próprio item `button`. |
-| 0.2.0 | 01/09/2026 | Adicionado | `Button` | Item `button` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-slot`, `class-variance-authority`) e arquivo `registry/servfaz/button.tsx`. |
-| 0.2.0 | 27/08/2026 | Adicionado | `Button` | Variantes `default` e `secondary` passam a usar tokens de componente (`--button-container-color-*`, `--button-content-color-*`, `--button-border-color-*`) em vez das classes genéricas do shadcn/ui; criada a camada de Componente de tokens (`tokens/tokens-component.css`). |
-
 # Props
 
 ## Button
