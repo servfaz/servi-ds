@@ -34,7 +34,7 @@ Todo arquivo em `content/docs/` é escrito em markdown puro, sem HTML embutido n
 
 Todo ícone citado ou usado como exemplo em uma página de documentação vem da biblioteca Phosphor Icons, pelo nome oficial do ícone nessa biblioteca. Nenhum outro pacote de ícone (Lucide, Heroicons, Feather) aparece em exemplo de uso, e nenhum SVG solto substitui uma referência Phosphor.
 
-Exceção, por decisão da designer em 08/11/2026: tecnologia de terceiros citada na documentação (Node.js, Next.js, Tailwind CSS, shadcn/ui) aparece com o próprio logo, em uma cor só, a partir do Simple Icons (licença CC0). Os logos ficam juntos em um arquivo só dos blocos do site.
+Exceção, por decisão da designer em 08/11/2026: tecnologia de terceiros citada na documentação (Node.js, Next.js, Tailwind CSS, shadcn/ui, Figma) aparece com o próprio logo, em uma cor só, a partir do Simple Icons (licença CC0). Os logos ficam juntos em um arquivo só dos blocos do site.
 
 ### Regra 6: nunca hardcoded, no conteúdo
 
@@ -135,7 +135,7 @@ Como montar a página:
 - Uma ideia por bloco. Grade ou fluxo com até seis itens.
 - `steps` quando a ordem importa; `icon-cards` quando não importa; `flow` para mostrar o que acontece sozinho entre uma etapa e outra.
 - Os campos de texto aceitam markdown de linha (código, link e negrito). Valor com crase ou dois-pontos vai entre aspas.
-- `icon` usa um nome da lista de ícones dos blocos do site: `ajuda`, `arquivo`, `cadastro`, `check`, `componente`, `icones`, `livro`, `lista`, `pr`, `publicar`, `react`, `tema`, `terminal`, `tokens`, mais os logos `node`, `next`, `tailwind` e `shadcn` (Regra 5). Ícone que falta entra nessa lista, sempre Phosphor.
+- `icon` usa um nome da lista de ícones dos blocos do site: `acessibilidade`, `ajuda`, `arquivo`, `cadastro`, `camadas`, `check`, `codigo`, `componente`, `icones`, `livro`, `lista`, `pr`, `produto`, `publicar`, `react`, `sincronizar`, `tema`, `terminal`, `tokens`, `velocidade`, mais os logos `node`, `next`, `tailwind`, `shadcn` e `figma` (Regra 5). Ícone que falta entra nessa lista, sempre Phosphor.
 - Aviso de página nova usa `callout`. O bloco `alert` fica só onde já existe.
 - O bloco de código tem superfície verde-escura, igual em claro e escuro, com amarelo vivo, verdes e pêssego no destaque de sintaxe. As cores ficam em `.code-surface`, no CSS do site, sempre referenciando primitivos (Regra 9).
 - Recurso visual novo vira bloco: peça em arquivo próprio em `storybook/blocks/` (Regra 8), ligada no renderizador de markdown e acrescentada à tabela acima.
