@@ -1,4 +1,19 @@
+<!-- © 2026 Servfaz. Todos os direitos reservados. -->
 <svg width="1102" height="712" viewBox="0 0 1102 712" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Servi DS · Logo em bloco</title>
+<desc>Marca do Servi DS, o design system da Servfaz.</desc>
+<metadata>
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <rdf:Description rdf:about="">
+      <dc:title>Servi DS · Logo em bloco</dc:title>
+      <dc:description>Marca do Servi DS, o design system da Servfaz.</dc:description>
+      <dc:creator>Servfaz</dc:creator>
+      <dc:publisher>Servfaz</dc:publisher>
+      <dc:date>2026</dc:date>
+      <dc:rights>© 2026 Servfaz. Todos os direitos reservados. Uso exclusivo dos produtos e materiais da Servfaz.</dc:rights>
+    </rdf:Description>
+  </rdf:RDF>
+</metadata>
 <path d="M16 116C16 60.7715 60.7715 16 116 16H222V116H16V116Z" fill="#008062"/>
 <path d="M222 132C222 187.228 177.228 232 122 232H16V132H222V132Z" fill="#008062"/>
 <path d="M222 348C222 292.772 177.228 248 122 248H16V348H222V348Z" fill="#008062"/>

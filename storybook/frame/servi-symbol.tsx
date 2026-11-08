@@ -4,6 +4,8 @@ import React from "react"
  * Símbolo da marca (fonte: public/brand/servi-symbol-icon.svg), inline para
  * herdar a cor do token por currentColor e acompanhar claro e escuro. A grade
  * de pontos é recortada da forma de cima, como na versão horizontal da marca.
+ *
+ * © 2026 Servfaz. Todos os direitos reservados.
  */
 const SHAPES = [
   "M16 116C16 60.7715 60.7715 16 116 16H222V116H16V116Z",
