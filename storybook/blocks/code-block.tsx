@@ -35,11 +35,11 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "flex flex-col overflow-hidden rounded-lg border border-[var(--color-taupe-300)] bg-[var(--color-taupe-100)] dark:bg-[var(--color-taupe-900)]",
+        "flex flex-col overflow-hidden rounded-lg border border-[var(--color-border-default)] bg-[var(--color-background-muted)]",
         className
       )}
     >
-      <div className="flex items-center justify-between gap-4 border-b border-[var(--color-taupe-300)] px-4 py-2">
+      <div className="flex items-center justify-between gap-4 border-b border-[var(--color-border-default)] px-4 py-2">
         <span className={cn("text-xs uppercase tracking-wide", textMuted)}>
           {language ?? "código"}
         </span>
@@ -50,7 +50,7 @@ export function CodeBlock({
         {html ? (
           <div
             className={cn(
-              "overflow-x-auto p-4 font-[family-name:var(--font-geist-mono)] text-sm [&_pre]:!bg-transparent",
+              "overflow-x-auto p-4 font-[family-name:var(--typography-font-mono)] text-sm [&_pre]:!bg-transparent",
               isCollapsed && "max-h-80 overflow-hidden"
             )}
             dangerouslySetInnerHTML={{ __html: html }}
@@ -58,7 +58,7 @@ export function CodeBlock({
         ) : (
           <pre
             className={cn(
-              "overflow-x-auto p-4 font-[family-name:var(--font-geist-mono)] text-sm",
+              "overflow-x-auto p-4 font-[family-name:var(--typography-font-mono)] text-sm",
               isCollapsed && "max-h-80 overflow-hidden"
             )}
           >
@@ -66,12 +66,12 @@ export function CodeBlock({
           </pre>
         )}
         {isCollapsed && (
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--color-taupe-100)] to-transparent dark:from-[var(--color-taupe-900)]" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--color-background-muted)] to-transparent" />
         )}
       </div>
 
       {collapsible && (
-        <div className="flex justify-center border-t border-[var(--color-taupe-300)] p-2">
+        <div className="flex justify-center border-t border-[var(--color-border-default)] p-2">
           <Button
             type="button"
             variant="ghost"

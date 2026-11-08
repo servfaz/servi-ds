@@ -52,25 +52,25 @@ function buildComponents(stories?: StoriesModule): Components {
   ul: ({ children }) => <ul className="flex flex-col gap-3">{children}</ul>,
   ol: ({ children }) => <ol className="flex flex-col gap-4">{children}</ol>,
   li: ({ children }) => (
-    <li className={`ml-5 list-disc text-base marker:text-[var(--color-taupe-400)] ${textMuted}`}>
+    <li className={`ml-5 list-disc text-base marker:text-[var(--color-brand-foreground-muted)] ${textMuted}`}>
       {children}
     </li>
   ),
   strong: ({ children }) => (
-    <strong className="font-semibold text-[var(--color-taupe-950)] dark:text-[var(--color-taupe-50)]">
+    <strong className="font-semibold text-[var(--color-foreground-emphasis)]">
       {children}
     </strong>
   ),
   a: ({ children, href }) => (
     <a
       {...linkProps(href ?? "#")}
-      className="text-primary underline underline-offset-4 hover:no-underline"
+      className="text-[var(--color-brand-foreground-default)] underline decoration-[var(--color-brand-border)] underline-offset-4 hover:text-[var(--color-brand-foreground-emphasis)] hover:decoration-current"
     >
       {children}
     </a>
   ),
   blockquote: ({ children }) => (
-    <div className="rounded-lg border border-[var(--color-taupe-300)] bg-[var(--color-taupe-100)] p-4 text-sm text-[var(--color-taupe-900)] dark:bg-[var(--color-taupe-900)] dark:text-[var(--color-taupe-200)] [&_p]:max-w-none [&_p]:text-inherit">
+    <div className="rounded-lg border border-[var(--color-brand-border)] bg-[var(--color-brand-subtle)] p-4 text-sm text-[var(--color-brand-foreground-emphasis)] [&_p]:max-w-none [&_p]:text-inherit">
       {children}
     </div>
   ),
@@ -79,7 +79,7 @@ function buildComponents(stories?: StoriesModule): Components {
       return <code className={className}>{children}</code>
     }
     return (
-      <code className="rounded bg-[var(--color-taupe-100)] px-1.5 py-0.5 font-[family-name:var(--font-geist-mono)] text-[0.85em] dark:bg-[var(--color-taupe-800)]">
+      <code className="rounded bg-[var(--color-background-muted)] px-1.5 py-0.5 font-[family-name:var(--typography-font-mono)] text-[0.85em]">
         {children}
       </code>
     )
@@ -131,18 +131,18 @@ function buildComponents(stories?: StoriesModule): Components {
     return <CodeBlock code={raw} language={language} />
   },
   table: ({ children }) => (
-    <div className="overflow-x-auto rounded-lg border border-[var(--color-taupe-300)]">
+    <div className="overflow-x-auto rounded-lg border border-[var(--color-border-default)]">
       <table className="w-full text-left text-sm">{children}</table>
     </div>
   ),
   thead: ({ children }) => (
-    <thead className="bg-[var(--color-taupe-100)] dark:bg-[var(--color-taupe-900)]">
+    <thead className="bg-[var(--color-background-muted)]">
       {children}
     </thead>
   ),
   th: ({ children }) => <th className="px-4 py-2 font-semibold">{children}</th>,
   td: ({ children }) => (
-    <td className={`border-t border-[var(--color-taupe-300)] px-4 py-2 ${textMuted}`}>
+    <td className={`border-t border-[var(--color-border-default)] px-4 py-2 ${textMuted}`}>
       {children}
     </td>
   ),

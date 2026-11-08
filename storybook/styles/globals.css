@@ -175,7 +175,7 @@
   font-size: var(--typography-2xl-font-size);
   line-height: var(--typography-2xl-line-height);
   font-weight: var(--font-weight-semibold);
-  color: var(--foreground);
+  color: var(--color-foreground-emphasis);
 }
 
 .sbdocs-content :is(h2, h3).sbdocs {
@@ -185,11 +185,11 @@
   font-size: var(--typography-lg-font-size);
   line-height: var(--typography-lg-line-height);
   font-weight: var(--font-weight-semibold);
-  color: var(--foreground);
+  color: var(--color-foreground-emphasis);
 }
 
 .sbdocs-content p.sbdocs {
-  color: var(--color-foreground-muted);
+  color: var(--color-foreground-default);
 }
 
 nav[aria-labelledby="table-of-contents"] {

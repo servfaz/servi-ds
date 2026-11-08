@@ -44,7 +44,7 @@ export function DocPage({
     <Unstyled>
       <div
         data-doc-toc={toc ? undefined : "off"}
-        className="flex flex-col gap-10 py-6 font-[family-name:var(--typography-font-sans)] text-[var(--color-taupe-950)] dark:text-[var(--color-taupe-50)]">
+        className="flex flex-col gap-10 py-6 font-[family-name:var(--typography-font-sans)] text-[var(--color-foreground-emphasis)]">
         <PageHeader frontmatter={doc.frontmatter} raw={doc.raw} />
         {children}
         {intro && <MarkdownContent body={intro} stories={stories} />}
