@@ -1,5 +1,6 @@
 import { CopyPageMenu } from "./copy-page-menu"
 import { ComponentMeta } from "./component-meta"
+import { PageHero } from "./page-hero"
 import { formatUpdatedDate, type DocFrontmatter } from "./frontmatter"
 import { textMuted } from "./doc-styles"
 
@@ -13,10 +14,21 @@ export function PageHeader({
   /** false tira o botão agrupado de markdown (Copiar página e menu). */
   markdownActions?: boolean
 }) {
-  const { title, description, updated, name, figma} = frontmatter
+  const { title, description, updated, name, figma, hero, heroPoster } = frontmatter
 
   const actions = markdownActions ? <CopyPageMenu raw={raw} /> : null
 
+  if (hero) {
+    return (
+      <PageHero
+        title={title}
+        description={description}
+        image={hero}
+        poster={heroPoster}
+        actions={actions}
+      />
+    )
+  }
 
   return (
     <div className="flex flex-col gap-4">
