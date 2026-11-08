@@ -69,7 +69,7 @@
           "color-bud-900": "#1A1E15",
           "color-bud-950": "#0B0D08",
           "typography-font-sans": "\"Figtree\", ui-sans-serif, system-ui, sans-serif",
-          "typography-font-serif": "\"Instrument Serif\", ui-serif, Georgia, serif",
+          "typography-font-serif": "\"Libre Baskerville\", ui-serif, Georgia, serif",
           "typography-font-mono": "\"Geist Mono\", ui-monospace, SFMono-Regular, monospace",
           "typography-xxs-font-size": "0.625rem",
           "typography-xxs-line-height": "1rem",

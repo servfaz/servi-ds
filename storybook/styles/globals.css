@@ -6,7 +6,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Fontes (Figtree, Instrument Serif, Geist Mono) carregadas em .storybook/preview-head.html (Google Fonts). */
+/* Fontes (Figtree, Libre Baskerville, Geist Mono) carregadas em .storybook/preview-head.html (Google Fonts). */
 
 /*
  * Moldura do Storybook (canvas e página de documentação) usa o fundo e o
