@@ -75,12 +75,8 @@ body.servi-frame {
   height: calc(var(--spacing) * 8);
 }
 
-.frame-logo__block {
-  fill: var(--color-brand-filled);
-}
-
 .frame-logo__shape {
-  fill: var(--color-brand-foreground-on-filled);
+  fill: var(--color-brand-filled);
 }
 
 .frame-logo__text {
