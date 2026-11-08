@@ -483,17 +483,18 @@ body.servi-frame .sidebar-item.sidebar-item[data-selected="true"] svg {
 }
 
 /*
- * Botão de menu (...) do item. O Storybook dá a ele uma sombra borrada que
- * só fica escondida quando o item corta o que passa da borda. Como os itens
- * aqui usam overflow: visible (barra e ponto da marca), a sombra vazava como
- * uma mancha verde. Sem sombra, com fundo da marca no hover.
+ * Botões à direita do item: menu (...) e status de mudança (Novo, Alterado).
+ * No item selecionado o Storybook pinta os dois com a cor da marca cheia e
+ * uma sombra borrada, que aparecia como um quadrado verde-escuro. Ficam sem
+ * fundo e sem sombra, com fundo da marca só no hover e no foco.
  */
-body.servi-frame .sidebar-item.sidebar-item [data-testid="context-menu"] {
+body.servi-frame .sidebar-item.sidebar-item :is([data-testid="context-menu"], [data-testid="tree-change-status-button"]) {
   box-shadow: none;
   border-radius: var(--radius-md);
+  background: transparent;
 }
 
-body.servi-frame .sidebar-item.sidebar-item [data-testid="context-menu"]:hover {
+body.servi-frame .sidebar-item.sidebar-item :is([data-testid="context-menu"], [data-testid="tree-change-status-button"]):is(:hover, :focus-visible) {
   box-shadow: none;
   background: var(--color-brand-light-hover);
 }
