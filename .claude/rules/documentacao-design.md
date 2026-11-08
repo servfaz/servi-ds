@@ -24,7 +24,7 @@ O conteúdo de cada página vem de três fontes, nunca inventado:
 2. O código fonte real do componente, em `registry/servfaz/<nome>.tsx` (props, variantes, tamanhos, estados suportados).
 3. Os tokens de componente já publicados na camada Component do Figma Variables, para confirmar quais existem, nunca para copiar um valor visual à mão.
 
-Se uma dessas fontes não está acessível no momento da geração, a lacuna é sinalizada no lugar do dado, nunca preenchida com um valor supondo o que provavelmente seria.
+Se uma dessas fontes não está acessível no momento da geração, a página não publica o dado nem um valor suposto no lugar dele. A falta é levada à designer, fora da documentação (Regra 19).
 
 ### Regra 4: markdown puro, copiável como está
 
@@ -36,7 +36,7 @@ Todo ícone citado ou usado como exemplo em uma página de documentação vem da
 
 ### Regra 6: nunca hardcoded, no conteúdo
 
-Todo valor citado em exemplo de código, tabela de props ou trecho de uso é o nome real do token (`var(--nome-do-token)`), nunca um valor bruto (hex, px, rgb) inventado para ilustrar. Se o exemplo precisa mostrar uma cor ou espaçamento, cita o token que já existe. Se o token não existe, a lacuna é sinalizada como pendência de token, não preenchida com um valor solto.
+Todo valor citado em exemplo de código, tabela de props ou trecho de uso é o nome real do token (`var(--nome-do-token)`), nunca um valor bruto (hex, px, rgb) inventado para ilustrar. Se o exemplo precisa mostrar uma cor ou espaçamento, cita o token que já existe. Se o token não existe, o exemplo não usa valor solto e a falta do token é levada à designer, fora da documentação (Regra 19).
 
 ### Regra 7: fora da automação de PR
 
@@ -106,6 +106,10 @@ Decisão da designer em 07/11/2026. Toda página trata o Servi DS como um design
 
 Toda página e toda peça do site funciona em tela estreita, sem rolagem horizontal da página. Em telas abaixo do breakpoint md, o header leva os links principais para um menu, a busca vira só o ícone e o tema e o GitHub continuam à mostra; a página reduz a margem lateral; grades de cards, hero e tabelas se reorganizam ou rolam dentro do próprio bloco. Peça nova do site já nasce responsiva.
 
+### Regra 19: a documentação não mostra lacunas nem status da identidade visual
+
+Decisão da designer em 08/11/2026. Nenhuma página publica seção de status da identidade visual, lista de lacunas conhecidas, pendência de token ou de Figma, nem aviso de que um componente ainda não está totalmente restilizado. A documentação mostra só o que o DS já entrega. O que falta resolver fica registrado nos documentos de processo e decisão e chega à designer por lá.
+
 ## Estrutura padrão de cada página de componente
 
 Vale só para o Button e para componente que ganhar página própria por decisão explícita da designer. Os demais usam a página automática (Regra 15).
@@ -121,8 +125,7 @@ No Storybook, logo depois do título, entram os exemplos ao vivo (stories) e o c
 4. **Estados suportados** (default, hover, pressed, focus, disabled, e outros que o componente tiver).
 5. **Tokens usados**, listando os tokens de componente que o item consome.
 6. **Dependências**, de pacote e de outros itens do registry.
-7. **Status da identidade visual**, quando o componente ainda não está totalmente restilizado com os tokens da Servfaz.
-8. **Changelog**, com só as entradas daquele componente (ver regras de changelog).
+7. **Changelog**, com só as entradas daquele componente (ver regras de changelog).
 
 ## O que fazer quando este documento e a prática divergirem
 

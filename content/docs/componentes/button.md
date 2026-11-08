@@ -2,19 +2,10 @@
 title: Button
 name: button
 description: Botão com a identidade visual da Servfaz.
-updated: "2026-11-01"
+updated: "2026-11-08"
 ---
 
 # Documentação
-
-## Status da identidade visual
-
-O Button ainda não está totalmente restilizado. Só as variantes `default` e `secondary` usam tokens de componente da Servfaz. As variantes `destructive`, `outline`, `ghost` e `link` ainda seguem o visual padrão do shadcn/ui.
-
-Lacunas conhecidas:
-
-- `--color-background-disabled` e `--color-text-disabled` (usados no estado desabilitado) ainda são valor hexadecimal solto em `tokens-semantic.css`, no tema claro e no escuro, porque o primitivo de neutro correspondente ainda não existe no Figma.
-- O contraste WCAG 2.1 AA dos pares de cor criados para o botão primário e secundário (fundo e texto, hover, pressed, disabled) ainda não foi validado e registrado formalmente.
 
 ## Instalação
 
@@ -162,8 +153,6 @@ Para aplicar os estilos do botão em um componente que não aceita filhos dessa 
 | Focus | Foco por teclado (`:focus-visible`) | `default` e `secondary` |
 | Disabled | Prop `disabled` | `default` e `secondary` |
 | Inválido | Prop `aria-invalid` | Nenhum, usa a cor `destructive` do tema |
-
-As variantes `destructive`, `outline`, `ghost` e `link` ainda usam o comportamento padrão do shadcn/ui em todos os estados, sem token de componente próprio.
 
 ## Acessibilidade
 

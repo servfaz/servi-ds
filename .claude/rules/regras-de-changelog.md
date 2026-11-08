@@ -15,7 +15,7 @@ Este documento define como uma mudança publicada no Servi DS, seja token ou com
 O changelog mora em dois lugares, ambos dentro do repositório `servi-ds`, nunca no projeto Claude e nunca em qualquer lugar fora do repositório:
 
 1. Um arquivo raiz `CHANGELOG.md`, com o histórico completo, em ordem cronológica, organizado por versão do registry (`REGISTRY_VERSION`). É o índice geral: toda entrada, de token ou de componente, aparece aqui.
-2. Uma seção "Changelog" dentro da página de cada componente, em `content/docs/componentes/<nome>.md`, com só as entradas daquele componente. Essa seção é a oitava da estrutura padrão de página de componente, junto das outras sete.
+2. Uma seção "Changelog" dentro da página de cada componente, em `content/docs/componentes/<nome>.md`, com só as entradas daquele componente. Essa seção é a última da aba Documentação, na estrutura padrão de página de componente.
 
 Mudança de token que não afeta nenhum componente diretamente entra só no `CHANGELOG.md` raiz, numa categoria "Tokens" (token não tem página própria para referenciar). Mudança de componente entra nos dois lugares ao mesmo tempo: a entrada completa mora na seção do componente, e a linha correspondente no `CHANGELOG.md` raiz referencia essa seção (Regra 4), em vez de manter dois textos soltos e independentes.
 
@@ -89,7 +89,7 @@ Nenhuma entrada cita nome de cliente, print de produto real com dado de uso, ou 
 
 ## Quem gera a entrada
 
-A entrada de changelog é gerada no mesmo commit que publica a mudança, a partir do diff real: o que mudou em `registry.json`, no código do componente, ou nos tokens consumidos por ele. Nunca de memória do que provavelmente mudou. Se a categoria ou o nível (MAJOR, MINOR, PATCH) não está claro a partir do diff, sinalizar a lacuna na própria entrada e perguntar à designer, nunca preencher com um palpite.
+A entrada de changelog é gerada no mesmo commit que publica a mudança, a partir do diff real: o que mudou em `registry.json`, no código do componente, ou nos tokens consumidos por ele. Nunca de memória do que provavelmente mudou. Se a categoria ou o nível (MAJOR, MINOR, PATCH) não está claro a partir do diff, perguntar à designer antes de publicar a entrada, nunca preencher com um palpite.
 
 ## Quando este documento e a prática divergirem
 
