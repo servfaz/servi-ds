@@ -56,10 +56,35 @@ body.servi-frame {
   border-radius: var(--radius-sm);
 }
 
-.frame-header__logo img {
+/* Símbolo da marca (SVG inline) pintado com o token por currentColor. */
+.frame-header__logo {
+  flex-shrink: 0;
+  color: var(--color-brand-filled);
+}
+
+.frame-header__logo-full {
   display: block;
-  height: calc(var(--spacing) * 6);
   width: auto;
+  height: calc(var(--spacing) * 6);
+}
+
+/* Símbolo: só em telas estreitas (ver a regra responsiva do header). */
+.frame-header__logo-mark {
+  display: none;
+  width: calc(var(--spacing) * 8);
+  height: calc(var(--spacing) * 8);
+}
+
+.frame-logo__block {
+  fill: var(--color-brand-filled);
+}
+
+.frame-logo__shape {
+  fill: var(--color-brand-foreground-on-filled);
+}
+
+.frame-logo__text {
+  fill: var(--color-brand-foreground-emphasis);
 }
 
 .frame-header__nav {
