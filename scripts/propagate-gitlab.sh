@@ -25,6 +25,11 @@ BRANCH="chore/update-servfaz-ds"
 COMMIT_MESSAGE="chore: atualiza componentes do Servfaz DS"
 MR_TITLE="Atualizacao automatica: Servfaz DS"
 
+# Últimas linhas da saída do Git, numa linha só e sem o token.
+resumo_git() {
+  printf '%s' "$1" | sed "s#${GITLAB_TOKEN:-sem-token}#***#g" | tail -n 3 | tr '\n' ' '
+}
+
 # Mostra o erro no resumo da execução do GitHub Actions (anotação) e encerra.
 falha() {
   echo "::error title=Propagação GitLab (${GITLAB_PROJECT})::$1"
@@ -60,9 +65,10 @@ TARGET_BRANCH="${TARGET_BRANCH:-$(jq -r '.default_branch // "main"' <<<"$project
 echo "Branch de destino: $TARGET_BRANCH"
 
 WORKDIR="$(mktemp -d "${RUNNER_TEMP:-/tmp}/consumer-XXXXXX")"
-git clone --quiet --depth 1 --branch "$TARGET_BRANCH" \
-  "https://oauth2:${GITLAB_TOKEN}@${GITLAB_HOST}/${GITLAB_PROJECT}.git" "$WORKDIR" ||
-  falha "Não consegui clonar o projeto. Confira se o token tem escopo read_repository ou write_repository."
+if ! saida="$(git clone --quiet --depth 1 --branch "$TARGET_BRANCH" \
+  "https://oauth2:${GITLAB_TOKEN}@${GITLAB_HOST}/${GITLAB_PROJECT}.git" "$WORKDIR" 2>&1)"; then
+  falha "Não consegui clonar o projeto (branch ${TARGET_BRANCH}). Resposta do Git: $(resumo_git "$saida")"
+fi
 cd "$WORKDIR"
 
 bash "$INSTALLER" ||
@@ -79,8 +85,9 @@ git checkout --quiet -B "$BRANCH"
 git add -A
 git commit --quiet -m "$COMMIT_MESSAGE"
 # A branch é recriada a cada execução a partir da branch de destino, como no job do GitHub.
-git push --quiet --force origin "$BRANCH" ||
-  falha "Não consegui enviar a branch $BRANCH. Confira se o token tem escopo write_repository e papel Developer ou maior."
+if ! saida="$(git push --quiet --force origin "$BRANCH" 2>&1)"; then
+  falha "Não consegui enviar a branch $BRANCH. Resposta do Git: $(resumo_git "$saida")"
+fi
 echo "Branch $BRANCH enviada."
 
 open_mr="$(api GET "/projects/${PROJECT_ID}/merge_requests?state=opened&source_branch=$(jq -rn --arg b "$BRANCH" '$b|@uri')" | jq -r '.[0].web_url // empty')"
