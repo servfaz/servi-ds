@@ -2,6 +2,7 @@ import type { Preview } from "@storybook/react-vite"
 import { withThemeByClassName } from "@storybook/addon-themes"
 import "../storybook/styles/globals.css"
 import { DOCS_THEMES, LIGHT_THEME } from "../storybook/frame/docs-themes"
+import { ThemedDocsContainer } from "../storybook/blocks/themed-docs-container"
 
 const preview: Preview = {
   // Todo componente ganha a página automática (autodocs) do Storybook.
@@ -10,7 +11,11 @@ const preview: Preview = {
     layout: "centered",
     controls: { expanded: true },
     // Índice "Nesta página" à direita de cada página de documentação.
-    docs: { toc: { title: "Nesta página", headingSelector: "h3" } },
+    // O container acompanha o botão de tema: claro e escuro com os tokens do DS.
+    docs: {
+      toc: { title: "Nesta página", headingSelector: "h3" },
+      container: ThemedDocsContainer,
+    },
 
     options: {
       storySort: {
