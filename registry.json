@@ -1908,6 +1908,893 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Imagem de pessoa com fallback de iniciais ou icone e grupo empilhado com contador.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-avatar",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/avatar.tsx",
+          "target": "@ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Barra de progresso com label opcional e cores brand, neutral e feedback.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-progress",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/progress.tsx",
+          "target": "@ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Interruptor de ligar e desligar nos tamanhos sm e default.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-switch"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/switch.tsx",
+          "target": "@ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Abas nos estilos segmented (troca de visao) e line (navegacao de pagina).",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/tabs.tsx",
+          "target": "@ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Menu suspenso com itens, separadores, itens de marcar e submenus.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/dropdown-menu.tsx",
+          "target": "@ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Tabela com caixa, estados de linha (selecionada, apagada) e pecas de celula composta.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/table.tsx",
+          "target": "@ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Data Table",
+      "description": "Tabela de dados com busca, filtros, ordenacao, selecao de linhas, linha expansivel e acoes por linha.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/table.json",
+        "https://ds.servfaz.app/r/button.json",
+        "https://ds.servfaz.app/r/badge.json",
+        "https://ds.servfaz.app/r/checkbox.json",
+        "https://ds.servfaz.app/r/input.json",
+        "https://ds.servfaz.app/r/label.json",
+        "https://ds.servfaz.app/r/popover.json",
+        "https://ds.servfaz.app/r/dropdown-menu.json"
+      ],
+      "dependencies": [
+        "@tanstack/react-table",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/data-table.tsx",
+          "target": "@ui/data-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "table-group",
+      "type": "registry:ui",
+      "title": "Table Group",
+      "description": "Varias tabelas agrupadas em secoes com titulo, contador e acoes.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/badge.json",
+        "https://ds.servfaz.app/r/table.json"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/servfaz/table-group.tsx",
+          "target": "@ui/table-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Trilha de navegacao com links, pagina atual, separador e reticencias para niveis ocultos.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/breadcrumb.tsx",
+          "target": "@ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Lista de secoes que abrem e fecham.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-accordion",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/accordion.tsx",
+          "target": "@ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "Modal de confirmacao que exige uma escolha (acao ou cancelar).",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-alert-dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/alert-dialog.tsx",
+          "target": "@ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect Ratio",
+      "description": "Mantem a proporcao de imagem, video ou mapa.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-aspect-ratio"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/aspect-ratio.tsx",
+          "target": "@ui/aspect-ratio.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Button Group",
+      "description": "Junta botoes, campos e rotulos em uma peca so.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/separator.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/button-group.tsx",
+          "target": "@ui/button-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Calendario em portugues para escolher uma data ou um periodo.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json"
+      ],
+      "dependencies": [
+        "react-day-picker",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/calendar.tsx",
+          "target": "@ui/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Caixa de conteudo com cabecalho, acao, conteudo e rodape.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/servfaz/card.tsx",
+          "target": "@ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Carrossel de slides com setas e navegacao pelo teclado.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json"
+      ],
+      "dependencies": [
+        "embla-carousel-react",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/carousel.tsx",
+          "target": "@ui/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Graficos do Recharts com cores, eixos e tooltip do DS.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/chart.tsx",
+          "target": "@ui/chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "Area que abre e fecha, sem estilo proprio.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-collapsible"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/collapsible.tsx",
+          "target": "@ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "Select com busca, de escolha unica ou multipla.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/command.json",
+        "https://ds.servfaz.app/r/popover.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/combobox.tsx",
+          "target": "@ui/combobox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Lista filtravel por busca e paleta de comandos.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/dialog.json"
+      ],
+      "dependencies": [
+        "cmdk",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/command.tsx",
+          "target": "@ui/command.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "Menu aberto com o botao direito.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/dropdown-menu.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-context-menu",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/context-menu.tsx",
+          "target": "@ui/context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "Campo de data e de periodo com calendario.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/calendar.json",
+        "https://ds.servfaz.app/r/popover.json"
+      ],
+      "dependencies": [
+        "date-fns",
+        "react-day-picker",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/date-picker.tsx",
+          "target": "@ui/date-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Modal com titulo, descricao, conteudo livre e rodape.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/dialog.tsx",
+          "target": "@ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "Painel que desliza da borda da tela, indicado para celular.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "vaul"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/drawer.tsx",
+          "target": "@ui/drawer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "Estado vazio com midia, titulo, descricao e acoes.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/empty.tsx",
+          "target": "@ui/empty.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "Formulario com react-hook-form: label, descricao e erro ligados ao campo.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/label.json"
+      ],
+      "dependencies": [
+        "react-hook-form",
+        "@radix-ui/react-label",
+        "@radix-ui/react-slot"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/form.tsx",
+          "target": "@ui/form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "Caixa que abre ao passar o mouse.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-hover-card"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/hover-card.tsx",
+          "target": "@ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "Campo com complementos: icone, texto, tecla ou botao.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/input-group.tsx",
+          "target": "@ui/input-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input OTP",
+      "description": "Campo de codigo de verificacao, uma casa por digito.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "input-otp",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/input-otp.tsx",
+          "target": "@ui/input-otp.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "description": "Linha de lista com midia, titulo, descricao e acoes.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/separator.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/item.tsx",
+          "target": "@ui/item.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "Tecla ou atalho de teclado.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/servfaz/kbd.tsx",
+          "target": "@ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "menubar",
+      "type": "registry:ui",
+      "title": "Menubar",
+      "description": "Barra de menus no estilo de aplicativo de desktop.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/dropdown-menu.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-menubar",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/menubar.tsx",
+          "target": "@ui/menubar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "title": "Navigation Menu",
+      "description": "Navegacao principal de site com paineis.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-navigation-menu",
+        "class-variance-authority",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/navigation-menu.tsx",
+          "target": "@ui/navigation-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Paginacao com anterior, proxima, paginas e reticencias.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/pagination.tsx",
+          "target": "@ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "description": "Paineis com divisoria arrastavel.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "react-resizable-panels",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/resizable.tsx",
+          "target": "@ui/resizable.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "Area de rolagem com barra fina igual em todos os navegadores.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-scroll-area"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/scroll-area.tsx",
+          "target": "@ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Lista de opcoes com a caixa do Input.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/dropdown-menu.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-select",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/select.tsx",
+          "target": "@ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Controle deslizante de valor ou intervalo.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slider"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/slider.tsx",
+          "target": "@ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "Sonner",
+      "description": "Notificacoes temporarias (toast) com icones de feedback.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "sonner",
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/sonner.tsx",
+          "target": "@ui/sonner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Indicador de carregamento.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/spinner.tsx",
+          "target": "@ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Botao de ligar e desligar.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-toggle",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/toggle.tsx",
+          "target": "@ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "Grupo de toggles de escolha unica ou multipla.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/toggle.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-toggle-group",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/toggle-group.tsx",
+          "target": "@ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
