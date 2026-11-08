@@ -437,8 +437,8 @@ body.servi-frame .sidebar-item.sidebar-item[data-selected="true"] {
   overflow: visible;
   border-radius: var(--radius-md);
   background: var(--color-brand-selected);
-  color: var(--color-brand-foreground-default);
-  font-weight: var(--font-weight-semibold);
+  color: var(--color-foreground-emphasis);
+  font-weight: var(--font-weight-medium);
 }
 
 body.servi-frame .sidebar-item.sidebar-item[data-selected="true"]:is(:hover, :focus) {
@@ -466,8 +466,8 @@ body.servi-frame .sidebar-item.sidebar-item [data-testid="context-menu"]:hover {
   background: var(--color-brand-light-hover);
 }
 
-/* Storybook local: barra vertical à esquerda do item selecionado. */
-body.servi-frame:not(.servi-docs-mode) .sidebar-item.sidebar-item[data-selected="true"]::before {
+/* Barra vertical da marca à esquerda do item selecionado. */
+body.servi-frame .sidebar-item.sidebar-item[data-selected="true"]::before {
   content: "";
   position: absolute;
   top: calc(var(--spacing) * 1.5);
@@ -479,17 +479,18 @@ body.servi-frame:not(.servi-docs-mode) .sidebar-item.sidebar-item[data-selected=
 }
 
 /*
- * Site público (modo docs): barra lateral em árvore. Título de grupo em texto
- * discreto, itens sem ícone ligados por uma linha vertical, e o item
- * selecionado com um ponto da marca sobre a linha.
+ * Barra lateral em grupos (Documentação, Foundations, Componentes, Patterns,
+ * Resources): título de grupo em mono, caixa alta e cor discreta; itens
+ * corridos, sem ícone no site público.
  */
-body.servi-docs-mode .sidebar-subheading,
-body.servi-docs-mode .sidebar-subheading > button[data-action="collapse-root"] {
-  text-transform: none;
-  letter-spacing: normal;
-  font-size: var(--typography-sm-font-size);
-  font-weight: var(--font-weight-normal);
-  color: var(--color-foreground-muted);
+body.servi-frame .sidebar-subheading,
+body.servi-frame .sidebar-subheading > button[data-action="collapse-root"] {
+  text-transform: uppercase;
+  letter-spacing: var(--typography-xs-letter-spacing);
+  font-family: var(--typography-font-mono);
+  font-size: var(--typography-xs-font-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-foreground-subtle);
 }
 
 body.servi-docs-mode .sidebar-subheading svg,
@@ -506,44 +507,22 @@ body.servi-docs-mode #storybook-sidebar-region button[aria-label="Tag filters"] 
 }
 
 body.servi-docs-mode .sidebar-item.sidebar-item {
-  --frame-tree-line: calc(var(--spacing) * 4);
   overflow: visible;
   border-radius: var(--radius-md);
 }
 
 body.servi-docs-mode .sidebar-item.sidebar-item > a {
-  min-height: calc(var(--spacing) * 8);
+  min-height: calc(var(--spacing) * 9);
   align-items: center;
-  padding: 0 calc(var(--spacing) * 3) 0 calc(var(--spacing) * 8);
+  padding: 0 calc(var(--spacing) * 2);
   font-size: var(--typography-sm-font-size);
   color: var(--color-foreground-default);
 }
 
 body.servi-docs-mode .sidebar-item.sidebar-item[data-selected="true"] > a {
-  color: var(--color-brand-foreground-default);
+  color: var(--color-foreground-emphasis);
 }
 
 body.servi-docs-mode .sidebar-item.sidebar-item > a svg[type] {
   display: none;
-}
-
-body.servi-docs-mode .sidebar-item.sidebar-item::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: var(--frame-tree-line);
-  width: var(--frame-hairline);
-  background: var(--color-border-default);
-  pointer-events: none;
-}
-
-body.servi-docs-mode .sidebar-item.sidebar-item[data-selected="true"]::after {
-  top: 50%;
-  bottom: auto;
-  width: calc(var(--spacing) * 1.5);
-  height: calc(var(--spacing) * 1.5);
-  border-radius: var(--radius-full);
-  background: var(--color-brand-filled);
-  transform: translate(-40%, -50%);
 }

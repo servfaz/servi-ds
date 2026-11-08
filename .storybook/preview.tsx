@@ -19,7 +19,15 @@ const preview: Preview = {
 
     options: {
       storySort: {
-        order: ["Comece", "Desenvolvedores", "Componentes"],
+        // Grupos da barra lateral, nesta ordem. Grupo sem página ainda não aparece.
+        order: [
+          "Documentação",
+          ["Introdução", "Desenvolvedores", "Sobre"],
+          "Foundations",
+          "Componentes",
+          "Patterns",
+          "Resources",
+        ],
       },
     },
 
