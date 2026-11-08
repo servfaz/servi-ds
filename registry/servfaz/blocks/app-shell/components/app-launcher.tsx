@@ -5,7 +5,6 @@ import {
   ChartLineIcon,
   ChatsCircleIcon,
   CurrencyCircleDollarIcon,
-  DotsNineIcon,
   FolderIcon,
   LifebuoyIcon,
   type Icon,
@@ -28,6 +27,30 @@ import {
  * Sans/xs/medium.
  * Arquivo de bloco: o sistema copia e edita a lista de aplicações.
  */
+
+/*
+ * Ícone customizado do gatilho (fonte: public/assets/icons/dots-nine-custom.svg).
+ * Inline com currentColor para herdar o token de cor do botão e funcionar nos
+ * sistemas consumidores, que não têm a pasta public do DS.
+ */
+function DotsNineCustomIcon(props: React.SVGProps<SVGSVGElement>) {
+  const positions = [3.333, 10, 16.667]
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      {...props}
+    >
+      {positions.map((cy) =>
+        positions.map((cx) => (
+          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={2.333} />
+        ))
+      )}
+    </svg>
+  )
+}
 
 type AppLauncherApp = {
   name: string
@@ -77,7 +100,7 @@ function AppLauncher({
             className
           )}
         >
-          <DotsNineIcon weight="bold" />
+          <DotsNineCustomIcon />
         </Button>
       </PopoverTrigger>
       <PopoverContent

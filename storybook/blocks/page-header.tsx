@@ -1,16 +1,34 @@
-import { CopyMarkdownButton } from "./copy-markdown-button"
+import { CopyPageMenu } from "./copy-page-menu"
 import { ComponentMeta } from "./component-meta"
+import { PageHero } from "./page-hero"
 import { formatUpdatedDate, type DocFrontmatter } from "./frontmatter"
 import { textMuted } from "./doc-styles"
 
 export function PageHeader({
   frontmatter,
   raw,
+  markdownActions = true,
 }: {
   frontmatter: DocFrontmatter
   raw: string
+  /** false tira o botão agrupado de markdown (Copiar página e menu). */
+  markdownActions?: boolean
 }) {
-  const { title, description, updated, name, figma } = frontmatter
+  const { title, description, updated, name, figma, hero, heroPoster } = frontmatter
+
+  const actions = markdownActions ? <CopyPageMenu raw={raw} /> : null
+
+  if (hero) {
+    return (
+      <PageHero
+        title={title}
+        description={description}
+        image={hero}
+        poster={heroPoster}
+        actions={actions}
+      />
+    )
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -18,7 +36,7 @@ export function PageHeader({
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
           {title}
         </h1>
-        <CopyMarkdownButton raw={raw} />
+        {actions}
       </div>
       {updated && (
         <p className={`text-xs ${textMuted}`}>

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { expect, fn } from "storybook/test"
 import { Alert, AlertDescription, AlertTitle } from "@/registry/servfaz/alert"
 
 const meta = {
@@ -59,4 +60,25 @@ export const ComFechar: Story = {
 export const SemIcone: Story = {
   name: "Sem ícone",
   args: { icon: null },
+}
+
+// Testes de interação: rodam no Run tests e no Vitest. Ficam fora da página
+// de docs (tag !autodocs) e aparecem só no Storybook local.
+
+export const TesteFechar: Story = {
+  name: "Teste: botão de fechar",
+  tags: ["!autodocs"],
+  args: { onClose: fn() },
+  play: async ({ args, canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole("button", { name: "Fechar" }))
+    await expect(args.onClose).toHaveBeenCalledTimes(1)
+  },
+}
+
+export const TesteSemFechar: Story = {
+  name: "Teste: sem onClose, sem botão",
+  tags: ["!autodocs"],
+  play: async ({ canvas }) => {
+    await expect(canvas.queryByRole("button", { name: "Fechar" })).toBeNull()
+  },
 }

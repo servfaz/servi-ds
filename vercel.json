@@ -5,8 +5,13 @@
   "buildCommand": "npm run build",
   "outputDirectory": "storybook-static",
   "redirects": [
-    { "source": "/docs/sobre", "destination": "/?path=/docs/sobre--docs", "permanent": false },
-    { "source": "/docs/desenvolvedores", "destination": "/?path=/docs/desenvolvedores--docs", "permanent": false },
-    { "source": "/docs/componentes/:nome", "destination": "/?path=/docs/componentes-:nome--docs", "permanent": false }
+    { "source": "/docs/sobre", "destination": "/?path=/docs/documentacao-sobre--docs", "permanent": false },
+    { "source": "/docs/desenvolvedores", "destination": "/?path=/docs/documentacao-desenvolvedores--docs", "permanent": false },
+    { "source": "/docs/componentes/:nome([^./]+)", "destination": "/?path=/docs/componentes-:nome--docs", "permanent": false }
+  ],
+  "headers": [
+    { "source": "/docs/(.*)\\.md", "headers": [{ "key": "Content-Type", "value": "text/markdown; charset=utf-8" }] },
+    { "source": "/llms.txt", "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }] },
+    { "source": "/llms-full.txt", "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }] }
   ]
 }

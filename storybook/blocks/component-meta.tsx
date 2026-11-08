@@ -39,7 +39,7 @@ function MetaLink({
   return (
     <a
       {...linkProps(href)}
-      className="inline-flex min-w-0 items-center gap-1.5 text-[var(--color-taupe-950)] underline-offset-4 hover:underline dark:text-[var(--color-taupe-50)] [&_svg]:size-4 [&_svg]:shrink-0"
+      className="inline-flex min-w-0 items-center gap-1.5 text-[var(--color-foreground-emphasis)] underline-offset-4 hover:underline [&_svg]:size-4 [&_svg]:shrink-0"
     >
       {icon}
       <span className="truncate">{children}</span>
@@ -65,9 +65,9 @@ export function ComponentMeta({
   const importLine = `import { ${exportName(title)} } from "@/components/ui/${name}"`
 
   return (
-    <dl className="flex flex-col gap-3 rounded-lg border border-[var(--color-taupe-300)] p-4 dark:border-[var(--color-taupe-700)]">
+    <dl className="flex flex-col gap-3 rounded-lg border border-[var(--color-border-default)] p-4">
       <MetaRow label="Importar">
-        <code className="min-w-0 truncate rounded bg-[var(--color-taupe-100)] px-1.5 py-0.5 font-[family-name:var(--font-geist-mono)] text-[0.85em] dark:bg-[var(--color-taupe-800)]">
+        <code className="min-w-0 truncate rounded bg-[var(--color-background-muted)] px-1.5 py-0.5 font-[family-name:var(--typography-font-mono)] text-[0.85em]">
           {importLine}
         </code>
         <CopyButton text={importLine} label="Copiar" copiedLabel="Copiado" />

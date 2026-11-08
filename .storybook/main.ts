@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url"
 import type { StorybookConfig } from "@storybook/react-vite"
 import tailwindcss from "@tailwindcss/vite"
 import { mergeConfig } from "vite"
+import { frameHead } from "./frame-head.ts"
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 // Caminho com barra normal: no Windows o alias com "\\" não resolve.
@@ -20,11 +21,18 @@ const config: StorybookConfig = {
     "@storybook/addon-docs",
     "@storybook/addon-themes",
     "@storybook/addon-a11y",
+    "@storybook/addon-vitest",
+    "@chromatic-com/storybook"
   ],
   framework: { name: "@storybook/react-vite", options: {} },
   // public/ é servido na raiz do build: o registry continua em /r/<nome>.json
   // e a marca e os favicons continuam nos mesmos caminhos de antes.
-  staticDirs: ["../public"],
+  // content/docs/ em /docs: cada página também responde em markdown puro
+  // (/docs/<pagina>.md), para LLMs. No build, scripts/build-llm-docs.cjs
+  // reescreve essas cópias, tira as páginas ocultas e gera o llms.txt.
+  staticDirs: ["../public", { from: "../content/docs", to: "/docs" }],
+  // Moldura (manager): tokens do DS e CSS do header do site.
+  managerHead: (head) => `${head ?? ""}\n${frameHead(root)}`,
   core: { disableTelemetry: true },
   viteFinal: async (viteConfig) =>
     mergeConfig(viteConfig, {

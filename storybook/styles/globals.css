@@ -26,7 +26,7 @@
 
 /* Largura máxima da coluna de leitura (texto, código, preview) nas páginas de documentação. */
 :root {
-  --docs-content-max-width: 56.25rem; /* 900px */
+  --docs-content-max-width: 100%; /* a página ocupa toda a largura disponível */
 }
 
 /*
@@ -155,4 +155,97 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/*
+ * Página de documentação no estilo do site: coluna de leitura estreita,
+ * títulos discretos e o índice "Nesta página" à direita.
+ */
+.sbdocs-wrapper {
+  padding: calc(var(--spacing) * 12) calc(var(--spacing) * 12) calc(var(--spacing) * 16) !important;
+  gap: calc(var(--spacing) * 16);
+}
+
+/*
+ * Documentação responsiva. 48rem é o breakpoint md do Tailwind (media query
+ * não aceita var()). Abaixo dele a margem lateral diminui; o índice "Nesta
+ * página" o Storybook já esconde sozinho em telas estreitas.
+ */
+@media (max-width: 48rem) {
+  .sbdocs-wrapper {
+    padding: calc(var(--spacing) * 6) calc(var(--spacing) * 4) calc(var(--spacing) * 10) !important;
+    gap: 0;
+  }
+
+  .sbdocs-content h1.sbdocs-title {
+    font-size: var(--typography-xl-font-size);
+    line-height: var(--typography-xl-line-height);
+  }
+}
+
+.sbdocs-content {
+  width: 100%;
+}
+
+.sbdocs-content h1.sbdocs-title {
+  margin-bottom: calc(var(--spacing) * 3);
+  font-size: var(--typography-2xl-font-size);
+  line-height: var(--typography-2xl-line-height);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-foreground-emphasis);
+}
+
+.sbdocs-content :is(h2, h3).sbdocs {
+  margin-top: calc(var(--spacing) * 12);
+  padding-bottom: 0;
+  border: none;
+  font-size: var(--typography-lg-font-size);
+  line-height: var(--typography-lg-line-height);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-foreground-emphasis);
+}
+
+.sbdocs-content p.sbdocs {
+  color: var(--color-foreground-default);
+}
+
+nav[aria-labelledby="table-of-contents"] {
+  padding-top: calc(var(--spacing) * 12);
+}
+
+/* Página sem índice (DocPage com toc={false}): o "Nesta página" some. */
+.sbdocs-wrapper:has([data-doc-toc="off"]) > .sbdocs-toc--custom {
+  display: none;
+}
+
+nav[aria-labelledby="table-of-contents"] > h2#table-of-contents {
+  margin-bottom: calc(var(--spacing) * 3);
+  text-transform: none;
+  font-size: var(--typography-sm-font-size);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-foreground-muted);
+}
+
+nav[aria-labelledby="table-of-contents"] > .toc-wrapper > .toc-list {
+  border-left: calc(var(--spacing) / 4) solid var(--color-border-default);
+}
+
+nav[aria-labelledby="table-of-contents"] .toc-list-item {
+  margin-left: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 1.5) 0;
+}
+
+nav[aria-labelledby="table-of-contents"] .toc-list-item::before {
+  transform: translateX(calc(var(--spacing) * -3.25));
+  border-left: calc(var(--spacing) / 2) solid var(--color-brand-filled);
+}
+
+nav[aria-labelledby="table-of-contents"] .toc-list-item > a {
+  font-size: var(--typography-sm-font-size);
+  color: var(--color-foreground-muted);
+}
+
+nav[aria-labelledby="table-of-contents"] .toc-list-item.is-active-li > a {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-foreground-default);
 }

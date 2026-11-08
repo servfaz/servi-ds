@@ -29,7 +29,7 @@ function TabsList({
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        "flex w-full items-end gap-1 overflow-x-auto border-b border-[var(--color-taupe-300)] dark:border-[var(--color-taupe-700)]",
+        "flex w-full items-end gap-1 overflow-x-auto border-b border-[var(--color-border-default)]",
         className
       )}
       {...props}
@@ -45,7 +45,7 @@ function TabsTrigger({
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        "-mb-px inline-flex items-center gap-2 whitespace-nowrap border-b-2 border-transparent px-3 py-2.5 text-sm sm:px-4 font-semibold text-[var(--color-taupe-600)] transition-colors outline-none hover:text-[var(--color-taupe-950)] focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-brand-outline)] data-[state=active]:border-[var(--color-brand-outline)] data-[state=active]:text-[var(--color-taupe-950)] dark:text-[var(--color-taupe-400)] dark:hover:text-[var(--color-taupe-50)] dark:data-[state=active]:text-[var(--color-taupe-50)] [&_svg]:size-4 [&_svg]:shrink-0 max-sm:[&_svg]:hidden",
+        "-mb-px inline-flex items-center gap-2 whitespace-nowrap border-b-2 border-transparent px-3 py-2.5 text-sm sm:px-4 font-semibold text-[var(--color-foreground-muted)] transition-colors outline-none hover:text-[var(--color-foreground-emphasis)] focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-brand-outline)] data-[state=active]:border-[var(--color-brand-outline)] data-[state=active]:text-[var(--color-foreground-emphasis)] [&_svg]:size-4 [&_svg]:shrink-0 max-sm:[&_svg]:hidden",
         className
       )}
       {...props}

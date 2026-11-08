@@ -27,7 +27,7 @@ export function Demo({
 
   return (
     <div className="flex flex-col">
-      <div className="flex min-h-32 items-center justify-center overflow-x-auto rounded-t-lg border border-b-0 border-[var(--color-taupe-300)] bg-[var(--background)] p-8 dark:border-[var(--color-taupe-700)]">
+      <div className="flex min-h-32 items-center justify-center overflow-x-auto rounded-t-lg border border-b-0 border-[var(--color-border-default)] bg-[var(--background)] p-8">
         {story ? (
           <Story of={story as never} />
         ) : (
@@ -38,7 +38,7 @@ export function Demo({
       </div>
       <CodeBlock code={code} language={language} className="rounded-t-none" />
       {story && withControls ? (
-        <div className="mt-4 overflow-hidden rounded-lg border border-[var(--color-taupe-300)] dark:border-[var(--color-taupe-700)] [&_table]:!my-0">
+        <div className="mt-4 overflow-hidden rounded-lg border border-[var(--color-border-default)] [&_table]:!my-0">
           <Controls of={story as never} />
         </div>
       ) : null}

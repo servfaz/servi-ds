@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { expect } from "storybook/test"
 import { CaretDownIcon, MagnifyingGlassIcon } from "@phosphor-icons/react"
 import type * as React from "react"
 import { Field, type FieldInputProps } from "@/registry/servfaz/field"
@@ -85,4 +86,43 @@ export const Flutuante: Story = {
 export const AreaDeTexto: Story = {
   name: "Área de texto",
   args: { variant: "textarea", leftIcon: undefined, rightIcon: undefined },
+}
+
+// Testes de interação: rodam no Run tests e no Vitest. Ficam fora da página
+// de docs (tag !autodocs) e aparecem só no Storybook local.
+
+export const TesteDigitar: Story = {
+  name: "Teste: label, descrição e digitação",
+  tags: ["!autodocs"],
+  play: async ({ canvas, userEvent }) => {
+    const campo = canvas.getByRole("textbox", { name: /Label/ })
+    await expect(campo).toHaveAccessibleDescription(/Descrição de apoio/)
+    await expect(campo).toHaveAccessibleDescription(/Mensagem de apoio/)
+    await userEvent.type(campo, "Pedido 123")
+    await expect(campo).toHaveValue("Pedido 123")
+  },
+}
+
+export const TesteInvalido: Story = {
+  name: "Teste: estado inválido",
+  tags: ["!autodocs"],
+  args: { status: "invalid" },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole("textbox", { name: /Label/ })).toHaveAttribute(
+      "aria-invalid",
+      "true"
+    )
+  },
+}
+
+export const TesteAreaDeTexto: Story = {
+  name: "Teste: área de texto",
+  tags: ["!autodocs"],
+  args: { variant: "textarea", leftIcon: undefined, rightIcon: undefined },
+  play: async ({ canvas, userEvent }) => {
+    const campo = canvas.getByRole("textbox", { name: /Label/ })
+    await expect(campo.tagName).toBe("TEXTAREA")
+    await userEvent.type(campo, "Linha 1{Enter}Linha 2")
+    await expect(campo).toHaveValue("Linha 1\nLinha 2")
+  },
 }

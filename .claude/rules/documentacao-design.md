@@ -56,7 +56,7 @@ Vale para o código do site exatamente como vale para o conteúdo: nenhum valor 
 
 ### Regra 10: sempre usar o tema do DS
 
-O site de documentação não tem tema visual próprio. Ele consome o mesmo tema (tokens e componentes) do Servi DS que está documentando, incluindo dark mode resolvido na camada semântica, como qualquer outro consumidor do registry. O site é, ele mesmo, uma vitrine do DS em uso real, não uma implementação visual paralela. No Storybook, o conteúdo de cada página e cada story usa os tokens do DS, e a alternância entre claro e escuro só troca a classe `.dark`, como em qualquer consumidor. A moldura da ferramenta (barra lateral e barra de ferramentas) usa o tema claro padrão do Storybook com a marca do Servi DS.
+O site de documentação não tem tema visual próprio. Ele consome o mesmo tema (tokens e componentes) do Servi DS que está documentando, incluindo dark mode resolvido na camada semântica, como qualquer outro consumidor do registry. O site é, ele mesmo, uma vitrine do DS em uso real, não uma implementação visual paralela. No Storybook, o conteúdo de cada página e cada story usa os tokens do DS, e a alternância entre claro e escuro só troca a classe `.dark`, como em qualquer consumidor. A moldura da ferramenta (header do site, barra lateral, barra de ferramentas e blocos das páginas de docs) é personalizada com os tokens semânticos do DS e acompanha o botão de tema, em claro e escuro. A marca do Servi DS fica no header: completa no desktop e só o símbolo em telas estreitas, pintada com os tokens da marca. A barra lateral é organizada em grupos, nesta ordem: Documentação, Foundations, Componentes, Patterns e Resources, com o título de cada grupo em fonte mono e caixa alta.
 
 ### Regra 11: nunca publicar o que é exclusivo da documentação
 
@@ -66,6 +66,8 @@ Componente construído só para o site de documentação funcionar (tabela de pr
 
 Toda página do site, sem exceção, oferece uma ação visível e funcional de copiar o conteúdo inteiro como markdown puro, disponível diretamente na página, não escondida em outro lugar. Não basta o conteúdo por trás ser markdown (Regra 4): a pessoa lendo precisa conseguir copiar isso com uma ação direta, em qualquer rota do site, incluindo as páginas de apoio e cada página de componente.
 
+Exceção, por decisão da designer em 07/11/2026: a página Comece não mostra os botões de copiar como markdown nem de abrir a versão `.md`. A versão `.md` dela continua publicada (Regra 16).
+
 ### Regra 13: sempre componente shadcn quando existir
 
 Antes de construir qualquer peça de interface do site do zero, verificar se já existe um componente shadcn/ui, de preferência já restilizado como item do Servi DS, que cubra a necessidade (tabela, abas, acordeão, botão, campo, tooltip). Usar esse componente existente, nunca recriar o mesmo padrão com HTML e CSS próprio. Construir algo do zero só quando nenhum componente disponível resolve o caso. Vale tanto para os componentes exclusivos do site (Regra 11, tabela de props, grade de estados, botão de copiar) quanto para qualquer outra peça de interface do repositório.
@@ -74,16 +76,39 @@ Antes de construir qualquer peça de interface do site do zero, verificar se já
 
 Nenhum documento deste projeto, nem página publicada, cita outro documento pelo nome do arquivo (por exemplo, `arquitetura-e-regras-de-design-tokens.md`). Referência a outro conteúdo é feita em prosa, pelo assunto, nunca por um nome de arquivo entre crases. Se a referência não for essencial ao ponto sendo feito, o mais simples é não citar nada.
 
-### Regra 15: toda página de componente tem stories
+### Regra 15: a página de componente é a automática do Storybook
 
-Todo componente publicado no registry tem dois arquivos em `storybook/componentes/`, com o mesmo `<nome>` do registry (Regra 2):
+Decisão da designer em 07/11/2026, para reduzir o tempo gasto com documentação. Todo componente usa a página automática do Storybook (autodocs), ligada para todos de uma vez em `.storybook/preview.tsx`. A página traz o Playground com controles, todas as stories com o código e a tabela de props, sem texto escrito à mão.
 
-1. `<nome>.stories.tsx`, com uma story `Playground` editável pelos controles e uma story por grupo de variação que o código real do componente suporta (variantes, tamanhos, estados, uso com ícone).
-2. `<nome>.mdx`, que monta a página a partir de `content/docs/componentes/<nome>.md`, exibe as stories e o código-fonte de `registry/servfaz/<nome>.tsx`.
+Para cada componente publicado no registry, o único arquivo de documentação obrigatório é `storybook/componentes/<nome>.stories.tsx`, com o mesmo `<nome>` do registry, uma story `Playground` editável pelos controles e uma story por grupo de variação que o código real do componente suporta (variantes, tamanhos, estados, uso com ícone). Story nunca entra em `registry.json` (Regra 11).
 
-Stories e página `.mdx` são geradas no mesmo commit que gera a página em markdown, a partir das mesmas fontes (Regra 3). Nenhum texto de documentação vive dentro de story ou de `.mdx`: o texto mora só no markdown, para continuar copiável (Regras 4 e 12). Story nunca entra em `registry.json` (Regra 11).
+Componente com comportamento (clique, teclado, abrir e fechar, digitação) ganha também stories de teste, com nome começando por `Teste:`, uma função `play` que simula a interação e confere o resultado, e a tag `!autodocs`. Elas rodam no Run tests e no Vitest, aparecem só no Storybook local e ficam fora das páginas de docs. Componente só visual não precisa de story de teste.
+
+Componente novo não ganha mais `content/docs/componentes/<nome>.md` nem `storybook/componentes/<nome>.mdx`. O Button, que já tinha página completa, mantém a dele, com `tags: ["!autodocs"]` na story, até decisão contrária.
+
+Nas páginas automáticas deixam de valer a Regra 2 (arquivo markdown próprio), as Regras 4, 12 e 16 (markdown copiável e versão `.md`) e a estrutura padrão descrita mais abaixo. Essas regras continuam valendo para as páginas de apoio e para o Button.
+
+O site público é gerado no modo docs do Storybook (`storybook build --docs`, no script `build`) e mostra só as páginas. O Storybook local (`npm run dev`) mostra tudo: stories, testes e acessibilidade.
+
+### Regra 16: toda página tem versão em markdown para LLM
+
+Toda página publicada responde também em markdown puro, em uma rota própria terminada em `.md`, com o mesmo caminho amigável do site: `/docs/<pagina>.md` para páginas de apoio e `/docs/componentes/<nome>.md` para componentes, com `<nome>` igual ao do registry (Regra 2). A raiz do site publica ainda `/llms.txt`, o índice dessas rotas no padrão llmstxt.org, e `/llms-full.txt`, com a documentação inteira em um arquivo só.
+
+Essas rotas são geradas no build a partir de `content/docs/`, nunca escritas à mão: uma página nova entra nas rotas e nos dois índices sozinha, no mesmo deploy que a publica. A versão publicada é o próprio arquivo de `content/docs/`, com só duas mudanças: quebra de linha normalizada e links internos do site trocados pela URL absoluta da versão `.md`, para que a LLM navegue entre páginas sem cair no HTML do Storybook. Página oculta no site também fica fora das rotas `.md` e dos índices.
+
+As duas ações ficam num botão agrupado no topo da página: a parte principal, "Copiar página", copia o markdown (Regra 12), e a seta abre um menu com "Copiar página como Markdown", "Abrir Markdown" (a versão `.md`, o endereço entregue a uma LLM) e "Conversar no Claude.ai" (abre uma conversa já pedindo a leitura da versão `.md`).
+
+### Regra 17: o Servi DS é apresentado como design system
+
+Decisão da designer em 07/11/2026. Toda página trata o Servi DS como um design system: componentes, tokens e padrões de interface da Servfaz. Como ele é feito e distribuído (base no shadcn/ui, registry, comando de instalação) aparece em um lugar só, a página Desenvolvedores. As outras páginas não descrevem o DS como "registry do shadcn" nem repetem esse detalhe técnico. A página do Button mantém a instalação e as dependências, que fazem parte da estrutura padrão de página de componente.
+
+### Regra 18: a documentação é sempre responsiva
+
+Toda página e toda peça do site funciona em tela estreita, sem rolagem horizontal da página. Em telas abaixo do breakpoint md, o header leva os links principais para um menu, a busca vira só o ícone e o tema e o GitHub continuam à mostra; a página reduz a margem lateral; grades de cards, hero e tabelas se reorganizam ou rolam dentro do próprio bloco. Peça nova do site já nasce responsiva.
 
 ## Estrutura padrão de cada página de componente
+
+Vale só para o Button e para componente que ganhar página própria por decisão explícita da designer. Os demais usam a página automática (Regra 15).
 
 Todo arquivo em `content/docs/componentes/` segue a mesma ordem de seções, para consistência entre componentes:
 

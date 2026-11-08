@@ -1,117 +1,96 @@
-# Servi DS: Registry
+# Servi DS
 
-Registry de componentes shadcn/ui com a identidade visual da Servfaz. Este repositório é a fonte única dos componentes restilizados e o ponto de partida da distribuição deles para os sistemas internos que já usam shadcn/ui em produção.
+Design system da Servfaz. Reúne as decisões visuais e de interação dos produtos da empresa em um só lugar: cores, tipografia, espaçamento, ícones e componentes de interface prontos para uso.
 
-Regras operacionais para quem (ou qual agente) for trabalhar neste código estão em [`.claude/CLAUDE.md`](./.claude/CLAUDE.md). Este README explica o que é o projeto e como ele é organizado. Para o link de cada página e cada documento que existe hoje, ver o [índice de documentação](./INDICE.md).
+**Documentação:** [ds.servfaz.app](https://ds.servfaz.app/)
 
-## Contexto
+> O Servi DS é de uso exclusivo dos sistemas da Servfaz. Não é destinado a projetos externos ou de terceiros.
 
-Os sistemas de produto da Servfaz já usam shadcn/ui. shadcn não é uma biblioteca instalada via npm, é um gerador de código: o CLI copia o código-fonte de cada componente direto para dentro do repositório de quem instala. A partir da cópia, aquele arquivo passa a ser código do próprio projeto, sem vínculo automático com nenhuma fonte externa. A camada visual de cada componente foi escrita pelo shadcn, o Radix Primitives por trás entrega só comportamento (foco, teclado, ARIA), nenhuma camada de estilo.
+## O que tem aqui
 
-Esse repositório existe para a designer aplicar a identidade visual da Servfaz sobre esses componentes, sem publicar pacote no npm, opção descartada por reintroduzir dependência real de versão entre React, Tailwind e Radix nos sistemas consumidores.
+- **Design tokens.** Valores de design nomeados, em duas camadas: primitiva (paleta base do Tailwind) e semântica (intenção de uso, com tema claro e escuro).
+- **Componentes.** Componentes de interface construídos sobre o shadcn/ui, com a identidade visual da Servfaz aplicada.
+- **Blocos.** Composições maiores, como o App Shell, que cada sistema copia e adapta.
+- **Documentação.** Site em Storybook, publicado em [ds.servfaz.app](https://ds.servfaz.app/).
 
-## Objetivo
+## Como funciona
 
-Aplicar cor, tipografia, espaçamento, raio de borda e ajustes estruturais pontuais de tamanho em todos os sistemas que usam shadcn/ui, sem publicar pacote npm e sem quebrar nenhuma tela existente.
+1. O design nasce no Figma, nos dois arquivos oficiais: [Variables](https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables) (tokens) e [Components](https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components) (biblioteca de componentes).
+2. Tokens e componentes são implementados neste repositório.
+3. Cada mudança publicada gera uma entrada no [CHANGELOG](./CHANGELOG.md). No dia 1 de cada mês, essas entradas viram uma nova versão no GitHub Releases.
+4. Os sistemas cadastrados como consumidores recebem as atualizações por Pull Request automática. O time do sistema só revisa e aprova.
 
-## Escopo
+Os componentes mantêm o mesmo contrato de props do shadcn/ui (`variant`, `size` etc.). Uma tela existente recebe a atualização visual sem mudar código.
 
-O que muda: cores, tipografia, espaçamento, tamanhos de componente (altura, padding, raio).
+## Como instalar
 
-O que se mantém: nomes e estrutura das variantes existentes (`variant`, `size`). O contrato de props de cada componente não muda, nenhuma tela precisa alterar código para receber a atualização visual.
+### Pré-requisitos
 
-O que não entra neste repositório: reescrita de comportamento (a camada do Radix não é tocada), publicação de pacote npm de componentes.
+- Node.js LTS
+- Next.js com App Router
+- Tailwind CSS
+- shadcn/ui inicializado (`npx shadcn@latest init`)
 
-## Arquitetura de distribuição, Registry mais CI
+### Opção 1: cadastro como consumidor (recomendado)
 
-O processo de propagação, para cor, raio, tipografia, espaçamento e ajustes estruturais, é único: Registry mais CI. Não existe rota alternativa em paralelo.
+Peça ao time do Servi DS para cadastrar o repositório do seu sistema. Depois do cadastro:
 
-1. A designer organiza os componentes restilizados em `registry/servfaz/` e descreve cada um em `registry.json`, no formato `registry-item` do shadcn.
-2. O comando `shadcn build` (rodado no `prebuild`/`build` a cada deploy) lê `registry.json` e gera os arquivos estáticos de `public/r/`, publicados em `https://ds.servfaz.app/r/{name}.json`.
-3. Cada sistema consumidor aponta para esse endereço no próprio `components.json`, na chave `registries`.
-4. Um workflow de CI em cada sistema consumidor (`.github/workflows/propagate-to-consumers.yml`, disparado deste repositório) roda o comando de atualização para os componentes do Servi DS e abre um Pull Request quando algo muda.
-5. Um desenvolvedor revisa o diff do PR e aprova o merge. Esse é o único passo manual recorrente depois de tudo configurado.
+- um robô abre uma Pull Request com todos os componentes publicados;
+- cada atualização nova chega como uma nova Pull Request, com o diff da mudança;
+- o único passo manual é revisar e aprovar.
 
-Rollout é gradual, componente por componente: um componente ausente do `registry.json` continua no padrão shadcn original no sistema consumidor, sem risco de quebra. A qualquer momento um mesmo sistema pode ter parte dos componentes no padrão Servfaz e parte ainda no padrão shadcn original.
+### Opção 2: instalação imediata
 
-## Estrutura do repositório
+Para ter os componentes na hora, rode o script na raiz do projeto, com o `components.json` já criado:
 
-```
-servi-ds/
-├── .storybook/                 (configuração do site de documentação, Storybook)
-├── automation/
-│   └── consumers.json          (lista de repositórios que recebem propagação automática)
-├── content/
-│   └── docs/                   (markdown puro, fonte de cada página do site)
-│       ├── comece.md
-│       ├── desenvolvedores.md
-│       ├── sobre.md
-│       └── componentes/
-│           └── button.md
-├── lib/
-│   └── utils.ts                (utilitário cn, usado pelos componentes)
-├── public/
-│   ├── brand/                  (logo Servfaz)
-│   └── r/                      (saída gerada por "shadcn build", nunca editada à mão)
-│       ├── registry.json
-│       ├── button.json
-│       └── tokens.json
-├── registry/
-│   └── servfaz/
-│       └── button.tsx          (único componente publicado até aqui)
-├── storybook/
-│   ├── blocks/                 (peças exclusivas do site: cabeçalho, markdown, bloco de código, copiar como markdown)
-│   ├── componentes/            (<nome>.stories.tsx e <nome>.mdx de cada componente)
-│   ├── paginas/                (comece.mdx, sobre.mdx, desenvolvedores.mdx)
-│   └── styles/globals.css      (Tailwind, tokens e tema do site)
-├── scripts/
-│   ├── sync-registry-tokens.cjs  (gera cssVars de registry.json a partir de tokens/*.css)
-│   ├── cut-release.mjs           (fecha o lote "Não lançado" do CHANGELOG e calcula o bump)
-│   └── extract-release-notes.mjs (extrai as notas de uma versão para a GitHub Release)
-├── templates/
-│   └── instalar-servi-ds.sh    (script opcional de instalação manual imediata, sem esperar o ciclo de PR)
-├── tokens/
-│   ├── tokens-primitives.css   (camada 1)
-│   ├── tokens-semantic.css     (camada 2)
-│   └── tokens-component.css    (camada 3)
-├── .github/
-│   └── workflows/
-│       ├── release.yml                  (publica a GitHub Release a partir da tag)
-│       └── propagate-to-consumers.yml   (abre PR nos consumidores)
-├── CHANGELOG.md
-├── REGISTRY_VERSION
-├── registry.json                (catálogo fonte, editado à mão)
-├── components.json
-├── vercel.json                  (build estático do Storybook e redirecionamento das URLs antigas)
-└── package.json
+```bash
+bash instalar-servi-ds.sh
 ```
 
-`registry/` é a única pasta de componente editada à mão. `public/r/` é sempre gerado a partir de `registry/` e `registry.json` via `shadcn build`, nunca editado direto.
+O script fica em [`templates/instalar-servi-ds.sh`](./templates/instalar-servi-ds.sh) e exige `curl`, `jq`, `node` e `sed`. Ele instala o catálogo publicado até o momento, mas não traz atualizações futuras. Para isso, use a opção 1.
 
-`tokens/` segue a arquitetura em três camadas (Primitivo, Semântico, Componente). Resumo: um token é uma decisão de design nomeada, nunca um valor bruto. Componente referencia semântico, semântico referencia primitivo, uma camada nunca pula a outra. Dark mode é resolvido inteiramente na camada semântica, nunca dentro do componente. A taxonomia completa, com o porquê de cada regra, vive no projeto Claude "Servi DS" (`arquitetura-e-regras-de-design-tokens.md`).
+### Ícones
 
-## Rodando localmente
+O Servi DS usa só [Phosphor Icons](https://phosphoricons.com/):
 
-Gerenciador de pacotes é npm.
-
+```bash
+npm install @phosphor-icons/react
 ```
+
+O passo a passo completo está no [guia para desenvolvedores](https://ds.servfaz.app/?path=/docs/documentacao-desenvolvedores--docs).
+
+## Regras de uso
+
+- Use sempre tokens (`var(--nome-do-token)`). Nada de hexadecimal ou pixel solto.
+- O tema escuro já vem resolvido nos tokens. Não escreva lógica de tema dentro do componente.
+- Faltou um token, variante ou componente? Fale com o time do Servi DS antes de criar uma versão própria.
+
+## Componentes publicados
+
+Alert, Badge, Button, Checkbox, Field, Input, Label, Radio Group e Textarea.
+
+Outros componentes (Popover, Separator, Sheet, Sidebar, Skeleton, Tooltip, Search Bar) e o bloco App Shell estão em desenvolvimento e já podem ser vistos no Storybook local.
+
+## Documentação
+
+| O quê | Link |
+| --- | --- |
+| Site do Servi DS | [ds.servfaz.app](https://ds.servfaz.app/) |
+| Guia para desenvolvedores | [Desenvolvedores](https://ds.servfaz.app/?path=/docs/documentacao-desenvolvedores--docs) |
+| Sobre o Servi DS | [Sobre](https://ds.servfaz.app/?path=/docs/documentacao-sobre--docs) |
+| Documentação para IA | [llms.txt](https://ds.servfaz.app/llms.txt) e [llms-full.txt](https://ds.servfaz.app/llms-full.txt) |
+| Figma: tokens | [SF DS Variables](https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables) |
+| Figma: componentes | [SF DS Components](https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components) |
+| Histórico de mudanças | [CHANGELOG.md](./CHANGELOG.md) |
+| Índice completo da documentação | [INDICE.md](./INDICE.md) |
+
+## Desenvolvimento local
+
+```bash
 npm install
-npm run dev            # sobe o Storybook em http://localhost:6006
-npm run sync-tokens    # regenera registry.json a partir de tokens/*.css, sem buildar
-npm run registry:build # roda sync-tokens e depois "shadcn build", gera public/r/
-npm run build          # build completo (roda prebuild, shadcn build e storybook build em storybook-static/)
-npm run typecheck      # confere os tipos do repositório
+npm run dev        # Storybook em http://localhost:6006
+npm run build      # build completo do site
+npm run typecheck  # checagem de tipos
 ```
 
-Antes de publicar um item novo, teste sem gravar nenhum arquivo:
-
-```
-npx shadcn view http://localhost:6006/r/button.json
-npx shadcn add http://localhost:6006/r/button.json --dry-run
-```
-
-## Documentação completa
-
-Este README cobre o essencial para orientar quem chega ao repositório. As regras completas, o plano de fases e as decisões de arquitetura, com o porquê de cada uma, vivem no projeto Claude "Servi DS", fora deste repositório por decisão do projeto (ver [`.claude/CLAUDE.md`](./.claude/CLAUDE.md)). Este repositório guarda só o que é publicado: código, tokens, documentação de componente e as regras operacionais em `.claude/rules/`.
-
-O [índice completo de toda a documentação](./INDICE.md), com o link de cada página e de cada documento, fica em `INDICE.md`, na raiz deste repositório.
+Regras para quem trabalha no código deste repositório: [`.claude/CLAUDE.md`](./.claude/CLAUDE.md).

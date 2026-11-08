@@ -9,6 +9,10 @@ export type DocFrontmatter = {
   name?: string
   /** Link do componente no arquivo Components do Figma (opcional). */
   figma?: string
+  /** Ilustração do topo da página, imagem ou vídeo .webm (opcional). Com ela, o topo vira um hero. */
+  hero?: string
+  /** Primeiro quadro do vídeo do hero, usado enquanto carrega e com movimento reduzido. */
+  heroPoster?: string
 }
 
 export type Doc = {

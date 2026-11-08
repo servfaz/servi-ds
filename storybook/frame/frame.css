@@ -1,0 +1,662 @@
+/*
+ * Moldura do Storybook (manager): header do site e ajustes de layout.
+ * Os tokens do DS e as variáveis do Tailwind que eles referenciam chegam
+ * pelo <head> do manager (ver .storybook/frame-head.ts).
+ */
+:root {
+  --frame-header-height: calc(var(--spacing) * 14);
+  --frame-hairline: calc(var(--spacing) / 4);
+}
+
+body.servi-frame {
+  background: var(--color-background-default);
+}
+
+/* A interface do Storybook ocupa o espaço abaixo do header. */
+.servi-frame #root {
+  position: fixed;
+  inset: var(--frame-header-height) 0 0 0;
+}
+
+/*
+ * O topo da barra lateral sai inteiro: a marca já está no header, e o menu de
+ * configurações (engrenagem) não faz falta. Os atalhos de teclado do
+ * Storybook continuam funcionando sem ele.
+ */
+.servi-frame .sidebar-header {
+  display: none;
+}
+
+/* Header */
+.frame-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 10;
+  box-sizing: border-box;
+  height: var(--frame-header-height);
+  background: var(--color-background-default);
+  border-bottom: var(--frame-hairline) solid var(--color-border-default);
+  color: var(--color-foreground-default);
+  font-family: var(--typography-font-sans);
+}
+
+.frame-header__inner {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 6);
+  height: 100%;
+  padding: 0 calc(var(--spacing) * 5);
+}
+
+.frame-header__logo {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
+}
+
+/* Símbolo da marca (SVG inline) pintado com o token por currentColor. */
+.frame-header__logo {
+  flex-shrink: 0;
+  color: var(--color-brand-filled);
+}
+
+.frame-header__logo-full {
+  display: block;
+  width: auto;
+  height: calc(var(--spacing) * 6);
+}
+
+/* Símbolo: só em telas estreitas (ver a regra responsiva do header). */
+.frame-header__logo-mark {
+  display: none;
+  width: calc(var(--spacing) * 8);
+  height: calc(var(--spacing) * 8);
+}
+
+.frame-logo__block {
+  fill: var(--color-brand-filled);
+}
+
+.frame-logo__shape {
+  fill: var(--color-brand-foreground-on-filled);
+}
+
+.frame-logo__text {
+  fill: var(--color-brand-foreground-emphasis);
+}
+
+/* Tudo à direita da marca: links, busca, tema, GitHub e menu compacto. */
+.frame-header__end {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(var(--spacing) * 1);
+  min-width: 0;
+  height: 100%;
+}
+
+.frame-header__nav {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 1);
+  height: 100%;
+}
+
+.frame-header__item {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  height: calc(var(--spacing) * 9);
+  padding: 0 calc(var(--spacing) * 3);
+  border-radius: var(--radius-md);
+  color: var(--color-foreground-default);
+  font-size: var(--typography-sm-font-size);
+  line-height: var(--typography-sm-line-height);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.frame-header__icon-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--spacing) * 9);
+  height: calc(var(--spacing) * 9);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-foreground-default);
+  cursor: pointer;
+}
+
+.frame-header__item:hover,
+.frame-header__icon-button:hover {
+  background: var(--color-brand-light);
+  color: var(--color-brand-foreground-default);
+}
+
+.frame-header__item:active,
+.frame-header__icon-button:active {
+  background: var(--color-brand-light-pressed);
+}
+
+.frame-header__item:focus-visible,
+.frame-header__icon-button:focus-visible,
+.frame-header__logo:focus-visible {
+  outline: calc(var(--spacing) / 2) solid var(--color-brand-border-focus);
+  outline-offset: calc(var(--spacing) / 2);
+}
+
+.frame-header__divider {
+  width: var(--frame-hairline);
+  height: calc(var(--spacing) * 5);
+  margin: 0 calc(var(--spacing) * 3);
+  background: var(--color-border-default);
+}
+
+.frame-header__icon {
+  width: calc(var(--spacing) * 5);
+  height: calc(var(--spacing) * 5);
+  flex-shrink: 0;
+}
+
+/* Busca do header: botão com cara de campo, de largura fixa, que abre o modal. */
+.frame-header__search {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 1 calc(var(--spacing) * 60);
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  min-width: calc(var(--spacing) * 40);
+  height: calc(var(--spacing) * 9);
+  margin-left: calc(var(--spacing) * 2);
+  padding: 0 calc(var(--spacing) * 3);
+  border: var(--frame-hairline) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-background-default);
+  color: var(--color-foreground-muted);
+  font-family: inherit;
+  font-size: var(--typography-sm-font-size);
+  line-height: var(--typography-sm-line-height);
+  cursor: pointer;
+}
+
+.frame-header__search:hover {
+  border-color: var(--color-border-strong);
+}
+
+.frame-header__search:focus-visible {
+  outline: calc(var(--spacing) / 2) solid var(--color-brand-border-focus);
+  outline-offset: calc(var(--spacing) / 2);
+}
+
+.frame-header__search-placeholder {
+  flex: 1;
+  text-align: left;
+}
+
+.frame-header__search-key {
+  flex-shrink: 0;
+  padding: 0 calc(var(--spacing) * 1.5);
+  border-radius: var(--radius-sm);
+  background: var(--color-background-muted);
+  color: var(--color-foreground-muted);
+  font-family: var(--typography-font-mono);
+  font-size: var(--typography-xs-font-size);
+  line-height: var(--typography-xs-line-height);
+}
+
+/* Modal de busca */
+.frame-search {
+  box-sizing: border-box;
+  width: min(calc(var(--spacing) * 160), calc(100vw - var(--spacing) * 8));
+  max-width: none;
+  height: min(calc(var(--spacing) * 140), calc(100dvh - var(--spacing) * 32));
+  max-height: none;
+  margin: calc(var(--spacing) * 20) auto auto;
+  padding: 0;
+  border: var(--frame-hairline) solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-background-default);
+  color: var(--color-foreground-default);
+  font-family: var(--typography-font-sans);
+  overflow: hidden;
+}
+
+.frame-search::backdrop {
+  background: var(--color-background-overlay);
+}
+
+/*
+ * Abrir e fechar com transição: a caixa desce um pouco e aparece, e o fundo
+ * escurece aos poucos. @starting-style dá o ponto de partida da abertura;
+ * display e overlay com allow-discrete deixam a saída animar antes de sumir.
+ */
+.frame-search,
+.frame-search::backdrop {
+  transition-duration: 180ms;
+  transition-timing-function: var(--ease-out);
+  transition-behavior: allow-discrete;
+}
+
+.frame-search {
+  opacity: 0;
+  transform: translateY(calc(var(--spacing) * -2)) scale(0.98);
+  transition-property: opacity, transform, display, overlay;
+}
+
+.frame-search[open] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Saída: o modal sobe um pouco e some, e o fundo clareia (ver search-dialog). */
+.frame-search[open][data-closing] {
+  opacity: 0;
+  transform: translateY(calc(var(--spacing) * -2)) scale(0.98);
+}
+
+.frame-search[open][data-closing]::backdrop {
+  opacity: 0;
+}
+
+.frame-search::backdrop {
+  opacity: 0;
+  transition-property: opacity, display, overlay;
+}
+
+.frame-search[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .frame-search[open] {
+    opacity: 0;
+    transform: translateY(calc(var(--spacing) * -2)) scale(0.98);
+  }
+
+  .frame-search[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame-search,
+  .frame-search::backdrop {
+    transition-duration: 0s;
+  }
+}
+
+.frame-search__box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.frame-search__field {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 5);
+  border-bottom: var(--frame-hairline) solid var(--color-border-default);
+  color: var(--color-foreground-muted);
+}
+
+.frame-search__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-foreground-emphasis);
+  font-family: inherit;
+  font-size: var(--typography-sm-font-size);
+  line-height: var(--typography-sm-line-height);
+}
+
+.frame-search__input::placeholder {
+  color: var(--color-foreground-muted);
+  opacity: 1;
+}
+
+.frame-search__filters {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 5);
+  border-bottom: var(--frame-hairline) solid var(--color-border-default);
+}
+
+.frame-search__filters:empty {
+  display: none;
+}
+
+.frame-search__filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--spacing) * 1.5);
+}
+
+.frame-search__filter-label {
+  min-width: calc(var(--spacing) * 12);
+  color: var(--color-foreground-muted);
+  font-size: var(--typography-xs-font-size);
+  line-height: var(--typography-xs-line-height);
+}
+
+.frame-search__chip {
+  box-sizing: border-box;
+  height: calc(var(--spacing) * 7);
+  padding: 0 calc(var(--spacing) * 3);
+  border: var(--frame-hairline) solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  background: var(--color-background-default);
+  color: var(--color-foreground-default);
+  font-family: inherit;
+  font-size: var(--typography-xs-font-size);
+  line-height: var(--typography-xs-line-height);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.frame-search__chip:hover {
+  border-color: var(--color-border-strong);
+}
+
+.frame-search__chip[aria-pressed="true"] {
+  border-color: var(--color-brand-filled);
+  background: var(--color-brand-selected);
+  color: var(--color-brand-foreground-default);
+}
+
+.frame-search__chip:focus-visible {
+  outline: calc(var(--spacing) / 2) solid var(--color-brand-border-focus);
+  outline-offset: calc(var(--spacing) / 2);
+}
+
+.frame-search__results {
+  flex: 1;
+  margin: 0;
+  padding: calc(var(--spacing) * 2);
+  overflow-y: auto;
+  list-style: none;
+}
+
+.frame-search__result {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  border-radius: var(--radius-md);
+  color: var(--color-foreground-muted);
+  cursor: pointer;
+}
+
+.frame-search__result[aria-selected="true"] {
+  background: var(--color-brand-light-hover);
+  color: var(--color-brand-foreground-default);
+}
+
+.frame-search__result-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.frame-search__result-label {
+  color: var(--color-foreground-emphasis);
+  font-size: var(--typography-sm-font-size);
+  line-height: var(--typography-sm-line-height);
+  font-weight: var(--font-weight-medium);
+}
+
+.frame-search__result-path {
+  color: var(--color-foreground-muted);
+  font-size: var(--typography-xs-font-size);
+  line-height: var(--typography-xs-line-height);
+}
+
+.frame-search__empty {
+  flex: 1;
+  margin: 0;
+  padding: calc(var(--spacing) * 10) calc(var(--spacing) * 5);
+  color: var(--color-foreground-muted);
+  font-size: var(--typography-sm-font-size);
+  text-align: center;
+}
+
+.frame-search__hint {
+  display: flex;
+  gap: calc(var(--spacing) * 4);
+  margin: 0;
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 5);
+  border-top: var(--frame-hairline) solid var(--color-border-default);
+  color: var(--color-foreground-muted);
+  font-size: var(--typography-xs-font-size);
+  line-height: var(--typography-xs-line-height);
+}
+
+/*
+ * Busca da barra lateral: a linha inteira sai de vista, com o filtro de tags
+ * e o botão de criar story. O campo continua no DOM porque é ele que o atalho
+ * de teclado do Storybook foca, e esse foco abre o modal do header.
+ */
+body.servi-frame #storybook-sidebar-region [role="search"] {
+  position: absolute;
+  width: var(--frame-hairline);
+  height: var(--frame-hairline);
+  margin: calc(var(--frame-hairline) * -1);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+body.servi-frame #storybook-sidebar-region [role="search"] button {
+  display: none;
+}
+
+/*
+ * Barra lateral: página selecionada com as cores da marca. O seletor começa
+ * em body.servi-frame e repete .sidebar-item para vencer o estilo padrão do
+ * Storybook, inclusive no hover e no foco. --tree-node-background-hover é o
+ * fundo que o Storybook usa atrás do botão de menu (...) do item.
+ */
+body.servi-frame .sidebar-item.sidebar-item[data-selected="true"] {
+  --tree-node-background-hover: var(--color-brand-selected);
+  overflow: visible;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-selected);
+  color: var(--color-foreground-emphasis);
+  font-weight: var(--font-weight-medium);
+}
+
+body.servi-frame .sidebar-item.sidebar-item[data-selected="true"]:is(:hover, :focus) {
+  --tree-node-background-hover: var(--color-brand-selected-hover);
+  background: var(--color-brand-selected-hover);
+}
+
+body.servi-frame .sidebar-item.sidebar-item[data-selected="true"] svg {
+  color: var(--color-brand-foreground-default);
+}
+
+/*
+ * Botão de menu (...) do item. O Storybook dá a ele uma sombra borrada que
+ * só fica escondida quando o item corta o que passa da borda. Como os itens
+ * aqui usam overflow: visible (barra e ponto da marca), a sombra vazava como
+ * uma mancha verde. Sem sombra, com fundo da marca no hover.
+ */
+body.servi-frame .sidebar-item.sidebar-item [data-testid="context-menu"] {
+  box-shadow: none;
+  border-radius: var(--radius-md);
+}
+
+body.servi-frame .sidebar-item.sidebar-item [data-testid="context-menu"]:hover {
+  box-shadow: none;
+  background: var(--color-brand-light-hover);
+}
+
+/* Barra vertical da marca à esquerda do item selecionado. */
+body.servi-frame .sidebar-item.sidebar-item[data-selected="true"]::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--spacing) * 1.5);
+  bottom: calc(var(--spacing) * 1.5);
+  left: calc(var(--spacing) * -2);
+  width: calc(var(--spacing) * 0.75);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-filled);
+}
+
+/*
+ * Barra lateral em grupos (Documentação, Foundations, Componentes, Patterns,
+ * Resources): título de grupo em mono, caixa alta e cor discreta; itens
+ * corridos, sem ícone no site público.
+ */
+body.servi-frame .sidebar-subheading,
+body.servi-frame .sidebar-subheading > button[data-action="collapse-root"] {
+  text-transform: uppercase;
+  letter-spacing: var(--typography-xs-letter-spacing);
+  font-family: var(--typography-font-mono);
+  font-size: var(--typography-xs-font-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-foreground-subtle);
+}
+
+body.servi-docs-mode .sidebar-subheading svg,
+body.servi-docs-mode .sidebar-subheading-action {
+  display: none;
+}
+
+/* No site público ficam de fora o guia de primeiros passos, os testes, o menu de configurações, o filtro de tags e o botão de criar story. */
+body.servi-docs-mode div:has(> div > #storybook-checklist-widget),
+body.servi-docs-mode #sidebar-bottom-wrapper,
+body.servi-docs-mode #storybook-sidebar-region button[aria-label="Create a new story"],
+body.servi-docs-mode #storybook-sidebar-region button[aria-label="Tag filters"] {
+  display: none;
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item {
+  overflow: visible;
+  border-radius: var(--radius-md);
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item > a {
+  min-height: calc(var(--spacing) * 9);
+  align-items: center;
+  padding: 0 calc(var(--spacing) * 2);
+  font-size: var(--typography-sm-font-size);
+  color: var(--color-foreground-default);
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item[data-selected="true"] > a {
+  color: var(--color-foreground-emphasis);
+}
+
+body.servi-docs-mode .sidebar-item.sidebar-item > a svg[type] {
+  display: none;
+}
+
+/* Menu compacto: só aparece em telas estreitas (ver a regra responsiva abaixo). */
+.frame-header__menu {
+  display: none;
+}
+
+.frame-header__menu-panel {
+  position: fixed;
+  inset: var(--frame-header-height) 0 auto 0;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  border-bottom: var(--frame-hairline) solid var(--color-border-default);
+  background: var(--color-background-default);
+}
+
+.frame-header__menu-item {
+  display: flex;
+  align-items: center;
+  min-height: calc(var(--spacing) * 11);
+  padding: 0 calc(var(--spacing) * 3);
+  border-radius: var(--radius-md);
+  color: var(--color-foreground-default);
+  font-size: var(--typography-sm-font-size);
+  line-height: var(--typography-sm-line-height);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.frame-header__menu-item:hover {
+  background: var(--color-brand-light);
+  color: var(--color-brand-foreground-default);
+}
+
+.frame-header__menu-item:focus-visible {
+  outline: calc(var(--spacing) / 2) solid var(--color-brand-border-focus);
+  outline-offset: calc(var(--spacing) * -0.5);
+}
+
+/*
+ * Header responsivo. 48rem é o breakpoint md do Tailwind: media query não
+ * aceita var(), por isso o valor fica escrito aqui. Abaixo dele, os links vão
+ * para o menu e a busca vira só o ícone; tema e GitHub continuam à mostra.
+ */
+@media (max-width: 48rem) {
+  .frame-header__inner {
+    gap: calc(var(--spacing) * 3);
+    padding: 0 calc(var(--spacing) * 3);
+  }
+
+  .frame-header__nav,
+  .frame-header__divider,
+  .frame-header__logo-full {
+    display: none;
+  }
+
+  .frame-header__logo-mark {
+    display: block;
+  }
+
+  .frame-header__menu {
+    display: block;
+  }
+
+  .frame-header__search {
+    flex: 0 0 auto;
+    justify-content: center;
+    min-width: 0;
+    width: calc(var(--spacing) * 9);
+    margin-left: 0;
+    padding: 0;
+    border-color: transparent;
+  }
+
+  .frame-header__search-placeholder,
+  .frame-header__search > .frame-header__search-key {
+    display: none;
+  }
+
+  .frame-search {
+    width: calc(100vw - var(--spacing) * 4);
+    height: calc(100dvh - var(--spacing) * 8);
+    margin-top: calc(var(--spacing) * 4);
+  }
+
+  .frame-search__field,
+  .frame-search__filters,
+  .frame-search__hint {
+    padding-left: calc(var(--spacing) * 4);
+    padding-right: calc(var(--spacing) * 4);
+  }
+
+  .frame-search__hint {
+    display: none;
+  }
+}

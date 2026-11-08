@@ -1,0 +1,9 @@
+<!-- Imagem provisória: substitua por banner-sobre-default.png e banner-sobre-hover.png (900 x 600). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" fill="none">
+  <rect x="24" y="24" width="852" height="552" rx="24" stroke="#A3A3A3" stroke-width="4" stroke-dasharray="16 12"/>
+  <g transform="translate(402 254)" stroke="#A3A3A3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="90" height="72" rx="9"/>
+    <circle cx="30" cy="27" r="9"/>
+    <path d="M3 63l24-21 18 15 15-12 33 24"/>
+  </g>
+</svg>

@@ -7,7 +7,7 @@ import Page from "@/registry/servfaz/blocks/app-shell/page"
  */
 
 const meta = {
-  title: "Blocos/App Shell",
+  title: "Patterns/App Shell",
   component: Page,
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof Page>

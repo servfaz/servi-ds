@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { expect } from "storybook/test"
 import { Checkbox } from "@/registry/servfaz/checkbox"
 
 const meta = {
@@ -56,4 +57,38 @@ export const Caixa: Story = {
 export const SoControle: Story = {
   name: "Só o controle",
   args: { label: undefined, description: undefined, "aria-label": "Selecionar" },
+}
+
+// Testes de interação: rodam no Run tests e no Vitest. Ficam fora da página
+// de docs (tag !autodocs) e aparecem só no Storybook local.
+
+export const TesteMarcar: Story = {
+  name: "Teste: marcar e desmarcar",
+  tags: ["!autodocs"],
+  play: async ({ canvas, userEvent }) => {
+    const checkbox = canvas.getByRole("checkbox", { name: "Aceito os termos e condições" })
+    await expect(checkbox).not.toBeChecked()
+    await expect(checkbox).toHaveAccessibleDescription(
+      "Você pode mudar isso depois nas configurações."
+    )
+    await userEvent.click(checkbox)
+    await expect(checkbox).toBeChecked()
+    // Clicar no label também alterna.
+    await userEvent.click(canvas.getByText("Aceito os termos e condições"))
+    await expect(checkbox).not.toBeChecked()
+    // Espaço alterna pelo teclado.
+    await userEvent.keyboard(" ")
+    await expect(checkbox).toBeChecked()
+  },
+}
+
+export const TesteDesabilitado: Story = {
+  name: "Teste: desabilitado não marca",
+  tags: ["!autodocs"],
+  args: { disabled: true },
+  play: async ({ canvas }) => {
+    const checkbox = canvas.getByRole("checkbox", { name: "Aceito os termos e condições" })
+    await expect(checkbox).toBeDisabled()
+    await expect(checkbox).not.toBeChecked()
+  },
 }
