@@ -38,15 +38,15 @@ export function PageHeader({
         </h1>
         {actions}
       </div>
+      {description && (
+        <p className={`max-w-2xl text-base ${textMuted}`}>{description}</p>
+      )}
+      {name && <ComponentMeta name={name} title={title} figma={figma} />}
       {updated && (
         <p className={`text-xs ${textMuted}`}>
           Atualizado em {formatUpdatedDate(updated)}
         </p>
       )}
-      {description && (
-        <p className={`max-w-2xl text-base ${textMuted}`}>{description}</p>
-      )}
-      {name && <ComponentMeta name={name} title={title} figma={figma} />}
     </div>
   )
 }
