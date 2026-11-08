@@ -10,9 +10,9 @@ Conteúdo em `content/docs/` neste repositório, exibido pelo Storybook (página
 
 | Página | Arquivo fonte | Link |
 | --- | --- | --- |
-| Comece | `content/docs/comece.md` | https://ds.servfaz.app/ |
-| Desenvolvedores | `content/docs/desenvolvedores.md` | https://ds.servfaz.app/?path=/docs/desenvolvedores--docs |
-| Sobre o DS | `content/docs/sobre.md` | https://ds.servfaz.app/?path=/docs/sobre--docs |
+| Introdução (Comece aqui) | `content/docs/comece.md` | https://ds.servfaz.app/ |
+| Desenvolvedores | `content/docs/desenvolvedores.md` | https://ds.servfaz.app/?path=/docs/documentacao-desenvolvedores--docs |
+| Sobre o DS | `content/docs/sobre.md` | https://ds.servfaz.app/?path=/docs/documentacao-sobre--docs |
 | Componente: Button | `content/docs/componentes/button.md` | https://ds.servfaz.app/?path=/docs/componentes-button--docs |
 
 Cada componente novo publicado no registry ganha automaticamente uma página nesse mesmo padrão, então esta lista cresce junto com `registry.json`.
