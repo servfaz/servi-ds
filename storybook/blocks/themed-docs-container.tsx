@@ -4,6 +4,7 @@ import { addons } from "storybook/preview-api"
 import { GLOBALS_UPDATED } from "storybook/internal/core-events"
 import { createFrameTheme } from "../frame/frame-theme"
 import { DARK_THEME, THEME_GLOBAL } from "../frame/docs-themes"
+import { SiteFooter } from "./site-footer"
 
 type DocsContainerProps = ComponentProps<typeof DocsContainer>
 type GlobalsEvent = { globals?: Record<string, unknown> }
@@ -20,7 +21,8 @@ function initialTheme(context: DocsContainerProps["context"]) {
 /**
  * Container das páginas de docs com o tema do Storybook (tabela de props,
  * blocos de código, controles) montado com os tokens do modo escolhido no
- * botão de tema, para os blocos acompanharem claro e escuro.
+ * botão de tema, para os blocos acompanharem claro e escuro. Toda página de
+ * docs termina com o rodapé do site.
  */
 export function ThemedDocsContainer({ context, children }: DocsContainerProps) {
   const [theme, setTheme] = useState(() => initialTheme(context))
@@ -43,6 +45,7 @@ export function ThemedDocsContainer({ context, children }: DocsContainerProps) {
   return (
     <DocsContainer context={context} theme={docsTheme}>
       {children}
+      <SiteFooter />
     </DocsContainer>
   )
 }
