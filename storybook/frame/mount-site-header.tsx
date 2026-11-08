@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client"
 import type { API } from "storybook/manager-api"
 import { SiteHeader } from "./site-header"
 import { fitLayoutToRoot } from "./fit-layout"
+import { syncFrameColorMode } from "./frame-color-mode"
 
 const HEADER_ROOT_ID = "frame-header-root"
 
@@ -17,6 +18,7 @@ export function mountSiteHeader(api: API) {
   // Site público (modo docs): a barra lateral ganha o estilo de árvore.
   const docsOptions = (globalThis as { DOCS_OPTIONS?: { docsMode?: boolean } }).DOCS_OPTIONS
   if (docsOptions?.docsMode) document.body.classList.add("servi-docs-mode")
+  syncFrameColorMode(api)
   createRoot(container).render(<SiteHeader api={api} />)
 
   const root = document.getElementById("root")

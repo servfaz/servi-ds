@@ -1,13 +1,16 @@
 import { create } from "storybook/theming"
 import { tokenColor, tokenPx, tokenValue } from "./read-token"
 
+export type ColorMode = "light" | "dark"
+
 /**
- * Tema da moldura do Storybook (barra lateral, barra de ferramentas e painel
- * de controles), montado a partir dos tokens semânticos do DS no modo claro.
+ * Tema do Storybook (moldura e blocos das páginas de docs), montado a partir
+ * dos tokens semânticos do DS. Os tokens são lidos do documento atual, então
+ * a classe .dark precisa estar aplicada no <html> antes, para o modo escuro.
  */
-export function createFrameTheme() {
+export function createFrameTheme(mode: ColorMode = "light") {
   return create({
-    base: "light",
+    base: mode,
     brandTitle: "Servi DS",
     brandUrl: "/",
     brandImage: "/brand/servi-logo-horizontal.svg",
