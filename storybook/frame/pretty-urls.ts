@@ -21,6 +21,8 @@ import { DOCS_RENDERED, STORY_CHANGED } from "storybook/internal/core-events"
 const HOME_ID = "documentacao-introducao"
 const PAGE_PREFIX = "documentacao-"
 const GROUPS = ["componentes", "patterns", "foundations", "resources"]
+// Página de visão geral de um grupo: abre no endereço do próprio grupo.
+const OVERVIEWS: Record<string, string> = { componentes: "componentes-visao-geral" }
 
 /** "/docs/componentes-button--docs" vira "/componentes/button". */
 export function prettyFromStoryPath(path: string | null): string | null {
@@ -28,6 +30,8 @@ export function prettyFromStoryPath(path: string | null): string | null {
   if (!id) return null
   if (id === HOME_ID) return "/"
   if (id.startsWith(PAGE_PREFIX)) return `/${id.slice(PAGE_PREFIX.length)}`
+  const overview = Object.entries(OVERVIEWS).find(([, pageId]) => pageId === id)?.[0]
+  if (overview) return `/${overview}`
   const group = GROUPS.find((name) => id.startsWith(`${name}-`))
   return group ? `/${group}/${id.slice(group.length + 1)}` : null
 }
@@ -40,6 +44,7 @@ export function storyPathFromPretty(pathname: string): string | null {
   if (!match) return null
   const [, first, second] = match
   if (second) return GROUPS.includes(first) ? `/docs/${first}-${second}--docs` : null
+  if (OVERVIEWS[first]) return `/docs/${OVERVIEWS[first]}--docs`
   return `/docs/${PAGE_PREFIX}${first}--docs`
 }
 

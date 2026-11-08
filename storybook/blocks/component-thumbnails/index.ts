@@ -1,0 +1,128 @@
+import type { ComponentType } from "react"
+import { ButtonGroupThumb, ButtonThumb, ToggleGroupThumb, ToggleThumb } from "./acoes"
+import {
+  CalendarThumb,
+  CheckboxThumb,
+  ComboboxThumb,
+  DatePickerThumb,
+  FieldThumb,
+  FormThumb,
+  InputGroupThumb,
+  InputOtpThumb,
+  InputThumb,
+  RadioGroupThumb,
+  SearchBarThumb,
+  SelectThumb,
+  SliderThumb,
+  SwitchThumb,
+  TextareaThumb,
+} from "./formularios"
+import {
+  BreadcrumbThumb,
+  CommandThumb,
+  ContextMenuThumb,
+  DropdownMenuThumb,
+  MenubarThumb,
+  NavigationMenuThumb,
+  PaginationThumb,
+  SidebarThumb,
+  TabsThumb,
+} from "./navegacao"
+import {
+  AlertDialogThumb,
+  DialogThumb,
+  DrawerThumb,
+  HoverCardThumb,
+  PopoverThumb,
+  SheetThumb,
+  TooltipThumb,
+} from "./sobreposicoes"
+import { AlertThumb, EmptyThumb, ProgressThumb, SkeletonThumb, SonnerThumb, SpinnerThumb } from "./feedback"
+import {
+  AvatarThumb,
+  BadgeThumb,
+  CardThumb,
+  CarouselThumb,
+  ChartThumb,
+  DataTableThumb,
+  ItemThumb,
+  KbdThumb,
+  TableGroupThumb,
+  TableThumb,
+} from "./dados"
+import {
+  AccordionThumb,
+  AspectRatioThumb,
+  CollapsibleThumb,
+  ResizableThumb,
+  ScrollAreaThumb,
+  SeparatorThumb,
+} from "./layout"
+
+/**
+ * Ilustração de capa de cada componente, pelo mesmo nome do registry e do
+ * arquivo de story. Componente novo ganha a sua ilustração aqui.
+ */
+const THUMBNAILS: Record<string, ComponentType> = {
+  accordion: AccordionThumb,
+  "alert-dialog": AlertDialogThumb,
+  alert: AlertThumb,
+  "aspect-ratio": AspectRatioThumb,
+  avatar: AvatarThumb,
+  badge: BadgeThumb,
+  breadcrumb: BreadcrumbThumb,
+  "button-group": ButtonGroupThumb,
+  button: ButtonThumb,
+  calendar: CalendarThumb,
+  card: CardThumb,
+  carousel: CarouselThumb,
+  chart: ChartThumb,
+  checkbox: CheckboxThumb,
+  collapsible: CollapsibleThumb,
+  combobox: ComboboxThumb,
+  command: CommandThumb,
+  "context-menu": ContextMenuThumb,
+  "data-table": DataTableThumb,
+  "date-picker": DatePickerThumb,
+  dialog: DialogThumb,
+  drawer: DrawerThumb,
+  "dropdown-menu": DropdownMenuThumb,
+  empty: EmptyThumb,
+  field: FieldThumb,
+  form: FormThumb,
+  "hover-card": HoverCardThumb,
+  "input-group": InputGroupThumb,
+  "input-otp": InputOtpThumb,
+  input: InputThumb,
+  item: ItemThumb,
+  kbd: KbdThumb,
+  menubar: MenubarThumb,
+  "navigation-menu": NavigationMenuThumb,
+  pagination: PaginationThumb,
+  popover: PopoverThumb,
+  progress: ProgressThumb,
+  "radio-group": RadioGroupThumb,
+  resizable: ResizableThumb,
+  "scroll-area": ScrollAreaThumb,
+  "search-bar": SearchBarThumb,
+  select: SelectThumb,
+  separator: SeparatorThumb,
+  sheet: SheetThumb,
+  sidebar: SidebarThumb,
+  skeleton: SkeletonThumb,
+  slider: SliderThumb,
+  sonner: SonnerThumb,
+  spinner: SpinnerThumb,
+  switch: SwitchThumb,
+  "table-group": TableGroupThumb,
+  table: TableThumb,
+  tabs: TabsThumb,
+  textarea: TextareaThumb,
+  "toggle-group": ToggleGroupThumb,
+  toggle: ToggleThumb,
+  tooltip: TooltipThumb,
+}
+
+export function componentThumbnail(name: string): ComponentType | undefined {
+  return THUMBNAILS[name]
+}

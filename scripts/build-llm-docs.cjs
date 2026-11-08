@@ -31,7 +31,7 @@ const HIDDEN = new Set(["sobre"])
 
 // Ordem das páginas de apoio no índice. As que não estão aqui vêm depois,
 // em ordem alfabética.
-const GUIDE_ORDER = ["comece", "desenvolvedores"]
+const GUIDE_ORDER = ["comece", "desenvolvedores", "componentes"]
 
 function listMarkdown(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -54,7 +54,10 @@ function absolutizeLinks(source, slugs) {
   const toMd = (href) => {
     if (href === "/") return mdUrl("comece")
     const match = href.match(/^\/docs\/([a-z0-9/-]+?)\/?$/)
-    return match && slugs.has(match[1]) ? mdUrl(match[1]) : href
+    if (match && slugs.has(match[1])) return mdUrl(match[1])
+    // Página sem versão .md (componente com página automática): URL absoluta
+    // da página no site, para o link continuar funcionando fora dele.
+    return match ? `${siteUrl}${href}` : href
   }
   return source
     // Links em markdown: [texto](/docs/pagina) e [texto](/docs/pagina "título")

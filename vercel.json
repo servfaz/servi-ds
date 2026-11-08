@@ -6,11 +6,13 @@
   "outputDirectory": "storybook-static",
   "redirects": [
     { "source": "/desenvolvedores", "destination": "/?path=/docs/documentacao-desenvolvedores--docs", "permanent": false },
+    { "source": "/componentes", "destination": "/?path=/docs/componentes-visao-geral--docs", "permanent": false },
     { "source": "/sobre", "destination": "/?path=/docs/documentacao-sobre--docs", "permanent": false },
     { "source": "/componentes/:nome([^./]+)", "destination": "/?path=/docs/componentes-:nome--docs", "permanent": false },
     { "source": "/patterns/:nome([^./]+)", "destination": "/?path=/docs/patterns-:nome--docs", "permanent": false },
     { "source": "/docs/sobre", "destination": "/sobre", "permanent": false },
     { "source": "/docs/desenvolvedores", "destination": "/desenvolvedores", "permanent": false },
+    { "source": "/docs/componentes", "destination": "/componentes", "permanent": false },
     { "source": "/docs/componentes/:nome([^./]+)", "destination": "/componentes/:nome", "permanent": false }
   ],
   "headers": [

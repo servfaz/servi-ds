@@ -70,6 +70,8 @@ Toda página do site, sem exceção, oferece uma ação visível e funcional de 
 
 Exceção, por decisão da designer em 07/11/2026: a página Comece não mostra os botões de copiar como markdown nem de abrir a versão `.md`. A versão `.md` dela continua publicada (Regra 16).
 
+Exceção, por decisão da designer em 08/11/2026: a página Componentes (visão geral) também não mostra esses botões nem o índice "Nesta página", porque é só uma grade de links. A versão `.md` dela continua publicada (Regra 16).
+
 ### Regra 13: sempre componente shadcn quando existir
 
 Antes de construir qualquer peça de interface do site do zero, verificar se já existe um componente shadcn/ui, de preferência já restilizado como item do Servi DS, que cubra a necessidade (tabela, abas, acordeão, botão, campo, tooltip). Usar esse componente existente, nunca recriar o mesmo padrão com HTML e CSS próprio. Construir algo do zero só quando nenhum componente disponível resolve o caso. Vale tanto para os componentes exclusivos do site (Regra 11, tabela de props, grade de estados, botão de copiar) quanto para qualquer outra peça de interface do repositório.
@@ -125,6 +127,7 @@ Os recursos são blocos de código com linguagem própria, preenchidos em YAML. 
 | `flow` | Processo ou fluxo entre etapas, como diagrama | `icon`, `title`, `description`. A última etapa é o resultado e ganha a cor da marca |
 | `icon-cards` | Itens paralelos: pré-requisitos, regras, caminhos para escolher, links | `icon`, `title`, `description`, `href` e `badge` (opcionais). Colunas no meta: ` ```icon-cards columns=3 ` (1 a 4) |
 | `card-grid` | Cards com imagem de capa | `title`, `href`, `description`, `image`, `imageHover`, `thumbnail` |
+| `component-cards` | Grade de componentes com ilustração esquemática de capa, usada na página Componentes | `name` (o mesmo do registry e da story, escolhe a ilustração), `title`, `description`, `href`. Colunas no meta: ` ```component-cards columns=4 ` (2 a 4, padrão 3) |
 | Código (` ```bash `, ` ```tsx `) | Comando ou exemplo de uso | Linguagem no meta |
 
 Como montar a página:
@@ -136,6 +139,7 @@ Como montar a página:
 - Aviso de página nova usa `callout`. O bloco `alert` fica só onde já existe.
 - O bloco de código tem superfície verde-escura, igual em claro e escuro, com amarelo vivo, verdes e pêssego no destaque de sintaxe. As cores ficam em `.code-surface`, no CSS do site, sempre referenciando primitivos (Regra 9).
 - Recurso visual novo vira bloco: peça em arquivo próprio em `storybook/blocks/` (Regra 8), ligada no renderizador de markdown e acrescentada à tabela acima.
+- A página Componentes lista todo componente que tem página no site, em seções por categoria. Componente novo entra lá no mesmo commit que o publica, com uma ilustração própria em `storybook/blocks/component-thumbnails/`: desenho esquemático em SVG, pintado só com tokens semânticos.
 
 ## Estrutura padrão de cada página de componente
 

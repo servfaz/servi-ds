@@ -15,6 +15,11 @@ import { Callout, type CalloutData } from "./callout"
 import { IconCardGrid, parseIconCardColumns, type IconCardData } from "./icon-cards"
 import { FlowDiagram, type FlowStepData } from "./flow-diagram"
 import { Steps, type StepData } from "./steps"
+import {
+  ComponentCardGrid,
+  parseComponentCardColumns,
+  type ComponentCardData,
+} from "./component-card"
 
 function textOf(node: Element): string {
   return node.children
@@ -118,6 +123,11 @@ function buildComponents(stories?: StoriesModule): Components {
     if (language === "card-grid") {
       const cards = (loadYaml(raw) as ResourceCardData[]) ?? []
       return <ResourceCardGrid cards={cards} columns={parseCardGridColumns(meta)} />
+    }
+
+    if (language === "component-cards") {
+      const cards = (loadYaml(raw) as ComponentCardData[]) ?? []
+      return <ComponentCardGrid cards={cards} columns={parseComponentCardColumns(meta)} />
     }
 
     if (language === "alert") {
