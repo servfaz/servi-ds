@@ -18,7 +18,7 @@ Design system da Servfaz. Reúne as decisões visuais e de interação dos produ
 1. O design nasce no Figma, nos dois arquivos oficiais: [Variables](https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables) (tokens) e [Components](https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components) (biblioteca de componentes).
 2. Tokens e componentes são implementados neste repositório.
 3. Cada mudança publicada gera uma entrada no [CHANGELOG](./CHANGELOG.md). No dia 1 de cada mês, essas entradas viram uma nova versão no GitHub Releases.
-4. Os sistemas cadastrados como consumidores recebem as atualizações por Pull Request automática. O time do sistema só revisa e aprova.
+4. Os sistemas cadastrados como consumidores recebem as atualizações por Pull Request automática (Merge Request, quando o repositório está no GitLab). O time do sistema só revisa e aprova.
 
 Os componentes mantêm o mesmo contrato de props do shadcn/ui (`variant`, `size` etc.). Uma tela existente recebe a atualização visual sem mudar código.
 
@@ -39,6 +39,8 @@ Peça ao time do Servi DS para cadastrar o repositório do seu sistema. Depois d
 - cada atualização nova chega como uma nova Pull Request, com o diff da mudança;
 - o único passo manual é revisar e aprovar.
 
+Repositórios no GitHub e no GitLab entram no mesmo cadastro. No GitLab, as atualizações chegam como Merge Request.
+
 ### Opção 2: instalação imediata
 
 Para ter os componentes na hora, rode o script na raiz do projeto, com o `components.json` já criado:
@@ -57,7 +59,7 @@ O Servi DS usa só [Phosphor Icons](https://phosphoricons.com/):
 npm install @phosphor-icons/react
 ```
 
-O passo a passo completo está no [guia para desenvolvedores](https://ds.servfaz.app/?path=/docs/documentacao-desenvolvedores--docs).
+O passo a passo completo está no [guia para desenvolvedores](https://ds.servfaz.app/desenvolvedores).
 
 ## Regras de uso
 
@@ -76,8 +78,8 @@ Outros componentes (Popover, Separator, Sheet, Sidebar, Skeleton, Tooltip, Searc
 | O quê | Link |
 | --- | --- |
 | Site do Servi DS | [ds.servfaz.app](https://ds.servfaz.app/) |
-| Guia para desenvolvedores | [Desenvolvedores](https://ds.servfaz.app/?path=/docs/documentacao-desenvolvedores--docs) |
-| Sobre o Servi DS | [Sobre](https://ds.servfaz.app/?path=/docs/documentacao-sobre--docs) |
+| Guia para desenvolvedores | [Desenvolvedores](https://ds.servfaz.app/desenvolvedores) |
+| Sobre o Servi DS | [Sobre](https://ds.servfaz.app/sobre) |
 | Documentação para IA | [llms.txt](https://ds.servfaz.app/llms.txt) e [llms-full.txt](https://ds.servfaz.app/llms-full.txt) |
 | Figma: tokens | [SF DS Variables](https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables) |
 | Figma: componentes | [SF DS Components](https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components) |
