@@ -9,12 +9,6 @@ heroAnimated: /assets/comece/motion-hero.webp
 ## Acesse as diretrizes e ferramentas
 
 ```card-grid columns=3
-# Card da página Sobre, oculta por enquanto.
-# - title: Sobre o Design System
-#   href: /docs/sobre
-#   description: O que é o Servi DS e por que ele existe.
-#   image: /assets/comece/sobre.svg
-#   thumbnail: true
 - title: Design
   href: "#"
   description: Identidade visual, tokens e princípios de design da Servfaz.
@@ -38,5 +32,15 @@ heroAnimated: /assets/comece/motion-hero.webp
   description: Componentes e tokens sincronizados com o arquivo oficial no Figma.
   image: /assets/comece/banner-figma-default.png
   imageHover: /assets/comece/banner-figma-hover.png
+  thumbnail: true
+```
+
+## Conheça o Servi DS
+
+```card-grid columns=3
+- title: Sobre o Design System
+  href: /docs/sobre
+  description: O que é o Servi DS e como ele funciona.
+  image: /assets/comece/sobre.svg
   thumbnail: true
 ```
