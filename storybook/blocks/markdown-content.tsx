@@ -11,6 +11,10 @@ import { CodeBlock } from "./code-block"
 import { ResourceCardGrid, parseCardGridColumns, type ResourceCardData } from "./resource-card"
 import { Alert, AlertDescription, AlertTitle } from "./alert"
 import { Demo, parseDemoMeta, type StoriesModule } from "./demo"
+import { Callout, type CalloutData } from "./callout"
+import { IconCardGrid, parseIconCardColumns, type IconCardData } from "./icon-cards"
+import { FlowDiagram, type FlowStepData } from "./flow-diagram"
+import { Steps, type StepData } from "./steps"
 
 function textOf(node: Element): string {
   return node.children
@@ -33,7 +37,7 @@ function buildComponents(stories?: StoriesModule): Components {
   h2: ({ node, children }) => (
     <h2
       id={node ? slugify(textOf(node)) : undefined}
-      className="scroll-mt-24 typo-serif-3xl-regular"
+      className="scroll-mt-24 typo-serif-2xl-regular"
     >
       {children}
     </h2>
@@ -41,7 +45,7 @@ function buildComponents(stories?: StoriesModule): Components {
   h3: ({ node, children }) => (
     <h3
       id={node ? slugify(textOf(node)) : undefined}
-      className="scroll-mt-24 typo-serif-xl-regular"
+      className="scroll-mt-24 typo-serif-lg-regular"
     >
       {children}
     </h3>
@@ -125,6 +129,23 @@ function buildComponents(stories?: StoriesModule): Components {
           {data.body && <AlertDescription>{data.body}</AlertDescription>}
         </Alert>
       )
+    }
+
+    if (language === "callout") {
+      return <Callout {...((loadYaml(raw) as CalloutData) ?? {})} />
+    }
+
+    if (language === "icon-cards") {
+      const cards = (loadYaml(raw) as IconCardData[]) ?? []
+      return <IconCardGrid cards={cards} columns={parseIconCardColumns(meta)} />
+    }
+
+    if (language === "flow") {
+      return <FlowDiagram steps={(loadYaml(raw) as FlowStepData[]) ?? []} />
+    }
+
+    if (language === "steps") {
+      return <Steps steps={(loadYaml(raw) as StepData[]) ?? []} />
     }
 
     return <CodeBlock code={raw} language={language} />

@@ -1,132 +1,161 @@
 ---
-title: Começando um projeto novo com o Servi DS
-description: Guia completo para desenvolvedores que estão configurando um produto, novo ou existente, para consumir o Servi DS.
+title: Desenvolvedores
+description: Como instalar o Servi DS em um projeto e receber as atualizações.
 ---
 
-```alert
-variant: destructive
+```callout
+variant: danger
 title: Uso exclusivo
-body: |
-  O Servi DS é de uso exclusivo dos sistemas da Servfaz. Ele não é destinado a projetos externos, de terceiros ou fora da empresa, sob nenhuma circunstância.
+body: O Servi DS é de uso exclusivo dos sistemas da Servfaz. Não pode ser usado em projetos externos ou de terceiros.
 ```
 
-## Pré-requisitos
+## Antes de começar
 
-- Node.js na versão LTS.
-- Next.js com App Router.
-- Tailwind CSS configurado.
-- Acesso ao registry público em `ds.servfaz.app`.
+O projeto precisa ter:
 
-O Servi DS é construído sobre o shadcn/ui.
-
-## Passo 1: preparar o projeto
-
-Em um projeto novo:
-
-```bash
-npx create-next-app@latest nome-do-projeto --typescript --tailwind --app
+```icon-cards columns=4
+- icon: node
+  title: Node.js
+  description: Versão LTS.
+- icon: next
+  title: Next.js
+  description: Com App Router.
+- icon: tailwind
+  title: Tailwind CSS
+  description: Já configurado.
+- icon: shadcn
+  title: shadcn/ui
+  description: Inicializado no projeto.
 ```
 
-Em um projeto existente, confirme que ele já atende aos pré-requisitos acima antes de seguir para o próximo passo.
-
-## Passo 2: inicializar o shadcn/ui
+Se o shadcn/ui ainda não foi inicializado:
 
 ```bash
 npx shadcn@latest init
 ```
 
-Esse comando cria três coisas:
+## Instalação
 
-- `components.json`, com a configuração do projeto (aliases de import, estilo, diretório dos componentes).
-- `lib/utils.ts`, com a função auxiliar usada pelos componentes.
-- As variáveis CSS base em `app/globals.css`.
+Escolha como trazer os componentes para o projeto.
 
-Mantenha os aliases padrão sugeridos pela CLI (`@components`, `@ui`, `@lib`, `@hooks`) sempre que possível. Se o projeto já usa uma convenção de alias diferente, tudo bem seguir com ela, só preste atenção no Passo 4.
-
-## Passo 3: trazer os componentes para o projeto
-
-Existem dois caminhos, e eles não competem entre si: o primeiro resolve a instalação imediata, o segundo é o que mantém o projeto atualizado depois.
-
-### Caminho A: instalação imediata (bootstrap local)
-
-Use quando quiser os componentes agora, sem esperar o cadastro do repositório no fluxo automático.
-
-Rode o script `instalar-servi-ds.sh`, disponível em `templates/` neste repositório, a partir da raiz do projeto consumidor, com `components.json` já criado (Passo 2 concluído). Ele exige `curl`, `jq`, `node`/`npx` e `sed` instalados.
-
-O que o script faz:
-
-1. Busca a lista de componentes já publicados em `registry.json`.
-2. Instala cada um deles com o CLI do shadcn, apontando direto para a URL pública de cada item.
-3. Confere o alias de import declarado em `components.json`. Se for diferente do padrão gravado pela CLI, corrige automaticamente os arquivos instalados. Essa correção automática só funciona em projetos com uma pasta `src` na raiz. Fora desse caso, revise o alias manualmente.
-
-Isso instala o catálogo inteiro publicado até aquele momento. É um ponto de partida, não a forma de receber atualizações futuras.
-
-### Caminho B: cadastro como consumidor oficial (fluxo automático)
-
-É o que mantém o projeto atualizado depois da instalação inicial, sem rodar nada manualmente.
-
-1. Solicite ao time do Servi DS o cadastro do repositório como consumidor.
-2. O time adiciona o repositório na lista de consumidores do Servi DS.
-3. Esse cadastro já dispara sozinho a primeira instalação completa: um robô entra no repositório, instala todos os componentes publicados e abre uma Pull Request com o resultado.
-4. A partir daí, toda vez que um componente novo for publicado ou um existente for atualizado, o mesmo robô abre uma PR nova no repositório, sempre na mesma branch, com o diff da mudança.
-5. O único passo manual recorrente de todo o fluxo é revisar e aprovar essa PR.
-
-Se o repositório já foi cadastrado, as atualizações seguintes chegam só por esse caminho. Rodar o script do Caminho A depois do cadastro não é necessário e não substitui o fluxo automático.
-
-Se o projeto já tinha algum componente shadcn/ui customizado à mão antes desse cadastro, essa primeira PR substitui esse componente pela versão do Servi DS, e a customização se perde. Reaplique a customização por cima do componente novo, ou peça um token ou uma variante nova ao time do Servi DS, em vez de perder o que já existia sem perceber.
-
-## Passo 4: confirmar que os imports não quebraram
-
-O CLI do shadcn grava import apontando para um caminho padrão. Se o alias real do projeto for outro, confira se algum arquivo instalado ficou com import quebrado antes de seguir. O Caminho A corrige isso sozinho quando o projeto tem pasta `src` na raiz; nos demais casos, ou quando a instalação veio pela PR automática, revise manualmente os arquivos alterados.
-
-## Passo 5: tema claro e escuro
-
-Todo token semântico do Servi DS já resolve os dois valores, claro e escuro, sem que o componente precise de lógica condicional de tema. O trabalho do projeto consumidor é só ligar o mecanismo de alternância de tema, por exemplo com a biblioteca `next-themes`, e deixar que os tokens façam o resto.
-
-Nunca escreva `if (darkMode)` ou equivalente dentro de um componente do Servi DS. Se um componente parecer precisar de dois desenhos diferentes por modo, o problema é a falta de um token semântico, não algo para resolver no código do consumidor.
-
-## Passo 6: ícones
-
-O Servi DS usa exclusivamente a biblioteca [Phosphor Icons](https://phosphoricons.com/).
-
-```bash
-npm install @phosphor-icons/react
+```icon-cards columns=2
+- icon: cadastro
+  title: Cadastro como consumidor
+  badge: Recomendado
+  description: Instala tudo e mantém o projeto atualizado por Pull Request.
+  href: "#cadastro-como-consumidor"
+- icon: terminal
+  title: Instalação manual
+  description: Instala o catálogo agora, antes do cadastro. Não traz atualizações.
+  href: "#instalacao-manual"
 ```
 
-Use sempre o nome oficial do ícone na biblioteca Phosphor. Nenhum outro pacote de ícones (Lucide, Heroicons, Feather ou qualquer outro) é compatível com os componentes do Servi DS, e nenhum SVG solto substitui uma referência Phosphor.
+### Cadastro como consumidor
 
-## Passo 7: usar tokens corretamente ao estender uma tela
+Peça ao time do Servi DS o cadastro do repositório. Depois disso, tudo chega por Pull Request:
 
-Nenhum valor bruto (hexadecimal, pixel solto, cor em RGB) deve aparecer em código de produto que usa o Servi DS. Toda cor, espaçamento, raio ou sombra é uma variável de token: `var(--nome-do-token)`.
+```flow
+- icon: cadastro
+  title: Cadastro
+  description: O time adiciona o seu repositório.
+- icon: pr
+  title: Primeira PR
+  description: Traz todos os componentes publicados.
+- icon: publicar
+  title: Novas publicações
+  description: Cada mudança vira uma PR, sempre na mesma branch.
+- icon: check
+  title: Você aprova
+  description: Revise e faça o merge.
+```
 
-Se a tela que você está construindo parece precisar de um valor que nenhum token cobre, a resposta não é digitar o valor direto. É verificar com o time do Servi DS se falta um token no sistema.
+```callout
+variant: info
+title: Repositório no GitLab
+body: O cadastro vale para GitHub e GitLab. No GitLab, cada atualização chega como Merge Request, no mesmo fluxo.
+```
 
-## Como as atualizações continuam chegando
+```callout
+variant: warning
+title: Componentes customizados
+body: Componentes shadcn/ui alterados à mão são substituídos na primeira PR. Reaplique a customização ou peça um token ou uma variante ao time.
+```
 
-Toda mudança publicada no Servi DS vira uma entrada de changelog no mesmo commit que a publica. Uma vez por mês, no dia 1, essas entradas viram uma versão nova, publicada como Release no GitHub. Como consumidor, você não precisa acompanhar esse calendário: a atualização real chega pelo fluxo do Caminho B, como uma PR no seu repositório. Antes de aprovar essa PR, vale conferir as notas da versão para saber se alguma mudança quebra algo no seu projeto, principalmente quando for uma versão MAJOR.
+### Instalação manual
 
-## Quando o componente ou token que você precisa não existe
+```steps
+- title: Baixe o script
+  body: "Pegue o [script de instalação](https://github.com/servfaz/servi-ds/blob/main/templates/instalar-servi-ds.sh) no repositório do Servi DS."
+- title: Rode na raiz do projeto
+  body: "Precisa de `curl`, `jq`, `node`/`npx` e `sed`. O script instala todo o catálogo publicado."
+  code: sh instalar-servi-ds.sh
+  language: bash
+- title: Confira os imports
+  body: "Se o alias em `components.json` for diferente do padrão, revise os imports dos arquivos instalados. O script corrige isso sozinho só em projetos com pasta `src`."
+```
 
-Não crie uma versão isolada do componente para resolver o caso, mesmo que pareça mais rápido no momento. Fale com o time do Servi DS antes. Na maioria das vezes, uma tela que "precisa" de uma versão exclusiva de um componente é sinal de que falta um token ou uma variante no sistema, não uma exceção legítima do seu projeto.
+Para instalar um componente só, troque `button` pelo nome dele:
 
-## Usando a documentação com IA
+```bash
+npx shadcn@latest add https://ds.servfaz.app/r/button.json
+```
 
-Toda página deste site também existe em markdown puro, em uma rota própria. Para pedir ajuda a um assistente de IA sobre o Servi DS, entregue esse link em vez do link da página: o assistente lê o texto direto, sem precisar tratar HTML, gasta menos token e responde com mais precisão.
+## Regras de uso
 
-- **Uma página:** use o botão "Ver como .md" no topo da página, ou monte o caminho `https://ds.servfaz.app/docs/<pagina>.md`. Exemplo: `https://ds.servfaz.app/docs/componentes/button.md`.
-- **Índice de tudo:** `https://ds.servfaz.app/llms.txt` lista todas as páginas, cada uma com o link da versão em markdown.
-- **Documentação inteira de uma vez:** `https://ds.servfaz.app/llms-full.txt` junta todas as páginas em um arquivo só, para usar como contexto fixo de um projeto ou de um agente.
+```icon-cards columns=2
+- icon: tema
+  title: Tema claro e escuro
+  description: "Os tokens já resolvem os dois modos. Basta alternar a classe `.dark`, por exemplo com `next-themes`."
+- icon: icones
+  title: Só Phosphor Icons
+  description: "Instale `@phosphor-icons/react`. Outras bibliotecas e SVG solto não são compatíveis."
+- icon: tokens
+  title: Sempre token
+  description: "Nada de hex, px ou rgb soltos. Use `var(--nome-do-token)`."
+- icon: ajuda
+  title: Faltou algo?
+  description: Fale com o time do Servi DS antes de criar uma versão própria de componente, variante ou token.
+```
 
-Os links internos dessas versões já apontam para as outras páginas em markdown, então o assistente consegue navegar entre elas sozinho.
+Exemplo com ícone e token:
 
-## Problemas comuns
+```tsx
+import { CheckCircleIcon } from "@phosphor-icons/react"
 
-**Import quebrado depois da instalação.** Confira o alias declarado em `components.json` contra o import gravado nos arquivos instalados. Se o projeto não tem pasta `src` na raiz, a correção automática do script não se aplica e o ajuste precisa ser manual.
+export function Confirmacao() {
+  return (
+    <p className="flex items-center gap-2 text-[var(--color-brand-foreground-default)]">
+      <CheckCircleIcon weight="duotone" />
+      Tudo certo
+    </p>
+  )
+}
+```
 
-**Componente que parece faltar.** Confirme com o time do Servi DS se ele já existe antes de recriar algo parecido por conta própria.
+## Atualizações
 
-**PR de atualização não abriu.** Confirme com o time do Servi DS se o repositório está mesmo cadastrado como consumidor. Sem esse cadastro, nenhuma atualização chega automaticamente, mesmo que o Servi DS tenha publicado algo novo.
+As mudanças viram uma release mensal no GitHub e chegam ao seu projeto pela PR automática.
 
-## Onde continuar
+```callout
+variant: tip
+title: Antes de aprovar a PR
+body: Confira as notas da versão, principalmente em versão MAJOR. Se a PR não abriu, confirme com o time se o repositório está cadastrado.
+```
 
-Cada componente publicado tem sua própria página de documentação, com props, estados suportados e os tokens que ele usa. As páginas de tokens e a biblioteca de componentes completa vivem no Figma, nos dois arquivos de referência do Servi DS.
+## Documentação para IA
+
+Entregue ao assistente a versão em markdown em vez do link da página.
+
+```icon-cards columns=3
+- icon: arquivo
+  title: Uma página
+  description: "Use **Abrir Markdown** no menu do topo da página."
+- icon: lista
+  title: Índice
+  description: Todas as páginas, com o link em markdown de cada uma.
+  href: https://ds.servfaz.app/llms.txt
+- icon: livro
+  title: Tudo em um arquivo
+  description: A documentação inteira, para usar como contexto fixo.
+  href: https://ds.servfaz.app/llms-full.txt
+```

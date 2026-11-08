@@ -4,7 +4,6 @@ import { Button } from "@/registry/servfaz/button"
 import { cn } from "@/lib/utils"
 import { CopyButton } from "./copy-button"
 import { highlightCode } from "./shiki"
-import { textMuted } from "./doc-styles"
 
 const COLLAPSE_LINE_THRESHOLD = 12
 
@@ -35,22 +34,30 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "flex flex-col overflow-hidden rounded-lg border border-[var(--color-border-default)] bg-[var(--color-background-muted)]",
+        // Superfície própria de código, sempre escura (classe dark), com as
+        // cores do tema definidas em .code-surface (storybook/styles/globals.css).
+        "dark code-surface flex flex-col overflow-hidden rounded-xl border border-[var(--code-surface-border)] bg-[var(--code-surface-background)] text-[var(--shiki-foreground)]",
         className
       )}
     >
-      <div className="flex items-center justify-between gap-4 border-b border-[var(--color-border-default)] px-4 py-2">
-        <span className={cn("text-xs uppercase tracking-wide", textMuted)}>
+      <div className="flex items-center justify-between gap-4 border-b border-[var(--code-surface-border)] bg-[var(--code-surface-header)] py-1.5 pr-1.5 pl-4">
+        <span className="flex items-center gap-2 font-[family-name:var(--typography-font-mono)] text-xs text-[var(--code-surface-label)]">
+          <span aria-hidden className="size-2 rounded-full bg-[var(--shiki-token-function)]" />
           {language ?? "código"}
         </span>
-        <CopyButton text={code} label="Copiar" copiedLabel="Copiado" />
+        <CopyButton
+          text={code}
+          label="Copiar"
+          copiedLabel="Copiado"
+          className="border-transparent bg-transparent text-[var(--code-surface-label)] shadow-none hover:bg-[var(--code-surface-border)] hover:text-[var(--shiki-foreground)]"
+        />
       </div>
 
       <div className="relative">
         {html ? (
           <div
             className={cn(
-              "overflow-x-auto p-4 font-[family-name:var(--typography-font-mono)] text-sm [&_pre]:!bg-transparent",
+              "overflow-x-auto p-4 font-[family-name:var(--typography-font-mono)] text-sm leading-relaxed [&_pre]:!bg-transparent",
               isCollapsed && "max-h-80 overflow-hidden"
             )}
             dangerouslySetInnerHTML={{ __html: html }}
@@ -66,12 +73,12 @@ export function CodeBlock({
           </pre>
         )}
         {isCollapsed && (
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--color-background-muted)] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--code-surface-background)] to-transparent" />
         )}
       </div>
 
       {collapsible && (
-        <div className="flex justify-center border-t border-[var(--color-border-default)] p-2">
+        <div className="flex justify-center border-t border-[var(--code-surface-border)] p-2">
           <Button
             type="button"
             variant="ghost"

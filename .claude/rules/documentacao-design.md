@@ -34,6 +34,8 @@ Todo arquivo em `content/docs/` é escrito em markdown puro, sem HTML embutido n
 
 Todo ícone citado ou usado como exemplo em uma página de documentação vem da biblioteca Phosphor Icons, pelo nome oficial do ícone nessa biblioteca. Nenhum outro pacote de ícone (Lucide, Heroicons, Feather) aparece em exemplo de uso, e nenhum SVG solto substitui uma referência Phosphor.
 
+Exceção, por decisão da designer em 08/11/2026: tecnologia de terceiros citada na documentação (Node.js, Next.js, Tailwind CSS, shadcn/ui) aparece com o próprio logo, em uma cor só, a partir do Simple Icons (licença CC0). Os logos ficam juntos em um arquivo só dos blocos do site.
+
 ### Regra 6: nunca hardcoded, no conteúdo
 
 Todo valor citado em exemplo de código, tabela de props ou trecho de uso é o nome real do token (`var(--nome-do-token)`), nunca um valor bruto (hex, px, rgb) inventado para ilustrar. Se o exemplo precisa mostrar uma cor ou espaçamento, cita o token que já existe. Se o token não existe, o exemplo não usa valor solto e a falta do token é levada à designer, fora da documentação (Regra 19).
@@ -109,6 +111,31 @@ Toda página e toda peça do site funciona em tela estreita, sem rolagem horizon
 ### Regra 19: a documentação não mostra lacunas nem status da identidade visual
 
 Decisão da designer em 08/11/2026. Nenhuma página publica seção de status da identidade visual, lista de lacunas conhecidas, pendência de token ou de Figma, nem aviso de que um componente ainda não está totalmente restilizado. A documentação mostra só o que o DS já entrega. O que falta resolver fica registrado nos documentos de processo e decisão e chega à designer por lá.
+
+### Regra 20: páginas de apoio usam recursos visuais
+
+Decisão da designer em 08/11/2026. Toda página de apoio (qualquer página de `content/docs/` que não seja de componente) é uma documentação direta, no modelo das documentações do Claude: frases curtas e recursos visuais no lugar de texto corrido. Parágrafo só para introduzir um bloco. A página Desenvolvedores é a referência.
+
+Os recursos são blocos de código com linguagem própria, preenchidos em YAML. Continuam sendo markdown puro (Regra 4): no markdown copiado e na versão `.md` aparecem como bloco de código comum.
+
+| Bloco | Quando usar | Campos |
+| --- | --- | --- |
+| `callout` | Aviso curto no meio do texto | `variant` (`tip`, `info`, `warning`, `danger`), `title`, `body` |
+| `steps` | Passo a passo em ordem | `title`, `body`, `code` e `language` (opcionais) |
+| `flow` | Processo ou fluxo entre etapas, como diagrama | `icon`, `title`, `description`. A última etapa é o resultado e ganha a cor da marca |
+| `icon-cards` | Itens paralelos: pré-requisitos, regras, caminhos para escolher, links | `icon`, `title`, `description`, `href` e `badge` (opcionais). Colunas no meta: ` ```icon-cards columns=3 ` (1 a 4) |
+| `card-grid` | Cards com imagem de capa | `title`, `href`, `description`, `image`, `imageHover`, `thumbnail` |
+| Código (` ```bash `, ` ```tsx `) | Comando ou exemplo de uso | Linguagem no meta |
+
+Como montar a página:
+
+- Uma ideia por bloco. Grade ou fluxo com até seis itens.
+- `steps` quando a ordem importa; `icon-cards` quando não importa; `flow` para mostrar o que acontece sozinho entre uma etapa e outra.
+- Os campos de texto aceitam markdown de linha (código, link e negrito). Valor com crase ou dois-pontos vai entre aspas.
+- `icon` usa um nome da lista de ícones dos blocos do site: `ajuda`, `arquivo`, `cadastro`, `check`, `componente`, `icones`, `livro`, `lista`, `pr`, `publicar`, `react`, `tema`, `terminal`, `tokens`, mais os logos `node`, `next`, `tailwind` e `shadcn` (Regra 5). Ícone que falta entra nessa lista, sempre Phosphor.
+- Aviso de página nova usa `callout`. O bloco `alert` fica só onde já existe.
+- O bloco de código tem superfície verde-escura, igual em claro e escuro, com amarelo vivo, verdes e pêssego no destaque de sintaxe. As cores ficam em `.code-surface`, no CSS do site, sempre referenciando primitivos (Regra 9).
+- Recurso visual novo vira bloco: peça em arquivo próprio em `storybook/blocks/` (Regra 8), ligada no renderizador de markdown e acrescentada à tabela acima.
 
 ## Estrutura padrão de cada página de componente
 
