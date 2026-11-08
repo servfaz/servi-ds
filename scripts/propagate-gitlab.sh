@@ -61,6 +61,11 @@ echo "Consumidor GitLab: ${GITLAB_HOST}/${GITLAB_PROJECT}"
 
 project_json="$(api GET "/projects/${PROJECT_ID}")" ||
   falha "Não consegui ler o projeto no GitLab. Confira o caminho, o host e se o token tem acesso ao projeto, com escopo api, e não expirou."
+if [ "$(jq -r '.empty_repo // false' <<<"$project_json")" = "true" ]; then
+  echo "::warning title=Propagação GitLab (${GITLAB_PROJECT})::Projeto vazio, sem nenhum commit. Pulei a propagação. Envie a base do projeto (Next.js com components.json na raiz) e rode o workflow de novo."
+  exit 0
+fi
+
 TARGET_BRANCH="${TARGET_BRANCH:-$(jq -r '.default_branch // "main"' <<<"$project_json")}"
 echo "Branch de destino: $TARGET_BRANCH"
 
