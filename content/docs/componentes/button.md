@@ -154,14 +154,6 @@ Para aplicar os estilos do botão em um componente que não aceita filhos dessa 
 | Disabled | Prop `disabled` | `default` e `secondary` |
 | Inválido | Prop `aria-invalid` | Nenhum, usa a cor `destructive` do tema |
 
-## Acessibilidade
-
-- O Button renderiza um `<button>` nativo, então foco por teclado e acionamento por Enter e Espaço funcionam sem configuração extra.
-- Dentro de um `<form>`, o `type` padrão do HTML é `submit`. Passe `type="button"` quando o botão não deve enviar o formulário.
-- Botão só com ícone (`size="icon"`) precisa de `aria-label`.
-- O anel de foco aparece só na navegação por teclado (`:focus-visible`).
-- Com `asChild`, o elemento filho precisa ser interativo por natureza, como `<a href>`, para manter foco e acionamento por teclado.
-
 # Props
 
 ## Button
