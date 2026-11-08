@@ -16,3 +16,12 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Padrao: Story = { name: "Padrão" }
+
+/** Bloco da direita aberto pelo botão "Chat com GAIA". */
+export const ChatAberto: Story = { name: "Chat aberto", args: { defaultPanel: "ai" } }
+
+/** Bloco da direita aberto pelo sino de notificações. */
+export const NotificacoesAbertas: Story = {
+  name: "Notificações abertas",
+  args: { defaultPanel: "notifications" },
+}
