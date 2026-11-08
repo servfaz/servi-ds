@@ -22,6 +22,7 @@ export function DocPage({
   source,
   stories,
   toc = true,
+  markdownActions = true,
   children,
 }: {
   raw: string
@@ -29,6 +30,8 @@ export function DocPage({
   stories?: StoriesModule
   /** false tira o índice "Nesta página" desta página. */
   toc?: boolean
+  /** false tira os botões de versão em markdown do topo desta página. */
+  markdownActions?: boolean
   children?: ReactNode
 }) {
   const doc = parseDoc(raw)
@@ -45,7 +48,7 @@ export function DocPage({
       <div
         data-doc-toc={toc ? undefined : "off"}
         className="flex flex-col gap-10 py-6 font-[family-name:var(--typography-font-sans)] text-[var(--color-foreground-emphasis)]">
-        <PageHeader frontmatter={doc.frontmatter} raw={doc.raw} />
+        <PageHeader frontmatter={doc.frontmatter} raw={doc.raw} markdownActions={markdownActions} />
         {children}
         {intro && <MarkdownContent body={intro} stories={stories} />}
         {tabs.length > 0 ? (

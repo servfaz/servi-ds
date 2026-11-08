@@ -6,11 +6,17 @@ import { textMuted } from "./doc-styles"
 export function PageHeader({
   frontmatter,
   raw,
+  markdownActions = true,
 }: {
   frontmatter: DocFrontmatter
   raw: string
+  /** false tira o botão agrupado de markdown (Copiar página e menu). */
+  markdownActions?: boolean
 }) {
-  const { title, description, updated, name, figma } = frontmatter
+  const { title, description, updated, name, figma} = frontmatter
+
+  const actions = markdownActions ? <CopyPageMenu raw={raw} /> : null
+
 
   return (
     <div className="flex flex-col gap-4">
@@ -18,7 +24,7 @@ export function PageHeader({
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
           {title}
         </h1>
-        <CopyPageMenu raw={raw} />
+        {actions}
       </div>
       {updated && (
         <p className={`text-xs ${textMuted}`}>
