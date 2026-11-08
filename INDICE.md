@@ -8,35 +8,35 @@ Quando um documento novo for criado, em qualquer um dos dois lugares, ele entra 
 
 Site em Storybook. As páginas de apoio e a página do Button vêm de `content/docs/`; as demais páginas de componente são as automáticas do Storybook, montadas a partir das stories em `storybook/`.
 
-Os endereços são amigáveis (`/componentes/<nome>`). Os endereços antigos (`/docs/sobre`, `/docs/desenvolvedores`, `/docs/componentes/<nome>` e `/?path=/docs/...`) continuam funcionando e levam para a mesma página.
+Os endereços são amigáveis e ficam sob `/docs` (`/docs/componentes/<nome>`). Somando `.md` no fim, a mesma página abre em markdown. Os endereços antigos (`/componentes/<nome>`, `/desenvolvedores`, `/sobre`, `/patterns/<nome>` e `/?path=/docs/...`) continuam funcionando e levam para a mesma página.
 
 ### Documentação
 
 | Página | Arquivo fonte | Link |
 | --- | --- | --- |
 | Introdução (Comece aqui) | `content/docs/comece.md` | https://ds.servfaz.app/ |
-| Desenvolvedores | `content/docs/desenvolvedores.md` | https://ds.servfaz.app/desenvolvedores |
-| Sobre o DS (oculta, fora do site por enquanto) | `content/docs/sobre.md` | https://ds.servfaz.app/sobre |
+| Desenvolvedores | `content/docs/desenvolvedores.md` | https://ds.servfaz.app/docs/desenvolvedores |
+| Sobre o DS (oculta, fora do site por enquanto) | `content/docs/sobre.md` | https://ds.servfaz.app/docs/sobre |
 
 ### Componentes
 
 | Componente | Arquivo fonte | Link |
 | --- | --- | --- |
-| Alert | `storybook/componentes/alert.stories.tsx` | https://ds.servfaz.app/componentes/alert |
-| Badge | `storybook/componentes/badge.stories.tsx` | https://ds.servfaz.app/componentes/badge |
-| Button | `content/docs/componentes/button.md` | https://ds.servfaz.app/componentes/button |
-| Checkbox | `storybook/componentes/checkbox.stories.tsx` | https://ds.servfaz.app/componentes/checkbox |
-| Field | `storybook/componentes/field.stories.tsx` | https://ds.servfaz.app/componentes/field |
-| Input | `storybook/componentes/input.stories.tsx` | https://ds.servfaz.app/componentes/input |
-| Popover | `storybook/componentes/popover.stories.tsx` | https://ds.servfaz.app/componentes/popover |
-| Radio Group | `storybook/componentes/radio-group.stories.tsx` | https://ds.servfaz.app/componentes/radio-group |
-| Search Bar | `storybook/componentes/search-bar.stories.tsx` | https://ds.servfaz.app/componentes/search-bar |
-| Separator | `storybook/componentes/separator.stories.tsx` | https://ds.servfaz.app/componentes/separator |
-| Sheet | `storybook/componentes/sheet.stories.tsx` | https://ds.servfaz.app/componentes/sheet |
-| Sidebar | `storybook/componentes/sidebar.stories.tsx` | https://ds.servfaz.app/componentes/sidebar |
-| Skeleton | `storybook/componentes/skeleton.stories.tsx` | https://ds.servfaz.app/componentes/skeleton |
-| Textarea | `storybook/componentes/textarea.stories.tsx` | https://ds.servfaz.app/componentes/textarea |
-| Tooltip | `storybook/componentes/tooltip.stories.tsx` | https://ds.servfaz.app/componentes/tooltip |
+| Alert | `storybook/componentes/alert.stories.tsx` | https://ds.servfaz.app/docs/componentes/alert |
+| Badge | `storybook/componentes/badge.stories.tsx` | https://ds.servfaz.app/docs/componentes/badge |
+| Button | `content/docs/componentes/button.md` | https://ds.servfaz.app/docs/componentes/button |
+| Checkbox | `storybook/componentes/checkbox.stories.tsx` | https://ds.servfaz.app/docs/componentes/checkbox |
+| Field | `storybook/componentes/field.stories.tsx` | https://ds.servfaz.app/docs/componentes/field |
+| Input | `storybook/componentes/input.stories.tsx` | https://ds.servfaz.app/docs/componentes/input |
+| Popover | `storybook/componentes/popover.stories.tsx` | https://ds.servfaz.app/docs/componentes/popover |
+| Radio Group | `storybook/componentes/radio-group.stories.tsx` | https://ds.servfaz.app/docs/componentes/radio-group |
+| Search Bar | `storybook/componentes/search-bar.stories.tsx` | https://ds.servfaz.app/docs/componentes/search-bar |
+| Separator | `storybook/componentes/separator.stories.tsx` | https://ds.servfaz.app/docs/componentes/separator |
+| Sheet | `storybook/componentes/sheet.stories.tsx` | https://ds.servfaz.app/docs/componentes/sheet |
+| Sidebar | `storybook/componentes/sidebar.stories.tsx` | https://ds.servfaz.app/docs/componentes/sidebar |
+| Skeleton | `storybook/componentes/skeleton.stories.tsx` | https://ds.servfaz.app/docs/componentes/skeleton |
+| Textarea | `storybook/componentes/textarea.stories.tsx` | https://ds.servfaz.app/docs/componentes/textarea |
+| Tooltip | `storybook/componentes/tooltip.stories.tsx` | https://ds.servfaz.app/docs/componentes/tooltip |
 
 Cada componente novo ganha a página automática assim que a story dele existe, então esta lista cresce junto com `storybook/componentes/`.
 
@@ -44,7 +44,7 @@ Cada componente novo ganha a página automática assim que a story dele existe, 
 
 | Pattern | Arquivo fonte | Link |
 | --- | --- | --- |
-| App Shell | `storybook/blocos/app-shell.stories.tsx` | https://ds.servfaz.app/patterns/app-shell |
+| App Shell | `storybook/blocos/app-shell.stories.tsx` | https://ds.servfaz.app/docs/patterns/app-shell |
 
 ### Versões em markdown para LLM
 

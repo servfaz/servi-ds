@@ -19,6 +19,7 @@ import { AppLauncher, type AppLauncherApp } from "@/components/app-launcher"
  * Shell). Fica fora do painel e por cima das sidebars, no modelo do GitLab:
  * logo e nome do sistema à esquerda; busca e botão "Chat com GAIA" no centro;
  * notificações, hub de aplicações (modelo do Google) e avatar à direita.
+ * O chat e as notificações abrem o AppSidePanel (bloco da direita).
  * Fundo background/muted, 56px de altura (--header-height, definida no
  * page.tsx).
  */
@@ -49,9 +50,13 @@ type AppHeaderProps = React.ComponentProps<"header"> & {
   aiLabel?: string
   aiIcon?: React.ReactNode
   onAiClick?: React.MouseEventHandler<HTMLButtonElement>
+  /** Painel do chat aberto: o botão fica pressionado. */
+  aiActive?: boolean
   notifications?: number
   notificationsLabel?: string
   onNotificationsClick?: React.MouseEventHandler<HTMLButtonElement>
+  /** Painel de notificações aberto: o botão fica pressionado. */
+  notificationsActive?: boolean
   /** Aplicações do hub. Sem a prop, usa a lista de exemplo do bloco. */
   apps?: AppLauncherApp[]
   appsLabel?: string
@@ -85,9 +90,11 @@ function AppHeader({
   aiLabel = "Chat com GAIA",
   aiIcon,
   onAiClick,
+  aiActive = false,
   notifications = 0,
   notificationsLabel = "Notificações",
   onNotificationsClick,
+  notificationsActive = false,
   apps,
   appsLabel,
   user = defaultUser,
@@ -143,6 +150,9 @@ function AppHeader({
                 size="icon-lg"
                 aria-label={aiLabel}
                 data-slot="app-header-ai"
+                aria-expanded={aiActive}
+                data-active={aiActive || undefined}
+                className="data-active:bg-(--color-palette-olive-subtle-pressed)"
                 onClick={onAiClick}
               >
                 {aiIcon ?? <RobotIcon weight="fill" />}
@@ -174,7 +184,9 @@ function AppHeader({
           aria-label={notificationsText}
           title={notificationsText}
           data-slot="app-header-notifications"
-          className={cn("relative", headerAction)}
+          aria-expanded={notificationsActive}
+          data-active={notificationsActive || undefined}
+          className={cn("relative data-active:bg-(--color-palette-olive-light-pressed)", headerAction)}
           onClick={onNotificationsClick}
         >
           <BellIcon />
