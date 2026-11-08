@@ -178,8 +178,8 @@
   }
 
   .sbdocs-content h1.sbdocs-title {
-    font-size: var(--typography-xl-font-size);
-    line-height: var(--typography-xl-line-height);
+    font-size: var(--typography-4xl-font-size);
+    line-height: var(--typography-4xl-line-height);
   }
 }
 
@@ -187,11 +187,14 @@
   width: 100%;
 }
 
+/* Títulos das páginas automáticas na fonte serifada, como nas demais páginas. */
 .sbdocs-content h1.sbdocs-title {
   margin-bottom: calc(var(--spacing) * 3);
-  font-size: var(--typography-2xl-font-size);
-  line-height: var(--typography-2xl-line-height);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--typography-font-serif);
+  font-size: var(--typography-5xl-font-size);
+  line-height: var(--typography-5xl-line-height);
+  letter-spacing: var(--typography-5xl-letter-spacing);
+  font-weight: var(--font-weight-normal);
   color: var(--color-foreground-emphasis);
 }
 
@@ -199,10 +202,18 @@
   margin-top: calc(var(--spacing) * 12);
   padding-bottom: 0;
   border: none;
-  font-size: var(--typography-lg-font-size);
-  line-height: var(--typography-lg-line-height);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--typography-font-serif);
+  font-size: var(--typography-3xl-font-size);
+  line-height: var(--typography-3xl-line-height);
+  letter-spacing: var(--typography-3xl-letter-spacing);
+  font-weight: var(--font-weight-normal);
   color: var(--color-foreground-emphasis);
+}
+
+.sbdocs-content h3.sbdocs {
+  font-size: var(--typography-xl-font-size);
+  line-height: var(--typography-xl-line-height);
+  letter-spacing: var(--typography-xl-letter-spacing);
 }
 
 .sbdocs-content p.sbdocs {

@@ -33,7 +33,7 @@ export function PageHeader({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+        <h1 className="typo-serif-5xl-regular sm:typo-serif-6xl-regular">
           {title}
         </h1>
         {actions}

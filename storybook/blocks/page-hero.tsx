@@ -22,7 +22,7 @@ export function PageHero({
   return (
     <div className="grid items-center gap-8 py-4 md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:gap-16 md:py-10">
       <div className="flex flex-col gap-4">
-        <h1 className="text-4xl font-extrabold tracking-tight text-[var(--color-foreground-emphasis)] sm:text-5xl lg:text-6xl">
+        <h1 className="typo-serif-5xl-regular text-[var(--color-foreground-emphasis)] sm:typo-serif-6xl-regular lg:typo-serif-7xl-regular">
           {title}
         </h1>
         {description && (

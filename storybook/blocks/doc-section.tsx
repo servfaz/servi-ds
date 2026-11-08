@@ -13,7 +13,7 @@ export function DocSection({
     <section className="flex flex-col gap-4">
       <h2
         id={slugify(title)}
-        className="scroll-mt-24 text-3xl font-extrabold tracking-tight"
+        className="scroll-mt-24 typo-serif-3xl-regular"
       >
         {title}
       </h2>
