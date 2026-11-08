@@ -565,7 +565,7 @@
   /* Background */
   --color-background-default: var(--color-neutral-800);
   --color-background-subtle: var(--color-neutral-900);
-  --color-background-muted: var(--color-neutral-900);
+  --color-background-muted: var(--color-neutral-950);
   --color-background-inverse: var(--color-neutral-50);
   --color-background-overlay: color-mix(in srgb, var(--color-neutral-950) var(--opacity-9), transparent);
 
