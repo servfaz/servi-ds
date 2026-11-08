@@ -56,7 +56,7 @@ Vale para o código do site exatamente como vale para o conteúdo: nenhum valor 
 
 ### Regra 10: sempre usar o tema do DS
 
-O site de documentação não tem tema visual próprio. Ele consome o mesmo tema (tokens e componentes) do Servi DS que está documentando, incluindo dark mode resolvido na camada semântica, como qualquer outro consumidor do registry. O site é, ele mesmo, uma vitrine do DS em uso real, não uma implementação visual paralela. No Storybook, o conteúdo de cada página e cada story usa os tokens do DS, e a alternância entre claro e escuro só troca a classe `.dark`, como em qualquer consumidor. A moldura da ferramenta (header do site, barra lateral e barra de ferramentas) é personalizada com os tokens do DS no modo claro, e a marca do Servi DS fica no header, não na barra lateral.
+O site de documentação não tem tema visual próprio. Ele consome o mesmo tema (tokens e componentes) do Servi DS que está documentando, incluindo dark mode resolvido na camada semântica, como qualquer outro consumidor do registry. O site é, ele mesmo, uma vitrine do DS em uso real, não uma implementação visual paralela. No Storybook, o conteúdo de cada página e cada story usa os tokens do DS, e a alternância entre claro e escuro só troca a classe `.dark`, como em qualquer consumidor. A moldura da ferramenta (header do site, barra lateral, barra de ferramentas e blocos das páginas de docs) é personalizada com os tokens semânticos do DS e acompanha o botão de tema, em claro e escuro. A marca do Servi DS fica no header: completa no desktop e só o símbolo em telas estreitas, pintada com os tokens da marca. A barra lateral é organizada em grupos, nesta ordem: Documentação, Foundations, Componentes, Patterns e Resources, com o título de cada grupo em fonte mono e caixa alta.
 
 ### Regra 11: nunca publicar o que é exclusivo da documentação
 
@@ -65,6 +65,8 @@ Componente construído só para o site de documentação funcionar (tabela de pr
 ### Regra 12: copiar como markdown em toda página
 
 Toda página do site, sem exceção, oferece uma ação visível e funcional de copiar o conteúdo inteiro como markdown puro, disponível diretamente na página, não escondida em outro lugar. Não basta o conteúdo por trás ser markdown (Regra 4): a pessoa lendo precisa conseguir copiar isso com uma ação direta, em qualquer rota do site, incluindo as páginas de apoio e cada página de componente.
+
+Exceção, por decisão da designer em 07/11/2026: a página Comece não mostra os botões de copiar como markdown nem de abrir a versão `.md`. A versão `.md` dela continua publicada (Regra 16).
 
 ### Regra 13: sempre componente shadcn quando existir
 
@@ -94,7 +96,15 @@ Toda página publicada responde também em markdown puro, em uma rota própria t
 
 Essas rotas são geradas no build a partir de `content/docs/`, nunca escritas à mão: uma página nova entra nas rotas e nos dois índices sozinha, no mesmo deploy que a publica. A versão publicada é o próprio arquivo de `content/docs/`, com só duas mudanças: quebra de linha normalizada e links internos do site trocados pela URL absoluta da versão `.md`, para que a LLM navegue entre páginas sem cair no HTML do Storybook. Página oculta no site também fica fora das rotas `.md` e dos índices.
 
-Toda página oferece, ao lado da ação de copiar como markdown (Regra 12), um link visível para abrir a própria versão `.md`, que é o endereço entregue a uma LLM.
+As duas ações ficam num botão agrupado no topo da página: a parte principal, "Copiar página", copia o markdown (Regra 12), e a seta abre um menu com "Copiar página como Markdown", "Abrir Markdown" (a versão `.md`, o endereço entregue a uma LLM) e "Conversar no Claude.ai" (abre uma conversa já pedindo a leitura da versão `.md`).
+
+### Regra 17: o Servi DS é apresentado como design system
+
+Decisão da designer em 07/11/2026. Toda página trata o Servi DS como um design system: componentes, tokens e padrões de interface da Servfaz. Como ele é feito e distribuído (base no shadcn/ui, registry, comando de instalação) aparece em um lugar só, a página Desenvolvedores. As outras páginas não descrevem o DS como "registry do shadcn" nem repetem esse detalhe técnico. A página do Button mantém a instalação e as dependências, que fazem parte da estrutura padrão de página de componente.
+
+### Regra 18: a documentação é sempre responsiva
+
+Toda página e toda peça do site funciona em tela estreita, sem rolagem horizontal da página. Em telas abaixo do breakpoint md, o header leva os links principais para um menu, a busca vira só o ícone e o tema e o GitHub continuam à mostra; a página reduz a margem lateral; grades de cards, hero e tabelas se reorganizam ou rolam dentro do próprio bloco. Peça nova do site já nasce responsiva.
 
 ## Estrutura padrão de cada página de componente
 
