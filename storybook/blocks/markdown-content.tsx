@@ -8,7 +8,7 @@ import { slugify } from "./slugify"
 import { textMuted } from "./doc-styles"
 import { linkProps } from "./links"
 import { CodeBlock } from "./code-block"
-import { ResourceCardGrid, type ResourceCardData } from "./resource-card"
+import { ResourceCardGrid, parseCardGridColumns, type ResourceCardData } from "./resource-card"
 import { Alert, AlertDescription, AlertTitle } from "./alert"
 import { Demo, parseDemoMeta, type StoriesModule } from "./demo"
 
@@ -96,9 +96,8 @@ function buildComponents(stories?: StoriesModule): Components {
       .find((name) => name.startsWith("language-"))
       ?.replace("language-", "")
     const raw = textOf(codeNode).replace(/\n$/, "")
-    const demo = parseDemoMeta(
-      (codeNode.data as { meta?: string } | undefined)?.meta
-    )
+    const meta = (codeNode.data as { meta?: string } | undefined)?.meta
+    const demo = parseDemoMeta(meta)
 
     if (demo) {
       return (
@@ -114,7 +113,7 @@ function buildComponents(stories?: StoriesModule): Components {
 
     if (language === "card-grid") {
       const cards = (loadYaml(raw) as ResourceCardData[]) ?? []
-      return <ResourceCardGrid cards={cards} />
+      return <ResourceCardGrid cards={cards} columns={parseCardGridColumns(meta)} />
     }
 
     if (language === "alert") {
