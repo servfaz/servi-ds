@@ -166,6 +166,23 @@
   gap: calc(var(--spacing) * 16);
 }
 
+/*
+ * Documentação responsiva. 48rem é o breakpoint md do Tailwind (media query
+ * não aceita var()). Abaixo dele a margem lateral diminui; o índice "Nesta
+ * página" o Storybook já esconde sozinho em telas estreitas.
+ */
+@media (max-width: 48rem) {
+  .sbdocs-wrapper {
+    padding: calc(var(--spacing) * 6) calc(var(--spacing) * 4) calc(var(--spacing) * 10) !important;
+    gap: 0;
+  }
+
+  .sbdocs-content h1.sbdocs-title {
+    font-size: var(--typography-xl-font-size);
+    line-height: var(--typography-xl-line-height);
+  }
+}
+
 .sbdocs-content {
   width: 100%;
 }
