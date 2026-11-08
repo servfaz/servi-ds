@@ -66,7 +66,7 @@ git clone --quiet --depth 1 --branch "$TARGET_BRANCH" \
 cd "$WORKDIR"
 
 bash "$INSTALLER" ||
-  falha "A instalação dos componentes falhou no consumidor. Confira se ele tem components.json na raiz (npx shadcn@latest init)."
+  falha "A instalação dos componentes falhou no consumidor. O componente que falhou aparece no log do passo. Causas comuns: falta components.json na raiz (npx shadcn@latest init) ou um item do registry depende de outro que não foi publicado."
 
 if [ -z "$(git status --porcelain)" ]; then
   echo "Nada mudou no consumidor. Nenhuma Merge Request aberta."

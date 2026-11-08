@@ -45,7 +45,8 @@ jobs:
       - run: |
           curl -sf https://ds.servfaz.app/r/registry.json | jq -r '.items[].name' > "$RUNNER_TEMP/components.txt"
           while read -r name; do
-            npx shadcn@latest add "https://ds.servfaz.app/r/$name.json" --yes --overwrite
+            npx shadcn@latest add "https://ds.servfaz.app/r/$name.json" --yes --overwrite \
+              || { echo "::error title=Propagação GitHub (${{ matrix.consumer.repo }})::Falha ao instalar o componente $name. Confira se ele depende de algum item que não está publicado no registry."; exit 1; }
           done < "$RUNNER_TEMP/components.txt"
       - name: Corrige import de utils quebrado pelo CLI do shadcn
         run: |
