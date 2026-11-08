@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
 
 /**
- * Ponte com o campo de busca da barra lateral do Storybook. O campo visível
- * fica no header (HeaderSearch), mas quem busca e lista os resultados
- * continua sendo o Storybook: o header escreve neste campo, que fica fora de
- * vista na barra lateral, e repassa as teclas de navegação.
+ * Campo de busca da barra lateral do Storybook. Ele fica fora de vista: a
+ * busca visível é o modal do header. O campo continua no DOM só porque é ele
+ * que o atalho de teclado do Storybook foca, e esse foco abre o modal.
  */
 export const SIDEBAR_SEARCH_ID = "storybook-explorer-searchfield"
 
@@ -29,19 +28,4 @@ export function useSidebarSearch() {
   }, [])
 
   return input
-}
-
-/**
- * Escreve no campo controlado pelo React do Storybook. O setter nativo passa
- * por fora do controle do React, e o evento "input" faz o Storybook buscar.
- */
-export function writeSidebarSearch(input: HTMLInputElement, value: string) {
-  const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set
-  setValue?.call(input, value)
-  input.dispatchEvent(new Event("input", { bubbles: true }))
-}
-
-/** Repassa uma tecla (setas, Enter, Escape) para a lista de resultados. */
-export function pressSidebarSearchKey(input: HTMLInputElement, key: string) {
-  input.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true, cancelable: true }))
 }

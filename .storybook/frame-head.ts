@@ -7,7 +7,7 @@ import path from "node:path"
  * Tailwind que os tokens referenciam (cores, espaçamento e peso de fonte), os
  * tokens primitivos e semânticos do DS e o CSS do header.
  */
-const TAILWIND_VARS = /^\s*--(color|spacing|font-weight)[a-z0-9-]*\s*:/
+const TAILWIND_VARS = /^\s*--(color|spacing|font-weight|ease)[a-z0-9-]*\s*:/
 
 export function frameHead(root: string) {
   const read = (file: string) => fs.readFileSync(path.join(root, file), "utf8")
