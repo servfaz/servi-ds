@@ -1,0 +1,23 @@
+name: Validar registry
+
+# Barra PR e push que deixariam o registry inválido: item que depende de
+# componente não publicado, import sem registryDependencies, pacote fora de
+# dependencies. As regras ficam em scripts/validar-registry.cjs, que também
+# roda no prebuild da Vercel.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Sincronizar tokens e validar o registry
+        run: |
+          node scripts/sync-registry-tokens.cjs
+          node scripts/validar-registry.cjs

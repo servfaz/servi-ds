@@ -73,6 +73,8 @@ Não são páginas do site, são arquivos que valem como regra para quem (ou qua
 | Workflow que publica a GitHub Release | `.github/workflows/release.yml` | https://github.com/servfaz/servi-ds/blob/main/.github/workflows/release.yml |
 | Workflow que abre PR (GitHub) ou MR (GitLab) nos sistemas consumidores | `.github/workflows/propagate-to-consumers.yml` | https://github.com/servfaz/servi-ds/blob/main/.github/workflows/propagate-to-consumers.yml |
 | Script que atualiza um consumidor no GitLab e abre a Merge Request | `scripts/propagate-gitlab.sh` | https://github.com/servfaz/servi-ds/blob/main/scripts/propagate-gitlab.sh |
+| Script que barra a publicação de registry inválido (dependência não publicada, import ou pacote não declarado) | `scripts/validar-registry.cjs` | https://github.com/servfaz/servi-ds/blob/main/scripts/validar-registry.cjs |
+| Workflow que roda essa validação em toda PR e push na main | `.github/workflows/validar-registry.yml` | https://github.com/servfaz/servi-ds/blob/main/.github/workflows/validar-registry.yml |
 | Script que gera as rotas `.md`, o `llms.txt` e o `llms-full.txt` no build | `scripts/build-llm-docs.cjs` | https://github.com/servfaz/servi-ds/blob/main/scripts/build-llm-docs.cjs |
 | Deploy do site e redirecionamentos dos endereços amigáveis | `vercel.json` | https://github.com/servfaz/servi-ds/blob/main/vercel.json |
 | Este índice | `INDICE.md` | https://github.com/servfaz/servi-ds/blob/main/INDICE.md |
