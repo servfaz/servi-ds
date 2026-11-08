@@ -87,6 +87,17 @@ body.servi-frame {
   fill: var(--color-brand-foreground-emphasis);
 }
 
+/* Tudo à direita da marca: links, busca, tema, GitHub e menu compacto. */
+.frame-header__end {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(var(--spacing) * 1);
+  min-width: 0;
+  height: 100%;
+}
+
 .frame-header__nav {
   display: flex;
   align-items: center;
@@ -550,4 +561,102 @@ body.servi-docs-mode .sidebar-item.sidebar-item[data-selected="true"] > a {
 
 body.servi-docs-mode .sidebar-item.sidebar-item > a svg[type] {
   display: none;
+}
+
+/* Menu compacto: só aparece em telas estreitas (ver a regra responsiva abaixo). */
+.frame-header__menu {
+  display: none;
+}
+
+.frame-header__menu-panel {
+  position: fixed;
+  inset: var(--frame-header-height) 0 auto 0;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  border-bottom: var(--frame-hairline) solid var(--color-border-default);
+  background: var(--color-background-default);
+}
+
+.frame-header__menu-item {
+  display: flex;
+  align-items: center;
+  min-height: calc(var(--spacing) * 11);
+  padding: 0 calc(var(--spacing) * 3);
+  border-radius: var(--radius-md);
+  color: var(--color-foreground-default);
+  font-size: var(--typography-sm-font-size);
+  line-height: var(--typography-sm-line-height);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.frame-header__menu-item:hover {
+  background: var(--color-brand-light);
+  color: var(--color-brand-foreground-default);
+}
+
+.frame-header__menu-item:focus-visible {
+  outline: calc(var(--spacing) / 2) solid var(--color-brand-border-focus);
+  outline-offset: calc(var(--spacing) * -0.5);
+}
+
+/*
+ * Header responsivo. 48rem é o breakpoint md do Tailwind: media query não
+ * aceita var(), por isso o valor fica escrito aqui. Abaixo dele, os links vão
+ * para o menu e a busca vira só o ícone; tema e GitHub continuam à mostra.
+ */
+@media (max-width: 48rem) {
+  .frame-header__inner {
+    gap: calc(var(--spacing) * 3);
+    padding: 0 calc(var(--spacing) * 3);
+  }
+
+  .frame-header__nav,
+  .frame-header__divider,
+  .frame-header__logo-full {
+    display: none;
+  }
+
+  .frame-header__logo-mark {
+    display: block;
+  }
+
+  .frame-header__menu {
+    display: block;
+  }
+
+  .frame-header__search {
+    flex: 0 0 auto;
+    justify-content: center;
+    min-width: 0;
+    width: calc(var(--spacing) * 9);
+    margin-left: 0;
+    padding: 0;
+    border-color: transparent;
+  }
+
+  .frame-header__search-placeholder,
+  .frame-header__search > .frame-header__search-key {
+    display: none;
+  }
+
+  .frame-search {
+    width: calc(100vw - var(--spacing) * 4);
+    height: calc(100dvh - var(--spacing) * 8);
+    margin-top: calc(var(--spacing) * 4);
+  }
+
+  .frame-search__field,
+  .frame-search__filters,
+  .frame-search__hint {
+    padding-left: calc(var(--spacing) * 4);
+    padding-right: calc(var(--spacing) * 4);
+  }
+
+  .frame-search__hint {
+    display: none;
+  }
 }
