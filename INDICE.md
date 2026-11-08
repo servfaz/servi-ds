@@ -89,6 +89,7 @@ Mantidos só no projeto Claude "Servi DS", nunca copiados para nenhuma outra fer
 | Sincronização do Figma para o código | `claude/sincronizacao-figma-codigo.md` |
 | Progresso da importação dos componentes do shadcn/ui no Figma | `claude/progresso-import-shadcn.md` |
 | Orquestrador de propagação para consumidores | `claude/orquestrador-de-propagacao-para-consumidores.md` |
+| Passo a passo para conectar um repositório do GitLab | `claude/conectar-consumidor-gitlab.md` |
 | Automação de release (GitHub Actions) | `claude/automacao-release-github.md` |
 
 Dois documentos de processo existem nos dois lugares, de propósito. `claude/design-doc.md` (no projeto) e `.claude/rules/documentacao-design.md` (no repositório) guardam as mesmas regras, assim como `claude/regras-de-changelog.md` e `.claude/rules/regras-de-changelog.md`. A cópia no projeto guarda o contexto completo da decisão, a cópia no repositório é a que vale como regra operacional viva para quem trabalha no código. Uma edição em um dos dois exige a mesma edição no outro.
