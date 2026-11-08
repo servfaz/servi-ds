@@ -25,13 +25,13 @@ const docsDir = path.join(root, "content", "docs")
 const outDir = path.resolve(root, process.argv[2] || "storybook-static")
 const siteUrl = (process.env.SITE_URL || "https://ds.servfaz.app").replace(/\/$/, "")
 
-// Páginas ocultas no site também ficam fora das rotas .md.
-// Mesma lista de .storybook/main.ts ("!(sobre).mdx").
-const HIDDEN = new Set(["sobre"])
+// Páginas ocultas no site também ficam fora das rotas .md. Ao ocultar uma
+// página em .storybook/main.ts, acrescente o nome dela aqui.
+const HIDDEN = new Set([])
 
 // Ordem das páginas de apoio no índice. As que não estão aqui vêm depois,
 // em ordem alfabética.
-const GUIDE_ORDER = ["comece", "desenvolvedores", "componentes"]
+const GUIDE_ORDER = ["comece", "sobre", "desenvolvedores", "componentes"]
 
 function listMarkdown(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {

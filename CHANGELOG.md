@@ -10,6 +10,10 @@ Enquanto um release não é cortado, a coluna Versão leva `Não lançado`, e o 
 
 | Versão | Data | Categoria | Item | Descrição |
 | --- | --- | --- | --- | --- |
+| Não lançado | 08/11/2026 | Adicionado | `Popover` | Item `popover` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-popover`) e arquivo `registry/servfaz/popover.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Adicionado | `Separator` | Item `separator` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-separator`) e arquivo `registry/servfaz/separator.tsx`. |
+<!-- nivel: MINOR -->
 | Não lançado | 08/11/2026 | Alterado | `Tokens` | `--typography-font-serif` (Primitivo): família serifada de `Instrument Serif` para `Libre Baskerville`. |
 <!-- nivel: MINOR -->
 | 0.2.0 | 03/09/2026 | Adicionado | `Tokens` | Nova escala de cor primitiva `taupe` (`--color-taupe-50` a `--color-taupe-950`) em `tokens/tokens-primitives.css`. |

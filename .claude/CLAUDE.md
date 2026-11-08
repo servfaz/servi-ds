@@ -16,6 +16,8 @@ Regras completas, com o porquê de cada uma: projeto Claude "Servi DS"
 
 Valor bruto (hex, px) em componente ou token acima da camada primitiva. Token semântico referenciando outro semântico. Lógica condicional de tema dentro de um componente. Mais de um lockfile de pacote no repositório.
 
+Item do registry que depende de componente não publicado. Quando um componente importa outro (`./popover`), o outro precisa estar no `registry.json` e declarado em `registryDependencies` com a URL completa (`https://ds.servfaz.app/r/<nome>.json`), nunca com nome puro. Componente novo ou alterado: rodar `npm run validar-registry` antes do commit. O mesmo script roda no build da Vercel e em toda PR, e barra a publicação se falhar.
+
 ## Publicação
 
 Push em `main` builda e publica o registry e o Storybook automaticamente na Vercel, sem passo manual. O registry continua em `ds.servfaz.app/r/<nome>.json`. Documentação de componente é gerada, nunca desenhada à mão no Figma. Regras completas de geração em `.claude/rules/documentacao-design.md`.

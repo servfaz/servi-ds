@@ -1,50 +1,99 @@
 ---
-title: Servi DS
-updated: "2026-09-03"
+title: Sobre o Servi DS
+description: O que é o design system da Servfaz e como ele funciona, do Figma até os produtos.
 ---
 
-O Servi DS é o design system da Servfaz. Reúne, em um único lugar, as decisões visuais e de interação que os produtos da empresa usam: cores, espaçamentos, tipografia, ícones e os componentes de interface prontos para consumo.
+O Servi DS é o design system da Servfaz. Ele reúne em um só lugar o que os produtos da empresa usam para ter a mesma cara e o mesmo comportamento.
 
-## As partes do sistema de design
+## O que ele reúne
 
-O Servi DS tem duas partes, com fonte única cada uma:
-
-```card-grid
-- title: Design tokens
-  href: "https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables?node-id=2004-602&t=OzRX4u7mSzVEce3Y-1"
-  description: "Valores de design organizados em três camadas (Primitiva, Semântica e de Componente)."
-- title: Biblioteca de componentes
-  href: "https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components?node-id=2004-602&t=OhPikNWzHu2LaE8I-1"
-  description: "Componentes de interface prontos, com a identidade visual e os tokens da Servfaz, usados por todos os produtos da empresa."
+```icon-cards columns=3
+- icon: tokens
+  title: Tokens
+  description: Cores, tipografia, espaçamentos e raios, cada um com um nome.
+- icon: componente
+  title: Componentes
+  description: Peças de interface prontas, com estados e tema claro e escuro.
+- icon: camadas
+  title: Padrões
+  description: Telas e estruturas montadas com os componentes, como o App Shell.
 ```
 
-> Nenhuma variável ou componente novo nasce fora desses dois arquivos. O que for encontrado fora deles é migrado para lá, e a versão paralela é descontinuada.
+## Como funciona
 
-## Benefícios do uso
+### Do Figma ao produto
 
-- **Consistência entre produtos.** Uma decisão de design tomada uma vez no Servi DS se propaga para todos os produtos que o consomem, sem retrabalho manual em cada tela.
-- **Velocidade.** Times de produto instalam componentes prontos em vez de desenhar e codificar os mesmos padrões de novo a cada projeto.
-- **Acessibilidade garantida por padrão.** Todo par de cor do sistema de tokens já nasce validado contra WCAG 2.1 AA. Um time que usa o Servi DS corretamente não precisa reconferir contraste manualmente.
-- **Manutenção centralizada.** Corrigir ou evoluir um componente ou token em um lugar atualiza automaticamente todos os produtos que o consomem, em vez de exigir correção repetida em cada repositório.
-- **Vocabulário comum.** Design e engenharia falam da mesma interface com os mesmos nomes (tokens, componentes, variantes), o que reduz ambiguidade na passagem de design para código.
+Tudo nasce no Figma e chega aos produtos sem retrabalho manual.
 
-## Visão
+```flow
+- icon: figma
+  title: Figma
+  description: Tokens e componentes são desenhados nos arquivos oficiais.
+- icon: codigo
+  title: Código
+  description: Viram componentes React, com os mesmos nomes do Figma.
+- icon: publicar
+  title: Publicação
+  description: Cada mudança aprovada vai ao ar sozinha, junto com esta documentação.
+- icon: produto
+  title: Produtos
+  description: Os sistemas da Servfaz recebem a atualização por Pull Request.
+```
 
-Ser a fonte única de padrões visuais e de interação de todos os produtos da Servfaz, usada por padrão desde o primeiro dia de qualquer novo produto ou feature, sem a necessidade de recriar, adaptar ou aprovar variações informais de componentes básicos.
+```callout
+variant: info
+title: Fonte única
+body: "Tokens e componentes só existem em dois arquivos do Figma: [Variables](https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables) e [Components](https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components). O que nasce fora deles é migrado para lá."
+```
 
-## Valores
+### Tokens em três camadas
 
-- **Fonte única de verdade.** Cada decisão de design existe em um único lugar. Cópia paralela é sempre um erro a corrigir, nunca uma alternativa aceitável.
-- **Acessibilidade não é opcional.** WCAG 2.1 AA é piso mínimo, validado no momento em que o token nasce, não auditado depois que componentes já o usam.
-- **Simplicidade sobre flexibilidade irrestrita.** Vocabulário fechado (nomes de estado, de ênfase, de feedback) é preferível a permitir qualquer variação ad-hoc que pareça resolver um caso pontual.
-- **Transparência entre design e código.** O que está desenhado no Figma é o que existe em código, e vice-versa. Divergência entre os dois é tratada como bug do sistema.
-- **Consistência antes de customização.** Uma tela que "precisa" de uma versão exclusiva de um componente é, na maioria dos casos, sinal de um token ou variante faltando no sistema, não uma exceção legítima.
+Cada token aponta só para a camada de baixo.
 
-## Princípios
+```flow
+- icon: tokens
+  title: Primitivo
+  description: "A paleta e as escalas. Ex.: um tom de verde."
+- icon: tema
+  title: Semântico
+  description: "O significado: fundo, texto, marca. Resolve o claro e o escuro."
+- icon: componente
+  title: Componente
+  description: "Onde o token é aplicado. Ex.: o fundo do botão."
+```
 
-1. **Token é decisão nomeada, nunca valor solto.** Nenhum componente contém um valor bruto (hexadecimal, pixel, espaçamento fixo). Se um componente precisa de um valor que nenhum token cobre, a resposta é criar o token.
-2. **A camada certa, sempre.** Componente referencia semântico, semântico referencia primitivo. Nenhuma camada pula a outra, e nenhuma quarta camada informal é criada "só para esse caso".
-3. **Nome é contrato.** Renomear um token ou componente já em uso tem custo real. O nome precisa estar certo antes de entrar em uso, não depois.
-4. **Dark mode se resolve na camada semântica.** Nunca no primitivo, nunca com lógica condicional dentro do componente.
-5. **Documentação é gerada, não desenhada à mão.** A documentação de um componente nasce do próprio componente e do seu código real, não de uma tela desenhada separadamente.
-6. **Toda mudança propaga, nenhuma se isola.** Um componente ou token corrigido no Servi DS chega a todos os produtos consumidores pelo mesmo fluxo de publicação, sem exceção caso a caso.
+```callout
+variant: tip
+title: Por que em camadas
+body: Ao trocar um primitivo, todos os tokens e componentes que dependem dele mudam juntos. O componente nunca carrega um valor solto.
+```
+
+## Por que usar
+
+```icon-cards columns=2
+- icon: componente
+  title: Consistência
+  description: Uma decisão tomada uma vez vale para todos os produtos.
+- icon: velocidade
+  title: Velocidade
+  description: Os times usam peças prontas em vez de desenhar e codificar de novo.
+- icon: acessibilidade
+  title: Acessibilidade
+  description: Todo par de cor já nasce validado no padrão WCAG 2.1 AA.
+- icon: sincronizar
+  title: Manutenção central
+  description: Corrigiu no Servi DS, corrigiu em todos os produtos.
+```
+
+## Por onde começar
+
+```icon-cards columns=2
+- icon: figma
+  title: Design
+  description: Use a biblioteca oficial no Figma.
+  href: https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components
+- icon: terminal
+  title: Desenvolvimento
+  description: Instale o Servi DS no seu projeto.
+  href: /docs/desenvolvedores
+```
