@@ -14,7 +14,7 @@ export function PageHeader({
   /** false tira o botão agrupado de markdown (Copiar página e menu). */
   markdownActions?: boolean
 }) {
-  const { title, description, updated, name, figma, hero, heroPoster } = frontmatter
+  const { title, description, updated, name, figma, hero, heroPoster, heroAnimated } = frontmatter
 
   const actions = markdownActions ? <CopyPageMenu raw={raw} /> : null
 
@@ -25,6 +25,7 @@ export function PageHeader({
         description={description}
         image={hero}
         poster={heroPoster}
+        animated={heroAnimated}
         actions={actions}
       />
     )
@@ -33,7 +34,7 @@ export function PageHeader({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <h1 className="typo-serif-5xl-regular sm:typo-serif-6xl-regular">
+        <h1 className="typo-serif-3xl-regular sm:typo-serif-4xl-regular">
           {title}
         </h1>
         {actions}

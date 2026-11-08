@@ -3,6 +3,7 @@ title: Comece aqui
 description: Componentes, tokens e padrões de interface da Servfaz em um só lugar, para desenhar e construir os produtos da empresa com a mesma identidade.
 hero: /assets/comece/motion-hero.webm
 heroPoster: /assets/comece/motion-hero-poster.png
+heroAnimated: /assets/comece/motion-hero.webp
 ---
 
 ## Acesse as diretrizes e ferramentas
