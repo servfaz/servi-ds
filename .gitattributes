@@ -1,0 +1,2 @@
+# Scripts shell sempre com quebra de linha LF, para rodarem no runner Linux e no consumidor.
+*.sh text eol=lf
