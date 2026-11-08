@@ -18,12 +18,17 @@ import { cn } from "@/lib/utils"
  *
  * A cor só troca variáveis locais (--badge-*); o variant decide quais delas
  * usar. Assim não existe lógica de cor dentro do componente.
+ *
+ * Variações criadas no código para o Data Table (Figma depois):
+ * - variant "dot-ghost": ponto colorido e texto, sem caixa (coluna de status)
+ * - shape "tag": cantos de raio md em vez de pílula (coluna de tags)
+ * - size "lg": 24px de altura e texto sm, para acompanhar o texto da célula
  */
 
 const badgeVariants = cva(
   [
-    "inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full px-2 py-0.5 whitespace-nowrap",
-    "typo-sans-xs-medium transition-[color,background-color,box-shadow] duration-150 outline-none",
+    "inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden px-2 py-0.5 whitespace-nowrap",
+    "transition-[color,background-color,box-shadow] duration-150 outline-none",
     "focus-visible:shadow-[0_0_0_1px_var(--color-brand-border-focus),0_0_0_4px_var(--color-brand-light-pressed)]",
     "[&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0",
   ],
@@ -36,6 +41,8 @@ const badgeVariants = cva(
           "bg-(--badge-filled) text-(--badge-on-filled)",
         light:
           "bg-(--badge-light) text-(--badge-emphasis)",
+        "dot-ghost":
+          "bg-transparent px-0 gap-1.5 text-(--color-foreground-emphasis) [[data-muted]_&]:text-(--color-foreground-subtle) before:size-1.5 before:shrink-0 before:rounded-full before:bg-(--badge-default) before:content-['']",
         dot: "shadow-[inset_0_0_0_1px_var(--color-border-default)] bg-(--color-background-default) text-(--color-foreground-default) before:size-1.5 before:shrink-0 before:rounded-full before:bg-(--badge-default) before:content-['']",
         ghost: "bg-transparent text-(--badge-emphasis)",
         white: "bg-(--color-background-default) text-(--badge-default)",
@@ -87,10 +94,23 @@ const badgeVariants = cva(
         rose:
           "[--badge-filled:var(--color-palette-rose-filled)] [--badge-on-filled:var(--color-palette-rose-foreground-on-filled)] [--badge-light:var(--color-palette-rose-light)] [--badge-emphasis:var(--color-palette-rose-foreground-emphasis)] [--badge-default:var(--color-palette-rose-foreground-default)]",
       },
+      shape: {
+        pill: "rounded-full",
+        tag: "rounded-(--radius-md)",
+      },
+      size: {
+        default: "typo-sans-xs-medium",
+        lg: "py-0.5 px-2.5 typo-sans-sm-medium [&>svg]:size-3.5",
+      },
     },
+    compoundVariants: [
+      { variant: "dot-ghost", size: "lg", className: "px-0" },
+    ],
     defaultVariants: {
       variant: "default",
       color: "brand",
+      shape: "pill",
+      size: "default",
     },
   }
 )
@@ -102,6 +122,8 @@ function Badge({
   className,
   variant,
   color,
+  shape,
+  size,
   asChild = false,
   ...props
 }: BadgeProps) {
@@ -112,7 +134,9 @@ function Badge({
       data-slot="badge"
       data-variant={variant ?? "default"}
       data-color={color ?? "brand"}
-      className={cn(badgeVariants({ variant, color }), className)}
+      data-shape={shape ?? "pill"}
+      data-size={size ?? "default"}
+      className={cn(badgeVariants({ variant, color, shape, size }), className)}
       {...props}
     />
   )
