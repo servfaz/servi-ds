@@ -59,7 +59,7 @@ O Servi DS usa só [Phosphor Icons](https://phosphoricons.com/):
 npm install @phosphor-icons/react
 ```
 
-O passo a passo completo está no [guia para desenvolvedores](https://ds.servfaz.app/desenvolvedores).
+O passo a passo completo está no [guia para desenvolvedores](https://ds.servfaz.app/docs/desenvolvedores).
 
 ## Regras de uso
 
@@ -78,8 +78,8 @@ Outros componentes (Popover, Separator, Sheet, Sidebar, Skeleton, Tooltip, Searc
 | O quê | Link |
 | --- | --- |
 | Site do Servi DS | [ds.servfaz.app](https://ds.servfaz.app/) |
-| Guia para desenvolvedores | [Desenvolvedores](https://ds.servfaz.app/desenvolvedores) |
-| Sobre o Servi DS | [Sobre](https://ds.servfaz.app/sobre) |
+| Guia para desenvolvedores | [Desenvolvedores](https://ds.servfaz.app/docs/desenvolvedores) |
+| Sobre o Servi DS | [Sobre](https://ds.servfaz.app/docs/sobre) |
 | Documentação para IA | [llms.txt](https://ds.servfaz.app/llms.txt) e [llms-full.txt](https://ds.servfaz.app/llms-full.txt) |
 | Figma: tokens | [SF DS Variables](https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables) |
 | Figma: componentes | [SF DS Components](https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components) |

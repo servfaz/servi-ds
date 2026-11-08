@@ -5,15 +5,16 @@
   "buildCommand": "npm run build",
   "outputDirectory": "storybook-static",
   "redirects": [
-    { "source": "/desenvolvedores", "destination": "/?path=/docs/documentacao-desenvolvedores--docs", "permanent": false },
-    { "source": "/componentes", "destination": "/?path=/docs/componentes-visao-geral--docs", "permanent": false },
-    { "source": "/sobre", "destination": "/?path=/docs/documentacao-sobre--docs", "permanent": false },
-    { "source": "/componentes/:nome([^./]+)", "destination": "/?path=/docs/componentes-:nome--docs", "permanent": false },
-    { "source": "/patterns/:nome([^./]+)", "destination": "/?path=/docs/patterns-:nome--docs", "permanent": false },
-    { "source": "/docs/sobre", "destination": "/sobre", "permanent": false },
-    { "source": "/docs/desenvolvedores", "destination": "/desenvolvedores", "permanent": false },
-    { "source": "/docs/componentes", "destination": "/componentes", "permanent": false },
-    { "source": "/docs/componentes/:nome([^./]+)", "destination": "/componentes/:nome", "permanent": false }
+    { "source": "/docs", "destination": "/", "permanent": false },
+    { "source": "/docs/comece", "destination": "/", "permanent": false },
+    { "source": "/docs/componentes", "destination": "/?path=/docs/componentes-visao-geral--docs", "permanent": false },
+    { "source": "/docs/desenvolvedores", "destination": "/?path=/docs/documentacao-desenvolvedores--docs", "permanent": false },
+    { "source": "/docs/sobre", "destination": "/?path=/docs/documentacao-sobre--docs", "permanent": false },
+    { "source": "/docs/:grupo(componentes|patterns|foundations|resources)/:nome([^./]+)", "destination": "/?path=/docs/:grupo-:nome--docs", "permanent": false },
+    { "source": "/componentes", "destination": "/docs/componentes", "permanent": false },
+    { "source": "/desenvolvedores", "destination": "/docs/desenvolvedores", "permanent": false },
+    { "source": "/sobre", "destination": "/docs/sobre", "permanent": false },
+    { "source": "/:grupo(componentes|patterns|foundations|resources)/:nome([^./]+)", "destination": "/docs/:grupo/:nome", "permanent": false }
   ],
   "headers": [
     { "source": "/docs/(.*)\\.md", "headers": [{ "key": "Content-Type", "value": "text/markdown; charset=utf-8" }] },
