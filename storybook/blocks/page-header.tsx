@@ -33,20 +33,20 @@ export function PageHeader({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+        <h1 className="typo-serif-5xl-regular sm:typo-serif-6xl-regular">
           {title}
         </h1>
         {actions}
       </div>
+      {description && (
+        <p className={`max-w-2xl text-base ${textMuted}`}>{description}</p>
+      )}
+      {name && <ComponentMeta name={name} title={title} figma={figma} />}
       {updated && (
         <p className={`text-xs ${textMuted}`}>
           Atualizado em {formatUpdatedDate(updated)}
         </p>
       )}
-      {description && (
-        <p className={`max-w-2xl text-base ${textMuted}`}>{description}</p>
-      )}
-      {name && <ComponentMeta name={name} title={title} figma={figma} />}
     </div>
   )
 }

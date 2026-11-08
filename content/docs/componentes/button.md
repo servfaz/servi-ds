@@ -2,19 +2,10 @@
 title: Button
 name: button
 description: Botão com a identidade visual da Servfaz.
-updated: "2026-11-01"
+updated: "2026-11-08"
 ---
 
 # Documentação
-
-## Status da identidade visual
-
-O Button ainda não está totalmente restilizado. Só as variantes `default` e `secondary` usam tokens de componente da Servfaz. As variantes `destructive`, `outline`, `ghost` e `link` ainda seguem o visual padrão do shadcn/ui.
-
-Lacunas conhecidas:
-
-- `--color-background-disabled` e `--color-text-disabled` (usados no estado desabilitado) ainda são valor hexadecimal solto em `tokens-semantic.css`, no tema claro e no escuro, porque o primitivo de neutro correspondente ainda não existe no Figma.
-- O contraste WCAG 2.1 AA dos pares de cor criados para o botão primário e secundário (fundo e texto, hover, pressed, disabled) ainda não foi validado e registrado formalmente.
 
 ## Instalação
 
@@ -162,25 +153,6 @@ Para aplicar os estilos do botão em um componente que não aceita filhos dessa 
 | Focus | Foco por teclado (`:focus-visible`) | `default` e `secondary` |
 | Disabled | Prop `disabled` | `default` e `secondary` |
 | Inválido | Prop `aria-invalid` | Nenhum, usa a cor `destructive` do tema |
-
-As variantes `destructive`, `outline`, `ghost` e `link` ainda usam o comportamento padrão do shadcn/ui em todos os estados, sem token de componente próprio.
-
-## Acessibilidade
-
-- O Button renderiza um `<button>` nativo, então foco por teclado e acionamento por Enter e Espaço funcionam sem configuração extra.
-- Dentro de um `<form>`, o `type` padrão do HTML é `submit`. Passe `type="button"` quando o botão não deve enviar o formulário.
-- Botão só com ícone (`size="icon"`) precisa de `aria-label`.
-- O anel de foco aparece só na navegação por teclado (`:focus-visible`).
-- Com `asChild`, o elemento filho precisa ser interativo por natureza, como `<a href>`, para manter foco e acionamento por teclado.
-
-## Changelog
-
-| Versão | Data | Categoria | Item | Descrição |
-| --- | --- | --- | --- | --- |
-| 0.2.0 | 03/09/2026 | Corrigido | `Button` | `registryDependencies` apontava para o nome puro `tokens`, que colide com um item oficial de mesmo nome no registry padrão do shadcn; o CLI resolvia a dependência errada quando o consumidor não tinha namespace `servfaz` configurado. Trocado para a URL completa `https://ds.servfaz.app/r/tokens.json`. |
-| 0.2.0 | 03/09/2026 | Corrigido | `Button` | Variantes `default` e `secondary` ficavam sem cor no consumidor porque `registry.json` não publicava os tokens que o Button referencia via `var(--button-*)`. Adicionado item `tokens` (`registry:theme`) com os `cssVars` das camadas Primitiva e Semântica (light/dark), e `cssVars` da camada Componente mais `registryDependencies: ["tokens"]` ao próprio item `button`. |
-| 0.2.0 | 01/09/2026 | Adicionado | `Button` | Item `button` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-slot`, `class-variance-authority`) e arquivo `registry/servfaz/button.tsx`. |
-| 0.2.0 | 27/08/2026 | Adicionado | `Button` | Variantes `default` e `secondary` passam a usar tokens de componente (`--button-container-color-*`, `--button-content-color-*`, `--button-border-color-*`) em vez das classes genéricas do shadcn/ui; criada a camada de Componente de tokens (`tokens/tokens-component.css`). |
 
 # Props
 

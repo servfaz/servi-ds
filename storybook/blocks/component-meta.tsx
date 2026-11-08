@@ -4,7 +4,6 @@ import {
   FigmaLogoIcon,
   GithubLogoIcon,
   PackageIcon,
-  PencilSimpleIcon,
 } from "@phosphor-icons/react"
 import { CopyButton } from "./copy-button"
 import { linkProps } from "./links"
@@ -92,14 +91,6 @@ export function ComponentMeta({
           </MetaLink>
         </MetaRow>
       )}
-      <MetaRow label="Documento">
-        <MetaLink
-          href={`${REPO}/content/docs/componentes/${name}.md`}
-          icon={<PencilSimpleIcon />}
-        >
-          Editar esta página no GitHub
-        </MetaLink>
-      </MetaRow>
     </dl>
   )
 }

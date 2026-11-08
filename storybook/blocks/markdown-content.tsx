@@ -33,7 +33,7 @@ function buildComponents(stories?: StoriesModule): Components {
   h2: ({ node, children }) => (
     <h2
       id={node ? slugify(textOf(node)) : undefined}
-      className="scroll-mt-24 text-3xl font-extrabold tracking-tight"
+      className="scroll-mt-24 typo-serif-3xl-regular"
     >
       {children}
     </h2>
@@ -41,7 +41,7 @@ function buildComponents(stories?: StoriesModule): Components {
   h3: ({ node, children }) => (
     <h3
       id={node ? slugify(textOf(node)) : undefined}
-      className="scroll-mt-24 text-xl font-bold tracking-tight"
+      className="scroll-mt-24 typo-serif-xl-regular"
     >
       {children}
     </h3>
