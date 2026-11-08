@@ -68,11 +68,11 @@ body.servi-frame {
   height: calc(var(--spacing) * 6);
 }
 
-/* Símbolo: só em telas estreitas (ver a regra responsiva do header). */
+/* Símbolo horizontal: só em telas estreitas (ver a regra responsiva do header). */
 .frame-header__logo-mark {
   display: none;
-  width: calc(var(--spacing) * 8);
-  height: calc(var(--spacing) * 8);
+  width: auto;
+  height: calc(var(--spacing) * 7);
 }
 
 .frame-logo__shape {
