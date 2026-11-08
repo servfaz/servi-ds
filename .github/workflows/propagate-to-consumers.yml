@@ -11,13 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       list: ${{ steps.read.outputs.list }}
+      gitlab: ${{ steps.read.outputs.gitlab }}
     steps:
       - uses: actions/checkout@v4
       - id: read
-        run: echo "list=$(jq -c '[.[] | select(.platform == null or .platform == "github")]' automation/consumers.json)" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "list=$(jq -c '[.[] | select(.platform == null or .platform == "github")]' automation/consumers.json)" >> "$GITHUB_OUTPUT"
+          echo "gitlab=$(jq -c '[.[] | select(.platform == "gitlab")]' automation/consumers.json)" >> "$GITHUB_OUTPUT"
 
   propagate:
     needs: load-consumers
+    if: needs.load-consumers.outputs.list != '[]'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -39,10 +43,10 @@ jobs:
         with:
           node-version: 20
       - run: |
-          curl -sf https://ds.servfaz.app/r/registry.json | jq -r '.items[].name' > components.txt
+          curl -sf https://ds.servfaz.app/r/registry.json | jq -r '.items[].name' > "$RUNNER_TEMP/components.txt"
           while read -r name; do
             npx shadcn@latest add "https://ds.servfaz.app/r/$name.json" --yes --overwrite
-          done < components.txt
+          done < "$RUNNER_TEMP/components.txt"
       - name: Corrige import de utils quebrado pelo CLI do shadcn
         run: |
           UTILS_ALIAS=$(jq -r '.aliases.utils // .aliases.lib // "@/lib/utils"' components.json)
@@ -59,3 +63,26 @@ jobs:
           title: "Atualizacao automatica: Servfaz DS"
           branch: chore/update-servfaz-ds
           delete-branch: true
+
+  # Consumidores no GitLab: { "repo": "grupo/projeto", "platform": "gitlab" }.
+  # Campos opcionais: "host" (padrão gitlab.com) e "token_secret"
+  # (nome do secret com o token daquele projeto; padrão SERVFAZ_DS_GITLAB_TOKEN).
+  propagate-gitlab:
+    needs: load-consumers
+    if: needs.load-consumers.outputs.gitlab != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        consumer: ${{ fromJson(needs.load-consumers.outputs.gitlab) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Atualizar e abrir Merge Request em ${{ matrix.consumer.repo }}
+        env:
+          GITLAB_PROJECT: ${{ matrix.consumer.repo }}
+          GITLAB_HOST: ${{ matrix.consumer.host || 'gitlab.com' }}
+          GITLAB_TOKEN: ${{ secrets[matrix.consumer.token_secret || 'SERVFAZ_DS_GITLAB_TOKEN'] }}
+        run: bash scripts/propagate-gitlab.sh

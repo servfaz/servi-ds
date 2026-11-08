@@ -20,6 +20,16 @@
   font-family: var(--typography-font-sans);
 }
 
+/*
+ * No modo escuro, a página de documentação usa o fundo subtle (900), um tom
+ * abaixo do default (800). Os exemplos ao vivo continuam no fundo default.
+ */
+.dark body:has(#storybook-docs:not([hidden])),
+.dark #storybook-docs,
+.dark .sbdocs-wrapper {
+  background: var(--color-background-subtle) !important;
+}
+
 .sbdocs-content {
   max-width: var(--docs-content-max-width) !important;
 }
@@ -60,6 +70,29 @@
   --shiki-token-parameter: var(--color-taupe-200);
   --shiki-token-punctuation: var(--color-taupe-400);
   --shiki-token-link: var(--color-green-pea-400);
+}
+
+/*
+ * Superfície dos blocos de código (CodeBlock): fundo verde-escuro da marca
+ * em claro e escuro, com amarelo vivo, verdes e pêssego no highlighting.
+ * Vem depois de :root e .dark para valer dentro do bloco nos dois modos.
+ */
+.code-surface {
+  --code-surface-background: var(--color-green-pea-950);
+  --code-surface-header: color-mix(in srgb, var(--color-green-pea-900) var(--opacity-9), transparent);
+  --code-surface-border: color-mix(in srgb, var(--color-green-pea-700) var(--opacity-7), transparent);
+  --code-surface-label: var(--color-green-pea-300);
+  --shiki-foreground: var(--color-green-pea-50);
+  --shiki-background: transparent;
+  --shiki-token-comment: var(--color-green-pea-400);
+  --shiki-token-keyword: var(--color-green-pea-300);
+  --shiki-token-string: var(--color-derby-200);
+  --shiki-token-string-expression: var(--color-derby-200);
+  --shiki-token-constant: var(--color-green-pea-200);
+  --shiki-token-function: var(--color-yellow-300);
+  --shiki-token-parameter: var(--color-green-pea-100);
+  --shiki-token-punctuation: var(--color-green-pea-400);
+  --shiki-token-link: var(--color-yellow-300);
 }
 
 @theme inline {
@@ -178,8 +211,9 @@
   }
 
   .sbdocs-content h1.sbdocs-title {
-    font-size: var(--typography-4xl-font-size);
-    line-height: var(--typography-4xl-line-height);
+    font-size: var(--typography-3xl-font-size);
+    line-height: var(--typography-3xl-line-height);
+    letter-spacing: var(--typography-3xl-letter-spacing);
   }
 }
 
@@ -191,9 +225,9 @@
 .sbdocs-content h1.sbdocs-title {
   margin-bottom: calc(var(--spacing) * 3);
   font-family: var(--typography-font-serif);
-  font-size: var(--typography-5xl-font-size);
-  line-height: var(--typography-5xl-line-height);
-  letter-spacing: var(--typography-5xl-letter-spacing);
+  font-size: var(--typography-4xl-font-size);
+  line-height: var(--typography-4xl-line-height);
+  letter-spacing: var(--typography-4xl-letter-spacing);
   font-weight: var(--font-weight-normal);
   color: var(--color-foreground-emphasis);
 }
@@ -203,17 +237,17 @@
   padding-bottom: 0;
   border: none;
   font-family: var(--typography-font-serif);
-  font-size: var(--typography-3xl-font-size);
-  line-height: var(--typography-3xl-line-height);
-  letter-spacing: var(--typography-3xl-letter-spacing);
+  font-size: var(--typography-2xl-font-size);
+  line-height: var(--typography-2xl-line-height);
+  letter-spacing: var(--typography-2xl-letter-spacing);
   font-weight: var(--font-weight-normal);
   color: var(--color-foreground-emphasis);
 }
 
 .sbdocs-content h3.sbdocs {
-  font-size: var(--typography-xl-font-size);
-  line-height: var(--typography-xl-line-height);
-  letter-spacing: var(--typography-xl-letter-spacing);
+  font-size: var(--typography-lg-font-size);
+  line-height: var(--typography-lg-line-height);
+  letter-spacing: var(--typography-lg-letter-spacing);
 }
 
 .sbdocs-content p.sbdocs {

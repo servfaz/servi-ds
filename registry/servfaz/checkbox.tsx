@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { CheckIcon } from "@phosphor-icons/react"
+import { CheckIcon, MinusIcon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
 import { Label } from "./label"
@@ -13,6 +13,8 @@ import { Label } from "./label"
  * conjunto do Figma: controle, label e descrição opcional.
  * type do Figma: default (sem caixa) e box (com borda e hover na cor da marca).
  * Estados do Figma: default, hover (box), focus, disabled, invalid, checked.
+ * Estado indeterminate (checked="indeterminate"): mesma caixa do checked, com
+ * traço no lugar do check. Usado no "marcar todas" do Data Table.
  */
 
 // Controle sozinho. Usado também pelo Radio Group (mesma caixa e estados).
@@ -131,6 +133,7 @@ function Checkbox({
         controlClasses,
         "mt-0.5 flex items-center justify-center rounded-(--radius-sm)",
         "data-[state=checked]:border-(--color-brand-outline) data-[state=checked]:bg-(--color-brand-filled)",
+        "data-[state=indeterminate]:border-(--color-brand-outline) data-[state=indeterminate]:bg-(--color-brand-filled)",
         "aria-invalid:data-[state=checked]:border-(--color-feedback-danger-outline) aria-invalid:data-[state=checked]:bg-transparent",
         "disabled:data-[state=checked]:border-(--color-border-muted) disabled:data-[state=checked]:bg-(--color-background-muted)",
         !label && "mt-0",
@@ -141,12 +144,13 @@ function Checkbox({
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
         className={cn(
-          "flex items-center justify-center text-(--color-brand-foreground-on-filled)",
+          "group/indicator flex items-center justify-center text-(--color-brand-foreground-on-filled)",
           "[[aria-invalid=true]_&]:text-(--color-feedback-danger-foreground-default)",
           "[[data-disabled]_&]:text-(--color-foreground-subtle)"
         )}
       >
-        <CheckIcon weight="bold" className="size-3.5" />
+        <CheckIcon weight="bold" className="size-3.5 group-data-[state=indeterminate]/indicator:hidden" />
+        <MinusIcon weight="bold" className="hidden size-3.5 group-data-[state=indeterminate]/indicator:block" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   )

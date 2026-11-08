@@ -4,6 +4,7 @@ import type { API } from "storybook/manager-api"
 import { SiteHeader } from "./site-header"
 import { fitLayoutToRoot } from "./fit-layout"
 import { syncFrameColorMode } from "./frame-color-mode"
+import { enhanceMobileNav } from "./mobile-nav"
 
 const HEADER_ROOT_ID = "frame-header-root"
 
@@ -20,6 +21,7 @@ export function mountSiteHeader(api: API) {
   if (docsOptions?.docsMode) document.body.classList.add("servi-docs-mode")
   syncFrameColorMode(api)
   createRoot(container).render(<SiteHeader api={api} />)
+  enhanceMobileNav(api)
 
   const root = document.getElementById("root")
   if (root) fitLayoutToRoot(root)

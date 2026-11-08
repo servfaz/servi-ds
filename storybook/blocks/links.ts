@@ -12,6 +12,8 @@ const PAGE_IDS: Record<string, string> = {
   comece: "documentacao-introducao",
   desenvolvedores: "documentacao-desenvolvedores",
   sobre: "documentacao-sobre",
+  // Visão geral dos componentes: primeira página do grupo Componentes.
+  componentes: "componentes-visao-geral",
 }
 
 export const HOME_HREF = `/?path=/docs/${PAGE_IDS.comece}--docs`

@@ -13,6 +13,11 @@ export type DocFrontmatter = {
   hero?: string
   /** Primeiro quadro do vídeo do hero, usado enquanto carrega e com movimento reduzido. */
   heroPoster?: string
+  /**
+   * Versão animada em .webp do vídeo do hero, para Safari e iPhone. Eles não
+   * mostram a transparência do .webm e o fundo do vídeo aparece preto.
+   */
+  heroAnimated?: string
 }
 
 export type Doc = {

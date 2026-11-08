@@ -25,6 +25,7 @@ const preview: Preview = {
           ["Introdução", "Desenvolvedores", "Sobre"],
           "Foundations",
           "Componentes",
+          ["Visão geral"],
           "Patterns",
           "Resources",
         ],

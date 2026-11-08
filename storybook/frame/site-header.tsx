@@ -5,12 +5,12 @@ import { HeaderNavLink } from "./header-nav-link"
 import { HeaderSearch } from "./header-search"
 import { HeaderThemeButton } from "./header-theme-button"
 import { HeaderGithubLink } from "./header-github-link"
-import { HeaderMenu } from "./header-menu"
 import { NAV_LINKS } from "./header-links"
 
 /**
- * Header do site. Em telas estreitas os links principais vão para o menu e a
- * busca vira só o ícone; tema e GitHub continuam sempre à mostra.
+ * Header do site. Em telas estreitas os links principais saem (a navegação
+ * fica na barra inferior) e a busca vira só o ícone; tema e GitHub continuam
+ * sempre à mostra.
  */
 export function SiteHeader({ api }: { api: API }) {
   return (
@@ -29,7 +29,6 @@ export function SiteHeader({ api }: { api: API }) {
           <span className="frame-header__divider" aria-hidden />
           <HeaderThemeButton api={api} />
           <HeaderGithubLink />
-          <HeaderMenu />
         </div>
       </div>
     </header>

@@ -8,7 +8,7 @@ const cores = [
   "fuchsia", "pink", "rose",
 ] as const
 
-const variantesComCor = ["filled", "light", "dot", "ghost", "white", "link"] as const
+const variantesComCor = ["filled", "light", "dot", "dot-ghost", "ghost", "white", "link"] as const
 
 const meta = {
   title: "Componentes/Badge",
@@ -25,6 +25,8 @@ const meta = {
       options: ["default", "secondary", "destructive", "outline", ...variantesComCor],
     },
     color: { control: "select", options: cores },
+    shape: { control: "inline-radio", options: ["pill", "tag"] },
+    size: { control: "inline-radio", options: ["default", "lg"] },
   },
 } satisfies Meta<typeof Badge>
 
@@ -76,5 +78,17 @@ export const ComIcone: Story = {
       <StarIcon />
       Badge
     </Badge>
+  ),
+}
+
+export const FormatoETamanho: Story = {
+  name: "Formato e tamanho",
+  render: () => (
+    <div className="flex flex-wrap items-center gap-2">
+      <Badge variant="secondary">Pill</Badge>
+      <Badge variant="secondary" shape="tag">Tag</Badge>
+      <Badge variant="secondary" shape="tag" size="lg">Tag lg</Badge>
+      <Badge variant="dot-ghost" size="lg" color="green">Ativo</Badge>
+    </div>
   ),
 }
