@@ -1,22 +1,11 @@
 "use client"
 
 import * as React from "react"
-import {
-  ChartLineIcon,
-  ChatsCircleIcon,
-  CurrencyCircleDollarIcon,
-  FolderIcon,
-  LifebuoyIcon,
-  type Icon,
-} from "@phosphor-icons/react"
+import type { Icon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Button } from "./button"
+import { Popover, PopoverContent, PopoverTrigger } from "./popover"
 
 /*
  * AppLauncher - hub de aplicações, espelho do "App Launcher" e do "App
@@ -25,7 +14,7 @@ import {
  * Item: logo de 40px e nome em Sans/xs/regular; hover em
  * palette/olive/light-hover; aplicação atual em brand/selected com o nome em
  * Sans/xs/medium.
- * Arquivo de bloco: o sistema copia e edita a lista de aplicações.
+ * A lista de aplicações chega pela prop `apps`.
  */
 
 /*
@@ -63,7 +52,7 @@ type AppLauncherApp = {
 }
 
 type AppLauncherProps = {
-  apps?: AppLauncherApp[]
+  apps: AppLauncherApp[]
   /** Nome acessível do botão. */
   label?: string
   /** Título dentro do painel. */
@@ -71,17 +60,8 @@ type AppLauncherProps = {
   className?: string
 }
 
-const defaultApps: AppLauncherApp[] = [
-  { name: "Conecta", url: "#", icon: ChatsCircleIcon, current: true },
-  { name: "Logística", url: "#", icon: LifebuoyIcon },
-  { name: "Faturamento", url: "#", icon: CurrencyCircleDollarIcon },
-  { name: "Dossiê", url: "#", icon: FolderIcon },
-  { name: "Cotação", url: "#", icon: ChartLineIcon },
-  { name: "Next", url: "#", icon: ChatsCircleIcon },
-]
-
 function AppLauncher({
-  apps = defaultApps,
+  apps,
   label = "Aplicativos",
   title = "Seus aplicativos",
   className,

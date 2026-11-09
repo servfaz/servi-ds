@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react-vite"
 import Page from "@/registry/servfaz/blocks/app-shell/page"
 
 /*
- * Bloco App Shell: o mesmo arquivo page.tsx que o sistema recebe ao instalar o
- * bloco. Não é componente do DS: é ponto de partida para copiar e editar.
+ * Bloco App Shell (exemplo): a página que o sistema recebe ao instalar o
+ * bloco app-shell-exemplo. Usa o componente App Shell com dados fictícios e
+ * serve de modelo para a configuração. O componente fica em Componentes.
  */
 
 const meta = {
@@ -15,13 +16,4 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Padrao: Story = { name: "Padrão" }
-
-/** Bloco da direita aberto pelo botão "Chat com GAIA". */
-export const ChatAberto: Story = { name: "Chat aberto", args: { defaultPanel: "ai" } }
-
-/** Bloco da direita aberto pelo sino de notificações. */
-export const NotificacoesAbertas: Story = {
-  name: "Notificações abertas",
-  args: { defaultPanel: "notifications" },
-}
+export const Exemplo: Story = {}

@@ -1,6 +1,6 @@
 [
   { "repo": "servfaz/faturamento_front-pr-teste" },
   { "repo": "servfaz/sgs_auth_front-test" },
-  { "repo": "pi-gov-tech/servlog/servlog-frontend", "platform": "gitlab", "blocos": ["app-shell"] },
-  { "repo": "milenarduarte/servi-ds-teste", "platform": "gitlab", "blocos": ["app-shell"] }
+  { "repo": "pi-gov-tech/servlog/servlog-frontend", "platform": "gitlab", "blocos": ["app-shell-exemplo"] },
+  { "repo": "milenarduarte/servi-ds-teste", "platform": "gitlab", "blocos": ["app-shell-exemplo"] }
 ]
