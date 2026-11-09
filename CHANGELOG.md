@@ -10,6 +10,20 @@ Enquanto um release não é cortado, a coluna Versão leva `Não lançado`, e o 
 
 | Versão | Data | Categoria | Item | Descrição |
 | --- | --- | --- | --- | --- |
+| Não lançado | 08/11/2026 | Adicionado | `Skeleton` | Item `skeleton` publicado em `registry.json` e arquivo `registry/servfaz/skeleton.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Adicionado | `Tooltip` | Item `tooltip` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-tooltip`) e arquivo `registry/servfaz/tooltip.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Adicionado | `Sheet` | Item `sheet` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-dialog`, `@phosphor-icons/react`) e arquivo `registry/servfaz/sheet.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Adicionado | `Search Bar` | Item `search-bar` publicado em `registry.json`, com `dependencies` (`@phosphor-icons/react`) e arquivo `registry/servfaz/search-bar.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Adicionado | `Sidebar` | Item `sidebar` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-slot`, `class-variance-authority`, `@phosphor-icons/react`) e arquivo `registry/servfaz/sidebar.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Adicionado | `App Shell` | Bloco `app-shell` (`registry:block`) publicado em `registry.json`, com os componentes `app-header`, `app-launcher`, `app-side-panel` e `app-sidebar` e a página em `app/app-shell/page.tsx`. Fora da propagação automática, salvo para quem pede no cadastro. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Corrigido | `Dependências` | Pacotes npm de todos os itens passam a levar a faixa de versão do `package.json` do Servi DS (ex. `@tanstack/react-table@^8.21.3`). |
+<!-- nivel: PATCH -->
 | Não lançado | 08/11/2026 | Adicionado | `Popover` | Item `popover` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-popover`) e arquivo `registry/servfaz/popover.tsx`. |
 <!-- nivel: MINOR -->
 | Não lançado | 08/11/2026 | Adicionado | `Separator` | Item `separator` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-separator`) e arquivo `registry/servfaz/separator.tsx`. |

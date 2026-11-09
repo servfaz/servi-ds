@@ -42,8 +42,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: |
-          curl -sf https://ds.servfaz.app/r/registry.json | jq -r '.items[].name' > "$RUNNER_TEMP/components.txt"
+      - name: Instalar componentes (e blocos pedidos no cadastro)
+        env:
+          BLOCOS_JSON: ${{ toJSON(matrix.consumer.blocos) }}
+        run: |
+          # Blocos (registry:block) só entram para quem pede em "blocos" no consumers.json.
+          curl -sf https://ds.servfaz.app/r/registry.json \
+            | jq -r --argjson blocos "${BLOCOS_JSON:-null}" \
+              '.items[] | select(.type != "registry:block" or (.name as $n | ($blocos // []) | index($n))) | .name' \
+            > "$RUNNER_TEMP/components.txt"
           while read -r name; do
             npx shadcn@latest add "https://ds.servfaz.app/r/$name.json" --yes --overwrite \
               || { echo "::error title=Propagação GitHub (${{ matrix.consumer.repo }})::Falha ao instalar o componente $name. Confira se ele depende de algum item que não está publicado no registry."; exit 1; }
@@ -66,8 +73,9 @@ jobs:
           delete-branch: true
 
   # Consumidores no GitLab: { "repo": "grupo/projeto", "platform": "gitlab" }.
-  # Campos opcionais: "host" (padrão gitlab.com) e "token_secret"
-  # (nome do secret com o token daquele projeto; padrão SERVFAZ_DS_GITLAB_TOKEN).
+  # Campos opcionais: "host" (padrão gitlab.com), "token_secret"
+  # (nome do secret com o token daquele projeto; padrão SERVFAZ_DS_GITLAB_TOKEN)
+  # e "blocos" (lista de blocos a instalar, ex. ["app-shell"]; vale também no GitHub).
   propagate-gitlab:
     needs: load-consumers
     if: needs.load-consumers.outputs.gitlab != '[]'
@@ -86,4 +94,8 @@ jobs:
           GITLAB_PROJECT: ${{ matrix.consumer.repo }}
           GITLAB_HOST: ${{ matrix.consumer.host || 'gitlab.com' }}
           GITLAB_TOKEN: ${{ secrets[matrix.consumer.token_secret || 'SERVFAZ_DS_GITLAB_TOKEN'] }}
-        run: bash scripts/propagate-gitlab.sh
+          BLOCOS_JSON: ${{ toJSON(matrix.consumer.blocos) }}
+        run: |
+          SERVI_DS_BLOCOS="$(jq -r '(. // []) | join(" ")' <<<"${BLOCOS_JSON:-null}")"
+          export SERVI_DS_BLOCOS
+          bash scripts/propagate-gitlab.sh

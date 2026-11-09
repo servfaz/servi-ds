@@ -19,8 +19,15 @@
  *     importa algo que não foi instalado.
  *  5. Todo pacote npm importado está em `dependencies` (react e react-dom
  *     vêm do próprio projeto consumidor).
- *  6. Import com alias "@/" só pode ser "@/lib/utils", o único caminho que
- *     existe em todo consumidor.
+ *  7. Toda `dependencies` traz a versão, igual à faixa do package.json do
+ *     Servi DS (ex. "@tanstack/react-table@^8.21.3"). Sem versão, o
+ *     consumidor instala a mais nova, que pode não ser compatível com o
+ *     código do componente e quebrar o build dele.
+ *  6. Import com alias "@/": "@/lib/utils"; "@/components/ui/<nome>", que
+ *     precisa estar em registryDependencies como na regra 4; ou
+ *     "@/components/<arquivo>", que precisa ser um arquivo do próprio item
+ *     (caso dos blocos). A CLI do shadcn ajusta esses caminhos ao alias de
+ *     cada consumidor.
  *
  * Aviso (não para o build): componente em registry/servfaz/*.tsx sem item no
  * registry.json. Pode ser intencional, mas nenhum item publicado pode
@@ -35,6 +42,8 @@ const BASE = "https://ds.servfaz.app/r/"
 const PACOTES_DO_CONSUMIDOR = new Set(["react", "react-dom"])
 
 const registry = JSON.parse(fs.readFileSync(path.join(ROOT, "registry.json"), "utf8"))
+const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
+const versoesDoDS = { ...(pkg.devDependencies || {}), ...(pkg.dependencies || {}) }
 const itens = registry.items || []
 const erros = []
 const avisos = []
@@ -77,7 +86,18 @@ for (const item of itens) {
     }
   }
 
+  for (const dep of item.dependencies || []) {
+    const pacote = nomeDoPacote(dep)
+    const esperado = versoesDoDS[pacote]
+    if (!esperado) {
+      erros.push(`"${item.name}": o pacote "${pacote}" não está no package.json do Servi DS. Instale no DS antes de publicar.`)
+    } else if (dep !== `${pacote}@${esperado}`) {
+      erros.push(`"${item.name}": dependencies "${dep}" deve ser "${pacote}@${esperado}", a mesma versão do package.json do Servi DS.`)
+    }
+  }
+
   const pacotes = new Set((item.dependencies || []).map(nomeDoPacote))
+  const arquivosDoItem = new Set((item.files || []).map((f) => path.basename(f.path).replace(/\.(tsx?|jsx?)$/, "")))
 
   for (const arquivo of item.files || []) {
     const caminho = path.join(ROOT, arquivo.path)
@@ -92,9 +112,19 @@ for (const item of itens) {
         if (!declaradas.has(nome)) {
           erros.push(`"${item.name}" importa "${spec}", mas não declara ${BASE}${nome}.json em registryDependencies.`)
         }
+      } else if (spec.startsWith("@/components/ui/")) {
+        const nome = spec.slice("@/components/ui/".length)
+        if (!declaradas.has(nome)) {
+          erros.push(`"${item.name}" importa "${spec}", mas não declara ${BASE}${nome}.json em registryDependencies.`)
+        }
+      } else if (spec.startsWith("@/components/")) {
+        const nome = spec.slice("@/components/".length)
+        if (!arquivosDoItem.has(nome)) {
+          erros.push(`"${item.name}" importa "${spec}", que não é um arquivo deste item.`)
+        }
       } else if (spec.startsWith("@/")) {
         if (spec !== "@/lib/utils") {
-          erros.push(`"${item.name}" importa "${spec}". O único alias permitido é "@/lib/utils".`)
+          erros.push(`"${item.name}" importa "${spec}". Fora de @/components, o único alias permitido é "@/lib/utils".`)
         }
       } else {
         const pacote = pacoteDoImport(spec)
