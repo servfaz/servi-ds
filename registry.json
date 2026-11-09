@@ -2946,17 +2946,13 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-      "name": "app-shell",
-      "type": "registry:block",
-      "title": "App Shell",
-      "description": "Estrutura das telas logadas: cabeçalho, rail com os módulos, sidebar do módulo, painel de conteúdo e bloco da direita para o chat com IA e as notificações.",
+      "name": "app-sidebar",
+      "type": "registry:ui",
+      "title": "App Sidebar",
+      "description": "Rail com os módulos e sidebar aberta com as funcionalidades do módulo, para o App Shell.",
       "registryDependencies": [
         "https://ds.servfaz.app/r/tokens.json",
-        "https://ds.servfaz.app/r/button.json",
-        "https://ds.servfaz.app/r/popover.json",
-        "https://ds.servfaz.app/r/search-bar.json",
         "https://ds.servfaz.app/r/separator.json",
-        "https://ds.servfaz.app/r/sheet.json",
         "https://ds.servfaz.app/r/sidebar.json",
         "https://ds.servfaz.app/r/tooltip.json"
       ],
@@ -2965,21 +2961,123 @@
       ],
       "files": [
         {
-          "path": "registry/servfaz/blocks/app-shell/components/app-header.tsx",
-          "type": "registry:component"
-        },
+          "path": "registry/servfaz/app-sidebar.tsx",
+          "target": "@ui/app-sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-launcher",
+      "type": "registry:ui",
+      "title": "App Launcher",
+      "description": "Hub de aplicações do cabeçalho, com os outros sistemas em grade.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json",
+        "https://ds.servfaz.app/r/popover.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react@^2.1.10"
+      ],
+      "files": [
         {
-          "path": "registry/servfaz/blocks/app-shell/components/app-launcher.tsx",
-          "type": "registry:component"
-        },
+          "path": "registry/servfaz/app-launcher.tsx",
+          "target": "@ui/app-launcher.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-side-panel",
+      "type": "registry:ui",
+      "title": "App Side Panel",
+      "description": "Bloco da direita do App Shell, para o chat com IA e as notificações.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json",
+        "https://ds.servfaz.app/r/sheet.json",
+        "https://ds.servfaz.app/r/sidebar.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react@^2.1.10"
+      ],
+      "files": [
         {
-          "path": "registry/servfaz/blocks/app-shell/components/app-side-panel.tsx",
-          "type": "registry:component"
-        },
+          "path": "registry/servfaz/app-side-panel.tsx",
+          "target": "@ui/app-side-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-header",
+      "type": "registry:ui",
+      "title": "App Header",
+      "description": "Cabeçalho do App Shell com marca, busca, chat com IA, notificações, hub de aplicações e conta.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json",
+        "https://ds.servfaz.app/r/search-bar.json",
+        "https://ds.servfaz.app/r/sidebar.json",
+        "https://ds.servfaz.app/r/tooltip.json",
+        "https://ds.servfaz.app/r/app-launcher.json",
+        "https://ds.servfaz.app/r/app-sidebar.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react@^2.1.10"
+      ],
+      "files": [
         {
-          "path": "registry/servfaz/blocks/app-shell/components/app-sidebar.tsx",
-          "type": "registry:component"
-        },
+          "path": "registry/servfaz/app-header.tsx",
+          "target": "@ui/app-header.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-shell",
+      "type": "registry:ui",
+      "title": "App Shell",
+      "description": "Estrutura das telas logadas: cabeçalho, rail com os módulos, sidebar do módulo, conteúdo e bloco da direita. Configurado por props.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/sidebar.json",
+        "https://ds.servfaz.app/r/search-bar.json",
+        "https://ds.servfaz.app/r/app-header.json",
+        "https://ds.servfaz.app/r/app-launcher.json",
+        "https://ds.servfaz.app/r/app-side-panel.json",
+        "https://ds.servfaz.app/r/app-sidebar.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react@^2.1.10"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/app-shell.tsx",
+          "target": "@ui/app-shell.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-shell-exemplo",
+      "type": "registry:block",
+      "title": "App Shell (exemplo)",
+      "description": "Página de exemplo em /app-shell com o App Shell configurado com dados fictícios, para copiar a configuração.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/app-shell.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react@^2.1.10"
+      ],
+      "files": [
         {
           "path": "registry/servfaz/blocks/app-shell/page.tsx",
           "target": "app/app-shell/page.tsx",

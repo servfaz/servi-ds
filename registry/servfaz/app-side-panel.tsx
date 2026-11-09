@@ -4,15 +4,15 @@ import * as React from "react"
 import { XIcon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button } from "./button"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet"
-import { useSidebar } from "@/components/ui/sidebar"
+} from "./sheet"
+import { useSidebar } from "./sidebar"
 
 /*
  * AppSidePanel - bloco da direita do App Shell, espelho do "right block" do
@@ -22,7 +22,7 @@ import { useSidebar } from "@/components/ui/sidebar"
  * arredondados e fundo background/subtle. Fecha pelo X, pela tecla Esc ou
  * clicando de novo no botão que abriu.
  * No celular não cabe ao lado do conteúdo: vira Sheet pela direita.
- * Arquivo de bloco: o sistema troca o conteúdo de cada painel.
+ * O conteúdo de cada painel chega como children.
  */
 
 type AppSidePanelProps = Omit<React.ComponentProps<"aside">, "title"> & {

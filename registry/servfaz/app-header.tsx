@@ -4,15 +4,12 @@ import * as React from "react"
 import { BellIcon, MagnifyingGlassIcon, RobotIcon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { SearchBar, type SearchBarProps } from "@/components/ui/search-bar"
-import { SidebarTrigger } from "@/components/ui/sidebar"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { AppLauncher, type AppLauncherApp } from "@/components/app-launcher"
+import { Button } from "./button"
+import { SearchBar, type SearchBarProps } from "./search-bar"
+import { SidebarTrigger } from "./sidebar"
+import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip"
+import { AppLauncher, type AppLauncherApp } from "./app-launcher"
+import type { AppLinkComponent } from "./app-sidebar"
 
 /*
  * AppHeader - espelho do "App Header" do Figma ([SDS] Components, página App
@@ -21,7 +18,7 @@ import { AppLauncher, type AppLauncherApp } from "@/components/app-launcher"
  * notificações, hub de aplicações (modelo do Google) e avatar à direita.
  * O chat e as notificações abrem o AppSidePanel (bloco da direita).
  * Fundo background/muted, 56px de altura (--header-height, definida no
- * page.tsx).
+ * AppShell).
  */
 
 type AppHeaderBrand = {
@@ -38,7 +35,9 @@ type AppHeaderUser = {
 }
 
 type AppHeaderProps = React.ComponentProps<"header"> & {
-  brand?: AppHeaderBrand
+  brand: AppHeaderBrand
+  /** Componente de link do logo, como o `Link` do Next.js. Padrão: `a`. */
+  linkComponent?: AppLinkComponent
   /** Props repassadas ao Search Bar. */
   search?: SearchBarProps
   showSearch?: boolean
@@ -57,16 +56,13 @@ type AppHeaderProps = React.ComponentProps<"header"> & {
   onNotificationsClick?: React.MouseEventHandler<HTMLButtonElement>
   /** Painel de notificações aberto: o botão fica pressionado. */
   notificationsActive?: boolean
-  /** Aplicações do hub. Sem a prop, usa a lista de exemplo do bloco. */
+  /** Outros sistemas no hub de aplicações. Sem a prop, o hub não aparece. */
   apps?: AppLauncherApp[]
   appsLabel?: string
-  user?: AppHeaderUser
+  user: AppHeaderUser
   accountLabel?: string
   onAccountClick?: React.MouseEventHandler<HTMLButtonElement>
 }
-
-const defaultBrand: AppHeaderBrand = { name: "Nome do sistema", url: "/" }
-const defaultUser: AppHeaderUser = { name: "Nome Sobrenome" }
 
 function initials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean)
@@ -81,7 +77,8 @@ const headerAction =
 
 function AppHeader({
   className,
-  brand = defaultBrand,
+  brand,
+  linkComponent: LinkComponent = "a",
   search,
   showSearch = true,
   onMobileSearchClick,
@@ -97,7 +94,7 @@ function AppHeader({
   notificationsActive = false,
   apps,
   appsLabel,
-  user = defaultUser,
+  user,
   accountLabel = "Abrir menu da conta",
   onAccountClick,
   ...props
@@ -119,7 +116,7 @@ function AppHeader({
       {/* No celular a Sidebar vira Sheet e abre por este botão. */}
       <SidebarTrigger className="md:hidden" />
 
-      <a
+      <LinkComponent
         href={brand.url ?? "/"}
         data-slot="app-header-brand"
         className="flex shrink-0 items-center gap-1 rounded-(--radius-lg) outline-none focus-visible:shadow-[0_0_0_2px_var(--color-brand-border-focus)]"
@@ -133,7 +130,7 @@ function AppHeader({
         <span className="hidden typo-sans-sm-semibold text-(--color-foreground-emphasis) lg:inline">
           {brand.name}
         </span>
-      </a>
+      </LinkComponent>
 
       <div className="hidden min-w-0 flex-1 items-center justify-center gap-1 sm:flex">
         {showSearch ? (
@@ -200,7 +197,9 @@ function AppHeader({
           ) : null}
         </Button>
 
-        <AppLauncher apps={apps} label={appsLabel} />
+        {apps && apps.length > 0 ? (
+          <AppLauncher apps={apps} label={appsLabel} />
+        ) : null}
 
         <button
           type="button"

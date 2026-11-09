@@ -82,12 +82,6 @@ body: O cadastro vale para GitHub e GitLab. No GitLab, cada atualização chega 
 ```
 
 ```callout
-variant: info
-title: App Shell
-body: "O bloco App Shell não vem nas atualizações automáticas. Sistema novo pode pedir para recebê-lo no cadastro. Sistema que já existe instala uma vez com `npx shadcn@latest add https://ds.servfaz.app/r/app-shell.json` e adapta."
-```
-
-```callout
 variant: warning
 title: Componentes customizados
 body: Componentes shadcn/ui alterados à mão são substituídos na primeira PR. Reaplique a customização ou peça um token ou uma variante ao time.
@@ -110,6 +104,69 @@ Para instalar um componente só, troque `button` pelo nome dele:
 
 ```bash
 npx shadcn@latest add https://ds.servfaz.app/r/button.json
+```
+
+## App Shell
+
+O App Shell é a estrutura das telas logadas: cabeçalho, rail com os módulos, sidebar do módulo, conteúdo e bloco da direita para o chat com IA e as notificações. Ele chega com os outros componentes, em `components/ui/app-shell.tsx`.
+
+```callout
+variant: warning
+title: Não edite os arquivos do App Shell
+body: "Marca, usuário, módulos, menus e rotas entram por props. Assim cada atualização do Servi DS chega inteira. Precisou de algo que as props não cobrem? Peça ao time do DS."
+```
+
+```steps
+- title: Crie o shell do sistema
+  body: "Um componente cliente com os dados do sistema. O `Link` do Next.js vai em `linkComponent`, e a rota atual em `currentPath`, para marcar o item ativo."
+  code: |
+    "use client"
+
+    import Link from "next/link"
+    import { usePathname } from "next/navigation"
+    import { HouseIcon, UsersIcon } from "@phosphor-icons/react"
+    import { AppShell, type AppModule } from "@/components/ui/app-shell"
+
+    const modulos: AppModule[][] = [[{
+      title: "Logística",
+      icon: HouseIcon,
+      groups: [{
+        label: "Dia a dia",
+        items: [
+          { title: "Início", url: "/inicio", icon: HouseIcon },
+          { title: "Clientes", url: "/clientes", icon: UsersIcon },
+        ],
+      }],
+    }]]
+
+    export function SistemaShell({ children }: { children: React.ReactNode }) {
+      return (
+        <AppShell
+          brand={{ name: "Servlog", url: "/inicio" }}
+          user={{ name: "Nome Sobrenome" }}
+          modules={modulos}
+          currentPath={usePathname()}
+          linkComponent={Link}
+        >
+          {children}
+        </AppShell>
+      )
+    }
+  language: tsx
+- title: Use no layout das telas logadas
+  body: "Toda página dentro do grupo abre com o shell. Login e telas públicas ficam fora dele."
+  code: |
+    // src/app/(sistema)/layout.tsx
+    import { SistemaShell } from "@/components/sistema-shell"
+
+    export default function Layout({ children }: { children: React.ReactNode }) {
+      return <SistemaShell>{children}</SistemaShell>
+    }
+  language: tsx
+- title: Veja o exemplo completo
+  body: "O bloco `app-shell-exemplo` instala uma página em `/app-shell` com todas as opções: hub de aplicações, busca, notificações e conteúdo dos painéis."
+  code: npx shadcn@latest add https://ds.servfaz.app/r/app-shell-exemplo.json
+  language: bash
 ```
 
 ## Regras de uso

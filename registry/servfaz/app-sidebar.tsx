@@ -1,24 +1,10 @@
 "use client"
 
 import * as React from "react"
-import {
-  ChartBarIcon,
-  ClipboardTextIcon,
-  FileTextIcon,
-  GearIcon,
-  HouseIcon,
-  PackageIcon,
-  ShoppingCartIcon,
-  TagIcon,
-  TruckIcon,
-  UsersIcon,
-  UsersThreeIcon,
-  WrenchIcon,
-  type Icon,
-} from "@phosphor-icons/react"
+import type { Icon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
-import { Separator } from "@/components/ui/separator"
+import { Separator } from "./separator"
 import {
   Sidebar,
   SidebarContent,
@@ -33,28 +19,25 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
   useSidebar,
-} from "@/components/ui/sidebar"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "./sidebar"
+import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip"
 
 /*
- * AppSidebar - sidebar dupla do bloco App Shell, espelho do "App Sidebar" do
- * Figma ([SDS] Components, página App Shell), no modelo do ClickUp:
+ * AppSidebar e AppRail - sidebar dupla do App Shell, espelho do "App Sidebar"
+ * do Figma ([SDS] Components, página App Shell), no modelo do ClickUp:
  * - AppRail (App Sidebar collapsed=true): coluna fixa de 56px com os módulos
  *   do sistema, só ícones, com tooltip. Divisor entre grupos de módulos.
  * - AppSidebar (App Sidebar collapsed=false): sidebar aberta de 256px com as
  *   funcionalidades do módulo ativo, título do módulo no topo, grupos com
  *   título e itens de 32px.
- * Arquivo de bloco: o sistema copia e edita módulos, itens, rotas e textos.
+ * Módulos, itens e rotas chegam por props: o sistema não edita este arquivo.
  */
 
 type AppSidebarItem = {
   title: string
   url: string
   icon: Icon
+  /** Força o item como ativo. Sem a prop, vale a comparação com `currentPath`. */
   isActive?: boolean
   /** Número ao lado do item (ex.: pendências). */
   badge?: number
@@ -76,43 +59,20 @@ type AppModule = {
   groups?: AppSidebarGroup[]
 }
 
-const defaultModules: AppModule[][] = [
-  [
-    {
-      title: "Inventário",
-      icon: HouseIcon,
-      isActive: true,
-      groups: [
-        {
-          label: "Dia a dia",
-          items: [
-            { title: "Início", url: "#", icon: HouseIcon, isActive: true },
-            { title: "Clientes", url: "#", icon: UsersIcon },
-            { title: "Ordens de serviço", url: "#", icon: ClipboardTextIcon, badge: 3 },
-            { title: "Contratos", url: "#", icon: FileTextIcon },
-            { title: "Relatórios", url: "#", icon: ChartBarIcon },
-          ],
-        },
-        {
-          label: "Cadastros",
-          items: [
-            { title: "Serviços", url: "#", icon: TagIcon },
-            { title: "Equipe", url: "#", icon: UsersThreeIcon, disabled: true },
-          ],
-        },
-      ],
-    },
-    { title: "Compras", icon: ShoppingCartIcon },
-    { title: "Frota", icon: TruckIcon },
-    { title: "Estoque", icon: PackageIcon },
-  ],
-  [
-    { title: "Manutenção", icon: WrenchIcon },
-    { title: "Pessoas", icon: UsersThreeIcon, disabled: true },
-  ],
-]
+/** Componente de link do sistema, como o `Link` do Next.js. Padrão: `a`. */
+type AppLinkComponent = React.ElementType<{
+  href: string
+  className?: string
+  children?: React.ReactNode
+  "aria-current"?: "page"
+}>
 
-const defaultRailFooter: AppModule[] = [{ title: "Configurações", icon: GearIcon }]
+/** O item está ativo quando a rota atual é a dele ou uma rota abaixo dela. */
+function isPathActive(url: string, currentPath?: string) {
+  if (!currentPath || !url || url === "#") return false
+  if (url === "/") return currentPath === "/"
+  return currentPath === url || currentPath.startsWith(`${url}/`)
+}
 
 /* ---------- Rail (módulos) ---------- */
 
@@ -145,15 +105,17 @@ function AppRailButton({
 }
 
 type AppRailProps = React.ComponentProps<"nav"> & {
-  modules?: AppModule[][]
+  /** Módulos em grupos; um divisor separa cada grupo. */
+  modules: AppModule[][]
+  /** Módulos no pé do rail, como Configurações. */
   footer?: AppModule[]
   onModuleSelect?: (module: AppModule) => void
 }
 
 function AppRail({
   className,
-  modules = defaultModules,
-  footer = defaultRailFooter,
+  modules,
+  footer = [],
   onModuleSelect,
   ...props
 }: AppRailProps) {
@@ -194,11 +156,13 @@ function AppRail({
           </React.Fragment>
         ))}
       </div>
-      <SidebarMenu className="items-center">
-        {footer.map((module) => (
-          <AppRailButton key={module.title} module={module} onSelect={handleSelect} />
-        ))}
-      </SidebarMenu>
+      {footer.length > 0 ? (
+        <SidebarMenu className="items-center">
+          {footer.map((module) => (
+            <AppRailButton key={module.title} module={module} onSelect={handleSelect} />
+          ))}
+        </SidebarMenu>
+      ) : null}
     </nav>
   )
 }
@@ -208,23 +172,35 @@ function AppRail({
 function AppSidebarMenuItem({
   item,
   soonLabel,
+  currentPath,
+  linkComponent: LinkComponent = "a",
 }: {
   item: AppSidebarItem
   soonLabel: string
+  currentPath?: string
+  linkComponent?: AppLinkComponent
 }) {
   const ItemIcon = item.icon
+  const active = item.isActive ?? isPathActive(item.url, currentPath)
+  const content = (
+    <>
+      <ItemIcon weight={active ? "fill" : "light"} />
+      <span>{item.title}</span>
+    </>
+  )
 
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton asChild isActive={item.isActive}>
-        <a
-          href={item.disabled ? undefined : item.url}
-          aria-current={item.isActive ? "page" : undefined}
-          aria-disabled={item.disabled || undefined}
-        >
-          <ItemIcon weight={item.isActive ? "fill" : "light"} />
-          <span>{item.title}</span>
-        </a>
+      <SidebarMenuButton asChild isActive={active}>
+        {item.disabled ? (
+          <a aria-disabled data-slot="app-sidebar-item">
+            {content}
+          </a>
+        ) : (
+          <LinkComponent href={item.url} aria-current={active ? "page" : undefined}>
+            {content}
+          </LinkComponent>
+        )}
       </SidebarMenuButton>
       {item.badge && !item.disabled ? (
         <SidebarMenuBadge className="top-1/2! -translate-y-1/2 rounded-full bg-(--color-feedback-danger-filled) text-(--color-feedback-danger-foreground-on-filled)">
@@ -242,16 +218,27 @@ function AppSidebarMenuItem({
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   /** Nome do módulo ativo, no topo da sidebar. */
-  title?: string
-  groups?: AppSidebarGroup[]
+  title: string
+  groups: AppSidebarGroup[]
+  /** Rota atual (ex.: `usePathname()` do Next.js), para marcar o item ativo. */
+  currentPath?: string
+  /** Componente de link, como o `Link` do Next.js. Padrão: `a`. */
+  linkComponent?: AppLinkComponent
+  /** Módulos listados no rodapé no celular, onde o rail não aparece. */
+  mobileModules?: AppModule[]
+  onModuleSelect?: (module: AppModule) => void
   /** Texto dos itens indisponíveis. */
   soonLabel?: string
 }
 
 function AppSidebar({
   className,
-  title = defaultModules[0][0].title,
-  groups = defaultModules[0][0].groups ?? [],
+  title,
+  groups,
+  currentPath,
+  linkComponent,
+  mobileModules = [],
+  onModuleSelect,
   soonLabel = "Em breve",
   ...props
 }: AppSidebarProps) {
@@ -284,6 +271,8 @@ function AppSidebar({
                     key={item.title}
                     item={item}
                     soonLabel={soonLabel}
+                    currentPath={currentPath}
+                    linkComponent={linkComponent}
                   />
                 ))}
               </SidebarMenu>
@@ -291,25 +280,38 @@ function AppSidebar({
           </SidebarGroup>
         ))}
       </SidebarContent>
-      <SidebarFooter className="md:hidden">
-        {/* No celular o rail some: os módulos ficam no rodapé da Sheet. */}
-        <SidebarMenu>
-          {defaultModules.flat().map((module) => {
-            const ModuleIcon = module.icon
-            return (
-              <SidebarMenuItem key={module.title}>
-                <SidebarMenuButton isActive={module.isActive} disabled={module.disabled}>
-                  <ModuleIcon weight={module.isActive ? "fill" : "light"} />
-                  <span>{module.title}</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            )
-          })}
-        </SidebarMenu>
-      </SidebarFooter>
+      {mobileModules.length > 0 ? (
+        <SidebarFooter className="md:hidden">
+          {/* No celular o rail some: os módulos ficam no rodapé da Sheet. */}
+          <SidebarMenu>
+            {mobileModules.map((module) => {
+              const ModuleIcon = module.icon
+              return (
+                <SidebarMenuItem key={module.title}>
+                  <SidebarMenuButton
+                    isActive={module.isActive}
+                    disabled={module.disabled}
+                    onClick={() => onModuleSelect?.(module)}
+                  >
+                    <ModuleIcon weight={module.isActive ? "fill" : "light"} />
+                    <span>{module.title}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )
+            })}
+          </SidebarMenu>
+        </SidebarFooter>
+      ) : null}
     </Sidebar>
   )
 }
 
-export { AppSidebar, AppRail }
-export type { AppSidebarProps, AppSidebarItem, AppSidebarGroup, AppModule, AppRailProps }
+export { AppSidebar, AppRail, isPathActive }
+export type {
+  AppSidebarProps,
+  AppSidebarItem,
+  AppSidebarGroup,
+  AppModule,
+  AppRailProps,
+  AppLinkComponent,
+}

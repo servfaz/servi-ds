@@ -10,7 +10,7 @@ Design system da Servfaz. Reúne as decisões visuais e de interação dos produ
 
 - **Design tokens.** Valores de design nomeados, em duas camadas: primitiva (paleta base do Tailwind) e semântica (intenção de uso, com tema claro e escuro).
 - **Componentes.** Componentes de interface construídos sobre o shadcn/ui, com a identidade visual da Servfaz aplicada.
-- **Blocos.** Composições maiores, como o App Shell, que cada sistema copia e adapta.
+- **Blocos.** Páginas de exemplo que cada sistema copia e adapta, como a do App Shell.
 - **Documentação.** Site em Storybook, publicado em [ds.servfaz.app](https://ds.servfaz.app/).
 
 ## Como funciona
@@ -69,12 +69,12 @@ O passo a passo completo está no [guia para desenvolvedores](https://ds.servfaz
 
 ## Componentes publicados
 
-Todos os componentes do catálogo e o bloco App Shell estão em [ds.servfaz.app](https://ds.servfaz.app/).
+Todos os componentes do catálogo estão em [ds.servfaz.app](https://ds.servfaz.app/), inclusive o App Shell, a estrutura das telas logadas.
 
-O App Shell não entra nas atualizações automáticas, porque cada sistema adapta a página e os componentes dele. Um sistema novo pode pedir para recebê-lo junto com o cadastro. Um sistema que já existe instala uma vez e adapta:
+O App Shell é configurado por props (marca, usuário, módulos, menus e rotas) no layout do sistema, e chega nas atualizações como os outros componentes. A página de exemplo com a configuração completa é o bloco `app-shell-exemplo`, que não entra nas atualizações automáticas:
 
 ```bash
-npx shadcn@latest add https://ds.servfaz.app/r/app-shell.json
+npx shadcn@latest add https://ds.servfaz.app/r/app-shell-exemplo.json
 ```
 
 ## Documentação

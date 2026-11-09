@@ -10,6 +10,16 @@ Enquanto um release não é cortado, a coluna Versão leva `Não lançado`, e o 
 
 | Versão | Data | Categoria | Item | Descrição |
 | --- | --- | --- | --- | --- |
+| Não lançado | 08/11/2026 | Adicionado | `App Sidebar` | Item `app-sidebar` publicado em `registry.json`, com arquivo `registry/servfaz/app-sidebar.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Adicionado | `App Launcher` | Item `app-launcher` publicado em `registry.json`, com arquivo `registry/servfaz/app-launcher.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Adicionado | `App Side Panel` | Item `app-side-panel` publicado em `registry.json`, com arquivo `registry/servfaz/app-side-panel.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Adicionado | `App Header` | Item `app-header` publicado em `registry.json`, com arquivo `registry/servfaz/app-header.tsx`. |
+<!-- nivel: MINOR -->
+| Não lançado | 08/11/2026 | Alterado | `App Shell` | Item `app-shell` deixa de ser bloco e vira componente (`registry:ui`) configurado por props, com `linkComponent` e `currentPath` para o menu. A página de exemplo passa ao bloco `app-shell-exemplo`. |
+<!-- nivel: MINOR -->
 | Não lançado | 08/11/2026 | Adicionado | `Skeleton` | Item `skeleton` publicado em `registry.json` e arquivo `registry/servfaz/skeleton.tsx`. |
 <!-- nivel: MINOR -->
 | Não lançado | 08/11/2026 | Adicionado | `Tooltip` | Item `tooltip` publicado em `registry.json`, com `dependencies` (`@radix-ui/react-tooltip`) e arquivo `registry/servfaz/tooltip.tsx`. |
