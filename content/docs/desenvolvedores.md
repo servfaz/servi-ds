@@ -203,7 +203,7 @@ export function Confirmacao() {
 
 ## Atualizações
 
-As mudanças viram uma release mensal no GitHub e chegam ao seu projeto pela PR automática.
+Cada publicação no Servi DS chega ao seu projeto pela PR automática (Merge Request no GitLab), logo depois de entrar no ar. Uma vez por mês, as mudanças viram uma release no GitHub.
 
 ```callout
 variant: tip

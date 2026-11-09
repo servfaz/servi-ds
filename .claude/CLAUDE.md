@@ -20,6 +20,6 @@ Item do registry que depende de componente não publicado. Quando um componente 
 
 ## Publicação
 
-Push em `main` builda e publica o registry e o Storybook automaticamente na Vercel, sem passo manual. O registry continua em `ds.servfaz.app/r/<nome>.json`. Documentação de componente é gerada, nunca desenhada à mão no Figma. Regras completas de geração em `.claude/rules/documentacao-design.md`.
+Push em `main` builda e publica o registry e o Storybook automaticamente na Vercel, sem passo manual. O registry continua em `ds.servfaz.app/r/<nome>.json`. Quando o deploy de produção termina com sucesso, o workflow "Propagar Servi DS para consumidores" roda sozinho e abre PR ou MR em cada sistema cadastrado; nunca dispará-lo no push, que leria o registry anterior. Documentação de componente é gerada, nunca desenhada à mão no Figma. Regras completas de geração em `.claude/rules/documentacao-design.md`.
 
 Nunca adicione Co-Authored-By nem qualquer atribuição ao Claude em commits e PRs.
