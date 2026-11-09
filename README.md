@@ -69,9 +69,13 @@ O passo a passo completo está no [guia para desenvolvedores](https://ds.servfaz
 
 ## Componentes publicados
 
-Alert, Badge, Button, Checkbox, Field, Input, Label, Radio Group e Textarea.
+Todos os componentes do catálogo e o bloco App Shell estão em [ds.servfaz.app](https://ds.servfaz.app/).
 
-Outros componentes (Popover, Separator, Sheet, Sidebar, Skeleton, Tooltip, Search Bar) e o bloco App Shell estão em desenvolvimento e já podem ser vistos no Storybook local.
+O App Shell não entra nas atualizações automáticas, porque cada sistema adapta a página e os componentes dele. Um sistema novo pode pedir para recebê-lo junto com o cadastro. Um sistema que já existe instala uma vez e adapta:
+
+```bash
+npx shadcn@latest add https://ds.servfaz.app/r/app-shell.json
+```
 
 ## Documentação
 

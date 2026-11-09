@@ -76,6 +76,12 @@ body: O cadastro vale para GitHub e GitLab. No GitLab, cada atualização chega 
 ```
 
 ```callout
+variant: info
+title: App Shell
+body: "O bloco App Shell não vem nas atualizações automáticas. Sistema novo pode pedir para recebê-lo no cadastro. Sistema que já existe instala uma vez com `npx shadcn@latest add https://ds.servfaz.app/r/app-shell.json` e adapta."
+```
+
+```callout
 variant: warning
 title: Componentes customizados
 body: Componentes shadcn/ui alterados à mão são substituídos na primeira PR. Reaplique a customização ou peça um token ou uma variante ao time.
