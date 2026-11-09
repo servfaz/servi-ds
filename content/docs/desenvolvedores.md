@@ -34,6 +34,12 @@ Se o shadcn/ui ainda não foi inicializado:
 npx shadcn@latest init
 ```
 
+```callout
+variant: warning
+title: Escolha Radix
+body: "Quando o `init` perguntar a biblioteca de componentes, escolha **Radix**. Os componentes do Servi DS são feitos com Radix. Se o `components.json` estiver com um estilo Base UI (`base-...`), a instalação troca para `new-york`."
+```
+
 ## Instalação
 
 Escolha como trazer os componentes para o projeto.

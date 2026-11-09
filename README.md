@@ -29,7 +29,7 @@ Os componentes mantêm o mesmo contrato de props do shadcn/ui (`variant`, `size`
 - Node.js LTS
 - Next.js com App Router
 - Tailwind CSS
-- shadcn/ui inicializado (`npx shadcn@latest init`)
+- shadcn/ui inicializado com Radix (`npx shadcn@latest init`, escolhendo Radix como biblioteca de componentes)
 
 ### Opção 1: cadastro como consumidor (recomendado)
 
