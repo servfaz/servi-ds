@@ -1,13 +1,26 @@
 name: Propagar Servi DS para consumidores
 
+# Roda quando a Vercel termina o deploy de produção com sucesso: só então o
+# registry em ds.servfaz.app está atualizado. Rodar no push lia o registry
+# anterior, porque o deploy ainda não tinha terminado. Toda publicação na main
+# (componente, token ou cadastro em automation/consumers.json) passa por um
+# deploy de produção, então toda mudança chega aos consumidores.
+# workflow_dispatch continua para rodar à mão a qualquer momento.
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - automation/consumers.json
+  deployment_status:
+
+# Dois deploys seguidos: vale a execução mais nova, que lê o registry mais novo.
+concurrency:
+  group: propagar-servi-ds
+  cancel-in-progress: true
 
 jobs:
   load-consumers:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
     runs-on: ubuntu-latest
     outputs:
       list: ${{ steps.read.outputs.list }}
