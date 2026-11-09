@@ -21,7 +21,7 @@
 
 set -euo pipefail
 
-REGISTRY_URL="https://ds.servfaz.app/r/registry.json"
+CATALOGO_URL="https://ds.servfaz.app/r/registry.json"
 COMPONENTS_JSON="components.json"
 DEFAULT_IMPORT="@/app/lib/utils"
 
@@ -38,8 +38,20 @@ for bin in curl jq npx sed; do
   fi
 done
 
-echo "Buscando lista de componentes publicados em $REGISTRY_URL..."
-components="$(curl -fsSL "$REGISTRY_URL" | jq -r --arg blocos "${SERVI_DS_BLOCOS:-}" \
+# Os componentes do Servi DS são feitos com Radix. Com um estilo Base UI
+# ("base-...", padrão do shadcn init mais novo), a CLI troca todo `asChild` por
+# `render` ao instalar, e o componente quebra. O estilo vira "new-york", o
+# estilo Radix do shadcn.
+style="$(jq -r '.style // ""' "$COMPONENTS_JSON")"
+if [[ "$style" == base-* ]]; then
+  echo "components.json usa o estilo Base UI \"$style\". Trocando para \"new-york\" (Radix), a base do Servi DS."
+  [ -n "${GITHUB_ACTIONS:-}" ] && echo "::warning title=Estilo do shadcn::components.json estava com \"$style\" (Base UI) e foi trocado para \"new-york\" (Radix)."
+  tmp="$(mktemp)"
+  jq '.style = "new-york"' "$COMPONENTS_JSON" > "$tmp" && mv "$tmp" "$COMPONENTS_JSON"
+fi
+
+echo "Buscando lista de componentes publicados em $CATALOGO_URL..."
+components="$(curl -fsSL "$CATALOGO_URL" | jq -r --arg blocos "${SERVI_DS_BLOCOS:-}" \
   '($blocos | split(" ") | map(select(. != ""))) as $b
    | .items[] | select(.type != "registry:block" or (.name as $n | $b | index($n))) | .name')"
 
