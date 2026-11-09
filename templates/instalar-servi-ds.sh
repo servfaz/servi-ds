@@ -12,6 +12,11 @@
 # cadastrado no Servi DS, as atualizações seguintes continuam chegando pelo
 # fluxo automático de Pull Request, não por este script.
 #
+# Blocos (como o App Shell) não entram por padrão, porque trazem página e
+# componentes que cada sistema adapta. Para incluir, liste os nomes em
+# SERVI_DS_BLOCOS, separados por espaço:
+#   SERVI_DS_BLOCOS="app-shell" bash instalar-servi-ds.sh
+#
 # Requisitos: curl, jq, node/npx, sed.
 
 set -euo pipefail
@@ -34,7 +39,9 @@ for bin in curl jq npx sed; do
 done
 
 echo "Buscando lista de componentes publicados em $REGISTRY_URL..."
-components="$(curl -fsSL "$REGISTRY_URL" | jq -r '.items[].name')"
+components="$(curl -fsSL "$REGISTRY_URL" | jq -r --arg blocos "${SERVI_DS_BLOCOS:-}" \
+  '($blocos | split(" ") | map(select(. != ""))) as $b
+   | .items[] | select(.type != "registry:block" or (.name as $n | $b | index($n))) | .name')"
 
 if [ -z "$components" ]; then
   echo "Nenhum componente encontrado no registry." >&2
@@ -45,7 +52,10 @@ echo "Instalando componentes:"
 while IFS= read -r name; do
   [ -z "$name" ] && continue
   echo "  -> $name"
-  npx shadcn@latest add "https://ds.servfaz.app/r/${name}.json" --yes --overwrite
+  if ! npx shadcn@latest add "https://ds.servfaz.app/r/${name}.json" --yes --overwrite; then
+    echo "Falha ao instalar o componente ${name}." >&2
+    exit 1
+  fi
 done <<< "$components"
 
 echo "Conferindo alias de import do projeto..."
