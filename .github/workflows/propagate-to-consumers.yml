@@ -42,6 +42,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Garante o estilo Radix no components.json
+        run: |
+          # Com estilo Base UI ("base-..."), a CLI troca asChild por render e os
+          # componentes do Servi DS (Radix) quebram. Mesma regra do script de instalação.
+          STYLE=$(jq -r '.style // ""' components.json)
+          if [[ "$STYLE" == base-* ]]; then
+            echo "::warning title=Estilo do shadcn (${{ matrix.consumer.repo }})::components.json estava com \"$STYLE\" (Base UI) e foi trocado para \"new-york\" (Radix)."
+            jq '.style = "new-york"' components.json > "$RUNNER_TEMP/components.json" && mv "$RUNNER_TEMP/components.json" components.json
+          fi
       - name: Instalar componentes (e blocos pedidos no cadastro)
         env:
           BLOCOS_JSON: ${{ toJSON(matrix.consumer.blocos) }}
