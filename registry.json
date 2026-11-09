@@ -1733,8 +1733,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-slot",
-        "class-variance-authority"
+        "@radix-ui/react-slot@^1.2.3",
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -1754,7 +1754,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-label"
+        "@radix-ui/react-label@^2.1.7"
       ],
       "files": [
         {
@@ -1774,7 +1774,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@phosphor-icons/react"
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -1835,8 +1835,8 @@
         "https://ds.servfaz.app/r/label.json"
       ],
       "dependencies": [
-        "@radix-ui/react-checkbox",
-        "@phosphor-icons/react"
+        "@radix-ui/react-checkbox@^1.4.1",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -1857,7 +1857,7 @@
         "https://ds.servfaz.app/r/checkbox.json"
       ],
       "dependencies": [
-        "@radix-ui/react-radio-group"
+        "@radix-ui/react-radio-group@^1.5.1"
       ],
       "files": [
         {
@@ -1877,8 +1877,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "class-variance-authority",
-        "@phosphor-icons/react"
+        "class-variance-authority@^0.7.1",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -1898,8 +1898,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-slot",
-        "class-variance-authority"
+        "@radix-ui/react-slot@^1.2.3",
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -1919,8 +1919,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-avatar",
-        "class-variance-authority"
+        "@radix-ui/react-avatar@^1.3.1",
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -1940,8 +1940,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-progress",
-        "class-variance-authority"
+        "@radix-ui/react-progress@^1.2.1",
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -1961,7 +1961,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-switch"
+        "@radix-ui/react-switch@^1.4.1"
       ],
       "files": [
         {
@@ -1981,7 +1981,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-tabs"
+        "@radix-ui/react-tabs@^1.2.1"
       ],
       "files": [
         {
@@ -2001,8 +2001,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-dropdown-menu",
-        "@phosphor-icons/react"
+        "@radix-ui/react-dropdown-menu@^2.2.1",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2022,7 +2022,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "class-variance-authority"
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -2050,8 +2050,8 @@
         "https://ds.servfaz.app/r/dropdown-menu.json"
       ],
       "dependencies": [
-        "@tanstack/react-table",
-        "@phosphor-icons/react"
+        "@tanstack/react-table@^8.21.3",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2091,8 +2091,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-slot",
-        "@phosphor-icons/react"
+        "@radix-ui/react-slot@^1.2.3",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2112,8 +2112,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-accordion",
-        "@phosphor-icons/react"
+        "@radix-ui/react-accordion@^1.3.1",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2134,7 +2134,7 @@
         "https://ds.servfaz.app/r/button.json"
       ],
       "dependencies": [
-        "@radix-ui/react-alert-dialog"
+        "@radix-ui/react-alert-dialog@^1.2.1"
       ],
       "files": [
         {
@@ -2154,7 +2154,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-aspect-ratio"
+        "@radix-ui/react-aspect-ratio@^1.2.0"
       ],
       "files": [
         {
@@ -2174,7 +2174,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-popover"
+        "@radix-ui/react-popover@^1.1.15"
       ],
       "files": [
         {
@@ -2194,12 +2194,120 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-separator"
+        "@radix-ui/react-separator@^1.1.7"
       ],
       "files": [
         {
           "path": "registry/servfaz/separator.tsx",
           "target": "@ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Bloco de carregamento no formato do conteúdo que vai aparecer.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/servfaz/skeleton.tsx",
+          "target": "@ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Dica curta que aparece ao passar o mouse ou focar um elemento.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-tooltip@^1.2.8"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/tooltip.tsx",
+          "target": "@ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Painel que desliza da borda da tela, por cima do conteúdo.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog@^1.1.15",
+        "@phosphor-icons/react@^2.1.10"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/sheet.tsx",
+          "target": "@ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "search-bar",
+      "type": "registry:ui",
+      "title": "Search Bar",
+      "description": "Campo de busca com ícone e botão de limpar.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react@^2.1.10"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/search-bar.tsx",
+          "target": "@ui/search-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Barra lateral de navegação, recolhível, com grupos, itens e submenus.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json",
+        "https://ds.servfaz.app/r/input.json",
+        "https://ds.servfaz.app/r/separator.json",
+        "https://ds.servfaz.app/r/sheet.json",
+        "https://ds.servfaz.app/r/skeleton.json",
+        "https://ds.servfaz.app/r/tooltip.json"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slot@^1.2.3",
+        "class-variance-authority@^0.7.1",
+        "@phosphor-icons/react@^2.1.10"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/sidebar.tsx",
+          "target": "@ui/sidebar.tsx",
           "type": "registry:ui"
         }
       ]
@@ -2215,8 +2323,8 @@
         "https://ds.servfaz.app/r/separator.json"
       ],
       "dependencies": [
-        "@radix-ui/react-slot",
-        "class-variance-authority"
+        "@radix-ui/react-slot@^1.2.3",
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -2237,8 +2345,8 @@
         "https://ds.servfaz.app/r/button.json"
       ],
       "dependencies": [
-        "react-day-picker",
-        "@phosphor-icons/react"
+        "react-day-picker@^9.14.0",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2277,8 +2385,8 @@
         "https://ds.servfaz.app/r/button.json"
       ],
       "dependencies": [
-        "embla-carousel-react",
-        "@phosphor-icons/react"
+        "embla-carousel-react@^8.6.0",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2298,7 +2406,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "recharts"
+        "recharts@^2.15.4"
       ],
       "files": [
         {
@@ -2318,7 +2426,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-collapsible"
+        "@radix-ui/react-collapsible@^1.2.1"
       ],
       "files": [
         {
@@ -2340,7 +2448,7 @@
         "https://ds.servfaz.app/r/popover.json"
       ],
       "dependencies": [
-        "@phosphor-icons/react"
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2361,8 +2469,8 @@
         "https://ds.servfaz.app/r/dialog.json"
       ],
       "dependencies": [
-        "cmdk",
-        "@phosphor-icons/react"
+        "cmdk@^1.1.1",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2383,8 +2491,8 @@
         "https://ds.servfaz.app/r/dropdown-menu.json"
       ],
       "dependencies": [
-        "@radix-ui/react-context-menu",
-        "@phosphor-icons/react"
+        "@radix-ui/react-context-menu@^2.4.1",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2406,9 +2514,9 @@
         "https://ds.servfaz.app/r/popover.json"
       ],
       "dependencies": [
-        "date-fns",
-        "react-day-picker",
-        "@phosphor-icons/react"
+        "date-fns@^4.4.0",
+        "react-day-picker@^9.14.0",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2428,8 +2536,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-dialog",
-        "@phosphor-icons/react"
+        "@radix-ui/react-dialog@^1.1.15",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2449,7 +2557,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "vaul"
+        "vaul@^1.1.2"
       ],
       "files": [
         {
@@ -2469,7 +2577,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "class-variance-authority"
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -2490,9 +2598,9 @@
         "https://ds.servfaz.app/r/label.json"
       ],
       "dependencies": [
-        "react-hook-form",
-        "@radix-ui/react-label",
-        "@radix-ui/react-slot"
+        "react-hook-form@^7.91.0",
+        "@radix-ui/react-label@^2.1.7",
+        "@radix-ui/react-slot@^1.2.3"
       ],
       "files": [
         {
@@ -2512,7 +2620,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-hover-card"
+        "@radix-ui/react-hover-card@^1.2.1"
       ],
       "files": [
         {
@@ -2533,7 +2641,7 @@
         "https://ds.servfaz.app/r/button.json"
       ],
       "dependencies": [
-        "class-variance-authority"
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -2553,8 +2661,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "input-otp",
-        "@phosphor-icons/react"
+        "input-otp@^1.5.0",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2575,8 +2683,8 @@
         "https://ds.servfaz.app/r/separator.json"
       ],
       "dependencies": [
-        "@radix-ui/react-slot",
-        "class-variance-authority"
+        "@radix-ui/react-slot@^1.2.3",
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -2615,8 +2723,8 @@
         "https://ds.servfaz.app/r/dropdown-menu.json"
       ],
       "dependencies": [
-        "@radix-ui/react-menubar",
-        "@phosphor-icons/react"
+        "@radix-ui/react-menubar@^1.2.1",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2636,9 +2744,9 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-navigation-menu",
-        "class-variance-authority",
-        "@phosphor-icons/react"
+        "@radix-ui/react-navigation-menu@^1.4.1",
+        "class-variance-authority@^0.7.1",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2659,7 +2767,7 @@
         "https://ds.servfaz.app/r/button.json"
       ],
       "dependencies": [
-        "@phosphor-icons/react"
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2679,8 +2787,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "react-resizable-panels",
-        "@phosphor-icons/react"
+        "react-resizable-panels@^3.0.6",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2700,7 +2808,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-scroll-area"
+        "@radix-ui/react-scroll-area@^1.4.0"
       ],
       "files": [
         {
@@ -2721,8 +2829,8 @@
         "https://ds.servfaz.app/r/dropdown-menu.json"
       ],
       "dependencies": [
-        "@radix-ui/react-select",
-        "@phosphor-icons/react"
+        "@radix-ui/react-select@^2.4.1",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2742,7 +2850,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-slider"
+        "@radix-ui/react-slider@^1.6.1"
       ],
       "files": [
         {
@@ -2762,8 +2870,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "sonner",
-        "@phosphor-icons/react"
+        "sonner@^2.0.8",
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2783,7 +2891,7 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@phosphor-icons/react"
+        "@phosphor-icons/react@^2.1.10"
       ],
       "files": [
         {
@@ -2803,8 +2911,8 @@
         "https://ds.servfaz.app/r/tokens.json"
       ],
       "dependencies": [
-        "@radix-ui/react-toggle",
-        "class-variance-authority"
+        "@radix-ui/react-toggle@^1.2.1",
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
@@ -2825,14 +2933,57 @@
         "https://ds.servfaz.app/r/toggle.json"
       ],
       "dependencies": [
-        "@radix-ui/react-toggle-group",
-        "class-variance-authority"
+        "@radix-ui/react-toggle-group@^1.2.1",
+        "class-variance-authority@^0.7.1"
       ],
       "files": [
         {
           "path": "registry/servfaz/toggle-group.tsx",
           "target": "@ui/toggle-group.tsx",
           "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "app-shell",
+      "type": "registry:block",
+      "title": "App Shell",
+      "description": "Estrutura das telas logadas: cabeçalho, rail com os módulos, sidebar do módulo, painel de conteúdo e bloco da direita para o chat com IA e as notificações.",
+      "registryDependencies": [
+        "https://ds.servfaz.app/r/tokens.json",
+        "https://ds.servfaz.app/r/button.json",
+        "https://ds.servfaz.app/r/popover.json",
+        "https://ds.servfaz.app/r/search-bar.json",
+        "https://ds.servfaz.app/r/separator.json",
+        "https://ds.servfaz.app/r/sheet.json",
+        "https://ds.servfaz.app/r/sidebar.json",
+        "https://ds.servfaz.app/r/tooltip.json"
+      ],
+      "dependencies": [
+        "@phosphor-icons/react@^2.1.10"
+      ],
+      "files": [
+        {
+          "path": "registry/servfaz/blocks/app-shell/components/app-header.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/servfaz/blocks/app-shell/components/app-launcher.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/servfaz/blocks/app-shell/components/app-side-panel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/servfaz/blocks/app-shell/components/app-sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/servfaz/blocks/app-shell/page.tsx",
+          "target": "app/app-shell/page.tsx",
+          "type": "registry:page"
         }
       ]
     }
