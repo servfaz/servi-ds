@@ -1,0 +1,88 @@
+{
+  "projectId": "9f4280b0-f324-440f-823c-1b54dbc7d98a",
+  "shape": "storybook",
+  "storybookConfigDir": ".storybook",
+  "pkg": "servi-ds",
+  "globalName": "ServiDS",
+  "entry": ".design-sync/pkg/index.ts",
+  "srcDir": "../../registry/servfaz",
+  "tsconfig": "tsconfig.paths.json",
+  "storybookStatic": ".design-sync/sb-reference",
+  "buildCmd": "npx --no-install tsc -p .design-sync/pkg/tsconfig.dts.json && npx --no-install storybook build -c .storybook -o .design-sync/sb-reference",
+  "titleMap": {
+    "Chart": "ChartContainer",
+    "Resizable": "ResizablePanelGroup",
+    "Sonner": "Toaster"
+  },
+  "storyImports": {
+    "shim": [
+      "/registry/servfaz/",
+      "@phosphor-icons/react"
+    ]
+  },
+  "extraEntries": [
+    "./icons.ts"
+  ],
+  "overrides": {
+    "Accordion": {
+      "cardMode": "column"
+    },
+    "Alert": {
+      "cardMode": "column"
+    },
+    "ButtonGroup": {
+      "cardMode": "column"
+    },
+    "Calendar": {
+      "cardMode": "column"
+    },
+    "Card": {
+      "cardMode": "column"
+    },
+    "Carousel": {
+      "cardMode": "column"
+    },
+    "ChartContainer": {
+      "cardMode": "column"
+    },
+    "DataTable": {
+      "cardMode": "column"
+    },
+    "InputGroup": {
+      "cardMode": "column"
+    },
+    "Item": {
+      "cardMode": "column"
+    },
+    "Tabs": {
+      "cardMode": "column"
+    },
+    "AppShell": {
+      "cardMode": "single",
+      "primaryStory": "Playground"
+    },
+    "AppSidebar": {
+      "cardMode": "single",
+      "primaryStory": "Playground"
+    },
+    "Popover": {
+      "cardMode": "single",
+      "primaryStory": "Playground"
+    },
+    "Sidebar": {
+      "cardMode": "single",
+      "primaryStory": "Playground"
+    },
+    "Tooltip": {
+      "cardMode": "single",
+      "primaryStory": "Playground"
+    },
+    "Field": {
+      "viewport": "900x900"
+    },
+    "TableGroup": {
+      "viewport": "960x900"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}
