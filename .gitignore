@@ -44,13 +44,3 @@ yarn-error.log*
 # log de depuração do Storybook
 debug-storybook.log
 
-# design-sync (Claude Design): artefatos locais
-.design-sync/sb-reference/
-.design-sync/learnings/
-.design-sync/.cache/
-.design-sync/node_modules
-.design-sync/*.log
-.ds-sync/
-ds-bundle/
-.design-sync/pkg/types/
-.design-sync/*.out
