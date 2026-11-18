@@ -43,3 +43,11 @@ Notas para a próxima sincronização com o Claude Design. Cada item: sintoma ->
 - A correção do `noscript` no `compare.mjs` vive só na cópia local em `.ds-sync/`. Depois de copiar os scripts de novo, reaplicar, senão o InputOTP volta a dar `sb-error` falso.
 - O teto de 6 stories por componente deixou sem avaliação a 7ª story de SearchBar e Field, e as últimas de Button (10), AppShell (8) e DataTable (9).
 - O `sb-reference` precisa ser recompilado junto com qualquer mudança em componente ou story (`buildCmd`).
+
+## Peso do artefato (18/11/2026)
+
+- [GENERAL] O artefato estava pesado: bundle de 2,8 MB sem minificar, React de desenvolvimento (1 MB) e previews em modo desenvolvimento (a do ChartContainer com 1 MB). -> Os scripts do design-sync geram tudo com `minify: false` e `NODE_ENV` "development". -> `.design-sync/otimizar-build.sh` troca para produção e minificado na cópia `.ds-sync/`. Resultado: bundle 1,5 MB, React 185 KB, preview do ChartContainer 428 KB; arquivos de componentes de cerca de 5,8 MB para 2,7 MB. Rodar o script sempre que os scripts do `.ds-sync/` forem copiados de novo.
+- O que ainda pesa no bundle: os cerca de 240 ícones Phosphor de `icons.ts` (673 KB, cada ícone traz os 6 pesos). Reduzir a lista diminui o bundle, mas tira ícones disponíveis para prototipar.
+- Avaliado e descartado: gerar um CSS só com as classes dos componentes economiza 48 KB e pode tirar classes usadas em protótipos. O CSS continua o do Storybook.
+- O Windows monta a pasta do repositório devagar na VM: o build do design-sync rodou numa cópia local com `npm ci` (5 s contra mais de 6 min).
+- Story "Exemplo" do AppShell quebra com "Element type is invalid" também no build antigo. O card mostra só o Playground, então não aparece; corrigir na story.
