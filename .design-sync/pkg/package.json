@@ -1,0 +1,7 @@
+{
+  "name": "servi-ds",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pacote sintético usado só pelo design-sync: reúne os componentes do registry num ponto de entrada.",
+  "types": "types/.design-sync/pkg/index.d.ts"
+}
