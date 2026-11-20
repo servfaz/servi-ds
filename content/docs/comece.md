@@ -22,7 +22,7 @@ heroAnimated: /assets/comece/motion-hero.webp
   imageHover: /assets/comece/banner-dev-hover.png
   thumbnail: true
 - title: Conteúdo
-  href: "#"
+  href: /docs/conteudo
   description: Padrões de voz, tom e escrita para as telas dos produtos.
   image: /assets/comece/banner-content-default.png
   imageHover: /assets/comece/banner-content-hover.png

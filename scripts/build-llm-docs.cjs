@@ -31,7 +31,7 @@ const HIDDEN = new Set([])
 
 // Ordem das páginas de apoio no índice. As que não estão aqui vêm depois,
 // em ordem alfabética.
-const GUIDE_ORDER = ["comece", "sobre", "desenvolvedores", "componentes"]
+const GUIDE_ORDER = ["comece", "sobre", "desenvolvedores", "conteudo", "componentes"]
 
 function listMarkdown(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {

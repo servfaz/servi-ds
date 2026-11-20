@@ -18,6 +18,10 @@ Valor bruto (hex, px) em componente ou token acima da camada primitiva. Token se
 
 Item do registry que depende de componente não publicado. Quando um componente importa outro (`./popover`), o outro precisa estar no `registry.json` e declarado em `registryDependencies` com a URL completa (`https://ds.servfaz.app/r/<nome>.json`), nunca com nome puro. Pacote npm em `dependencies` sempre com a faixa de versão do `package.json` do Servi DS (`@tanstack/react-table@^8.21.3`), nunca sem versão. Bloco (`registry:block`) só chega a um consumidor que o liste em `blocos` no `automation/consumers.json`. Componente novo ou alterado: rodar `npm run validar-registry` antes do commit. O mesmo script roda no build da Vercel e em toda PR, e barra a publicação se falhar.
 
+## Telas e texto de interface
+
+Leitura obrigatória antes de criar ou alterar qualquer tela que use o Servi DS, no código ou no Figma, e antes de escrever texto em bloco, pattern, story ou componente: `.claude/rules/content-design.md`, inteiro. Todo texto segue o glossário (verbos de ação, termos de interface, nomes próprios) e os padrões por componente desse guia. Termo que falta no glossário entra no guia antes de ir para a tela. A tela só é entregue depois de passar pelo checklist de revisão do guia.
+
 ## Publicação
 
 Push em `main` builda e publica o registry e o Storybook automaticamente na Vercel, sem passo manual. O registry continua em `ds.servfaz.app/r/<nome>.json`. Quando o deploy de produção termina com sucesso, o workflow "Propagar Servi DS para consumidores" roda sozinho e abre PR ou MR em cada sistema cadastrado; nunca dispará-lo no push, que leria o registry anterior. Documentação de componente é gerada, nunca desenhada à mão no Figma. Regras completas de geração em `.claude/rules/documentacao-design.md`.

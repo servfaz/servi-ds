@@ -1724,6 +1724,19 @@
       }
     },
     {
+      "name": "regras-de-conteudo",
+      "type": "registry:item",
+      "title": "Regras de content design",
+      "description": "Guia de content design do Servi DS (voz, tom, padrões de texto e glossário). Instala em .claude/rules/ como leitura obrigatória antes de criar ou alterar qualquer tela.",
+      "files": [
+        {
+          "path": ".claude/rules/content-design.md",
+          "type": "registry:file",
+          "target": "~/.claude/rules/servi-ds-content-design.md"
+        }
+      ]
+    },
+    {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "button",
       "type": "registry:ui",

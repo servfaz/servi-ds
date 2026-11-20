@@ -184,6 +184,10 @@ body: "Marca, usuário, módulos, menus e rotas entram por props. Assim cada atu
 - icon: ajuda
   title: Faltou algo?
   description: Fale com o time do Servi DS antes de criar uma versão própria de componente, variante ou token.
+- icon: livro
+  title: Texto de interface
+  description: Botões, mensagens e rótulos seguem a voz, o tom e o glossário do guia de conteúdo.
+  href: /docs/conteudo
 ```
 
 Exemplo com ícone e token:
@@ -227,4 +231,10 @@ Entregue ao assistente a versão em markdown em vez do link da página.
   title: Tudo em um arquivo
   description: A documentação inteira, para usar como contexto fixo.
   href: https://ds.servfaz.app/llms-full.txt
+```
+
+```callout
+variant: info
+title: Regra de conteúdo para o assistente
+body: "A atualização automática instala o guia de conteúdo em `.claude/rules/servi-ds-content-design.md` e acrescenta ao `CLAUDE.md` a regra de ler o guia antes de criar ou alterar tela. A cópia é substituída a cada atualização: peça mudanças ao time do Servi DS."
 ```
