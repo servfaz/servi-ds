@@ -37,7 +37,7 @@ Tudo nasce no Figma e chega aos produtos sem retrabalho manual.
   description: Cada mudança aprovada vai ao ar sozinha, junto com esta documentação.
 - icon: produto
   title: Produtos
-  description: Os sistemas da Servfaz recebem a atualização por Pull Request.
+  description: Os sistemas da Servfaz recebem a atualização por Pull Request ou Merge Request.
 ```
 
 ```callout
@@ -46,9 +46,9 @@ title: Fonte única
 body: "Tokens e componentes só existem em dois arquivos do Figma: [Variables](https://www.figma.com/design/FJY9bl17wrv2Qy6faoib66/-SF-DS--Variables) e [Components](https://www.figma.com/design/ipQKV07jFEBsLxIv5tt1qI/-SF-DS--Components). O que nasce fora deles é migrado para lá."
 ```
 
-### Tokens em três camadas
+### Tokens em duas camadas
 
-Cada token aponta só para a camada de baixo.
+Os tokens têm duas camadas: primitivo e semântico. O componente usa só o semântico e não tem token próprio.
 
 ```flow
 - icon: tokens
@@ -56,16 +56,16 @@ Cada token aponta só para a camada de baixo.
   description: "A paleta e as escalas. Ex.: um tom de verde."
 - icon: tema
   title: Semântico
-  description: "O significado: fundo, texto, marca. Resolve o claro e o escuro."
+  description: "O significado: marca, feedback, fundo, texto e borda. Resolve o claro e o escuro."
 - icon: componente
   title: Componente
-  description: "Onde o token é aplicado. Ex.: o fundo do botão."
+  description: "Combina tokens semânticos. Ex.: o botão principal usa o fundo da marca."
 ```
 
 ```callout
 variant: tip
 title: Por que em camadas
-body: Ao trocar um primitivo, todos os tokens e componentes que dependem dele mudam juntos. O componente nunca carrega um valor solto.
+body: Ao trocar um primitivo, todos os tokens semânticos e os componentes que usam esses tokens mudam juntos. O componente nunca carrega um valor solto.
 ```
 
 ## Por que usar

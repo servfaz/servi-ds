@@ -2,7 +2,7 @@
 title: Button
 name: button
 description: Botão com a identidade visual da Servfaz.
-updated: "2026-11-08"
+updated: "2026-11-20"
 ---
 
 # Documentação
@@ -34,12 +34,12 @@ export function Demo() {
 
 A prop `variant` define o estilo visual. O padrão é `default`.
 
-- `default`: fundo na cor principal da marca, com tokens de componente próprios.
-- `secondary`: fundo na cor secundária da marca, com tokens de componente próprios.
-- `destructive`: fundo na cor `destructive` do tema.
-- `outline`: fundo do tema com borda.
-- `ghost`: sem fundo até o hover.
-- `link`: aparência de link, com sublinhado no hover.
+- `default`: cor principal da marca, com degradê no fundo e na borda. É a ação principal da tela.
+- `secondary`: fundo neutro com borda, para ações de apoio.
+- `destructive`: fundo na cor de perigo, para ações que excluem ou não têm volta.
+- `outline`: fundo da superfície com borda; ganha fundo neutro no hover.
+- `ghost`: sem fundo e com texto na cor da marca; ganha fundo suave da marca no hover.
+- `link`: sem fundo e com texto na cor da marca, que escurece no hover.
 
 ```tsx demo=Variantes
 import { Button } from "@/components/ui/button"
@@ -60,7 +60,7 @@ export function Demo() {
 
 ## Tamanhos
 
-A prop `size` aceita `sm`, `default` e `lg`. O tamanho `icon` gera um botão quadrado para conter só um ícone. Nesse caso, passe `aria-label` para que leitores de tela anunciem a ação.
+A prop `size` aceita `xs`, `sm`, `default` e `lg`. Os tamanhos `icon-xs`, `icon-sm`, `icon` e `icon-lg` geram um botão quadrado para conter só um ícone, nas mesmas alturas. Nesse caso, passe `aria-label` para que leitores de tela anunciem a ação.
 
 ```tsx demo=Tamanhos
 import { PlusIcon } from "@phosphor-icons/react"
@@ -69,10 +69,20 @@ import { Button } from "@/components/ui/button"
 export function Demo() {
   return (
     <>
+      <Button size="xs">xs</Button>
       <Button size="sm">sm</Button>
       <Button size="default">default</Button>
       <Button size="lg">lg</Button>
+      <Button size="icon-xs" aria-label="Adicionar">
+        <PlusIcon />
+      </Button>
+      <Button size="icon-sm" aria-label="Adicionar">
+        <PlusIcon />
+      </Button>
       <Button size="icon" aria-label="Adicionar">
+        <PlusIcon />
+      </Button>
+      <Button size="icon-lg" aria-label="Adicionar">
         <PlusIcon />
       </Button>
     </>
@@ -82,7 +92,7 @@ export function Demo() {
 
 ## Com ícone
 
-Ícones Phosphor entram como filhos, antes ou depois do texto. O Button aplica o tamanho padrão de ícone (classe `size-4`) quando o ícone não define um tamanho próprio, e reduz o espaçamento horizontal quando há ícone.
+Ícones Phosphor entram como filhos, antes ou depois do texto. O Button aplica o tamanho de ícone de cada tamanho de botão (`size-4` no padrão, `size-3` no `xs`) quando o ícone não define um tamanho próprio, e mantém um espaço fixo entre ícone e texto.
 
 ```tsx demo=ComIcone
 import { ArrowRightIcon, PlusIcon } from "@phosphor-icons/react"
@@ -106,7 +116,7 @@ export function Demo() {
 
 ## Desabilitado
 
-Com `disabled`, o botão deixa de receber clique e foco. Nas variantes `default` e `secondary`, o fundo e o texto passam para os tokens de desabilitado. Nas demais, o botão fica com opacidade reduzida.
+Com `disabled`, o botão deixa de receber clique e foco. Nas variantes com caixa (`default`, `secondary`, `destructive` e `outline`), fundo, borda e texto passam para os tokens neutros de desabilitado e a sombra some. Em `ghost` e `link`, só o texto muda.
 
 ```tsx demo=Desabilitado
 import { Button } from "@/components/ui/button"
@@ -145,14 +155,13 @@ Para aplicar os estilos do botão em um componente que não aceita filhos dessa 
 
 ## Estados
 
-| Estado | Como acontece | Token de componente |
-| --- | --- | --- |
-| Default | Estado inicial | `default` e `secondary` |
-| Hover | Ponteiro sobre o botão (`:hover`) | `default` e `secondary` |
-| Pressed | Botão sendo pressionado (`:active`) | `default` e `secondary` |
-| Focus | Foco por teclado (`:focus-visible`) | `default` e `secondary` |
-| Disabled | Prop `disabled` | `default` e `secondary` |
-| Inválido | Prop `aria-invalid` | Nenhum, usa a cor `destructive` do tema |
+| Estado | Como acontece |
+| --- | --- |
+| Default | Estado inicial |
+| Hover | Ponteiro sobre o botão (`:hover`) |
+| Pressed | Botão sendo pressionado (`:active`) |
+| Focus | Foco por teclado (`:focus-visible`) |
+| Disabled | Prop `disabled` |
 
 # Props
 
@@ -161,7 +170,7 @@ Para aplicar os estilos do botão em um componente que não aceita filhos dessa 
 | Prop | Tipo | Padrão | Descrição |
 | --- | --- | --- | --- |
 | `variant` | `"default"` \| `"secondary"` \| `"destructive"` \| `"outline"` \| `"ghost"` \| `"link"` | `"default"` | Estilo visual do botão. |
-| `size` | `"default"` \| `"sm"` \| `"lg"` \| `"icon"` | `"default"` | Tamanho. `icon` gera um botão quadrado para conter só um ícone. |
+| `size` | `"default"` \| `"xs"` \| `"sm"` \| `"lg"` \| `"icon"` \| `"icon-xs"` \| `"icon-sm"` \| `"icon-lg"` | `"default"` | Tamanho. Os tamanhos `icon*` geram um botão quadrado para conter só um ícone. |
 | `asChild` | `boolean` | `false` | Repassa estilos e props para o elemento filho em vez de renderizar um `<button>`. |
 | `className` | `string` | | Classes extras, mescladas às classes da variante. |
 
@@ -185,7 +194,7 @@ export function Demo() {
 
 # Tokens
 
-Pontos onde o visual do Button pode ser lido ou ajustado sem mexer no código do componente: seletor, atributos de estado e tokens de componente.
+Pontos onde o visual do Button pode ser lido ou ajustado sem mexer no código do componente: seletor, atributos e tokens semânticos que ele usa.
 
 ## Seletor
 
@@ -197,24 +206,41 @@ Pontos onde o visual do Button pode ser lido ou ajustado sem mexer no código do
 
 | Atributo | Quando aparece | Efeito |
 | --- | --- | --- |
-| `disabled` | Prop `disabled` | Tokens de desabilitado em `default` e `secondary`; opacidade reduzida nas demais variantes |
-| `aria-invalid` | Prop `aria-invalid="true"` | Borda e anel de foco na cor `destructive` do tema |
+| `data-variant` | Sempre, com o valor da prop `variant` (padrão `default`) | Permite estilizar por variante a partir do seletor |
+| `data-size` | Sempre, com o valor da prop `size` (padrão `default`) | Permite estilizar por tamanho a partir do seletor |
+| `disabled` | Prop `disabled` | Tokens neutros de desabilitado nas variantes com caixa; só o texto muda em `ghost` e `link` |
 
-## Tokens de componente
+## Tokens usados
 
-Camada Component dos tokens. Cada token referencia um token da camada Semântica, onde o tema claro e o escuro já estão resolvidos.
+O Button usa direto os tokens semânticos de cor, sem camada própria de componente. O tema claro e o escuro já vêm resolvidos neles.
 
-| Token | Referência | Uso |
-| --- | --- | --- |
-| `--button-container-color-primary-default` | `--color-background-brand-bold` | Fundo, `default` |
-| `--button-container-color-primary-hover` | `--color-background-brand-bold-hover` | Fundo, `default`, hover |
-| `--button-container-color-primary-pressed` | `--color-background-brand-bold-pressed` | Fundo, `default`, pressed |
-| `--button-container-color-secondary-default` | `--color-background-brand-secondary-bold` | Fundo, `secondary` |
-| `--button-container-color-secondary-hover` | `--color-background-brand-secondary-bold-hover` | Fundo, `secondary`, hover |
-| `--button-container-color-secondary-pressed` | `--color-background-brand-secondary-bold-pressed` | Fundo, `secondary`, pressed |
-| `--button-container-color-disabled` | `--color-background-disabled` | Fundo, desabilitado |
-| `--button-content-color-primary` | `--color-text-on-brand` | Texto e ícone, `default` |
-| `--button-content-color-secondary-default` | `--color-text-on-brand-secondary` | Texto e ícone, `secondary` |
-| `--button-content-color-disabled` | `--color-text-disabled` | Texto e ícone, desabilitado |
-| `--button-border-color-primary-focus` | `--color-border-brand-default` | Anel de foco, `default` |
-| `--button-border-color-secondary-focus` | `--color-border-brand-secondary-default` | Anel de foco, `secondary` |
+| Token | Parte | Variante | Estado |
+| --- | --- | --- | --- |
+| `--color-brand-filled` | Fundo e borda (degradê), contorno | `default` | Repouso, hover |
+| `--color-brand-filled-hover` | Fundo e borda (degradê) | `default` | Repouso, hover, pressed |
+| `--color-brand-filled-pressed` | Fundo (degradê), contorno | `default` | Todos |
+| `--color-brand-foreground-subtle` | Brilho da borda | `default` | Repouso |
+| `--color-brand-foreground-on-filled` | Texto e ícone | `default` | Todos |
+| `--color-background-default` | Fundo | `outline` | Repouso |
+| `--color-background-default` | Espaço entre botão e anel de foco | `default` | Focus |
+| `--color-border-default` | Borda | `outline`, `secondary` | Repouso, hover, pressed |
+| `--color-foreground-emphasis` | Texto e ícone | `outline`, `secondary` | Repouso, hover, pressed |
+| `--color-palette-olive-light` | Fundo | `outline` | Hover |
+| `--color-palette-olive-light-pressed` | Fundo | `outline` | Pressed |
+| `--color-palette-olive-subtle` | Fundo | `secondary` | Repouso |
+| `--color-palette-olive-subtle-hover` | Fundo | `secondary` | Hover |
+| `--color-palette-olive-subtle-pressed` | Fundo | `secondary` | Pressed |
+| `--color-brand-subtle` | Fundo | `ghost` | Hover |
+| `--color-brand-subtle-pressed` | Fundo | `ghost` | Pressed |
+| `--color-brand-foreground-default` | Texto e ícone | `ghost`, `link` | Repouso |
+| `--color-brand-foreground-emphasis` | Texto e ícone | `link` | Hover, pressed |
+| `--color-feedback-danger-filled` | Fundo | `destructive` | Repouso |
+| `--color-feedback-danger-filled-hover` | Fundo | `destructive` | Hover |
+| `--color-feedback-danger-filled-pressed` | Fundo | `destructive` | Pressed |
+| `--color-feedback-danger-outline` | Borda | `destructive` | Repouso, hover, pressed |
+| `--color-feedback-danger-foreground-on-filled` | Texto e ícone | `destructive` | Repouso, hover, pressed |
+| `--color-brand-border-focus` | Anel de foco | Todas | Focus |
+| `--color-brand-light-pressed` | Halo do anel de foco | `outline`, `secondary`, `destructive` | Focus |
+| `--color-background-muted` | Fundo | `default`, `secondary`, `outline`, `destructive` | Disabled |
+| `--color-border-muted` | Borda | `default`, `secondary`, `outline`, `destructive` | Disabled |
+| `--color-foreground-subtle` | Texto e ícone | Todas | Disabled |
