@@ -86,6 +86,27 @@ jobs:
               echo "$MATCHES" | xargs sed -i "s#from \"@/app/lib/utils\"#from \"$UTILS_ALIAS\"#g"
             fi
           fi
+      - name: Garante a regra de content design no CLAUDE.md
+        run: |
+          # Mesma regra do script de instalação: o item regras-de-conteudo instala
+          # o guia em .claude/rules/ e o CLAUDE.md ganha, uma vez só, a seção
+          # que torna a leitura obrigatória antes de criar ou alterar tela.
+          GUIA=".claude/rules/servi-ds-content-design.md"
+          MARCA="<!-- servi-ds:content-design -->"
+          [ -f "$GUIA" ] || exit 0
+          if [ -f CLAUDE.md ]; then ALVO=CLAUDE.md
+          elif [ -f .claude/CLAUDE.md ]; then ALVO=.claude/CLAUDE.md
+          else ALVO=CLAUDE.md; fi
+          grep -qF "$MARCA" "$ALVO" 2>/dev/null && exit 0
+          if [ -s "$ALVO" ]; then
+            if [ -n "$(tail -c1 "$ALVO")" ]; then printf '\n\n'; else printf '\n'; fi >> "$ALVO"
+          fi
+          {
+            echo "$MARCA"
+            echo "## Servi DS: texto de interface"
+            echo ""
+            echo "Leitura obrigatória antes de criar ou alterar qualquer tela: \`.claude/rules/servi-ds-content-design.md\`, inteiro. Todo texto da tela segue o glossário e os padrões desse guia, e a tela só é entregue depois de passar pelo checklist de revisão dele. O guia vem do Servi DS e é substituído a cada atualização: termo novo ou mudança de regra é pedido ao time do Servi DS, nunca editado na cópia deste projeto."
+          } >> "$ALVO"
       - uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ steps.app-token.outputs.token }}

@@ -12,10 +12,10 @@
 # cadastrado no Servi DS, as atualizações seguintes continuam chegando pelo
 # fluxo automático de Pull Request, não por este script.
 #
-# Blocos (como o App Shell) não entram por padrão, porque trazem página e
-# componentes que cada sistema adapta. Para incluir, liste os nomes em
+# Blocos (como a página de exemplo do App Shell) não entram por padrão, porque
+# trazem página que cada sistema adapta. Para incluir, liste os nomes em
 # SERVI_DS_BLOCOS, separados por espaço:
-#   SERVI_DS_BLOCOS="app-shell" bash instalar-servi-ds.sh
+#   SERVI_DS_BLOCOS="app-shell-exemplo" bash instalar-servi-ds.sh
 #
 # Requisitos: curl, jq, node/npx, sed.
 
@@ -95,6 +95,37 @@ else
     fi
   else
     echo "  diretório '$search_dir' não encontrado, pulei a correção automática. Confira o alias manualmente." >&2
+  fi
+fi
+
+# Regra de content design. O item "regras-de-conteudo" do registry instala o
+# guia em .claude/rules/. Aqui o CLAUDE.md do projeto ganha (uma vez só) a
+# seção que torna a leitura do guia obrigatória antes de criar ou alterar tela.
+# A marca no comentário impede que a seção seja repetida a cada atualização.
+GUIA_CONTEUDO=".claude/rules/servi-ds-content-design.md"
+MARCA_CONTEUDO="<!-- servi-ds:content-design -->"
+if [ -f "$GUIA_CONTEUDO" ]; then
+  if [ -f "CLAUDE.md" ]; then
+    claude_md="CLAUDE.md"
+  elif [ -f ".claude/CLAUDE.md" ]; then
+    claude_md=".claude/CLAUDE.md"
+  else
+    claude_md="CLAUDE.md"
+  fi
+  if grep -qF "$MARCA_CONTEUDO" "$claude_md" 2>/dev/null; then
+    echo "Regra de content design já está em $claude_md."
+  else
+    echo "Acrescentando a regra de content design em $claude_md..."
+    # Linha em branco antes da seção, mesmo se o arquivo não termina em quebra de linha.
+    if [ -s "$claude_md" ]; then
+      if [ -n "$(tail -c1 "$claude_md")" ]; then printf '\n\n'; else printf '\n'; fi >> "$claude_md"
+    fi
+    cat >> "$claude_md" <<'REGRA'
+<!-- servi-ds:content-design -->
+## Servi DS: texto de interface
+
+Leitura obrigatória antes de criar ou alterar qualquer tela: `.claude/rules/servi-ds-content-design.md`, inteiro. Todo texto da tela segue o glossário e os padrões desse guia, e a tela só é entregue depois de passar pelo checklist de revisão dele. O guia vem do Servi DS e é substituído a cada atualização: termo novo ou mudança de regra é pedido ao time do Servi DS, nunca editado na cópia deste projeto.
+REGRA
   fi
 fi
 
