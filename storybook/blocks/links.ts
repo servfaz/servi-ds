@@ -12,6 +12,7 @@ const PAGE_IDS: Record<string, string> = {
   comece: "documentacao-introducao",
   desenvolvedores: "documentacao-desenvolvedores",
   sobre: "documentacao-sobre",
+  conteudo: "documentacao-conteudo",
   // Visão geral dos componentes: primeira página do grupo Componentes.
   componentes: "componentes-visao-geral",
 }

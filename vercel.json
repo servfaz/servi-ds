@@ -10,10 +10,12 @@
     { "source": "/docs/componentes", "destination": "/?path=/docs/componentes-visao-geral--docs", "permanent": false },
     { "source": "/docs/desenvolvedores", "destination": "/?path=/docs/documentacao-desenvolvedores--docs", "permanent": false },
     { "source": "/docs/sobre", "destination": "/?path=/docs/documentacao-sobre--docs", "permanent": false },
+    { "source": "/docs/conteudo", "destination": "/?path=/docs/documentacao-conteudo--docs", "permanent": false },
     { "source": "/docs/:grupo(componentes|patterns|foundations|resources)/:nome([^./]+)", "destination": "/?path=/docs/:grupo-:nome--docs", "permanent": false },
     { "source": "/componentes", "destination": "/docs/componentes", "permanent": false },
     { "source": "/desenvolvedores", "destination": "/docs/desenvolvedores", "permanent": false },
     { "source": "/sobre", "destination": "/docs/sobre", "permanent": false },
+    { "source": "/conteudo", "destination": "/docs/conteudo", "permanent": false },
     { "source": "/:grupo(componentes|patterns|foundations|resources)/:nome([^./]+)", "destination": "/docs/:grupo/:nome", "permanent": false }
   ],
   "headers": [

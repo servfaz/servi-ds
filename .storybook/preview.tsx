@@ -22,7 +22,7 @@ const preview: Preview = {
         // Grupos da barra lateral, nesta ordem. Grupo sem página ainda não aparece.
         order: [
           "Documentação",
-          ["Introdução", "Desenvolvedores", "Sobre"],
+          ["Introdução", "Desenvolvedores", "Sobre", "Conteúdo"],
           "Foundations",
           "Componentes",
           ["Visão geral"],
